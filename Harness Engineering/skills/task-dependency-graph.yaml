@@ -1,0 +1,157 @@
+skill_id: "task-dependency-graph"
+version: "1.0.0"
+description: "将任务清单解析为依赖拓扑图，检测循环依赖，计算关键路径与并行度。"
+author: "harness-team"
+
+tags: ["graph", "scheduling", "planning"]
+
+interface:
+  input_schema:
+    type: "object"
+    required: ["tasks"]
+    properties:
+      tasks:
+        type: "array"
+        items:
+          type: "object"
+          required: ["id", "title"]
+          properties:
+            id: { type: "string" }
+            title: { type: "string" }
+            estimated_hours:
+              type: "number"
+              description: "估算工时，支持小数"
+            dependencies:
+              type: "array"
+              items: { type: "string" }
+              description: "依赖的其他任务 id"
+            assignee_role:
+              type: "string"
+              description: "建议执行角色，如 backend, frontend, devops"
+      resource_constraints:
+        type: "object"
+        description: "资源约束，如并行人数限制"
+        default: {}
+        properties:
+          max_parallel_tasks: { type: "integer" }
+  output_schema:
+    type: "object"
+    required: ["graph", "schedule_analysis"]
+    properties:
+      graph:
+        type: "object"
+        properties:
+          nodes:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id: { type: "string" }
+                title: { type: "string" }
+                level: { type: "integer" }
+                description: "拓扑层级，0 表示无前驱"
+          edges:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                from: { type: "string" }
+                to: { type: "string" }
+          cycles:
+            type: "array"
+            items:
+              type: "array"
+              items: { type: "string" }
+      schedule_analysis:
+        type: "object"
+        properties:
+          total_duration_hours: { type: "number" }
+          critical_path:
+            type: "array"
+            items: { type: "string" }
+          parallel_groups:
+            type: "array"
+            items:
+              type: "array"
+              items: { type: "string" }
+          slack_hours:
+            type: "object"
+            description: "各任务浮动时间"
+
+implementation:
+  type: "code"
+  runtime: "python"
+  entry: "task_dependency_graph.build_and_analyze"
+  dependencies:
+    - "networkx>=3.0"
+
+error_handling:
+  strategy: "fail_fast"
+  fallback: null
+  retryable: false
+  on_error:
+    output:
+      status: "error"
+      error_code: "GRAPH_BUILD_ERROR"
+      message: "无法构建任务依赖图，请检查任务列表格式与依赖关系"
+
+examples:
+  - name: "简单任务图"
+    input:
+      tasks:
+        - id: "T1"
+          title: "设计数据库 Schema"
+          estimated_hours: 4
+          dependencies: []
+        - id: "T2"
+          title: "开发用户 API"
+          estimated_hours: 8
+          dependencies: ["T1"]
+        - id: "T3"
+          title: "开发前端页面"
+          estimated_hours: 8
+          dependencies: ["T1"]
+        - id: "T4"
+          title: "集成测试"
+          estimated_hours: 4
+          dependencies: ["T2", "T3"]
+    output:
+      graph:
+        nodes:
+          - id: "T1"
+            title: "设计数据库 Schema"
+            level: 0
+          - id: "T2"
+            title: "开发用户 API"
+            level: 1
+          - id: "T3"
+            title: "开发前端页面"
+            level: 1
+          - id: "T4"
+            title: "集成测试"
+            level: 2
+        edges:
+          - from: "T1"
+            to: "T2"
+          - from: "T1"
+            to: "T3"
+          - from: "T2"
+            to: "T4"
+          - from: "T3"
+            to: "T4"
+        cycles: []
+      schedule_analysis:
+        total_duration_hours: 16
+        critical_path: ["T1", "T2", "T4"]
+        parallel_groups:
+          - ["T1"]
+          - ["T2", "T3"]
+          - ["T4"]
+        slack_hours:
+          T3: 0
+
+observability:
+  metrics:
+    - "execution_time_ms"
+    - "task_count"
+    - "cycle_detected"

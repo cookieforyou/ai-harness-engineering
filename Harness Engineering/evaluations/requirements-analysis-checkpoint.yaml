@@ -1,0 +1,66 @@
+checkpoint_id: "requirements-analysis-v1"
+version: "1.0.0"
+description: "需求分析场景的端到端质量门禁"
+scope: "scenarios/requirements-analysis"
+type: "hybrid"
+
+evaluation_refs:
+  - "evaluations/quality-rubric.yaml"
+
+metrics:
+  - name: "completeness"
+    ref: "quality-rubric.dimensions.completeness"
+    weight: 0.30
+  - name: "correctness"
+    ref: "quality-rubric.dimensions.correctness"
+    weight: 0.25
+  - name: "actionability"
+    ref: "quality-rubric.dimensions.actionability"
+    weight: 0.20
+  - name: "consistency"
+    ref: "quality-rubric.dimensions.consistency"
+    weight: 0.15
+  - name: "safety"
+    ref: "quality-rubric.dimensions.safety"
+    weight: 0.10
+
+threshold:
+  overall: 4.0
+  per_metric_min:
+    completeness: 3
+    correctness: 3
+    actionability: 3
+  mandatory:
+    - "safety"
+
+automated_checks:
+  - name: "schema_compliance"
+    type: "json_schema"
+    target: "output"
+    schema_ref: "skills/schema-validator.yaml#rfc_schema"
+    action_on_fail: "fail_immediately"
+
+  - name: "privacy_leak_detection"
+    type: "regex_scan"
+    target: "output"
+    pattern: "(?i)(1[3-9]\\d{9}|\\d{6}(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[\\dxX])"
+    action_on_match: "fail_immediately"
+
+  - name: "story_format_check"
+    type: "regex_scan"
+    target: "output"
+    pattern: "(?i)As a\\s+.+\\s+I want\\s+.+\\s+so that\\s+.+"
+    action_on_no_match: "warn"
+
+human_review:
+  sampling_rate: 0.15
+  trigger_conditions:
+    - "overall_score between 3.0 and 4.0"
+    - "any mandatory metric is borderline"
+
+retry_policy:
+  max_attempts: 2
+  strategy: "refine_prompt_and_retry"
+  escalation_on_exhausted: true
+
+dataset_ref: "evaluations/requirements-analysis-dataset.jsonl"

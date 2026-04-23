@@ -1,0 +1,47 @@
+agent_id: "solution-architect"
+version: "1.0.0"
+description: "解决方案架构师 Agent，负责技术架构设计、选型评估与 ADR 输出。"
+
+model:
+  provider: "openai"
+  name: "gpt-4o"
+  temperature: 0.2
+  max_tokens: 8192
+  top_p: 0.95
+
+runtime:
+  max_iterations: 10
+  timeout_seconds: 300
+  retry_policy:
+    max_retries: 3
+    backoff: "exponential"
+    initial_delay_seconds: 2
+
+memory:
+  type: "session"
+  max_context_turns: 20
+
+tools:
+  - ref: "skills/tech-stack-matcher.yaml"
+    required: true
+  - ref: "skills/schema-validator.yaml"
+    required: true
+  - ref: "skills/security-audit.yaml"
+    required: true
+
+observability:
+  log_level: "INFO"
+  trace_enabled: true
+  metrics:
+    - "latency_ms"
+    - "token_usage"
+    - "tool_call_count"
+    - "human_escalation_count"
+
+safety:
+  instruction_refs:
+    - "instructions/safety/data-privacy.md"
+    - "instructions/safety/no-secrets-leak.md"
+  auto_escalation:
+    - trigger: "detected_high_severity_architecture_risk"
+      action: "pause_and_notify_human"

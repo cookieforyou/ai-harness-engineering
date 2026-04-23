@@ -1,0 +1,103 @@
+skill_id: "schema-validator"
+version: "1.0.0"
+description: "通用 Schema 校验技能，用于校验跨阶段数据传递的兼容性，确保 E2E 工作流衔接正确。"
+author: "harness-team"
+
+tags: ["validation", "schema", "integration", "utility"]
+
+interface:
+  input_schema:
+    type: "object"
+    required: ["data", "schema"]
+    properties:
+      data:
+        type: "object"
+        description: "待校验的数据对象"
+      schema:
+        type: "object"
+        description: "JSON Schema 或自定义 Schema 定义"
+      schema_type:
+        type: "string"
+        enum: ["json_schema", "custom"]
+        default: "json_schema"
+      strict_mode:
+        type: "boolean"
+        default: true
+        description: "是否拒绝未知字段"
+  output_schema:
+    type: "object"
+    required: ["valid", "errors"]
+    properties:
+      valid: { type: "boolean" }
+      errors:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            field: { type: "string" }
+            message: { type: "string" }
+            severity:
+              type: "string"
+              enum: ["error", "warning"]
+      compatibility_score:
+        type: "number"
+        description: "0-1 的兼容性评分"
+      suggestions:
+        type: "array"
+        items: { type: "string" }
+
+implementation:
+  type: "code"
+  runtime: "python"
+  entry: "schema_validator.validate"
+  dependencies:
+    - "jsonschema>=4.0"
+    - "pydantic>=2.0"
+
+error_handling:
+  strategy: "fail_fast"
+  fallback: null
+  retryable: false
+  on_error:
+    output:
+      valid: false
+      errors:
+        - field: "_internal"
+          message: "校验器内部错误"
+          severity: "error"
+
+examples:
+  - name: "校验 RFC 输出"
+    input:
+      data:
+        requirements:
+          - id: "REQ-001"
+            type: "functional"
+            description: "支持微信登录"
+            priority: "must_have"
+        summary:
+          total_count: 1
+          by_type:
+            functional: 1
+      schema:
+        type: "object"
+        required: ["requirements", "summary"]
+        properties:
+          requirements:
+            type: "array"
+            items:
+              type: "object"
+              required: ["id", "type", "priority"]
+          summary:
+            type: "object"
+    output:
+      valid: true
+      errors: []
+      compatibility_score: 1.0
+      suggestions: []
+
+observability:
+  metrics:
+    - "execution_time_ms"
+    - "validation_count"
+    - "validation_failure_count"

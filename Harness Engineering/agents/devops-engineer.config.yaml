@@ -1,0 +1,49 @@
+agent_id: "devops-engineer"
+version: "1.0.0"
+description: "DevOps 工程师 Agent，负责部署流水线、监控告警与基础设施配置。"
+
+model:
+  provider: "openai"
+  name: "gpt-4o"
+  temperature: 0.15
+  max_tokens: 8192
+  top_p: 0.95
+
+runtime:
+  max_iterations: 10
+  timeout_seconds: 300
+  retry_policy:
+    max_retries: 3
+    backoff: "exponential"
+    initial_delay_seconds: 2
+
+memory:
+  type: "session"
+  max_context_turns: 20
+
+tools:
+  - ref: "skills/deploy-config-generator.yaml"
+    required: true
+  - ref: "skills/monitoring-rule-builder.yaml"
+    required: true
+  - ref: "skills/schema-validator.yaml"
+    required: true
+  - ref: "skills/security-audit.yaml"
+    required: true
+
+observability:
+  log_level: "INFO"
+  trace_enabled: true
+  metrics:
+    - "latency_ms"
+    - "token_usage"
+    - "tool_call_count"
+    - "human_escalation_count"
+
+safety:
+  instruction_refs:
+    - "instructions/safety/data-privacy.md"
+    - "instructions/safety/no-secrets-leak.md"
+  auto_escalation:
+    - trigger: "detected_production_deployment_risk"
+      action: "pause_and_notify_human"

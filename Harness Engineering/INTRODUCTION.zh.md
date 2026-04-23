@@ -4,7 +4,7 @@
 
 本资产库是 **Harness Engineering（驾驭工程）** 方法论在工程实践中的落地载体。它将 AI 交付过程中所需的全部控制要素——Agent、指令、提示词、评估、场景、技能——进行结构化沉淀，形成一套可编排、可复用、可演进的资产体系。
 
-> **核心理念**: "Humans steer, Assets enable, Agents execute."  
+> **核心理念**: "Humans steer, Assets enable, Agents execute."
 > 人类掌舵方向，资产提供能力，智能体负责执行。
 
 ---
@@ -17,9 +17,10 @@
 - **Agent 行为不可预期**: 缺乏统一的角色定义与约束机制
 - **评估缺失**: 无法量化 AI 输出质量，难以持续改进
 - **场景碎片化**: E2E 流程断裂，人工介入点混乱
+- **阶段衔接断层**: 需求、设计、开发、部署各阶段输出输入不兼容
 - **知识流失**: 核心工程经验随人员变动而流失
 
-本资产库通过 **八大模块** 的系统化设计，一次性解决上述问题。
+本资产库通过 **八大模块** 的系统化设计，一次性解决上述问题，并特别强调 **全生命周期阶段衔接** 的规范化。
 
 ---
 
@@ -53,13 +54,54 @@
 
 ---
 
+## E2E 全生命周期阶段映射
+
+本资产库的核心价值在于覆盖软件交付的完整生命周期，各阶段资产通过标准化 Schema 衔接：
+
+```
+┌─────────────────┐    RFC Schema     ┌─────────────────┐    ADR Schema     ┌─────────────────┐
+│  requirements-  │ ────────────────→ │   tech-arch-    │ ────────────────→ │  task-          │
+│   analysis      │                   │    design       │                   │ decomposition   │
+└─────────────────┘                   └─────────────────┘                   └─────────────────┘
+        │                                     │                                     │
+        │ 输出: user_stories,                 │ 输出: architecture_doc,             │ 输出: task_list,
+        │       acceptance_criteria,          │       tech_stack,                   │       dependency_graph,
+        │       rfc_doc                       │       api_contracts                 │       estimation
+        └─────────────────────────────────────────────────────────────────────────────┘
+                                              │
+                                              ▼
+┌─────────────────┐    Deploy Spec    ┌─────────────────┐    Monitor Spec   ┌─────────────────┐
+│  deployment-    │ ←──────────────── │   code-review   │ ────────────────→ │ health-         │
+│    pipeline     │                   │  (dev-loop)     │                   │  monitoring     │
+└─────────────────┘                   └─────────────────┘                   └─────────────────┘
+        │ 输出: ci_cd_config,                   │ 输出: review_report,                │ 输出: alert_rules,
+        │       deploy_scripts,                 │       fix_suggestions               │       dashboards,
+        │       rollback_plan                   │                                     │       health_checks
+        └─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 阶段衔接契约
+
+每个阶段的输出必须通过 `schema-validator` 技能校验，确保与下一阶段输入兼容。衔接规范详见 `standards/scenario-integration.md`。
+
+| 上游阶段 | 下游阶段 | 衔接 Schema | 校验技能 |
+| :--- | :--- | :--- | :--- |
+| 需求分析 | 技术架构 | `standards/schemas/rfc-to-adr.yaml` | `skills/schema-validator.yaml` |
+| 技术架构 | 任务拆分 | `standards/schemas/adr-to-tasks.yaml` | `skills/schema-validator.yaml` |
+| 任务拆分 | 开发实现 | `standards/schemas/tasks-to-pr.yaml` | `skills/schema-validator.yaml` |
+| 开发实现 | 部署迭代 | `standards/schemas/review-to-deploy.yaml` | `skills/schema-validator.yaml` |
+| 部署迭代 | 健康监控 | `standards/schemas/deploy-to-monitor.yaml` | `skills/schema-validator.yaml` |
+
+---
+
 ## 适用场景
 
-- **全自动软件交付**: 从需求文档生成到代码实现、测试、部署
+- **全自动软件交付**: 从需求文档生成到代码实现、测试、部署、监控
 - **智能文档工程**: 技术文档自动撰写、审校、多语言翻译
 - **数据管道自动化**: ETL 流程设计、数据质量校验、异常处理
 - **产品原型迭代**: 根据 PRD 快速生成可运行的 MVP 及评审反馈
 - **科研与知识生产**: 文献综述、实验报告、论文辅助写作
+- **平台工程**: 统一团队 AI 交付标准，建立可复用的 Harness 资产
 
 ---
 
@@ -68,3 +110,4 @@
 - 了解如何使用: [USAGE.zh.md](./USAGE.zh.md)
 - 查看典型场景: [scenarios/README.md](./scenarios/README.md)
 - 阅读规范标准: [standards/README.md](./standards/README.md)
+- 掌握阶段衔接: [standards/e2e-workflow-lifecycle.md](./standards/e2e-workflow-lifecycle.md)

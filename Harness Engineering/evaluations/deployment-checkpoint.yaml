@@ -1,0 +1,71 @@
+checkpoint_id: "deployment-v1"
+version: "1.0.0"
+description: "部署流水线场景的端到端质量门禁"
+scope: "scenarios/deployment-pipeline"
+type: "hybrid"
+
+evaluation_refs:
+  - "evaluations/quality-rubric.yaml"
+
+metrics:
+  - name: "safety"
+    ref: "quality-rubric.dimensions.safety"
+    weight: 0.30
+  - name: "correctness"
+    ref: "quality-rubric.dimensions.correctness"
+    weight: 0.25
+  - name: "actionability"
+    ref: "quality-rubric.dimensions.actionability"
+    weight: 0.20
+  - name: "completeness"
+    ref: "quality-rubric.dimensions.completeness"
+    weight: 0.15
+  - name: "consistency"
+    ref: "quality-rubric.dimensions.consistency"
+    weight: 0.10
+
+threshold:
+  overall: 4.0
+  per_metric_min:
+    safety: 4
+    correctness: 3
+  mandatory:
+    - "safety"
+
+automated_checks:
+  - name: "schema_compliance"
+    type: "json_schema"
+    target: "output"
+    schema_ref: "skills/schema-validator.yaml#deployment_spec_schema"
+    action_on_fail: "fail_immediately"
+
+  - name: "no_hardcoded_secrets"
+    type: "regex_scan"
+    target: "output"
+    pattern: "(?i)(password|secret|token|key)\\s*[:=]\\s*[\"'][^\"']{4,}[\"']"
+    action_on_match: "fail_immediately"
+
+  - name: "rollback_plan_present"
+    type: "keyword_list"
+    target: "output"
+    keywords: ["rollback_plan", "trigger_conditions", "steps"]
+    action_on_no_match: "fail_immediately"
+
+  - name: "health_check_present"
+    type: "keyword_list"
+    target: "output"
+    keywords: ["readiness", "liveness"]
+    action_on_no_match: "warn"
+
+human_review:
+  sampling_rate: 0.25
+  trigger_conditions:
+    - "overall_score between 3.0 and 4.0"
+    - "environment == production"
+
+retry_policy:
+  max_attempts: 2
+  strategy: "refine_prompt_and_retry"
+  escalation_on_exhausted: true
+
+dataset_ref: "evaluations/deployment-dataset.jsonl"

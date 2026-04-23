@@ -1,0 +1,86 @@
+skill_id: "deploy-config-generator"
+version: "1.0.0"
+description: "基于技术栈与环境要求，生成 CI/CD 流水线配置、部署清单（Manifest）与回滚策略。"
+author: "harness-team"
+
+tags: ["devops", "deployment", "configuration"]
+
+interface:
+  input_schema:
+    type: "object"
+    required: ["tech_stack", "environment"]
+    properties:
+      tech_stack:
+        type: "object"
+        description: "技术架构阶段的推荐技术栈"
+        properties:
+          framework: { type: "string" }
+          runtime: { type: "string" }
+          database: { type: "string" }
+          deployment_platform:
+            type: "string"
+            enum: ["kubernetes", "docker-compose", "vm", "serverless", "paas"]
+      environment:
+        type: "string"
+        enum: ["development", "staging", "production"]
+      service_name: { type: "string" }
+      version: { type: "string" }
+      replicas:
+        type: "integer"
+        default: 2
+      resource_limits:
+        type: "object"
+        properties:
+          cpu: { type: "string" }
+          memory: { type: "string" }
+  output_schema:
+    type: "object"
+    required: ["pipeline_config", "manifest", "rollback_plan"]
+    properties:
+      pipeline_config:
+        type: "object"
+        properties:
+          format: { type: "string" }
+          content: { type: "string" }
+      manifest:
+        type: "object"
+        properties:
+          format: { type: "string" }
+          content: { type: "string" }
+      rollback_plan:
+        type: "object"
+        properties:
+          strategy: { type: "string" }
+          steps:
+            type: "array"
+            items: { type: "string" }
+      secrets_management:
+        type: "object"
+        properties:
+          recommended_tool: { type: "string" }
+          notes:
+            type: "array"
+            items: { type: "string" }
+
+implementation:
+  type: "llm"
+  prompt_ref: "prompts/deployment-pipeline/v1.md"
+
+error_handling:
+  strategy: "graceful_degradation"
+  fallback:
+    output:
+      pipeline_config:
+        format: "yaml"
+        content: "# 配置生成失败，需人工编写"
+      manifest:
+        format: "yaml"
+        content: "# 配置生成失败，需人工编写"
+      rollback_plan:
+        strategy: "manual"
+        steps: ["人工执行回滚"]
+
+observability:
+  metrics:
+    - "execution_time_ms"
+    - "config_lines_generated"

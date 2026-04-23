@@ -1,0 +1,44 @@
+agent_id: "product-analyst"
+version: "1.0.0"
+description: "产品分析师 Agent，负责需求提取、用户故事编写与 RFC 文档生成。"
+
+model:
+  provider: "openai"
+  name: "gpt-4o"
+  temperature: 0.3
+  max_tokens: 4096
+  top_p: 0.95
+
+runtime:
+  max_iterations: 8
+  timeout_seconds: 240
+  retry_policy:
+    max_retries: 3
+    backoff: "exponential"
+    initial_delay_seconds: 2
+
+memory:
+  type: "session"
+  max_context_turns: 16
+
+tools:
+  - ref: "skills/requirements-extractor.yaml"
+    required: true
+  - ref: "skills/schema-validator.yaml"
+    required: true
+
+observability:
+  log_level: "INFO"
+  trace_enabled: true
+  metrics:
+    - "latency_ms"
+    - "token_usage"
+    - "tool_call_count"
+    - "human_escalation_count"
+
+safety:
+  instruction_refs:
+    - "instructions/safety/data-privacy.md"
+  auto_escalation:
+    - trigger: "detected_compliance_risk"
+      action: "pause_and_notify_human"
