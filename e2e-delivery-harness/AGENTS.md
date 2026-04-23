@@ -14,22 +14,64 @@
 
 ### 核心原则
 
-1. **AI-First**: 所有资产设计以 AI 驾驭为核心，每个 Scenario 包含 Chain of Thought 引导 AI 逐步思考
+1. **AI-First**: 所有资产设计以 AI 驾驭为核心
+   - 每个 Scenario 包含 Chain of Thought 引导 AI 逐步思考
+   - 每个 Prompt 包含变量定义、错误处理和输出验证
+   - Scenario 和 Prompt 职责分离，Scenario 作为快速入口
+
 2. **Pipeline 驱动**: 通过 Workflow 定义端到端流程，确保阶段间的有序衔接
+
 3. **Context 传递**: 通过 Handover Context 实现阶段间的数据传递和上下文继承
+
 4. **Quality Gate**: 每个阶段都有明确的准入准出标准，确保交付质量
+
+### Prompt 增强结构
+
+每个 Prompt 现在包含完整的执行指引：
+
+```markdown
+## 变量定义 (Variables)
+- 必填/可选变量
+- 类型和说明
+
+## Chain of Thought
+- [THINK] 思考步骤
+- [VALIDATE] 验证步骤
+- [OUTPUT] 输出步骤
+
+## 错误处理 (Error Handling)
+- 情况识别
+- 处理策略
+- 升级条件
+
+## Task Steps
+- 详细执行步骤
+
+## 输出验证 (Output Validation)
+- 验证清单
+- 验证失败处理
+
+## Handover 准备
+- 交接数据结构
+```
 
 ### 资产层级
 
 ```
 Workflow (工作流层)
     ↓
-Scenario (场景层) ← AI 的主要入口
-    ├── Agent (角色定义)
-    ├── Instruction (操作指令)
-    ├── Prompt (提示词)
-    └── Skills[] (技能组合)
-        └── Skill (技能模块)
+Scenario (场景层) ← AI 的快速入口
+    ├── Chain of Thought (思维链)
+    ├── Error Handling (错误处理)
+    └── 引用 → Agent + Skill + Prompt
+
+Prompt (执行层) ← AI 的执行脚本
+    ├── 变量定义
+    ├── 思维链
+    ├── 错误处理
+    ├── 任务步骤
+    ├── 输出验证
+    └── Handover 准备
 
 Context (上下文层)
     ├── Global Context (全局上下文)
@@ -149,23 +191,39 @@ e2e-delivery-harness/
 
 ```
 1. 选择 Scenario (场景入口)
+   │  阅读 Chain of Thought + Error Handling
    ↓
-2. 加载 Agent (角色定义)
+2. 加载 Prompt (执行脚本)
+   │  确认变量定义
    ↓
-3. 加载 Skill (技能模块)
+3. 填充变量 (Variables)
+   │  准备输入数据
    ↓
-4. 执行 Instruction (操作指令)
+4. 按 Chain of Thought 逐步执行
+   │  [THINK] 思考
+   │  [VALIDATE] 验证
    ↓
-5. 生成 Prompt (提示词)
+5. 遇到异常 → 执行 Error Handling
+   │  处理不了 → 升级
    ↓
-6. 按 Chain of Thought 逐步执行
+6. 完成执行 → 输出验证 (Output Validation)
+   │  验证不通过 → 修复
    ↓
-7. 验证输出 (Quality Gate)
+7. 生成 Handover Context
+   │  准备交接数据
    ↓
-8. 生成 Handover Context
-   ↓
-9. 进入下一阶段
+8. 进入下一阶段
 ```
+
+### 职责分离
+
+| 资产 | 职责 | AI 阅读时机 |
+|------|------|-------------|
+| **Scenario** | 快速入口 + 思维链 + 错误处理 | 首先阅读 |
+| **Prompt** | 完整执行逻辑 + 验证 + 交接 | 详细阅读 |
+| **Instruction** | 技术规范细节 | 按需参考 |
+| **Skill** | 领域知识 | 按需参考 |
+| **Agent** | 角色定义 | 首先阅读 |
 
 ### 使用示例
 
@@ -173,26 +231,26 @@ e2e-delivery-harness/
 
 ```markdown
 # 1. 选择场景
-→ 进入 scenarios/requirement-analysis/
+→ scenarios/requirement-analysis/SCENARIO.md
+→ 阅读 Purpose, Chain of Thought, Error Handling
 
-# 2. 阅读场景定义
-→ 查看 SCENARIO.md，包含：
-   - Purpose (目的)
-   - Chain of Thought (思维链) ← AI 逐步思考引导
-   - Primary Assets (主要资产)
-   - Expected Output (预期输出)
-   - Quality Gates (质量门禁)
+# 2. 加载 Prompt
+→ prompts/analyze-requirement.prompt.md
+→ 确认变量: project_name, raw_requirements, stakeholders...
 
-# 3. 加载资产组合
-→ Agent: agents/requirement-analyst.agent.md
-→ Skill: skills/requirement-analysis/SKILL.md
-→ Instruction: instructions/requirement-analysis.instructions.md
-→ Prompt: prompts/analyze-requirement.prompt.md
+# 3. 填充变量
+→ 准备好项目名称和原始需求
 
-# 4. 按思维链执行
-→ THINK: 理解业务目标
-→ THINK: 识别干系人和诉求
-→ ...
+# 4. 执行
+→ 按 Chain of Thought 逐步思考
+→ 遇到模糊需求 → 执行 Error Handling
+
+# 5. 验证
+→ 完成自我验证报告
+
+# 6. 交接
+→ 生成 Handover Context
+→ 进入系统设计阶段
 ```
 
 ---
