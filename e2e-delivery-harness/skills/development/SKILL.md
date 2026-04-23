@@ -169,5 +169,5 @@ version: "1.0.0"
 ## Related Assets
 
 - **Agent**: [../../agents/developer.agent.md](../../agents/developer.agent.md)
-- **Instruction**: [../../instructions/development.impl.instructions.md](../../instructions/development.impl.instructions.md)
+- **Instruction**: [../../instructions/development.instructions.md](../../instructions/development.instructions.md)
 - **Prompt**: [../../prompts/implement-feature.prompt.md](../../prompts/implement-feature.prompt.md)

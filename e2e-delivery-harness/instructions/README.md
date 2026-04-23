@@ -19,7 +19,7 @@ instructions/
 ├── requirement-analysis.instructions.md    # 需求分析执行指南
 ├── system-design.instructions.md            # 系统设计执行指南
 ├── task-decomposition.instructions.md      # 任务分解执行指南
-├── development.impl.instructions.md        # 开发实现执行指南
+├── development.instructions.md        # 开发实现执行指南
 ├── testing-verification.instructions.md    # 测试验证执行指南
 ├── deployment-release.instructions.md      # 部署发布执行指南
 └── monitoring-operations.instructions.md   # 监控运维执行指南
