@@ -13,7 +13,9 @@ standards/
 ├── versioning.md                 # 版本管理策略
 ├── quality-checklist.md          # 资产入库检查清单
 ├── skill-registry.yaml           # 全局技能索引
-└── ...
+├── e2e-workflow-lifecycle.md     # E2E 全生命周期规范
+├── scenario-integration.md       # 场景衔接规范（数据契约）
+└── delivery-playbook.md          # E2E 交付全流程操作手册
 ```
 
 ---

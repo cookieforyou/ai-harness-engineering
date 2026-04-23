@@ -1,31 +1,88 @@
-# 场景：自动化代码审查 / Automated Code Review
+# 开发实现场景 / Code Review Scenario
 
-## 业务背景
+> **阶段**: P4 — 开发实现
+> **核心 Agent**: `agents/senior-engineer`
+> **目标输出**: 结构化代码审查报告（问题发现、修复建议、安全扫描结果）
+> **效力等级**: P0（强制）
 
-在软件交付流程中，代码审查（Code Review）是保障质量的关键环节。本场景通过 AI Agent 自动化执行初轮审查，识别安全、逻辑、性能、可维护性问题，生成结构化报告，并通过质量门禁决定是否需要人工深度介入。
+---
 
-## 预期输入
+## 场景概述
+
+本场景负责对已提交的代码变更（Pull Request）进行自动化审查，识别安全、逻辑、性能、可维护性问题，生成结构化审查报告，并通过质量门禁决定代码是否可合并进入主分支。
+
+---
+
+## 输入规范
+
+| 字段 | 类型 | 必填 | 说明 |
+| :--- | :--- | :--- | :--- |
+| `pr_id` | `string` | 是 | Pull Request 唯一标识 |
+| `repo` | `string` | 是 | 代码仓库名 |
+| `diff` | `string` | 是 | 统一 diff 格式的代码变更 |
+| `context` | `string` | 否 | 项目技术栈与背景说明 |
+| `focus_areas` | `string` | 否 | 审查重点（如 `security`, `performance`） |
+
+---
+
+## 输出规范
+
+主输出为 JSON 格式，Schema 定义如下：
 
 ```json
 {
-  "pr_id": "PR-2048",
-  "repo": "org/service-a",
-  "diff": "unified diff string...",
-  "context": "Java Spring Boot 微服务，使用 PostgreSQL"
-}
-```
-
-## 预期输出
-
-```json
-{
-  "status": "success | partial | failure",
-  "report_url": "...",
-  "summary": "发现 2 处 high，1 处 medium",
+  "summary": "一句话总结",
+  "severity_score": 1,
+  "findings": [
+    {
+      "id": "F001",
+      "severity": "critical|high|medium|low|info",
+      "category": "security|logic|performance|maintainability",
+      "file_path": "...",
+      "line_range": "...",
+      "message": "...",
+      "suggestion": "..."
+    }
+  ],
   "action_required": true,
-  "human_escalation": false
+  "human_escalation_reason": null
 }
 ```
+
+---
+
+## 角色职责
+
+| 角色 | 职责 | 输出物 |
+| :--- | :--- | :--- |
+| **Senior Engineer** | 代码逻辑审查、性能分析、可维护性评估、安全扫描复核 | 结构化审查报告 JSON |
+| **人类技术负责人** | 审阅 Critical/High 级别问题、确认架构风险、批准合并 | 已批准的代码变更 |
+
+---
+
+## 质量检查要点
+
+- [ ] 无 Critical 级别安全漏洞（如密钥泄露、注入、权限绕过）
+- [ ] 每个 finding 的 `suggestion` 具体、可执行
+- [ ] 审查覆盖安全、逻辑、性能、可维护性四个维度
+- [ ] 若发现架构风险类问题，必须触发回退至 P2 流程
+- [ ] 输出通过 `evaluations/code-review-checkpoint.yaml` 质量门禁
+
+---
+
+## 上游衔接
+
+接收 `scenarios/task-decomposition/` 的输出作为审查范围上下文（任务清单用于确定代码变更是否与计划一致）。
+衔接规范详见 `standards/scenario-integration.md#P3→P4`。
+
+## 下游衔接
+
+本场景通过结果决定是否能进入 `scenarios/deployment-pipeline/`：
+- `action_required == false` 且 `severity_score < 4` → 允许进入 P5
+- 否则 → 阻塞部署，需修复或人工审批
+衔接规范详见 `standards/scenario-integration.md#P4→P5`。
+
+---
 
 ## 流程概览
 

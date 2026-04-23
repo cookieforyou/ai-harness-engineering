@@ -20,15 +20,31 @@
 ```
 scenarios/
 ├── README.md
-├── code-review/                    # 代码审查场景
+├── requirements-analysis/          # P1 需求分析
 │   ├── README.md
 │   ├── flow.yaml
-│   ├── checkpoint.yaml
 │   └── assets.lock
-├── doc-generation/                 # 文档生成场景
+├── tech-arch-design/               # P2 技术架构
 │   ├── README.md
 │   ├── flow.yaml
-│   └── ...
+│   └── assets.lock
+├── task-decomposition/             # P3 任务拆分
+│   ├── README.md
+│   ├── flow.yaml
+│   └── assets.lock
+├── code-review/                    # P4 代码审查
+│   ├── README.md
+│   ├── flow.yaml
+│   ├── assets.lock
+│   └── checkpoint.yaml
+├── deployment-pipeline/            # P5 部署迭代
+│   ├── README.md
+│   ├── flow.yaml
+│   └── assets.lock
+├── health-monitoring/              # P6 健康监控
+│   ├── README.md
+│   ├── flow.yaml
+│   └── assets.lock
 └── ...
 ```
 

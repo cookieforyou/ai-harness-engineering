@@ -1,0 +1,47 @@
+scenario_id: "tech-arch-design"
+version: "1.0.0"
+generated_at: "2025-01-01T00:00:00Z"
+
+dependencies:
+  agents:
+    - ref: "agents/solution-architect"
+      files:
+        - "agents/solution-architect.role.md"
+        - "agents/solution-architect.config.yaml"
+      checksum:
+        role: "lmn012"
+        config: "opq345"
+
+  prompts:
+    - ref: "prompts/tech-arch-design/v1.md"
+      checksum: "rst678"
+
+  skills:
+    - ref: "skills/tech-stack-matcher.yaml"
+      checksum: "uvw901"
+    - ref: "skills/schema-validator.yaml"
+      checksum: "jkl012"
+    - ref: "skills/security-audit.yaml"
+      checksum: "mno345"
+    - ref: "skills/report-merger.yaml"
+      checksum: "pqr678"
+    - ref: "skills/notification.yaml"
+      checksum: "stu901"
+    - ref: "skills/trace-archiver.yaml"
+      checksum: "vwx234"
+
+  instructions:
+    - ref: "instructions/system/architecture-design-system.md"
+      checksum: "yza567"
+    - ref: "instructions/safety/data-privacy.md"
+      checksum: "cde890"
+    - ref: "instructions/safety/no-secrets-leak.md"
+      checksum: "fgh123"
+
+  evaluations:
+    - ref: "evaluations/tech-arch-checkpoint.yaml"
+      checksum: "ijk456"
+
+schemas:
+  input: "schemas/tech-arch-input.json"
+  output: "schemas/tech-arch-output.json"

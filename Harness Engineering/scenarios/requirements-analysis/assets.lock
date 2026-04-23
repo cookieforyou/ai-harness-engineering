@@ -1,0 +1,45 @@
+scenario_id: "requirements-analysis"
+version: "1.0.0"
+generated_at: "2025-01-01T00:00:00Z"
+
+dependencies:
+  agents:
+    - ref: "agents/product-analyst"
+      files:
+        - "agents/product-analyst.role.md"
+        - "agents/product-analyst.config.yaml"
+      checksum:
+        role: "abc123"
+        config: "def456"
+
+  prompts:
+    - ref: "prompts/requirements-analysis/v1.md"
+      checksum: "ghi789"
+
+  skills:
+    - ref: "skills/schema-validator.yaml"
+      checksum: "jkl012"
+    - ref: "skills/requirements-extractor.yaml"
+      checksum: "mno345"
+    - ref: "skills/report-merger.yaml"
+      checksum: "pqr678"
+    - ref: "skills/notification.yaml"
+      checksum: "stu901"
+    - ref: "skills/trace-archiver.yaml"
+      checksum: "vwx234"
+
+  instructions:
+    - ref: "instructions/system/requirements-analysis-system.md"
+      checksum: "yzb567"
+    - ref: "instructions/safety/data-privacy.md"
+      checksum: "cde890"
+    - ref: "instructions/safety/no-secrets-leak.md"
+      checksum: "fgh123"
+
+  evaluations:
+    - ref: "evaluations/requirements-analysis-checkpoint.yaml"
+      checksum: "ijk456"
+
+schemas:
+  input: "schemas/requirements-analysis-input.json"
+  output: "schemas/requirements-analysis-output.json"

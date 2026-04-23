@@ -1,0 +1,45 @@
+scenario_id: "task-decomposition"
+version: "1.0.0"
+generated_at: "2025-01-01T00:00:00Z"
+
+dependencies:
+  agents:
+    - ref: "agents/project-manager"
+      files:
+        - "agents/project-manager.role.md"
+        - "agents/project-manager.config.yaml"
+      checksum:
+        role: "bcd234"
+        config: "efg567"
+
+  prompts:
+    - ref: "prompts/task-decomposition/v1.md"
+      checksum: "hij890"
+
+  skills:
+    - ref: "skills/task-dependency-graph.yaml"
+      checksum: "klm123"
+    - ref: "skills/schema-validator.yaml"
+      checksum: "jkl012"
+    - ref: "skills/report-merger.yaml"
+      checksum: "pqr678"
+    - ref: "skills/notification.yaml"
+      checksum: "stu901"
+    - ref: "skills/trace-archiver.yaml"
+      checksum: "vwx234"
+
+  instructions:
+    - ref: "instructions/system/deployment-system.md"
+      checksum: "nop456"
+    - ref: "instructions/safety/data-privacy.md"
+      checksum: "cde890"
+    - ref: "instructions/safety/no-secrets-leak.md"
+      checksum: "fgh123"
+
+  evaluations:
+    - ref: "evaluations/task-decomposition-checkpoint.yaml"
+      checksum: "qrs789"
+
+schemas:
+  input: "schemas/task-decomposition-input.json"
+  output: "schemas/task-decomposition-output.json"

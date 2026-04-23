@@ -1,0 +1,214 @@
+scenario_id: "deployment-pipeline"
+version: "1.0.0"
+description: "设计安全、可观测、可回滚的部署流水线"
+author: "harness-team"
+
+input_schema:
+  type: "object"
+  required: ["service_name", "tech_stack", "environment", "version"]
+  properties:
+    service_name:
+      type: "string"
+      description: "服务名称"
+    tech_stack:
+      type: "string"
+      description: "技术栈（框架、运行时、部署平台）"
+    environment:
+      type: "string"
+      enum: ["development", "staging", "production"]
+      description: "目标环境"
+    version:
+      type: "string"
+      description: "部署版本号"
+    previous_deployment:
+      type: "object"
+      default: {}
+      description: "上一版本部署信息（用于蓝绿/金丝雀策略）"
+    compliance_requirements:
+      type: "string"
+      default: ""
+      description: "合规要求"
+
+nodes:
+  - id: "generate-config"
+    name: "生成部署配置"
+    type: "agent"
+    agent_ref: "agents/devops-engineer"
+    input:
+      service_name: "{{input.service_name}}"
+      tech_stack: "{{input.tech_stack}}"
+      environment: "{{input.environment}}"
+      version: "{{input.version}}"
+      previous_deployment: "{{input.previous_deployment}}"
+      compliance_requirements: "{{input.compliance_requirements}}"
+    output:
+      name: "deployment_draft"
+    instructions:
+      - "instructions/system/deployment-system.md"
+      - "instructions/safety/data-privacy.md"
+      - "instructions/safety/no-secrets-leak.md"
+    prompts:
+      main: "prompts/deployment-pipeline/v1.md"
+
+  - id: "generate-manifest"
+    name: "生成部署清单"
+    type: "skill"
+    skill_ref: "skills/deploy-config-generator.yaml"
+    input:
+      deployment_spec: "{{nodes.generate-config.output.deployment_draft}}"
+      environment: "{{input.environment}}"
+    output:
+      name: "manifest"
+    depends_on: ["generate-config"]
+
+  - id: "security-audit"
+    name: "部署安全审计"
+    type: "skill"
+    skill_ref: "skills/security-audit.yaml"
+    input:
+      manifest: "{{nodes.generate-manifest.output.manifest}}"
+      pipeline_config: "{{nodes.generate-config.output.deployment_draft.pipeline_config}}"
+      mode: "deployment"
+    output:
+      name: "security_findings"
+    depends_on: ["generate-manifest"]
+
+  - id: "merge-spec"
+    name: "部署规范合并"
+    type: "skill"
+    skill_ref: "skills/report-merger.yaml"
+    input:
+      deployment: "{{nodes.generate-config.output.deployment_draft}}"
+      manifest: "{{nodes.generate-manifest.output.manifest}}"
+      security_notes: "{{nodes.security-audit.output.security_findings}}"
+    output:
+      name: "final_spec"
+    depends_on: ["security-audit"]
+
+  - id: "quality-gate"
+    name: "质量门禁"
+    type: "checkpoint"
+    checkpoint_ref: "evaluations/deployment-checkpoint.yaml"
+    input: "{{nodes.merge-spec.output.final_spec}}"
+    depends_on: ["merge-spec"]
+    branches:
+      pass:
+        description: "评估通过"
+        condition: "checkpoint.score >= 4.0 AND checkpoint.mandatory_all_pass"
+        next: "notify-success"
+      conditional:
+        description: "有条件通过（非生产环境或低风险变更）"
+        condition: "checkpoint.score >= 3.0 AND checkpoint.score < 4.0 AND input.environment != 'production'"
+        next: "human-review"
+      fail:
+        description: "未通过"
+        condition: "checkpoint.score < 3.0 OR checkpoint.mandatory_any_fail"
+        next: "human-escalation"
+
+  - id: "human-review"
+    name: "人工审阅"
+    type: "human"
+    action: "pause_and_notify"
+    notification:
+      channel: "slack"
+      mention: "@sre-lead"
+      message: "🚀 部署方案有待确认项，请审阅回滚策略与密钥管理。"
+    input:
+      spec: "{{nodes.merge-spec.output.final_spec}}"
+    output:
+      name: "human_feedback"
+      schema:
+        type: "object"
+        properties:
+          approved:
+            type: "boolean"
+          adjustments:
+            type: "string"
+
+  - id: "apply-review"
+    name: "应用审阅意见"
+    type: "skill"
+    skill_ref: "skills/report-merger.yaml"
+    input:
+      spec: "{{nodes.merge-spec.output.final_spec}}"
+      feedback: "{{nodes.human-review.output.human_feedback}}"
+    output:
+      name: "reviewed_spec"
+    depends_on: ["human-review"]
+
+  - id: "human-escalation"
+    name: "人工升级"
+    type: "human"
+    action: "pause_and_notify"
+    notification:
+      channel: "slack"
+      mention: "@sre-lead @tech-lead"
+      message: "🔴 部署流水线质量门禁未通过，需人工复核并决定重试或终止。"
+    output:
+      name: "human_decision"
+      schema:
+        type: "object"
+        properties:
+          decision:
+            type: "string"
+            enum: ["retry", "terminate", "override"]
+          comment:
+            type: "string"
+
+  - id: "notify-success"
+    name: "通知通过"
+    type: "skill"
+    skill_ref: "skills/notification.yaml"
+    input:
+      channel: "devops_channel"
+      message: "✅ 部署流水线设计完成，部署规范已通过质量门禁。"
+      report: "{{nodes.merge-spec.output.final_spec}}"
+
+  - id: "archive"
+    name: "归档日志"
+    type: "skill"
+    skill_ref: "skills/trace-archiver.yaml"
+    input:
+      scenario_id: "deployment-pipeline"
+      service_name: "{{input.service_name}}"
+      version: "{{input.version}}"
+      final_output: "{{nodes.merge-spec.output.final_spec}}"
+      checkpoint_result: "{{nodes.quality-gate.output}}"
+    always_run: true
+
+edges:
+  - from: "start"
+    to: "generate-config"
+  - from: "generate-config"
+    to: "generate-manifest"
+  - from: "generate-manifest"
+    to: "security-audit"
+  - from: "security-audit"
+    to: "merge-spec"
+  - from: "merge-spec"
+    to: "quality-gate"
+  - from: "quality-gate"
+    to: "notify-success"
+    condition: "branch == pass"
+  - from: "quality-gate"
+    to: "human-review"
+    condition: "branch == conditional"
+  - from: "quality-gate"
+    to: "human-escalation"
+    condition: "branch == fail"
+  - from: "human-review"
+    to: "apply-review"
+  - from: "apply-review"
+    to: "archive"
+  - from: "notify-success"
+    to: "archive"
+  - from: "human-escalation"
+    to: "archive"
+
+observability:
+  trace_id_header: "x-harness-trace-id"
+  log_level: "INFO"
+  metrics:
+    - node_latency_ms
+    - checkpoint_score
+    - human_escalation_count

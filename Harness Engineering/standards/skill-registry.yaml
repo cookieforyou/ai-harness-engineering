@@ -18,6 +18,8 @@ skills:
     status: "release"
     consumers:
       - "scenarios/code-review"
+      - "scenarios/tech-arch-design"
+      - "scenarios/deployment-pipeline"
 
   - skill_id: "report-merger"
     version: "1.0.0"
@@ -25,7 +27,12 @@ skills:
     tags: ["aggregation", "reporting", "post-processing"]
     status: "release"
     consumers:
+      - "scenarios/requirements-analysis"
+      - "scenarios/tech-arch-design"
+      - "scenarios/task-decomposition"
       - "scenarios/code-review"
+      - "scenarios/deployment-pipeline"
+      - "scenarios/health-monitoring"
 
   - skill_id: "notification"
     version: "1.0.0"
@@ -33,7 +40,12 @@ skills:
     tags: ["integration", "messaging"]
     status: "release"
     consumers:
+      - "scenarios/requirements-analysis"
+      - "scenarios/tech-arch-design"
+      - "scenarios/task-decomposition"
       - "scenarios/code-review"
+      - "scenarios/deployment-pipeline"
+      - "scenarios/health-monitoring"
 
   - skill_id: "trace-archiver"
     version: "1.0.0"
@@ -41,7 +53,63 @@ skills:
     tags: ["observability", "storage", "audit"]
     status: "release"
     consumers:
+      - "scenarios/requirements-analysis"
+      - "scenarios/tech-arch-design"
+      - "scenarios/task-decomposition"
       - "scenarios/code-review"
+      - "scenarios/deployment-pipeline"
+      - "scenarios/health-monitoring"
+
+  - skill_id: "schema-validator"
+    version: "1.0.0"
+    path: "skills/schema-validator.yaml"
+    tags: ["validation", "schema", "quality-gate"]
+    status: "release"
+    consumers:
+      - "scenarios/requirements-analysis"
+      - "scenarios/tech-arch-design"
+      - "scenarios/task-decomposition"
+      - "scenarios/health-monitoring"
+
+  - skill_id: "requirements-extractor"
+    version: "1.0.0"
+    path: "skills/requirements-extractor.yaml"
+    tags: ["extraction", "nlp", "analysis"]
+    status: "release"
+    consumers:
+      - "scenarios/requirements-analysis"
+
+  - skill_id: "tech-stack-matcher"
+    version: "1.0.0"
+    path: "skills/tech-stack-matcher.yaml"
+    tags: ["recommendation", "matching", "architecture"]
+    status: "release"
+    consumers:
+      - "scenarios/tech-arch-design"
+
+  - skill_id: "task-dependency-graph"
+    version: "1.0.0"
+    path: "skills/task-dependency-graph.yaml"
+    tags: ["graph", "planning", "dependency"]
+    status: "release"
+    consumers:
+      - "scenarios/task-decomposition"
+
+  - skill_id: "deploy-config-generator"
+    version: "1.0.0"
+    path: "skills/deploy-config-generator.yaml"
+    tags: ["deployment", "config", "cicd"]
+    status: "release"
+    consumers:
+      - "scenarios/deployment-pipeline"
+
+  - skill_id: "monitoring-rule-builder"
+    version: "1.0.0"
+    path: "skills/monitoring-rule-builder.yaml"
+    tags: ["monitoring", "alerting", "sre"]
+    status: "release"
+    consumers:
+      - "scenarios/health-monitoring"
 
   - skill_id: "doc-generator"
     version: "1.0.0"

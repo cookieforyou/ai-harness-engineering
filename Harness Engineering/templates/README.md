@@ -15,6 +15,22 @@
 
 ---
 
+## 模板清单详情
+
+### `project-scaffold/`
+适用于新项目首次接入 AI Harness 资产库。包含项目级配置示例、本地 Agent 扩展目录与覆盖规则目录。
+
+### `scenario-skeleton/`
+新建 E2E 场景的最小可运行结构，包含 `README.md`、`flow.yaml`、`assets.lock` 模板。复制后按场景业务填写节点与边。
+
+### `agent-template/`
+新建 Agent 的最小结构，包含 `.role.md` 角色卡模板与 `.config.yaml` 运行配置模板。
+
+### `skill-skeleton.yaml`
+新建技能的接口定义模板，包含 `input_schema`、`output_schema`、`implementation`、`error_handling` 与 `examples` 区块。支持 `code` / `llm` / `api` / `hybrid` 四种实现类型。
+
+---
+
 ## 使用原则
 
 - **复制即运行**: 模板复制后应能直接通过检查清单的基础项

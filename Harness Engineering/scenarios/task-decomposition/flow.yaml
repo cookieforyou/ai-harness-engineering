@@ -1,0 +1,203 @@
+scenario_id: "task-decomposition"
+version: "1.0.0"
+description: "将 ADR 拆分为可执行任务清单"
+author: "harness-team"
+
+input_schema:
+  type: "object"
+  required: ["adr_doc", "team_capacity", "iteration_constraints"]
+  properties:
+    adr_doc:
+      type: "object"
+      description: "P2 阶段输出的架构决策记录"
+    team_capacity:
+      type: "string"
+      description: "团队资源（人数、角色、可用工时/迭代）"
+    iteration_constraints:
+      type: "string"
+      description: "迭代约束（截止日期、里程碑、外部依赖）"
+    risk_appetite:
+      type: "string"
+      default: "balanced"
+      enum: ["conservative", "balanced", "aggressive"]
+      description: "风险容忍度"
+
+nodes:
+  - id: "decompose-tasks"
+    name: "任务拆分"
+    type: "agent"
+    agent_ref: "agents/project-manager"
+    input:
+      adr_doc: "{{input.adr_doc}}"
+      team_capacity: "{{input.team_capacity}}"
+      iteration_constraints: "{{input.iteration_constraints}}"
+      risk_appetite: "{{input.risk_appetite}}"
+    output:
+      name: "plan_draft"
+    instructions:
+      - "instructions/system/deployment-system.md"
+      - "instructions/safety/data-privacy.md"
+      - "instructions/safety/no-secrets-leak.md"
+    prompts:
+      main: "prompts/task-decomposition/v1.md"
+
+  - id: "dependency-graph"
+    name: "依赖图构建"
+    type: "skill"
+    skill_ref: "skills/task-dependency-graph.yaml"
+    input:
+      tasks: "{{nodes.decompose-tasks.output.plan_draft.epics}}"
+    output:
+      name: "dependency_analysis"
+    depends_on: ["decompose-tasks"]
+
+  - id: "schema-validate"
+    name: "Schema 校验"
+    type: "skill"
+    skill_ref: "skills/schema-validator.yaml"
+    input:
+      data: "{{nodes.decompose-tasks.output.plan_draft}}"
+      schema_name: "task-plan-output-schema"
+    output:
+      name: "validation_result"
+    depends_on: ["decompose-tasks"]
+
+  - id: "merge-plan"
+    name: "计划合并"
+    type: "skill"
+    skill_ref: "skills/report-merger.yaml"
+    input:
+      plan: "{{nodes.decompose-tasks.output.plan_draft}}"
+      dependency_analysis: "{{nodes.dependency-graph.output.dependency_analysis}}"
+    output:
+      name: "final_plan"
+    depends_on: ["dependency-graph", "schema-validate"]
+
+  - id: "quality-gate"
+    name: "质量门禁"
+    type: "checkpoint"
+    checkpoint_ref: "evaluations/task-decomposition-checkpoint.yaml"
+    input: "{{nodes.merge-plan.output.final_plan}}"
+    depends_on: ["merge-plan"]
+    branches:
+      pass:
+        description: "评估通过"
+        condition: "checkpoint.score >= 4.0 AND checkpoint.mandatory_all_pass"
+        next: "notify-success"
+      conditional:
+        description: "有条件通过（估算偏差较大）"
+        condition: "checkpoint.score >= 3.0 AND checkpoint.score < 4.0"
+        next: "human-review"
+      fail:
+        description: "未通过"
+        condition: "checkpoint.score < 3.0 OR checkpoint.mandatory_any_fail"
+        next: "human-escalation"
+
+  - id: "human-review"
+    name: "人工审阅"
+    type: "human"
+    action: "pause_and_notify"
+    notification:
+      channel: "slack"
+      mention: "@project-manager"
+      message: "📋 迭代计划有待确认项，请审阅资源分配与里程碑。"
+    input:
+      plan: "{{nodes.merge-plan.output.final_plan}}"
+    output:
+      name: "human_feedback"
+      schema:
+        type: "object"
+        properties:
+          approved:
+            type: "boolean"
+          adjustments:
+            type: "string"
+
+  - id: "apply-review"
+    name: "应用审阅意见"
+    type: "skill"
+    skill_ref: "skills/report-merger.yaml"
+    input:
+      plan: "{{nodes.merge-plan.output.final_plan}}"
+      feedback: "{{nodes.human-review.output.human_feedback}}"
+    output:
+      name: "reviewed_plan"
+    depends_on: ["human-review"]
+
+  - id: "human-escalation"
+    name: "人工升级"
+    type: "human"
+    action: "pause_and_notify"
+    notification:
+      channel: "slack"
+      mention: "@project-manager @tech-lead"
+      message: "🔴 任务拆分质量门禁未通过，需人工复核并决定重试或终止。"
+    output:
+      name: "human_decision"
+      schema:
+        type: "object"
+        properties:
+          decision:
+            type: "string"
+            enum: ["retry", "terminate", "override"]
+          comment:
+            type: "string"
+
+  - id: "notify-success"
+    name: "通知通过"
+    type: "skill"
+    skill_ref: "skills/notification.yaml"
+    input:
+      channel: "project_channel"
+      message: "✅ 任务拆分完成，迭代计划已通过质量门禁。"
+      report: "{{nodes.merge-plan.output.final_plan}}"
+
+  - id: "archive"
+    name: "归档日志"
+    type: "skill"
+    skill_ref: "skills/trace-archiver.yaml"
+    input:
+      scenario_id: "task-decomposition"
+      plan_id: "{{nodes.merge-plan.output.final_plan.plan_title}}"
+      final_output: "{{nodes.merge-plan.output.final_plan}}"
+      checkpoint_result: "{{nodes.quality-gate.output}}"
+    always_run: true
+
+edges:
+  - from: "start"
+    to: "decompose-tasks"
+  - from: "decompose-tasks"
+    to: "dependency-graph"
+  - from: "decompose-tasks"
+    to: "schema-validate"
+  - from: "dependency-graph"
+    to: "merge-plan"
+  - from: "schema-validate"
+    to: "merge-plan"
+  - from: "merge-plan"
+    to: "quality-gate"
+  - from: "quality-gate"
+    to: "notify-success"
+    condition: "branch == pass"
+  - from: "quality-gate"
+    to: "human-review"
+    condition: "branch == conditional"
+  - from: "quality-gate"
+    to: "human-escalation"
+    condition: "branch == fail"
+  - from: "human-review"
+    to: "apply-review"
+  - from: "apply-review"
+    to: "archive"
+  - from: "notify-success"
+    to: "archive"
+  - from: "human-escalation"
+    to: "archive"
+
+observability:
+  trace_id_header: "x-harness-trace-id"
+  log_level: "INFO"
+  metrics:
+    - node_latency_ms
+    - checkpoint_score
+    - human_escalation_count
