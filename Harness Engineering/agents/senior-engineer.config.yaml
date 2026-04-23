@@ -1,0 +1,47 @@
+agent_id: "senior-engineer"
+version: "1.0.0"
+description: "资深工程师 Agent，负责代码审查、架构评审与技术方案评估。"
+
+model:
+  provider: "openai"
+  name: "gpt-4o"
+  temperature: 0.2
+  max_tokens: 4096
+  top_p: 0.95
+
+runtime:
+  max_iterations: 10
+  timeout_seconds: 300
+  retry_policy:
+    max_retries: 3
+    backoff: "exponential"
+    initial_delay_seconds: 2
+
+memory:
+  type: "session"
+  max_context_turns: 20
+
+tools:
+  - ref: "skills/static-analysis.yaml"
+    required: true
+  - ref: "skills/security-audit.yaml"
+    required: true
+  - ref: "skills/doc-generator.yaml"
+    required: false
+
+observability:
+  log_level: "INFO"
+  trace_enabled: true
+  metrics:
+    - "latency_ms"
+    - "token_usage"
+    - "tool_call_count"
+    - "human_escalation_count"
+
+safety:
+  instruction_refs:
+    - "instructions/safety/data-privacy.md"
+    - "instructions/safety/no-secrets-leak.md"
+  auto_escalation:
+    - trigger: "detected_high_severity_vulnerability"
+      action: "pause_and_notify_human"

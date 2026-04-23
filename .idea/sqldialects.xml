@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251208165032/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251208185808_init/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251210224836_add_embedding_field/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251211093327_add_featured_prompts/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251211114705_add_soft_delete_to_prompts/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251213100000_add_verified_and_reports/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251213133000_add_github_username/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251213203400_add_unlisted_field/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251216124600_add_prompt_slug/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251216195800_add_api_key_and_mcp_settings/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251217173000_add_delist_reason/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251218145900_add_comments_system/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251220202333_add_skill_type/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251221121143_add_prompt_connections/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251222132600_add_user_flagged_and_unusual_activity/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251225000000_add_generation_credits/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251227125700_add_pinned_categories/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20251228124000_add_relist_request_report_reason/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20260104210000_add_collections/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20260106071035_daily_generation_limit/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20260109064746_add_works_best_with/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20260127100000_add_user_bio_and_custom_links/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20260128100000_add_workflow_link/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20260201175000_add_user_prompt_examples/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20260302194500_add_taste_prompt_type/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prompts.chat/prisma/migrations/20260324100000_add_ci_username_unique_index/migration.sql" dialect="GenericSQL" />
+  </component>
+</project>

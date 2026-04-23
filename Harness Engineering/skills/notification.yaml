@@ -1,0 +1,60 @@
+skill_id: "notification"
+version: "1.0.0"
+description: "将审查结果或系统消息推送至指定通知渠道（Slack、企业微信、PR Bot 等）。"
+author: "harness-team"
+
+tags: ["integration", "messaging", "notification"]
+
+interface:
+  input_schema:
+    type: "object"
+    required: ["channel", "message"]
+    properties:
+      channel:
+        type: "string"
+        enum: ["slack", "wecom", "pr_bot", "email"]
+      message:
+        type: "string"
+        description: "消息正文，支持 Markdown 子集"
+      mention:
+        type: "string"
+        description: "需要 @ 的对象"
+      attachments:
+        type: "array"
+        description: "附件或卡片数据"
+        items:
+          type: "object"
+  output_schema:
+    type: "object"
+    properties:
+      status: { type: "string", enum: ["sent", "failed", "queued"] }
+      message_id: { type: "string" }
+      timestamp: { type: "string", format: "date-time" }
+
+implementation:
+  type: "api"
+  adapters:
+    slack:
+      webhook_url_env: "SLACK_WEBHOOK_URL"
+      timeout_seconds: 10
+    wecom:
+      webhook_url_env: "WECOM_WEBHOOK_URL"
+      timeout_seconds: 10
+    pr_bot:
+      api_endpoint: "${INTERNAL_PR_BOT_API}/comment"
+      auth: "bearer_token"
+
+error_handling:
+  strategy: "retry_then_queue"
+  retry:
+    max_attempts: 3
+    backoff: "fixed"
+    delay_seconds: 5
+  fallback:
+    action: "queue_for_later"
+    queue: "notification_retry_queue"
+
+observability:
+  metrics:
+    - "notification_latency_ms"
+    - "notification_failures"

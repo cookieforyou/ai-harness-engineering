@@ -1,0 +1,15 @@
+lock_version: "1.0"
+scenario_id: "{your-scenario-id}"
+generated_at: "{date}"
+
+# 在此处声明本场景依赖的全部资产及其精确版本
+dependencies:
+  - asset: "agents/{agent-name}.role.md"
+    version: "x.x.x"
+    checksum: "sha256:..."
+  - asset: "skills/{skill-name}.yaml"
+    version: "x.x.x"
+    checksum: "sha256:..."
+  - asset: "evaluations/{checkpoint-name}.yaml"
+    version: "x.x.x"
+    checksum: "sha256:..."

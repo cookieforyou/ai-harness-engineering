@@ -1,0 +1,124 @@
+skill_id: "diff-parser"
+version: "1.0.0"
+description: "将统一 diff（unified diff）字符串解析为结构化的文件变更列表，供下游审查节点使用。"
+author: "harness-team"
+
+tags: ["parsing", "git", "preprocessing"]
+
+interface:
+  input_schema:
+    type: "object"
+    required: ["raw_diff"]
+    properties:
+      raw_diff:
+        type: "string"
+        description: "统一 diff 格式的原始文本，支持多文件"
+  output_schema:
+    type: "object"
+    required: ["files", "summary"]
+    properties:
+      files:
+        type: "array"
+        items:
+          type: "object"
+          required: ["file_path", "change_type", "hunks"]
+          properties:
+            file_path:
+              type: "string"
+            change_type:
+              type: "string"
+              enum: ["added", "modified", "deleted", "renamed"]
+            old_path:
+              type: "string"
+              description: "重命名时的原路径"
+            hunks:
+              type: "array"
+              items:
+                type: "object"
+                required: ["old_start", "old_count", "new_start", "new_count", "lines"]
+                properties:
+                  old_start: { type: "integer" }
+                  old_count: { type: "integer" }
+                  new_start: { type: "integer" }
+                  new_count: { type: "integer" }
+                  lines:
+                    type: "array"
+                    items:
+                      type: "object"
+                      required: ["type", "content"]
+                      properties:
+                        type:
+                          type: "string"
+                          enum: ["context", "add", "remove"]
+                        content: { type: "string" }
+                        old_line_no: { type: "integer" }
+                        new_line_no: { type: "integer" }
+      summary:
+        type: "object"
+        properties:
+          total_files: { type: "integer" }
+          total_additions: { type: "integer" }
+          total_deletions: { type: "integer" }
+
+implementation:
+  type: "code"
+  runtime: "python"
+  entry: "diff_parser.parse"
+  dependencies:
+    - "unidiff>=0.7.0"
+  code_location: "src/skills/diff_parser.py"
+
+error_handling:
+  strategy: "fail_fast"
+  fallback: null
+  retryable: false
+  on_error:
+    output:
+      status: "error"
+      error_code: "DIFF_PARSE_ERROR"
+      message: "无法解析输入的 diff 格式，请检查是否为统一 diff。"
+
+examples:
+  - name: "单文件修改"
+    input:
+      raw_diff: |
+        diff --git a/src/auth.js b/src/auth.js
+        index 1234..5678 100644
+        --- a/src/auth.js
+        +++ b/src/auth.js
+        @@ -10,5 +10,5 @@
+          function login() {
+        -   const pwd = '123';
+        +   const pwd = process.env.PWD;
+            return auth(pwd);
+          }
+    output:
+      files:
+        - file_path: "src/auth.js"
+          change_type: "modified"
+          hunks:
+            - old_start: 10
+              old_count: 5
+              new_start: 10
+              new_count: 5
+              lines:
+                - { type: "context", content: " function login() {", old_line_no: 10, new_line_no: 10 }
+                - { type: "remove", content: "  const pwd = '123';", old_line_no: 11 }
+                - { type: "add", content: "  const pwd = process.env.PWD;", new_line_no: 11 }
+                - { type: "context", content: "  return auth(pwd);", old_line_no: 13, new_line_no: 13 }
+      summary:
+        total_files: 1
+        total_additions: 1
+        total_deletions: 1
+
+observability:
+  metrics:
+    - name: "execution_time_ms"
+      type: "histogram"
+    - name: "files_parsed"
+      type: "counter"
+    - name: "parse_errors"
+      type: "counter"
+  logs:
+    level: "DEBUG"
+    fields: ["input_length", "output_file_count"]

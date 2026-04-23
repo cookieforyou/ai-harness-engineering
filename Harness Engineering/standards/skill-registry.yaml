@@ -1,0 +1,59 @@
+registry_id: "global-skill-registry"
+version: "1.0.0"
+description: "AI Harness 资产库全局技能索引，用于快速发现与依赖校验。"
+
+skills:
+  - skill_id: "diff-parser"
+    version: "1.0.0"
+    path: "skills/diff-parser.yaml"
+    tags: ["parsing", "git", "preprocessing"]
+    status: "release"
+    consumers:
+      - "scenarios/code-review"
+
+  - skill_id: "security-audit"
+    version: "1.0.0"
+    path: "skills/security-audit.yaml"
+    tags: ["security", "static-analysis", "scanning"]
+    status: "release"
+    consumers:
+      - "scenarios/code-review"
+
+  - skill_id: "report-merger"
+    version: "1.0.0"
+    path: "skills/report-merger.yaml"
+    tags: ["aggregation", "reporting", "post-processing"]
+    status: "release"
+    consumers:
+      - "scenarios/code-review"
+
+  - skill_id: "notification"
+    version: "1.0.0"
+    path: "skills/notification.yaml"
+    tags: ["integration", "messaging"]
+    status: "release"
+    consumers:
+      - "scenarios/code-review"
+
+  - skill_id: "trace-archiver"
+    version: "1.0.0"
+    path: "skills/trace-archiver.yaml"
+    tags: ["observability", "storage", "audit"]
+    status: "release"
+    consumers:
+      - "scenarios/code-review"
+
+  - skill_id: "doc-generator"
+    version: "1.0.0"
+    path: "skills/doc-generator.yaml"
+    tags: ["generation", "documentation"]
+    status: "draft"
+    consumers: []
+
+policies:
+  registration:
+    - "新增技能必须在本文件注册后方可被场景引用"
+    - "状态变更（draft → release）需通过质量检查清单"
+  deprecation:
+    - "废弃技能需保留至少 90 天"
+    - "废弃时需通知所有 consumers 并协助迁移"
