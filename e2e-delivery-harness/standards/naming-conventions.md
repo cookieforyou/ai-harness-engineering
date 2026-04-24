@@ -22,6 +22,8 @@
 | 提示词目录 | prompts | prompts |
 | 技能目录 | skills | skills |
 | 场景目录 | scenarios | scenarios |
+| 工作流目录 | workflows | workflows |
+| 上下文目录 | contexts | contexts |
 | 规范目录 | standards | standards |
 | 模板目录 | templates | templates |
 | 评估目录 | evaluations | evaluations |
@@ -42,15 +44,21 @@
 
 #### 命名对齐表
 
-| 场景 | Prompt | Instruction | Agent | Skill |
-|------|--------|------------|-------|-------|
-| 需求分析 | `analyze-requirement` | `analyze-requirement` | `requirement-analyst` | `requirement-analysis` |
-| 系统设计 | `design-system` | `design-system` | `system-designer` | `system-design` |
-| 任务分解 | `decompose-task` | `decompose-task` | `task-decomposer` | `task-decomposition` |
-| 开发实现 | `implement-feature` | `implement-feature` | `developer` | `development` |
-| 测试验证 | `verify-test` | `verify-test` | `tester` | `testing` |
-| 部署发布 | `deploy-release` | `deploy-release` | `devops-engineer` | `deployment` |
-| 监控运维 | `monitor-operate` | `monitor-operate` | `sre-monitor` | `monitoring` |
+> **核心原则**: Prompt/Instruction/Skill/Scenario 采用统一的 `{verb}-{noun}` 命名模式，Agent 采用 `{noun}-{role}` 模式
+
+| 场景 | Prompt | Instruction | Agent | Skill | Scenario |
+|------|--------|------------|-------|-------|----------|
+| 需求分析 | `analyze-requirement` | `analyze-requirement` | `requirement-analyst` | `analyze-requirement` | `analyze-requirement` |
+| 系统设计 | `design-system` | `design-system` | `system-designer` | `design-system` | `design-system` |
+| 任务分解 | `decompose-task` | `decompose-task` | `task-decomposer` | `decompose-task` | `decompose-task` |
+| 开发实现 | `implement-feature` | `implement-feature` | `developer` | `implement-feature` | `implement-feature` |
+| 测试验证 | `verify-test` | `verify-test` | `tester` | `verify-test` | `verify-test` |
+| 部署发布 | `deploy-release` | `deploy-release` | `devops-engineer` | `deploy-release` | `deploy-release` |
+| 监控运维 | `monitor-operate` | `monitor-operate` | `sre-monitor` | `monitor-operate` | `monitor-operate` |
+| 变更管理 | `manage-change` | `manage-change` | `change-manager` | `manage-change` | `manage-change` |
+| 代码审查 | `review-code` | `review-code` | `code-reviewer` | `review-code` | `review-code` |
+| 安全审计 | `audit-security` | `audit-security` | `security-auditor` | `audit-security` | `audit-security` |
+| 故障复盘 | `review-incident` | `review-incident` | `incident-reviewer` | `review-incident` | `review-incident` |
 
 #### Agent 文件
 
@@ -61,6 +69,8 @@
 - requirement-analyst.agent.md
 - system-designer.agent.md
 - developer.agent.md
+- change-manager.agent.md
+- code-reviewer.agent.md
 ```
 
 #### Skill 目录与文件
@@ -74,10 +84,26 @@ SKILL.md
 
 示例：
 skills/
-├── requirement-analysis/
+├── analyze-requirement/
 │   └── SKILL.md
-├── system-design/
+├── design-system/
 │   └── SKILL.md
+├── implement-feature/
+│   └── SKILL.md
+├── verify-test/
+│   └── SKILL.md
+├── deploy-release/
+│   └── SKILL.md
+├── monitor-operate/
+│   └── SKILL.md
+├── manage-change/
+│   └── SKILL.md
+├── review-code/
+│   └── SKILL.md
+├── audit-security/
+│   └── SKILL.md
+└── review-incident/
+    └── SKILL.md
 ```
 
 #### Instruction 文件
@@ -88,6 +114,14 @@ skills/
 示例：
 - analyze-requirement.instructions.md
 - design-system.instructions.md
+- implement-feature.instructions.md
+- verify-test.instructions.md
+- deploy-release.instructions.md
+- monitor-operate.instructions.md
+- manage-change.instructions.md
+- review-code.instructions.md
+- audit-security.instructions.md
+- review-incident.instructions.md
 ```
 
 #### Prompt 文件
@@ -98,6 +132,14 @@ skills/
 示例：
 - analyze-requirement.prompt.md
 - design-system.prompt.md
+- implement-feature.prompt.md
+- verify-test.prompt.md
+- deploy-release.prompt.md
+- monitor-operate.prompt.md
+- manage-change.prompt.md
+- review-code.prompt.md
+- audit-security.prompt.md
+- review-incident.prompt.md
 ```
 
 #### Scenario 目录与文件
@@ -111,10 +153,28 @@ SCENARIO.md
 
 示例：
 scenarios/
-├── requirement-analysis/
+├── analyze-requirement/
 │   └── SCENARIO.md
-├── system-design/
+├── design-system/
 │   └── SCENARIO.md
+├── implement-feature/
+│   └── SCENARIO.md
+├── verify-test/
+│   └── SCENARIO.md
+├── deploy-release/
+│   └── SCENARIO.md
+├── monitor-operate/
+│   └── SCENARIO.md
+├── manage-change/
+│   └── SCENARIO.md
+├── review-code/
+│   └── SCENARIO.md
+├── audit-security/
+│   └── SCENARIO.md
+├── review-incident/
+│   └── SCENARIO.md
+└── _template/
+    └── SCENARIO.template.md
 ```
 
 ### 编号命名规范
@@ -131,6 +191,62 @@ scenarios/
 | 决策点 | `DC-{NNN}` | `DC-001` |
 | 验证项 | `V-{NNN}` | `V-001` |
 | 错误处理 | `EH-{NNN}` | `EH-001` |
+| 故障项 | `INC-{NNN}` | `INC-001` |
+| 变更项 | `CHG-{NNN}` | `CHG-001` |
+| 质量门禁 | `QG-{NNN}` | `QG-001` |
+| 指标项 | `MET-{NNN}` | `MET-001` |
+| 交接项 | `HANDOVER-{NNN}` | `HANDOVER-001` |
+
+### Workflow 文件
+
+```regex
+^[a-z][a-z0-9-]*\.pipeline\.md$
+
+示例：
+workflows/
+├── e2e-delivery.pipeline.md
+├── incident-response.pipeline.md
+└── _template/
+    └── PIPELINE.template.md
+```
+
+### Context 文件
+
+```regex
+^[a-z][a-z0-9-]*\.md$
+
+示例：
+contexts/
+├── global-context.md
+├── handover-context.template.md
+└── unified-handover-template.md
+```
+
+### Evaluations 文件
+
+```regex
+^[a-z][a-z0-9-]*\.md$
+
+示例：
+evaluations/
+├── regression-checklist.md
+├── scorecard-template.md
+├── output-validation-checklist.md
+└── common-error-patterns.md
+```
+
+### Standards 文件
+
+```regex
+^[a-z][a-z0-9-]*\.md$
+
+示例：
+standards/
+├── asset-model.md
+├── naming-conventions.md
+├── id-generation-quantification.md
+└── output-quality-rubric.md
+```
 
 ## 变量命名
 
