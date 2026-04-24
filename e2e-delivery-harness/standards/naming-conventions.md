@@ -26,7 +26,31 @@
 | 模板目录 | templates | templates |
 | 评估目录 | evaluations | evaluations |
 
-### 资产文件命名
+### 资产命名规范
+
+> **核心原则**: 资产命名采用 `{action}-{object}` 模式，确保 Prompt/Instruction/Agent/Skill/Scenario 命名对齐
+
+#### 命名模式定义
+
+| 资产类型 | 模式 | 说明 |
+|----------|------|------|
+| Prompt | `{verb}-{noun}` | 动词-名词，如 `analyze-requirement` |
+| Instruction | `{verb}-{noun}` | 与 Prompt 对齐，如 `analyze-requirement` |
+| Agent | `{noun}-{role}` | 名词-角色，如 `requirement-analyst` |
+| Skill | `{noun}-{domain}` | 名词-领域，如 `requirement-analysis` |
+| Scenario | `{noun}-{noun}` | 与 Skill 对齐，如 `requirement-analysis` |
+
+#### 命名对齐表
+
+| 场景 | Prompt | Instruction | Agent | Skill |
+|------|--------|------------|-------|-------|
+| 需求分析 | `analyze-requirement` | `analyze-requirement` | `requirement-analyst` | `requirement-analysis` |
+| 系统设计 | `design-system` | `design-system` | `system-designer` | `system-design` |
+| 任务分解 | `decompose-task` | `decompose-task` | `task-decomposer` | `task-decomposition` |
+| 开发实现 | `implement-feature` | `implement-feature` | `developer` | `development` |
+| 测试验证 | `verify-test` | `verify-test` | `tester` | `testing` |
+| 部署发布 | `deploy-release` | `deploy-release` | `devops-engineer` | `deployment` |
+| 监控运维 | `monitor-operate` | `monitor-operate` | `sre-monitor` | `monitoring` |
 
 #### Agent 文件
 
@@ -62,8 +86,8 @@ skills/
 ^[a-z][a-z0-9-]*\.instructions\.md$
 
 示例：
-- requirement-analysis.instructions.md
-- system-design.instructions.md
+- analyze-requirement.instructions.md
+- design-system.instructions.md
 ```
 
 #### Prompt 文件
@@ -92,6 +116,21 @@ scenarios/
 ├── system-design/
 │   └── SCENARIO.md
 ```
+
+### 编号命名规范
+
+| 类型 | 模式 | 示例 |
+|------|------|------|
+| 需求项 | `REQ-{NNN}` | `REQ-001` |
+| 设计项 | `DES-{NNN}` | `DES-001` |
+| 任务项 | `TASK-{NNN}` | `TASK-001` |
+| 测试用例 | `TC-{NNN}` | `TC-001` |
+| 缺陷 | `BUG-{NNN}` | `BUG-001` |
+| 风险 | `RISK-{NNN}` | `RISK-001` |
+| 改进项 | `IMPROVE-{NNN}` | `IMPROVE-001` |
+| 决策点 | `DC-{NNN}` | `DC-001` |
+| 验证项 | `V-{NNN}` | `V-001` |
+| 错误处理 | `EH-{NNN}` | `EH-001` |
 
 ## 变量命名
 

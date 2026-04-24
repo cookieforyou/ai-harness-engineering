@@ -237,6 +237,55 @@ END
 - [工作1]
 - [工作2]
 
+## 输出验证 (Output Validation)
+
+> **重要**: 在生成最终输出前，必须完成以下验证步骤
+
+### 验证清单
+
+```markdown
+## 自我验证报告
+
+### V-001: 测试用例完整性
+- [ ] 核心功能用例覆盖率 100%
+- [ ] 边界条件用例已覆盖
+- [ ] 异常场景用例已覆盖
+- [ ] 回归测试范围已定义
+
+### V-002: 测试用例质量
+- [ ] 每个用例有明确的验收标准
+- [ ] 测试步骤清晰可执行
+- [ ] 预期结果明确可验证
+- [ ] 优先级设置合理
+
+### V-003: 测试环境一致性
+- [ ] 测试环境配置已记录
+- [ ] 测试数据已准备
+- [ ] 与生产环境差异已标注
+
+### V-004: 缺陷报告规范性
+- [ ] 缺陷描述清晰可复现
+- [ ] 缺陷步骤完整
+- [ ] 缺陷等级设置合理
+- [ ] 缺陷可追溯到用例
+
+### 验证结果
+- 验证通过: [是/否]
+- 未通过的检查项: [列出]
+```
+
+### 验证失败时的处理
+
+```
+IF 验证未通过
+THEN
+  1. 识别未通过的验证项
+  2. 补充缺失的测试用例
+  3. 修正不规范的缺陷报告
+  4. 重新执行验证
+END
+```
+
 ## 附录
 
 ### A. 测试环境
@@ -264,3 +313,52 @@ END
 | 结果准确 | 测试结果准确无误 |
 | 缺陷清晰 | 缺陷描述清晰可复现 |
 | 报告完整 | 报告包含所有必要信息 |
+
+## Handover 准备
+
+在完成验证后，生成以下交接信息：
+
+```yaml
+handoff_to_deployment:
+  deliverable: "测试报告"
+  version: "1.0"
+  status: "通过/有条件通过/未通过"
+
+  summary:
+    total_testcases: N           # 总测试用例数
+    passed: N                    # 通过数
+    failed: N                    # 失败数
+    blocked: N                   # 阻塞数
+    pass_rate: percentage        # 通过率
+
+  by_module:
+    module_a:
+      testcases: N
+      passed: N
+      failed: N
+      pass_rate: percentage
+
+  critical_defects:
+    count: N
+    open: N
+    resolved: N
+    blocking_deployment: boolean
+
+  coverage:
+    statement: percentage
+    branch: percentage
+    function: percentage
+
+  recommendations:
+    - "建议"
+
+  open_issues:
+    count: N
+    blocking: [列表]              # 阻塞性问题
+    non_blocking: [列表]         # 非阻塞性问题
+
+  sign_off:
+    tester: string
+    reviewer: string
+    date: datetime
+```

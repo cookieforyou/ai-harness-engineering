@@ -2,10 +2,115 @@
 name: deploy-release
 description: 部署发布提示词，用于规划和执行应用部署
 type: deployment
-version: "1.0.0"
+version: "1.1.0"
+stage: deployment
 ---
 
 # Deploy and Release
+
+> **版本**: 1.1.0 | **适用阶段**: 部署发布 | **预计工时**: 1-3小时
+
+## 变量定义 (Variables)
+
+> AI 在执行前必须确认以下变量已填充
+
+| 变量名 | 类型 | 必填 | 说明 | 示例 |
+|--------|------|------|------|------|
+| `project_name` | string | 是 | 项目名称 | "电商订单系统" |
+| `version` | string | 是 | 部署版本 | "v1.0.0" |
+| `deploy_package` | string | 是 | 部署包路径 | "/builds/app.tar" |
+| `target_env` | enum | 是 | 目标环境 | DEV/STAGING/PROD |
+| `cluster_info` | object | 否 | 集群信息 | 见 ClusterInfo 结构 |
+| `test_report` | string | 是 | 测试报告路径 | "test-report.md" |
+| `rollback_version` | string | 是 | 回滚目标版本 | "v0.9.0" |
+| `deployment_window` | datetime | 是 | 部署时间窗口 | "2024-01-15 02:00" |
+| `deployment_team` | string[] | 是 | 部署团队 | ["工程师A", "工程师B"] |
+
+### ClusterInfo 结构
+
+```typescript
+interface ClusterInfo {
+  cluster_name: string;         // 集群名称
+  namespace: string;           // 命名空间
+  replicas: number;           // 副本数
+  autoscaling: boolean;       // 是否启用自动扩缩容
+}
+```
+
+## Chain of Thought
+
+```
+1. [THINK] 环境检查 → 目标环境是否就绪？
+2. [THINK] 包验证 → 部署包是否完整有效？
+3. [THINK] 策略选择 → 采用何种部署策略？
+4. [THINK] 回滚准备 → 回滚方案是否可行？
+5. [THINK] 分批规划 → 分批数量和间隔？
+6. [EXECUTE] 执行部署 → 按计划执行
+7. [VALIDATE] 验证确认 → 部署后验证
+8. [MONITOR] 持续监控 → 确保稳定
+```
+
+## 错误处理 (Error Handling)
+
+### 情况 1：部署包校验失败
+
+```
+IF 部署包 MD5 或签名校验失败
+THEN
+  1. 标记部署为失败
+  2. 停止后续操作
+  3. 建议重新构建或获取包
+  4. 升级为 CRITICAL
+END
+```
+
+### 情况 2：健康检查超时
+
+```
+IF 健康检查持续失败
+THEN
+  1. 检查服务日志
+  2. 验证配置是否正确
+  3. 检查资源是否充足
+  4. 超过阈值时触发回滚
+END
+```
+
+### 情况 3：部分批次失败
+
+```
+IF 中间批次部署失败
+THEN
+  1. 停止后续批次
+  2. 评估已部署实例状态
+  3. 决定是继续还是回滚
+  4. 记录失败原因
+END
+```
+
+### 情况 4：回滚失败
+
+```
+IF 回滚操作失败
+THEN
+  1. 立即升级为 CRITICAL
+  2. 通知值班负责人
+  3. 准备紧急响应
+  4. 准备手动回滚方案
+END
+```
+
+### 情况 5：资源不足
+
+```
+IF 部署时发现资源不足
+THEN
+  1. 评估可用资源
+  2. 调整副本数或资源配置
+  3. 重新尝试部署
+  4. 记录资源配置变更
+END
+```
 
 ## Objective
 
@@ -226,6 +331,89 @@ version: "1.0.0"
 - 部署计划：[链接]
 - 测试报告：[链接]
 - 回滚脚本：[链接]
+```
+
+## 输出验证 (Output Validation)
+
+> **重要**: 在生成最终输出前，必须完成以下验证步骤
+
+### 验证清单
+
+```markdown
+## 自我验证报告
+
+### V-001: 部署前检查
+- [ ] 部署包校验通过
+- [ ] 目标环境就绪
+- [ ] 回滚方案可用
+- [ ] 部署团队就位
+
+### V-002: 部署过程检查
+- [ ] 每批部署执行记录完整
+- [ ] 健康检查全部通过
+- [ ] 异常情况已记录
+- [ ] 回滚触发条件正确
+
+### V-003: 部署后检查
+- [ ] 所有副本运行正常
+- [ ] 健康检查 100% 通过
+- [ ] 核心功能验证通过
+- [ ] 监控指标正常
+
+### V-004: 验证完成标准
+- [ ] 服务状态: Healthy
+- [ ] 错误率: < 0.1%
+- [ ] 响应时间: < SLA
+- [ ] 无新增告警
+
+### 验证结果
+- 验证通过: [是/否]
+- 未通过的检查项: [列出]
+```
+
+### 验证失败时的处理
+
+```
+IF 验证未通过
+THEN
+  1. 识别未通过的验证项
+  2. 评估是否可以自动恢复
+  3. 超过阈值时执行回滚
+  4. 记录失败原因和恢复过程
+END
+```
+
+## Handover 准备
+
+在完成验证后，生成以下交接信息：
+
+```yaml
+handoff_to_monitoring:
+  deliverable: "部署报告"
+  version: "1.0"
+  status: "成功/失败/部分成功"
+
+  summary:
+    deployment_time: datetime      # 部署完成时间
+    duration: minutes            # 总耗时
+    batches: N                    # 批次数
+    instances_total: N           # 总实例数
+
+  health_status:
+    checks_passed: boolean
+    error_rate: percentage
+    avg_response_time: ms
+
+  monitoring:
+    watch_duration: hours        # 监控观察时长
+    alert_threshold: string       # 告警阈值
+    contact: string              # 联系人
+
+  rollback_available: boolean
+  rollback_version: string
+
+  recommendations:
+    - "建议"
 ```
 
 ## Constraints

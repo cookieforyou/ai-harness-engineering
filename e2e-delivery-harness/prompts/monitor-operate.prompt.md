@@ -2,10 +2,113 @@
 name: monitor-operate
 description: 监控运维提示词，用于配置监控和执行日常运维工作
 type: operations
-version: "1.0.0"
+version: "1.1.0"
+stage: monitoring
 ---
 
 # Monitor and Operate
+
+> **版本**: 1.1.0 | **适用阶段**: 监控运维 | **预计工时**: 持续
+
+## 变量定义 (Variables)
+
+> AI 在执行前必须确认以下变量已填充
+
+| 变量名 | 类型 | 必填 | 说明 | 示例 |
+|--------|------|------|------|------|
+| `project_name` | string | 是 | 项目名称 | "电商订单系统" |
+| `architecture` | string | 是 | 系统架构描述 | "微服务架构" |
+| `components` | string[] | 是 | 关键组件列表 | ["API", "DB", "Cache"] |
+| `deployment_version` | string | 是 | 当前部署版本 | "v1.0.0" |
+| `slo_targets` | object | 是 | SLO 目标 | 见 SLO Targets 结构 |
+| `alert_channels` | string[] | 是 | 告警渠道 | ["钉钉", "邮件"] |
+| `runbook_links` | string[] | 否 | 运维手册链接 | ["runbook.md"] |
+| `oncall_schedule` | object | 否 | 值班安排 | 见 OnCall 结构 |
+
+### SLO Targets 结构
+
+```typescript
+interface SLOTargets {
+  availability: number;          // 可用性目标 (如 99.9%)
+  latency_p50: number;           // 延迟 P50 目标 (ms)
+  latency_p99: number;           // 延迟 P99 目标 (ms)
+  error_rate: number;           // 错误率目标 (%)
+  recovery_time: number;        // 恢复时间目标 (分钟)
+}
+```
+
+### OnCall 结构
+
+```typescript
+interface OnCall {
+  primary: string;               // 主值班
+  secondary: string;            // 备值班
+  rotation: string;             // 轮换规则
+  escalation_policy: string[];  // 升级策略
+}
+```
+
+## Chain of Thought
+
+```
+1. [THINK] 理解架构 → 关键组件和依赖是否清晰？
+2. [THINK] 设计指标 → 黄金指标是否覆盖？
+3. [THINK] 配置告警 → 阈值和渠道是否合理？
+4. [THINK] 准备 Runbook → 常见问题是否覆盖？
+5. [EXECUTE] 配置监控 → 按计划配置
+6. [VALIDATE] 验证生效 → 监控数据是否正常
+7. [OUTPUT] 生成报告 → 监控配置报告
+```
+
+## 错误处理 (Error Handling)
+
+### 情况 1：监控数据缺失
+
+```
+IF 关键指标无数据
+THEN
+  1. 检查采集 Agent 状态
+  2. 检查网络连通性
+  3. 验证指标定义
+  4. 标记为 [数据缺失] 并通知
+END
+```
+
+### 情况 2：告警风暴
+
+```
+IF 告警数量异常激增
+THEN
+  1. 识别触发告警
+  2. 评估是否为级联效应
+  3. 暂时抑制非关键告警
+  4. 优先处理根因
+END
+```
+
+### 情况 3：SLO 即将违反
+
+```
+IF SLO 趋势显示即将违反目标
+THEN
+  1. 立即升级告警
+  2. 启动应急响应流程
+  3. 通知相关团队
+  4. 准备事后复盘
+END
+```
+
+### 情况 4：组件告警无法定位
+
+```
+IF 告警无法定位到具体问题
+THEN
+  1. 扩大排查范围
+  2. 检查依赖组件
+  3. 逐层排查
+  4. 标记为 [调查中]
+END
+```
 
 ## Objective
 
@@ -266,6 +369,85 @@ version: "1.0.0"
 - P0故障：[链接]
 - P1故障：[链接]
 - P2故障：[链接]
+```
+
+## 输出验证 (Output Validation)
+
+> **重要**: 在生成最终输出前，必须完成以下验证步骤
+
+### 验证清单
+
+```markdown
+## 自我验证报告
+
+### V-001: 监控覆盖检查
+- [ ] 黄金指标全部覆盖 (Latency, Traffic, Errors, Saturation)
+- [ ] 基础设施监控完整
+- [ ] 应用层监控完整
+- [ ] 业务指标监控完整
+
+### V-002: 告警配置检查
+- [ ] 告警阈值合理
+- [ ] 告警级别设置正确
+- [ ] 告警渠道畅通
+- [ ] 升级机制有效
+
+### V-003: 巡检记录检查
+- [ ] 巡检周期符合要求
+- [ ] 巡检项目完整
+- [ ] 异常记录详细
+- [ ] 处理记录完整
+
+### V-004: SLO 合规检查
+- [ ] SLO 目标可达
+- [ ] 当前 Error Budget 充足
+- [ ] 趋势分析准确
+
+### 验证结果
+- 验证通过: [是/否]
+- 未通过的检查项: [列出]
+```
+
+### 验证失败时的处理
+
+```
+IF 验证未通过
+THEN
+  1. 识别未通过的验证项
+  2. 补充缺失的监控配置
+  3. 修正告警配置
+  4. 重新执行验证
+END
+```
+
+## Handover 准备
+
+在完成验证后，生成以下交接信息：
+
+```yaml
+handoff_to_next_shift:
+  deliverable: "运维报告"
+  period: "YYYY-MM-DD HH:MM - YYYY-MM-DD HH:MM"
+  status: "正常/关注/告警"
+
+  summary:
+    incidents_count: N              # 故障数
+    alerts_count: N                # 告警数
+    slo_status: "MET/BREACHED"     # SLO 状态
+    error_budget_remaining: %       # 剩余 Error Budget
+
+  critical_items:
+    - item: "需要关注的事项"
+      action: "建议行动"
+      owner: "负责人"
+
+  oncall_info:
+    current_shift: string
+    next_shift: string
+    escalation_contact: string
+
+  recommendations:
+    - "优化建议"
 ```
 
 ## Constraints

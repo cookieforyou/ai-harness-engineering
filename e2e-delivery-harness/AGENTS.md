@@ -27,33 +27,43 @@
 
 ### Prompt 增强结构
 
-每个 Prompt 现在包含完整的执行指引：
+每个 Prompt 必须包含以下增强结构：
 
-```markdown
-## 变量定义 (Variables)
-- 必填/可选变量
-- 类型和说明
+| 章节 | 用途 | 重要性 |
+|------|------|--------|
+| 变量定义 (Variables) | 明确输入参数 | 必填 |
+| 思维链 (Chain of Thought) | 强制逐步推理 | 必填 |
+| 错误处理 (Error Handling) | 异常情况处理 | 必填 |
+| 输出验证 (Output Validation) | 质量自我检查 | 必填 |
+| Handover 准备 | 阶段间交接 | 必填 |
 
-## Chain of Thought
-- [THINK] 思考步骤
-- [VALIDATE] 验证步骤
-- [OUTPUT] 输出步骤
+详情见 [standards/asset-model.md](standards/asset-model.md)。
 
-## 错误处理 (Error Handling)
-- 情况识别
-- 处理策略
-- 升级条件
+### ID 生成规范
 
-## Task Steps
-- 详细执行步骤
+使用统一 ID 编号体系：
 
-## 输出验证 (Output Validation)
-- 验证清单
-- 验证失败处理
+| 前缀 | 用途 | 示例 |
+|------|------|------|
+| REQ | 需求项 | REQ-001 |
+| DES | 设计项 | DES-001 |
+| TASK | 任务项 | TASK-001 |
+| TC | 测试用例 | TC-001 |
+| BUG | 缺陷 | BUG-001 |
+| DC | 决策点 | DC-001 |
+| V | 验证项 | V-001 |
 
-## Handover 准备
-- 交接数据结构
-```
+详情见 [standards/id-generation-quantification.md](standards/id-generation-quantification.md)。
+
+### 量化标准
+
+| 指标 | 标准值 | 说明 |
+|------|--------|------|
+| REQ-COVER | ≥95% | 需求覆盖率 |
+| TEST-PASS | ≥90% | 测试通过率 |
+| DEV-COVERAGE | ≥80% | 单元测试覆盖率 |
+| DEPLOY-SUCCESS | ≥99% | 部署成功率 |
+| MON-SLO | ≥99.5% | SLO 达成率 |
 
 ### 资产层级
 
@@ -62,6 +72,7 @@ Workflow (工作流层)
     ↓
 Scenario (场景层) ← AI 的快速入口
     ├── Chain of Thought (思维链)
+    ├── Decision Checkpoints (决策检查点)
     ├── Error Handling (错误处理)
     └── 引用 → Agent + Skill + Prompt
 
@@ -69,7 +80,6 @@ Prompt (执行层) ← AI 的执行脚本
     ├── 变量定义
     ├── 思维链
     ├── 错误处理
-    ├── 任务步骤
     ├── 输出验证
     └── Handover 准备
 
@@ -88,70 +98,95 @@ e2e-delivery-harness/
 ├── INTRODUCTION.zh.md           # 中文介绍
 ├── USAGE.zh.md                  # 中文使用指南
 │
-├── workflows/                   # 工作流定义 (1个)
+├── workflows/                   # 工作流定义 (2个)
 │   ├── README.md               # 工作流说明
-│   └── e2e-delivery.pipeline.md # E2E 交付全流程
+│   ├── e2e-delivery.pipeline.md # E2E 交付全流程
+│   └── incident-response.pipeline.md # 故障响应流程
 │
 ├── contexts/                     # 共享上下文 (3个)
 │   ├── README.md               # 上下文说明
 │   ├── global-context.md        # 全局上下文定义
 │   └── handover-context.template.md # 交接上下文模板
 │
-├── scenarios/                    # 场景定义 (7个) ← AI 主要入口
+├── scenarios/                    # 场景定义 (11个) ← AI 主要入口
 │   ├── README.md               # 场景使用指南
-│   ├── requirement-analysis/    # 需求分析场景
+│   ├── analyze-requirement/    # 需求分析场景
 │   │   └── SCENARIO.md
-│   ├── system-design/          # 系统设计场景
+│   ├── design-system/          # 系统设计场景
 │   │   └── SCENARIO.md
-│   ├── task-decomposition/     # 任务拆分场景
+│   ├── decompose-task/     # 任务拆分场景
 │   │   └── SCENARIO.md
-│   ├── development/            # 开发实现场景
+│   ├── implement-feature/            # 开发实现场景
 │   │   └── SCENARIO.md
-│   ├── testing/                # 测试验证场景
+│   ├── verify-test/                # 测试验证场景
 │   │   └── SCENARIO.md
-│   ├── deployment/            # 部署发布场景
+│   ├── deploy-release/            # 部署发布场景
 │   │   └── SCENARIO.md
-│   └── monitoring/             # 监控运维场景
+│   ├── monitor-operate/             # 监控运维场景
+│   │   └── SCENARIO.md
+│   ├── manage-change/       # 变更管理场景 (新增)
+│   │   └── SCENARIO.md
+│   ├── review-code/            # 代码审查场景 (新增)
+│   │   └── SCENARIO.md
+│   ├── audit-security/         # 安全审计场景 (新增)
+│   │   └── SCENARIO.md
+│   └── review-incident/         # 故障复盘场景 (新增)
 │       └── SCENARIO.md
 │
-├── agents/                       # Agent 角色定义 (7个)
+├── agents/                       # Agent 角色定义 (11个)
 │   ├── README.md
 │   ├── requirement-analyst.agent.md
-│   ├── system-designer.agent.md
+│   ├── design-systemer.agent.md
 │   ├── task-decomposer.agent.md
 │   ├── developer.agent.md
 │   ├── tester.agent.md
 │   ├── devops-engineer.agent.md
-│   └── sre-monitor.agent.md
+│   ├── sre-monitor.agent.md
+│   ├── change-manager.agent.md        # (新增)
+│   ├── code-reviewer.agent.md          # (新增)
+│   ├── security-auditor.agent.md       # (新增)
+│   └── incident-reviewer.agent.md      # (新增)
 │
-├── skills/                       # Skill 技能模块 (7个)
+├── skills/                       # Skill 技能模块 (11个)
 │   ├── README.md
-│   ├── requirement-analysis/
+│   ├── analyze-requirement/
 │   │   └── SKILL.md
-│   ├── system-design/
+│   ├── design-system/
 │   │   └── SKILL.md
-│   ├── task-decomposition/
+│   ├── decompose-task/
 │   │   └── SKILL.md
-│   ├── development/
+│   ├── implement-feature/
 │   │   └── SKILL.md
-│   ├── testing/
+│   ├── verify-test/
 │   │   └── SKILL.md
-│   ├── deployment/
+│   ├── deploy-release/
 │   │   └── SKILL.md
-│   └── monitoring/
+│   ├── monitor-operate/
+│   │   └── SKILL.md
+│   ├── manage-change/              # (新增)
+│   │   └── SKILL.md
+│   ├── review-code/                    # (新增)
+│   │   └── SKILL.md
+│   ├── audit-security/                 # (新增)
+│   │   └── SKILL.md
+│   └── review-incident/                # (新增)
 │       └── SKILL.md
 │
-├── instructions/                  # Instruction 指令文件 (7个)
+├── instructions/                  # Instruction 指令文件 (11个)
 │   ├── README.md
-│   ├── requirement-analysis.instructions.md
-│   ├── system-design.instructions.md
-│   ├── task-decomposition.instructions.md
+│   ├── analyze-requirement.instructions.md
+│   ├── design-system.instructions.md
+│   ├── decompose-task.instructions.md
 │   ├── development.instructions.md
-│   ├── testing-verification.instructions.md
-│   ├── deployment-release.instructions.md
-│   └── monitoring-operations.instructions.md
+│   ├── verify-test.instructions.md
+│   ├── deploy-release.instructions.md
+│   ├── monitor-operate.instructions.md
+│   ├── change-management.instructions.md         # (新增)
+│   ├── code-review.instructions.md               # (新增)
+│   ├── security-audit.instructions.md            # (新增)
+│   └── incident-review.instructions.md           # (新增)
 │
-├── prompts/                      # Prompt 提示词文件 (7个)
+├── prompts/                      # Prompt 提示词文件 (11个)
 │   ├── README.md
 │   ├── analyze-requirement.prompt.md
 │   ├── design-system.prompt.md
@@ -159,7 +194,11 @@ e2e-delivery-harness/
 │   ├── implement-feature.prompt.md
 │   ├── verify-test.prompt.md
 │   ├── deploy-release.prompt.md
-│   └── monitor-operate.prompt.md
+│   ├── monitor-operate.prompt.md
+│   ├── manage-change.prompt.md                    # (新增)
+│   ├── review-code.prompt.md                      # (新增)
+│   ├── audit-security.prompt.md                   # (新增)
+│   └── review-incident.prompt.md                  # (新增)
 │
 ├── standards/                    # 规范文件 (5个)
 │   ├── README.md
@@ -177,10 +216,12 @@ e2e-delivery-harness/
 │   └── skill-template/
 │       └── SKILL.md
 │
-└── evaluations/                  # Evaluation 评估文件 (2个)
+└── evaluations/                  # Evaluation 评估文件 (4个)
     ├── README.md
     ├── regression-checklist.md
-    └── scorecard-template.md
+    ├── scorecard-template.md
+    ├── output-validation-checklist.md      # (新增) 输出验证清单
+    └── common-error-patterns.md           # (新增) 常见错误模式
 ```
 
 ---
@@ -231,7 +272,7 @@ e2e-delivery-harness/
 
 ```markdown
 # 1. 选择场景
-→ scenarios/requirement-analysis/SCENARIO.md
+→ scenarios/analyze-requirement/SCENARIO.md
 → 阅读 Purpose, Chain of Thought, Error Handling
 
 # 2. 加载 Prompt
@@ -259,13 +300,24 @@ e2e-delivery-harness/
 
 | 阶段 | Agent | Instruction | Prompt | Skill | Scenario |
 |------|-------|------------|--------|-------|----------|
-| 1. 需求分析 | requirement-analyst | requirement-analysis | analyze-requirement | requirement-analysis | requirement-analysis |
-| 2. 系统设计 | system-designer | system-design | design-system | system-design | system-design |
-| 3. 任务拆分 | task-decomposer | task-decomposition | decompose-task | task-decomposition | task-decomposition |
-| 4. 开发实现 | developer | development | implement-feature | development | development |
-| 5. 测试验证 | tester | testing-verification | verify-test | testing | testing |
-| 6. 部署发布 | devops-engineer | deployment-release | deploy-release | deployment | deployment |
-| 7. 监控运维 | sre-monitor | monitoring-operations | monitor-operate | monitoring | monitoring |
+| 1. 需求分析 | requirement-analyst | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement |
+| 2. 系统设计 | system-designer | design-system | design-system | design-system | design-system |
+| 3. 任务拆分 | task-decomposer | decompose-task | decompose-task | decompose-task | decompose-task |
+| 4. 开发实现 | developer | implement-feature | implement-feature | implement-feature | implement-feature |
+| 5. 测试验证 | tester | verify-test | verify-test | verify-test | verify-test |
+| 6. 部署发布 | devops-engineer | deploy-release | deploy-release | deploy-release | deploy-release |
+| 7. 监控运维 | sre-monitor | monitor-operate | monitor-operate | monitor-operate | monitor-operate |
+
+---
+
+## 扩展场景资产映射
+
+| 场景 | Agent | Instruction | Prompt | Skill | Scenario |
+|------|-------|------------|--------|-------|----------|
+| 变更管理 | change-manager | manage-change | manage-change | manage-change | manage-change |
+| 代码审查 | code-reviewer | review-code | review-code | review-code | review-code |
+| 安全审计 | security-auditor | audit-security | audit-security | audit-security | audit-security |
+| 故障复盘 | incident-reviewer | review-incident | review-incident | review-incident | review-incident |
 
 ---
 
@@ -312,7 +364,7 @@ e2e-delivery-harness/
 每个阶段完成后，必须：
 
 1. **验证产出**：确保所有交付物符合质量标准
-2. **生成 Handover Context**：使用 [contexts/handover-context.template.md](contexts/handover-context.template.md)
+2. **生成 Handover Context**：使用 [contexts/unified-handover-template.md](contexts/unified-handover-template.md)
 3. **更新 Global Context**：记录阶段完成状态
 4. **通知下游**：告知下一阶段负责人
 
@@ -334,10 +386,10 @@ handoff:
 | 资产类型 | 命名模式 | 示例 |
 |----------|----------|------|
 | Agent | `{role}.agent.md` | `requirement-analyst.agent.md` |
-| Instruction | `{phase}.instructions.md` | `requirement-analysis.instructions.md` |
+| Instruction | `{phase}.instructions.md` | `analyze-requirement.instructions.md` |
 | Prompt | `{action}.prompt.md` | `analyze-requirement.prompt.md` |
-| Skill | `skills/{phase}/SKILL.md` | `skills/requirement-analysis/SKILL.md` |
-| Scenario | `scenarios/{phase}/SCENARIO.md` | `scenarios/requirement-analysis/SCENARIO.md` |
+| Skill | `skills/{phase}/SKILL.md` | `skills/analyze-requirement/SKILL.md` |
+| Scenario | `scenarios/{phase}/SCENARIO.md` | `scenarios/analyze-requirement/SCENARIO.md` |
 | Pipeline | `{name}.pipeline.md` | `e2e-delivery.pipeline.md` |
 | Context | `{type}-{name}.md` | `global-context.md` |
 

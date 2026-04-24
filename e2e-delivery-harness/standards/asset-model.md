@@ -28,16 +28,32 @@
 |------|------|----------|
 | Standard | 规范标准 | `standards/*.md` |
 | Evaluation | 评估工具 | `evaluations/*.md` |
+| Pipeline | 工作流定义 | `workflows/*.pipeline.md` |
+| Context | 上下文定义 | `contexts/*.md` |
 
 ## 资产层级
 
 ```
-Scenario (场景层)
-├── Agent (角色定义)
-├── Instruction (操作指令)
-├── Prompt (提示词)
-└── Skills[] (技能组合)
-    └── Skill (技能模块)
+Pipeline (工作流层)
+├── 定义端到端流程
+└── 编排多个 Scenario
+
+Scenario (场景层) ← AI 主要入口
+├── Chain of Thought (思维链)
+├── Error Handling (错误处理)
+└── 引用以下资产:
+    ├── Agent (角色定义)
+    ├── Instruction (操作指令)
+    ├── Prompt (提示词)
+    └── Skills[] (技能组合)
+
+Context (上下文层)
+├── Global Context (全局上下文)
+└── Handover Context (交接上下文)
+
+Evaluation (评估层)
+├── Regression Checklist (回归检查)
+└── Scorecard (质量评分)
 ```
 
 ## Agent 资产模型
@@ -97,6 +113,62 @@ order: <priority>
 | applyTo | 是 | 适用文件模式 |
 | phase | 是 | 所属阶段 |
 | order | 否 | 执行优先级 |
+
+## Pipeline 资产模型
+
+```yaml
+---
+name: <pipeline-name>
+type: pipeline
+version: "<version>"
+description: <pipeline-description>
+stages: [<stage1>, <stage2>, ...]
+---
+```
+
+**字段说明**：
+
+| 字段 | 必填 | 描述 |
+|------|------|------|
+| name | 是 | Pipeline 名称，采用 kebab-case |
+| type | 是 | 固定值 `pipeline` |
+| description | 是 | Pipeline 描述 |
+| stages | 是 | 包含的阶段列表 |
+
+**标准章节**：
+
+1. Overview - 流程概述
+2. Stage Flow - 阶段流程图
+3. Stage Definitions - 各阶段定义
+4. Data Flow - 数据流向
+5. Error Handling - 异常处理
+6. Quality Gates - 质量门禁
+
+## Context 资产模型
+
+```yaml
+---
+name: <context-name>
+type: context
+version: "<version>"
+scope: <all-stages|stage-specific>
+---
+```
+
+**字段说明**：
+
+| 字段 | 必填 | 描述 |
+|------|------|------|
+| name | 是 | Context 名称 |
+| type | 是 | 固定值 `context` |
+| scope | 是 | 适用范围 |
+
+**Context 类型**：
+
+| 类型 | 描述 | 文件格式 |
+|------|------|----------|
+| Global Context | 贯穿全流程的共享数据 | `global-context.md` |
+| Handover Context | 阶段间交接数据 | `handover-context.template.md` |
 
 ## Scenario 资产模型
 
