@@ -108,32 +108,72 @@ e2e-delivery-harness/
 │   ├── global-context.md        # 全局上下文定义
 │   └── handover-context.template.md # 交接上下文模板
 │
-├── scenarios/                    # 场景定义 (11个) ← AI 主要入口
+├── scenarios/                    # 场景定义 (31个) ← AI 主要入口
 │   ├── README.md               # 场景使用指南
 │   ├── analyze-requirement/    # 需求分析场景
 │   │   └── SCENARIO.md
 │   ├── design-system/          # 系统设计场景
 │   │   └── SCENARIO.md
-│   ├── decompose-task/     # 任务拆分场景
+│   ├── decompose-task/         # 任务拆分场景
 │   │   └── SCENARIO.md
-│   ├── implement-feature/            # 开发实现场景
+│   ├── implement-feature/      # 开发实现场景
 │   │   └── SCENARIO.md
-│   ├── verify-test/                # 测试验证场景
+│   ├── verify-test/            # 测试验证场景
 │   │   └── SCENARIO.md
-│   ├── deploy-release/            # 部署发布场景
+│   ├── deploy-release/         # 部署发布场景
 │   │   └── SCENARIO.md
-│   ├── monitor-operate/             # 监控运维场景
+│   ├── monitor-operate/        # 监控运维场景
 │   │   └── SCENARIO.md
-│   ├── manage-change/       # 变更管理场景 (新增)
+│   ├── manage-change/          # 变更管理场景 (扩展)
 │   │   └── SCENARIO.md
-│   ├── review-code/            # 代码审查场景 (新增)
+│   ├── review-code/            # 代码审查场景 (扩展)
 │   │   └── SCENARIO.md
-│   ├── audit-security/         # 安全审计场景 (新增)
+│   ├── audit-security/         # 安全审计场景 (扩展)
 │   │   └── SCENARIO.md
-│   └── review-incident/         # 故障复盘场景 (新增)
+│   ├── review-incident/        # 故障复盘场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── performance-testing/    # 性能测试场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── migrate-data/           # 数据迁移场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── hotfix/                # 紧急修复场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── review-design/          # 技术方案评审场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── plan-capacity/         # 容量规划场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── automate-test/         # 自动化测试场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── setup-infra/           # 基础设施搭建场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── manage-config/         # 配置管理场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── prepare-release/       # 发布准备场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── backup-data/           # 数据备份场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── integrate-api/         # API 集成场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── design-database/       # 数据库设计场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── implement-cicd/        # CI/CD 实施场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── manage-secrets/        # 密钥管理场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── design-architecture/   # 架构设计场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── optimize-performance/  # 性能优化场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── migrate-environment/   # 环境迁移场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── plan-sprint/           # 冲刺规划场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── document-project/      # 项目文档场景 (扩展)
+│   │   └── SCENARIO.md
+│   └── integrate-monitor/     # 监控集成场景 (扩展)
 │       └── SCENARIO.md
 │
-├── agents/                       # Agent 角色定义 (11个)
+├── agents/                       # Agent 角色定义 (31个)
 │   ├── README.md
 │   ├── requirement-analyst.agent.md
 │   ├── design-systemer.agent.md
@@ -142,12 +182,32 @@ e2e-delivery-harness/
 │   ├── tester.agent.md
 │   ├── devops-engineer.agent.md
 │   ├── sre-monitor.agent.md
-│   ├── change-manager.agent.md        # (新增)
-│   ├── code-reviewer.agent.md          # (新增)
-│   ├── security-auditor.agent.md       # (新增)
-│   └── incident-reviewer.agent.md      # (新增)
+│   ├── sre-engineer.agent.md
+│   ├── change-manager.agent.md
+│   ├── code-reviewer.agent.md
+│   ├── security-auditor.agent.md
+│   ├── incident-reviewer.agent.md
+│   ├── performance-tester.agent.md
+│   ├── data-migration-engineer.agent.md
+│   ├── hotfix-engineer.agent.md
+│   ├── technical-reviewer.agent.md
+│   ├── capacity-planner.agent.md
+│   ├── test-automation-engineer.agent.md
+│   ├── infrastructure-engineer.agent.md
+│   ├── config-manager.agent.md
+│   ├── release-manager.agent.md
+│   ├── data-backup-engineer.agent.md
+│   ├── api-integration-engineer.agent.md    # (新增)
+│   ├── database-designer.agent.md           # (新增)
+│   ├── cicd-engineer.agent.md               # (新增)
+│   ├── security-engineer.agent.md           # (新增)
+│   ├── solution-architect.agent.md          # (新增)
+│   ├── performance-engineer.agent.md         # (新增)
+│   ├── product-owner.agent.md              # (新增)
+│   ├── technical-writer.agent.md            # (新增)
+│   └── architect.agent.md                  # (新增)
 │
-├── skills/                       # Skill 技能模块 (11个)
+├── skills/                       # Skill 技能模块 (31个)
 │   ├── README.md
 │   ├── analyze-requirement/
 │   │   └── SKILL.md
@@ -163,30 +223,90 @@ e2e-delivery-harness/
 │   │   └── SKILL.md
 │   ├── monitor-operate/
 │   │   └── SKILL.md
-│   ├── manage-change/              # (新增)
+│   ├── manage-change/
 │   │   └── SKILL.md
-│   ├── review-code/                    # (新增)
+│   ├── review-code/
 │   │   └── SKILL.md
-│   ├── audit-security/                 # (新增)
+│   ├── audit-security/
 │   │   └── SKILL.md
-│   └── review-incident/                # (新增)
+│   ├── review-incident/
+│   │   └── SKILL.md
+│   ├── performance-testing/
+│   │   └── SKILL.md
+│   ├── migrate-data/
+│   │   └── SKILL.md
+│   ├── hotfix/
+│   │   └── SKILL.md
+│   ├── review-design/
+│   │   └── SKILL.md
+│   ├── plan-capacity/
+│   │   └── SKILL.md
+│   ├── automate-test/              # (扩展)
+│   │   └── SKILL.md
+│   ├── setup-infra/               # (扩展)
+│   │   └── SKILL.md
+│   ├── manage-config/              # (扩展)
+│   │   └── SKILL.md
+│   ├── prepare-release/            # (扩展)
+│   │   └── SKILL.md
+│   ├── backup-data/                # (扩展)
+│   │   └── SKILL.md
+│   ├── integrate-api/              # (扩展)
+│   │   └── SKILL.md
+│   ├── design-database/            # (扩展)
+│   │   └── SKILL.md
+│   ├── implement-cicd/             # (扩展)
+│   │   └── SKILL.md
+│   ├── manage-secrets/             # (扩展)
+│   │   └── SKILL.md
+│   ├── design-architecture/       # (扩展)
+│   │   └── SKILL.md
+│   ├── optimize-performance/        # (扩展)
+│   │   └── SKILL.md
+│   ├── migrate-environment/         # (扩展)
+│   │   └── SKILL.md
+│   ├── plan-sprint/                # (扩展)
+│   │   └── SKILL.md
+│   ├── document-project/            # (扩展)
+│   │   └── SKILL.md
+│   └── integrate-monitor/          # (扩展)
 │       └── SKILL.md
 │
-├── instructions/                  # Instruction 指令文件 (11个)
+├── instructions/                  # Instruction 指令文件 (31个)
 │   ├── README.md
 │   ├── analyze-requirement.instructions.md
 │   ├── design-system.instructions.md
 │   ├── decompose-task.instructions.md
-│   ├── development.instructions.md
+│   ├── implement-feature.instructions.md
 │   ├── verify-test.instructions.md
 │   ├── deploy-release.instructions.md
 │   ├── monitor-operate.instructions.md
-│   ├── change-management.instructions.md         # (新增)
-│   ├── code-review.instructions.md               # (新增)
-│   ├── security-audit.instructions.md            # (新增)
-│   └── incident-review.instructions.md           # (新增)
+│   ├── manage-change.instructions.md
+│   ├── review-code.instructions.md
+│   ├── audit-security.instructions.md
+│   ├── review-incident.instructions.md
+│   ├── performance-testing.instructions.md
+│   ├── migrate-data.instructions.md
+│   ├── hotfix.instructions.md
+│   ├── review-design.instructions.md
+│   ├── plan-capacity.instructions.md
+│   ├── automate-test.instructions.md
+│   ├── setup-infra.instructions.md
+│   ├── manage-config.instructions.md
+│   ├── prepare-release.instructions.md
+│   ├── backup-data.instructions.md
+│   ├── integrate-api.instructions.md    # (新增)
+│   ├── design-database.instructions.md  # (新增)
+│   ├── implement-cicd.instructions.md   # (新增)
+│   ├── manage-secrets.instructions.md  # (新增)
+│   ├── design-architecture.instructions.md # (新增)
+│   ├── optimize-performance.instructions.md  # (新增)
+│   ├── migrate-environment.instructions.md   # (新增)
+│   ├── plan-sprint.instructions.md      # (新增)
+│   ├── document-project.instructions.md # (新增)
+│   └── integrate-monitor.instructions.md # (新增)
 │
-├── prompts/                      # Prompt 提示词文件 (11个)
+├── prompts/                      # Prompt 提示词文件 (31个)
 │   ├── README.md
 │   ├── analyze-requirement.prompt.md
 │   ├── design-system.prompt.md
@@ -195,10 +315,30 @@ e2e-delivery-harness/
 │   ├── verify-test.prompt.md
 │   ├── deploy-release.prompt.md
 │   ├── monitor-operate.prompt.md
-│   ├── manage-change.prompt.md                    # (新增)
-│   ├── review-code.prompt.md                      # (新增)
-│   ├── audit-security.prompt.md                   # (新增)
-│   └── review-incident.prompt.md                  # (新增)
+│   ├── manage-change.prompt.md
+│   ├── review-code.prompt.md
+│   ├── audit-security.prompt.md
+│   ├── review-incident.prompt.md
+│   ├── performance-testing.prompt.md
+│   ├── migrate-data.prompt.md
+│   ├── hotfix.prompt.md
+│   ├── review-design.prompt.md
+│   ├── plan-capacity.prompt.md
+│   ├── automate-test.prompt.md
+│   ├── setup-infra.prompt.md
+│   ├── manage-config.prompt.md
+│   ├── prepare-release.prompt.md
+│   ├── backup-data.prompt.md
+│   ├── integrate-api.prompt.md          # (新增)
+│   ├── design-database.prompt.md        # (新增)
+│   ├── implement-cicd.prompt.md         # (新增)
+│   ├── manage-secrets.prompt.md         # (新增)
+│   ├── design-architecture.prompt.md    # (新增)
+│   ├── optimize-performance.prompt.md   # (新增)
+│   ├── migrate-environment.prompt.md     # (新增)
+│   ├── plan-sprint.prompt.md            # (新增)
+│   ├── document-project.prompt.md       # (新增)
+│   └── integrate-monitor.prompt.md      # (新增)
 │
 ├── standards/                    # 规范文件 (5个)
 │   ├── README.md
@@ -318,6 +458,27 @@ e2e-delivery-harness/
 | 代码审查 | code-reviewer | review-code | review-code | review-code | review-code |
 | 安全审计 | security-auditor | audit-security | audit-security | audit-security | audit-security |
 | 故障复盘 | incident-reviewer | review-incident | review-incident | review-incident | review-incident |
+| 性能测试 | performance-tester | performance-testing | performance-testing | performance-testing | performance-testing |
+| 数据迁移 | data-migration-engineer | migrate-data | migrate-data | migrate-data | migrate-data |
+| 紧急修复 | hotfix-engineer | hotfix | hotfix | hotfix | hotfix |
+| 技术方案评审 | technical-reviewer | review-design | review-design | review-design | review-design |
+| 容量规划 | capacity-planner | plan-capacity | plan-capacity | plan-capacity | plan-capacity |
+| 自动化测试 | test-automation-engineer | automate-test | automate-test | automate-test | automate-test |
+| 基础设施搭建 | infrastructure-engineer | setup-infra | setup-infra | setup-infra | setup-infra |
+| 配置管理 | config-manager | manage-config | manage-config | manage-config | manage-config |
+| 发布准备 | release-manager | prepare-release | prepare-release | prepare-release | prepare-release |
+| 数据备份 | data-backup-engineer | backup-data | backup-data | backup-data | backup-data |
+| API 集成 | api-integration-engineer | integrate-api | integrate-api | integrate-api | integrate-api |
+| 数据库设计 | database-designer | design-database | design-database | design-database | design-database |
+| CI/CD 实施 | cicd-engineer | implement-cicd | implement-cicd | implement-cicd | implement-cicd |
+| 密钥管理 | security-engineer | manage-secrets | manage-secrets | manage-secrets | manage-secrets |
+| 架构设计 | solution-architect | design-architecture | design-architecture | design-architecture | design-architecture |
+| 性能优化 | performance-engineer | optimize-performance | optimize-performance | optimize-performance | optimize-performance |
+| 环境迁移 | devops-engineer | migrate-environment | migrate-environment | migrate-environment | migrate-environment |
+| 冲刺规划 | product-owner | plan-sprint | plan-sprint | plan-sprint | plan-sprint |
+| 项目文档 | technical-writer | document-project | document-project | document-project | document-project |
+| 监控集成 | sre-engineer | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor |
+| 数据备份 | data-backup-engineer | backup-data | backup-data | backup-data | backup-data |
 
 ---
 

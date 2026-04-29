@@ -1,0 +1,100 @@
+# Scenario: 项目文档 (Document Project)
+
+## 概述
+
+项目文档是知识管理和信息传递的关键载体，负责创建和维护项目全生命周期的技术文档。
+
+## 核心决策点
+
+| 阶段 | 决策点 | 输出 |
+|------|--------|------|
+| 文档规划 | Doc Structure Design | 文档体系 |
+| 内容创作 | Content Creation | 初稿 |
+| 评审优化 | Review & Refine | 终稿 |
+| 发布维护 | Publish & Maintain | 可用文档 |
+
+## 执行流程
+
+```python
+class ProjectDocumentation:
+    """项目文档流程"""
+
+    def execute(self, project_context, doc_requirements):
+        """
+        1. 规划文档结构 (30分钟)
+        2. 编写核心文档 (60分钟)
+        3. 评审与修订 (30分钟)
+        4. 发布与维护 (持续)
+        """
+        # Step 1: 规划文档结构
+        doc_structure = self.plan_doc_structure(project_context, doc_requirements)
+
+        # Step 2: 编写核心文档
+        drafts = self.create_content(doc_structure)
+
+        # Step 3: 评审与修订
+        final_docs = self.review_and_refine(drafts)
+
+        # Step 4: 发布与维护
+        published_docs = self.publish_and_maintain(final_docs)
+
+        return DocumentationPackage(published_docs, doc_structure)
+
+    def plan_doc_structure(self, context, requirements):
+        """规划文档结构"""
+        # 1. 识别文档类型
+        # 2. 定义文档层级
+        # 3. 规划信息架构
+        pass
+
+    def create_content(self, structure):
+        """编写内容"""
+        # 1. 收集信息
+        # 2. 组织内容
+        # 3. 编写初稿
+        pass
+```
+
+## 决策检查点
+
+- [ ] **结构合理性**: 文档结构是否便于查找和理解？
+- [ ] **内容完整性**: 是否覆盖了目标读者的所有需求？
+- [ ] **可维护性**: 文档是否易于更新和维护？
+- [ ] **一致性**: 文档风格和格式是否统一？
+
+## 错误处理
+
+| 场景 | 处理方式 |
+|------|----------|
+| 信息缺失 | 标注 TBD，联系相关方补充 |
+| 内容冲突 | 以最新权威来源为准 |
+| 过时信息 | 标记并创建更新任务 |
+
+## 交接标准
+
+### 文档交付完成标准
+
+```
+✅ 文档结构符合项目规范
+✅ 核心章节内容完整
+✅ 代码示例经过验证
+✅ 图表和截图清晰准确
+✅ 术语和缩写已统一
+✅ 评审意见已处理
+```
+
+### 交付物
+
+1. **文档结构**: 文档目录和层级
+2. **文档内容**: 各类型文档正文
+3. **更新日志**: 文档变更记录
+
+## 关联资产
+
+| 类型 | 路径 |
+|------|------|
+| SCENARIO | `scenarios/document-project/SCENARIO.md` |
+| PROMPT | `prompts/document-project.prompt.md` |
+| INSTRUCTIONS | `instructions/document-project.instructions.md` |
+| AGENT | `agents/technical-writer.agent.md` |
+| SKILL | `skills/document-project/SKILL.md` |

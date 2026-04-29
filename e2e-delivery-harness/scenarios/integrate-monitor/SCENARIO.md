@@ -1,0 +1,103 @@
+# Scenario: 监控集成 (Integrate Monitor)
+
+## 概述
+
+监控集成是系统可观测性的核心，负责指标采集、日志收集、链路追踪的统一集成。
+
+## 核心决策点
+
+| 阶段 | 决策点 | 输出 |
+|------|--------|------|
+| 监控规划 | Metric Selection | 监控指标 |
+| 埋点实施 | Instrumentation | 埋点代码 |
+| 告警配置 | Alert Configuration | 告警规则 |
+| 可视化 | Dashboard Design | 监控面板 |
+
+## 执行流程
+
+```python
+class MonitoringIntegration:
+    """监控集成流程"""
+
+    def execute(self, system_context, monitoring_requirements):
+        """
+        1. 监控规划 (30分钟)
+        2. 指标埋点 (60分钟)
+        3. 告警配置 (30分钟)
+        4. 面板搭建 (30分钟)
+        """
+        # Step 1: 监控规划
+        monitoring_plan = self.plan_monitoring(
+            system_context, monitoring_requirements
+        )
+
+        # Step 2: 指标埋点
+        instrumented_code = self.instrument_code(monitoring_plan)
+
+        # Step 3: 告警配置
+        alert_rules = self.configure_alerts(monitoring_plan)
+
+        # Step 4: 面板搭建
+        dashboards = self.build_dashboards(monitoring_plan)
+
+        return MonitoringPackage(
+            monitoring_plan, instrumented_code, alert_rules, dashboards
+        )
+
+    def plan_monitoring(self, context, requirements):
+        """监控规划"""
+        # 1. 识别关键指标 (RED/USE 方法)
+        # 2. 定义指标层次
+        # 3. 规划采集频率
+        pass
+
+    def instrument_code(self, plan):
+        """指标埋点"""
+        # 1. 集成 SDK
+        # 2. 添加埋点
+        # 3. 配置导出
+        pass
+```
+
+## 决策检查点
+
+- [ ] **指标完整性**: 核心指标是否覆盖？
+- [ ] **采集开销**: 监控采集对性能的影响是否可接受？
+- [ ] **告警有效性**: 告警规则是否能及时发现问题？
+- [ ] **可视化可用性**: 面板是否便于日常巡检和故障排查？
+
+## 错误处理
+
+| 场景 | 处理方式 |
+|------|----------|
+| 指标丢失 | 启用本地缓冲，降级重试 |
+| 告警风暴 | 启用告警聚合和静默规则 |
+| 数据延迟 | 配置数据刷新频率 |
+
+## 交接标准
+
+### 监控集成完成标准
+
+```
+✅ 核心指标已埋点并可采集
+✅ 告警规则已配置并测试
+✅ 监控面板已搭建
+✅ 文档已更新
+```
+
+### 交付物
+
+1. **监控架构**: 监控组件和拓扑图
+2. **埋点代码**: 指标采集代码
+3. **告警规则**: 告警配置
+4. **监控面板**: Dashboard 配置
+
+## 关联资产
+
+| 类型 | 路径 |
+|------|------|
+| SCENARIO | `scenarios/integrate-monitor/SCENARIO.md` |
+| PROMPT | `prompts/integrate-monitor.prompt.md` |
+| INSTRUCTIONS | `instructions/integrate-monitor.instructions.md` |
+| AGENT | `agents/sre-engineer.agent.md` |
+| SKILL | `skills/integrate-monitor/SKILL.md` |
