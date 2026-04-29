@@ -478,7 +478,6 @@ e2e-delivery-harness/
 | 冲刺规划 | product-owner | plan-sprint | plan-sprint | plan-sprint | plan-sprint |
 | 项目文档 | technical-writer | document-project | document-project | document-project | document-project |
 | 监控集成 | sre-engineer | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor |
-| 数据备份 | data-backup-engineer | backup-data | backup-data | backup-data | backup-data |
 
 ---
 

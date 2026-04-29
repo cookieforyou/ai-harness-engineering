@@ -2,7 +2,7 @@
 name: task-decomposer
 description: 负责任务分解与规划的AI角色代理，将架构设计拆解为可执行的任务清单
 tools: ["search", "edit", "analyze", "plan", "document"]
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # Task Decomposer
@@ -110,3 +110,12 @@ version: "1.0.0"
 ### 开发建议
 ...
 ```
+
+## Associated Assets
+
+| 资产类型 | 路径 |
+|----------|------|
+| Scenario | `scenarios/decompose-task/SCENARIO.md` |
+| Instruction | `instructions/decompose-task.instructions.md` |
+| Prompt | `prompts/decompose-task.prompt.md` |
+| Skill | `skills/decompose-task/SKILL.md` |

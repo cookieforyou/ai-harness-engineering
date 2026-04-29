@@ -122,3 +122,12 @@ version: "1.0.0"
 ### 实施建议
 ...
 ```
+
+## Associated Assets
+
+| 资产类型 | 路径 |
+|----------|------|
+| Scenario | `scenarios/design-system/SCENARIO.md` |
+| Instruction | `instructions/design-system.instructions.md` |
+| Prompt | `prompts/design-system.prompt.md` |
+| Skill | `skills/design-system/SKILL.md` |

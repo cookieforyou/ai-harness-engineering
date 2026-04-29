@@ -1,25 +1,34 @@
-# {scenario-name} Scenario
+---
+name: <scenario-name>
+type: scenario
+version: "1.0.0"
+description: <scenario-description>
+category: <category>
+stage: <stage-name>
+---
+
+# {scenario-name}
 
 ## Purpose
 
-{场景目标描述}
+{场景目标描述，1-3句话说明此场景的核心目标}
 
-## Chain of Thought (思维链)
+## Chain of Thought
 
-> AI 执行时的思维引导，帮助逐步完成 {场景名称} 工作
+> AI 执行时的思维引导，帮助逐步完成场景工作
 
 ### Think-Aloud Protocol
 
 ```
-THINK: 步骤1
+[THINK] 步骤1：<子目标>
    ↓
-THINK: 步骤2
+[THINK] 步骤2：<子目标>
    ↓
-THINK: 步骤3
+[ANALYZE] 步骤3：<分析活动>
    ↓
-THINK: 步骤4
+[IMPLEMENT] 步骤4：<实施活动>
    ↓
-THINK: 验证和输出
+[VERIFY] 验证和输出
 ```
 
 ### Step-by-Step Reasoning
@@ -39,57 +48,61 @@ THINK: 验证和输出
 - 验证：{验证方式}
 - 检查：{检查点}
 
-## Primary Assets
+## Decision Checkpoints
 
-### Agent
-- **Agent**: [../../agents/{agent-file}.agent.md](../../agents/{agent-file}.agent.md)
+> 执行过程中需要确认的决策点
 
-### Instruction
-- **Instruction**: [../../instructions/{instruction-file}.instructions.md](../../instructions/{instruction-file}.instructions.md)
+| 检查点 | 条件 | 决策 |
+|--------|------|------|
+| DC-001 | {条件1} | {决策1} |
+| DC-002 | {条件2} | {决策2} |
+| DC-003 | {条件3} | {决策3} |
 
-### Prompt
-- **Prompt**: [../../prompts/{prompt-file}.prompt.md](../../prompts/{prompt-file}.prompt.md)
-
-### Skills
-- **Skill**: [../../skills/{skill-dir}/SKILL.md](../../skills/{skill-dir}/SKILL.md)
-
-## Error Handling (错误处理)
+## Error Handling
 
 > 遇到以下情况时的处理策略
 
-### EH-1: {错误情况1}
+### 错误类型 1：{错误描述}
 
-- **识别信号**：{信号描述}
-- **处理方式**：
-  1. {处理步骤1}
-  2. {处理步骤2}
-  3. {处理步骤3}
-- **升级条件**：{升级条件}
+| 属性 | 值 |
+|------|-----|
+| **识别信号** | {信号描述} |
+| **处理方式** | {处理方式} |
+| **升级条件** | {升级条件} |
 
-### EH-2: {错误情况2}
+### 错误类型 2：{错误描述}
 
-- **识别信号**：{信号描述}
-- **处理方式**：
-  1. {处理步骤1}
-  2. {处理步骤2}
-  3. {处理步骤3}
-- **升级条件**：{升级条件}
+| 属性 | 值 |
+|------|-----|
+| **识别信号** | {信号描述} |
+| **处理方式** | {处理方式} |
+| **升级条件** | {升级条件} |
 
-## Expected Output
+## Handover Criteria
 
-### 产出清单
+> 场景完成的验收标准
 
-1. **{产出1}**：{说明}
-2. **{产出2}**：{说明}
-
-### 输出格式
-
-```markdown
-## {产出标题}
-
-### 1. 文档信息
-...
 ```
+✅ 交付物 1：{标准1}
+✅ 交付物 2：{标准2}
+✅ 交付物 3：{标准3}
+```
+
+### 交付物清单
+
+1. **{交付物1}**：{说明}
+2. **{交付物2}**：{说明}
+
+## Primary Assets
+
+> 场景执行所需的核心资产
+
+| 资产类型 | 路径 | 说明 |
+|----------|------|------|
+| **Agent** | `../../agents/{agent}.agent.md` | 角色定义 |
+| **Prompt** | `../../prompts/{prompt}.prompt.md` | 执行提示词 |
+| **Instruction** | `../../instructions/{instruction}.instructions.md` | 技术指令 |
+| **Skill** | `../../skills/{skill}/SKILL.md` | 技能知识 |
 
 ## Prerequisites
 
@@ -99,81 +112,9 @@ THINK: 验证和输出
 2. {前置条件2}
 3. {前置条件3}
 
-### 可选前置条件
+### 期望输入
 
-1. {可选条件1}
-2. {可选条件2}
-
-## Quality Gates
-
-### 阶段准入
-
-- [ ] {准入条件1}
-- [ ] {准入条件2}
-- [ ] {准入条件3}
-
-### 阶段准出
-
-- [ ] {准出条件1}
-- [ ] {准出条件2}
-- [ ] {准出条件3}
-
-## Decision Checkpoints (决策检查点)
-
-> AI 执行过程中必须停下来等待人工决策的关键节点
-
-| 检查点 | 触发条件 | 等待决策 | 下一步 |
-|--------|----------|----------|--------|
-| **DC-1: {检查点1}** | {触发条件} | {决策内容} | 继续或修正 |
-| **DC-2: {检查点2}** | {触发条件} | {决策内容} | 继续或修正 |
-
-### 决策检查点执行规范
-
-```
-执行流程:
-1. 到达检查点 → 暂停执行
-2. 生成决策材料 → 总结要点
-3. 等待反馈 → 标注 [待确认]
-4. 获取决策 → 继续或修正
-5. 记录决策 → 归档到输出文档
-```
-
-## Handover Criteria (交接标准)
-
-> 进入下一阶段前必须满足的条件
-
-| 条件项 | 状态 | 说明 |
+| 输入项 | 必填 | 描述 |
 |--------|------|------|
-| {交付物1} | ☐ | {完成标准} |
-| {交付物2} | ☐ | {完成标准} |
-| {交付物3} | ☐ | {完成标准} |
-
-### 交接检查清单
-
-- [ ] 产出文档完整
-- [ ] 评审已通过
-- [ ] 遗留问题已记录
-- [ ] 下一阶段已知晓
-
-## Workflow
-
-```
-1. 启动 → {步骤1}
-2. {阶段2} → {步骤2}
-3. {阶段3} → {步骤3}
-4. {阶段4} → {步骤4}
-5. 完成 → 输出交付物
-```
-
-## Related Scenarios
-
-- **Next**: [../{next-scenario}/SCENARIO.md](../{next-scenario}/SCENARIO.md) - {下一场景}
-- **Previous**: [../{prev-scenario}/SCENARIO.md](../{prev-scenario}/SCENARIO.md) - {上一场景}
-
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| {指标1} | {目标值} | {测量方法} |
-| {指标2} | {目标值} | {测量方法} |
-| {指标3} | {目标值} | {测量方法} |
+| 输入 1 | 是/否 | {描述} |
+| 输入 2 | 是/否 | {描述} |

@@ -2,7 +2,7 @@
 name: sre-monitor
 description: 负责监控与运维的AI角色代理，监控系统运行状态，处理运维事件和故障
 tools: ["search", "edit", "analyze", "monitor", "document"]
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # SRE Monitor
@@ -118,3 +118,12 @@ version: "1.0.0"
 | 运维负责人 | - | - |
 | 开发负责人 | - | - |
 ```
+
+## Associated Assets
+
+| 资产类型 | 路径 |
+|----------|------|
+| Scenario | `scenarios/monitor-operate/SCENARIO.md` |
+| Instruction | `instructions/monitor-operate.instructions.md` |
+| Prompt | `prompts/monitor-operate.prompt.md` |
+| Skill | `skills/monitor-operate/SKILL.md` |

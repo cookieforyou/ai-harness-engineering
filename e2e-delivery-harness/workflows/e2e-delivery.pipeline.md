@@ -1,16 +1,16 @@
 ---
 name: e2e-delivery
 type: pipeline
-version: "1.0"
+version: "1.1.0"
 description: 端到端交付全流程，覆盖从需求分析到监控运维的完整生命周期
 stages:
-  - requirement-analysis
-  - system-design
-  - task-decomposition
-  - development
-  - testing
-  - deployment
-  - monitoring
+  - analyze-requirement
+  - design-system
+  - decompose-task
+  - implement-feature
+  - verify-test
+  - deploy-release
+  - monitor-operate
 ---
 
 # E2E Delivery Pipeline
@@ -23,45 +23,47 @@ stages:
 
 ```
 ┌─────────────────┐
-│  1. 需求分析    │  Requirement Analysis
+│  1. 需求分析    │  Analyze Requirement
 └────────┬────────┘
          ↓
 ┌─────────────────┐
-│  2. 系统设计     │  System Design
+│  2. 系统设计     │  Design System
 └────────┬────────┘
          ↓
 ┌─────────────────┐
-│  3. 任务拆分     │  Task Decomposition
+│  3. 任务拆分     │  Decompose Task
 └────────┬────────┘
          ↓
 ┌─────────────────┐
-│  4. 开发实现     │  Development
+│  4. 开发实现     │  Implement Feature
 └────────┬────────┘
          ↓
 ┌─────────────────┐
-│  5. 测试验证     │  Testing
+│  5. 测试验证     │  Verify Test
 └────────┬────────┘
          ↓
 ┌─────────────────┐
-│  6. 部署发布     │  Deployment
+│  6. 部署发布     │  Deploy Release
 └────────┬────────┘
          ↓
 ┌─────────────────┐
-│  7. 监控运维     │  Monitoring
+│  7. 监控运维     │  Monitor Operate
 └─────────────────┘
 ```
 
 ## Stage Definitions
 
-### Stage 1: 需求分析
+### Stage 1: 需求分析 (Analyze Requirement)
 
 | 属性 | 值 |
 |------|-----|
-| **Scenario** | [requirement-analysis](../scenarios/requirement-analysis/SCENARIO.md) |
+| **Scenario** | [analyze-requirement](../scenarios/analyze-requirement/SCENARIO.md) |
 | **Agent** | [requirement-analyst](../agents/requirement-analyst.agent.md) |
+| **Prompt** | [analyze-requirement](../prompts/analyze-requirement.prompt.md) |
+| **Instruction** | [analyze-requirement](../instructions/analyze-requirement.instructions.md) |
+| **Skill** | [analyze-requirement](../skills/analyze-requirement/SKILL.md) |
 | **Entry Criteria** | 业务方提出需求请求 |
 | **Exit Criteria** | 需求规格说明书已评审通过 |
-| **Duration** | 根据项目规模 |
 
 **输入**：
 - 原始业务需求
@@ -76,7 +78,7 @@ stages:
 **数据传递到下一阶段**：
 ```yaml
 handoff:
-  to: system-design
+  to: design-system
   artifacts:
     - requirements-spec.md
     - stakeholder-analysis.md
@@ -89,15 +91,17 @@ handoff:
 
 ---
 
-### Stage 2: 系统设计
+### Stage 2: 系统设计 (Design System)
 
 | 属性 | 值 |
 |------|-----|
-| **Scenario** | [system-design](../scenarios/system-design/SCENARIO.md) |
+| **Scenario** | [design-system](../scenarios/design-system/SCENARIO.md) |
 | **Agent** | [system-designer](../agents/system-designer.agent.md) |
+| **Prompt** | [design-system](../prompts/design-system.prompt.md) |
+| **Instruction** | [design-system](../instructions/design-system.instructions.md) |
+| **Skill** | [design-system](../skills/design-system/SKILL.md) |
 | **Entry Criteria** | 需求规格说明书已确认 |
 | **Exit Criteria** | 架构设计评审通过 |
-| **Duration** | 根据项目规模 |
 
 **输入**：
 - 需求规格说明书
@@ -112,7 +116,7 @@ handoff:
 **数据传递到下一阶段**：
 ```yaml
 handoff:
-  to: task-decomposition
+  to: decompose-task
   artifacts:
     - architecture-design.md
     - component-design.md
@@ -124,15 +128,17 @@ handoff:
 
 ---
 
-### Stage 3: 任务拆分
+### Stage 3: 任务拆分 (Decompose Task)
 
 | 属性 | 值 |
 |------|-----|
-| **Scenario** | [task-decomposition](../scenarios/task-decomposition/SCENARIO.md) |
+| **Scenario** | [decompose-task](../scenarios/decompose-task/SCENARIO.md) |
 | **Agent** | [task-decomposer](../agents/task-decomposer.agent.md) |
+| **Prompt** | [decompose-task](../prompts/decompose-task.prompt.md) |
+| **Instruction** | [decompose-task](../instructions/decompose-task.instructions.md) |
+| **Skill** | [decompose-task](../skills/decompose-task/SKILL.md) |
 | **Entry Criteria** | 架构设计已完成 |
 | **Exit Criteria** | 迭代计划已评审通过 |
-| **Duration** | 1-3 天 |
 
 **输入**：
 - 架构设计文档
@@ -147,7 +153,7 @@ handoff:
 **数据传递到下一阶段**：
 ```yaml
 handoff:
-  to: development
+  to: implement-feature
   artifacts:
     - task-backlog.md
     - iteration-plan.md
@@ -159,15 +165,17 @@ handoff:
 
 ---
 
-### Stage 4: 开发实现
+### Stage 4: 开发实现 (Implement Feature)
 
 | 属性 | 值 |
 |------|-----|
-| **Scenario** | [development](../scenarios/development/SCENARIO.md) |
+| **Scenario** | [implement-feature](../scenarios/implement-feature/SCENARIO.md) |
 | **Agent** | [developer](../agents/developer.agent.md) |
+| **Prompt** | [implement-feature](../prompts/implement-feature.prompt.md) |
+| **Instruction** | [implement-feature](../instructions/implement-feature.instructions.md) |
+| **Skill** | [implement-feature](../skills/implement-feature/SKILL.md) |
 | **Entry Criteria** | 任务已分配 |
 | **Exit Criteria** | 代码审查通过，单元测试通过 |
-| **Duration** | 根据任务数量 |
 
 **输入**：
 - 任务分解清单
@@ -182,9 +190,9 @@ handoff:
 **数据传递到下一阶段**：
 ```yaml
 handoff:
-  to: testing
+  to: verify-test
   artifacts:
-    - source-code.zip
+    - source-code/
     - unit-test-report.md
     - technical-docs/
   context:
@@ -194,140 +202,140 @@ handoff:
 
 ---
 
-### Stage 5: 测试验证
+### Stage 5: 测试验证 (Verify Test)
 
 | 属性 | 值 |
 |------|-----|
-| **Scenario** | [testing](../scenarios/testing/SCENARIO.md) |
+| **Scenario** | [verify-test](../scenarios/verify-test/SCENARIO.md) |
 | **Agent** | [tester](../agents/tester.agent.md) |
-| **Entry Criteria** | 开发任务已完成 |
-| **Exit Criteria** | 测试通过报告已签发 |
-| **Duration** | 根据测试覆盖范围 |
+| **Prompt** | [verify-test](../prompts/verify-test.prompt.md) |
+| **Instruction** | [verify-test](../instructions/verify-test.instructions.md) |
+| **Skill** | [verify-test](../skills/verify-test/SKILL.md) |
+| **Entry Criteria** | 代码开发完成 |
+| **Exit Criteria** | 测试通过率 ≥ 90% |
 
 **输入**：
 - 源代码
-- 需求规格
-- 测试环境
+- 需求规格说明书
+- 测试计划
 
 **输出**：
-- 测试计划
-- 测试用例集
+- 测试用例
 - 测试报告
 - 缺陷报告
 
 **数据传递到下一阶段**：
 ```yaml
 handoff:
-  to: deployment
+  to: deploy-release
   artifacts:
     - test-report.md
-    - test-acceptance-signoff.pdf
-    - deployment-package/
+    - defect-list.md
+    - test-sign-off.md
   context:
-    test_env_url: "{{test_env}}"
-    test_results_summary: "{{pass_rate}}"
+    test_pass_rate: "{{pass_rate}}%"
+    critical_defects: ["{{critical_bugs}}"]
 ```
 
 ---
 
-### Stage 6: 部署发布
+### Stage 6: 部署发布 (Deploy Release)
 
 | 属性 | 值 |
 |------|-----|
-| **Scenario** | [deployment](../scenarios/deployment/SCENARIO.md) |
+| **Scenario** | [deploy-release](../scenarios/deploy-release/SCENARIO.md) |
 | **Agent** | [devops-engineer](../agents/devops-engineer.agent.md) |
-| **Entry Criteria** | 测试通过报告已签发 |
-| **Exit Criteria** | 生产环境部署成功 |
-| **Duration** | 根据部署复杂度 |
+| **Prompt** | [deploy-release](../prompts/deploy-release.prompt.md) |
+| **Instruction** | [deploy-release](../instructions/deploy-release.instructions.md) |
+| **Skill** | [deploy-release](../skills/deploy-release/SKILL.md) |
+| **Entry Criteria** | 测试验证已通过 |
+| **Exit Criteria** | 部署成功，SLO 达成 |
 
 **输入**：
-- 测试通过报告
 - 部署包
 - 部署环境信息
+- 回滚方案
 
 **输出**：
-- 部署报告
-- 配置变更记录
-- 回滚方案
+- 部署记录
+- 回滚脚本
+- 发布报告
 
 **数据传递到下一阶段**：
 ```yaml
 handoff:
-  to: monitoring
+  to: monitor-operate
   artifacts:
-    - deployment-report.md
-    - config-changes.md
-    - rollback-procedure.md
+    - deployment-record.md
+    - rollback-script.sh
+    - release-notes.md
   context:
-    prod_url: "{{prod_endpoint}}"
-    monitoring_config: "{{monitoring_settings}}"
+    deployed_version: "{{version}}"
+    deployment_time: "{{timestamp}}"
 ```
 
 ---
 
-### Stage 7: 监控运维
+### Stage 7: 监控运维 (Monitor Operate)
 
 | 属性 | 值 |
 |------|-----|
-| **Scenario** | [monitoring](../scenarios/monitoring/SCENARIO.md) |
+| **Scenario** | [monitor-operate](../scenarios/monitor-operate/SCENARIO.md) |
 | **Agent** | [sre-monitor](../agents/sre-monitor.agent.md) |
-| **Entry Criteria** | 应用已部署上线 |
-| **Exit Criteria** | 监控系统正常运行 |
-| **Duration** | 持续运维 |
+| **Prompt** | [monitor-operate](../prompts/monitor-operate.prompt.md) |
+| **Instruction** | [monitor-operate](../instructions/monitor-operate.instructions.md) |
+| **Skill** | [monitor-operate](../skills/monitor-operate/SKILL.md) |
+| **Entry Criteria** | 系统已部署上线 |
+| **Exit Criteria** | SLO 达成率 ≥ 99.5% |
 
 **输入**：
-- 部署报告
-- 系统架构
-- 监控需求
+- 系统架构文档
+- SLO 目标
+- 监控工具
 
 **输出**：
 - 监控配置
+- 告警规则
 - 运维手册
-- 应急预案
 
 ---
 
-## Data Flow
-
-```
-Requirement Spec → Architecture Design → Task Backlog → Source Code
-                                                            ↓
-Monitoring Report ← Deployment Report ← Test Report ← Test Execution
-```
-
-## Error Handling
-
-| 阶段 | 异常情况 | 回退策略 |
-|------|----------|----------|
-| 需求分析 | 需求变更 | 重新评审，更新需求规格 |
-| 系统设计 | 设计评审不通过 | 修订设计，重新评审 |
-| 任务拆分 | 估算偏差大 | 调整迭代计划 |
-| 开发实现 | 缺陷过多 | 增加测试覆盖 |
-| 测试验证 | 缺陷修复率低 | 延长测试周期 |
-| 部署发布 | 部署失败 | 执行回滚 |
-| 监控运维 | 系统异常 | 启动应急预案 |
-
 ## Quality Gates
 
-每个阶段必须通过质量门禁才能进入下一阶段：
+每个阶段之间的质量门禁：
 
-1. **需求分析** → 干系人评审通过
-2. **系统设计** → 技术评审通过
-3. **任务拆分** → 计划评审通过
-4. **开发实现** → 代码审查通过
-5. **测试验证** → 测试报告签发
-6. **部署发布** → 部署验证通过
-7. **监控运维** → 监控配置完成
+| 阶段 | 质量门禁 | 标准 |
+|------|----------|------|
+| 需求分析 → 系统设计 | 需求完整性 | REQ-COVER ≥ 95% |
+| 系统设计 → 任务拆分 | 设计评审通过 | 评审通过率 100% |
+| 任务拆分 → 开发实现 | 任务覆盖率 | TASK-COVER ≥ 98% |
+| 开发实现 → 测试验证 | 代码质量 | DEV-COVERAGE ≥ 80% |
+| 测试验证 → 部署发布 | 测试通过率 | TEST-PASS ≥ 90% |
+| 部署发布 → 监控运维 | 部署成功率 | DEPLOY-SUCCESS ≥ 99% |
 
-## Rollback Strategy
+## Handoff Context
 
-如在任何阶段发现严重问题，按以下顺序回退：
+阶段间的上下文传递标准：
 
+```yaml
+handoff_context:
+  header:
+    from_stage: "{{source_stage}}"
+    to_stage: "{{target_stage}}"
+    timestamp: "{{ISO8601_timestamp}}"
+    handover_id: "{{handover_id}}"
+
+  artifacts:
+    documents: []
+    files: []
+    configurations: []
+
+  context:
+    key_decisions: []
+    open_issues: []
+    risks: []
+    assumptions: []
+
+  quality_metrics:
+    metrics: {}
 ```
-Current Stage → Previous Stage (修复) → Resume
-```
-
-严重程度判断：
-- **Critical**: 影响核心功能 → 回退到开发
-- **Major**: 影响重要功能 → 回退到测试
-- **Minor**: 影响次要功能 → 当前阶段修复

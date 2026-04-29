@@ -2,7 +2,7 @@
 name: requirement-analyst
 description: 负责需求分析与规划的AI角色代理，将原始业务需求转换为结构化的需求规格说明书
 tools: ["search", "edit", "analyze", "document"]
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # Requirement Analyst
@@ -111,3 +111,12 @@ version: "1.0.0"
 ### 后续建议
 ...
 ```
+
+## Associated Assets
+
+| 资产类型 | 路径 |
+|----------|------|
+| Scenario | `scenarios/analyze-requirement/SCENARIO.md` |
+| Instruction | `instructions/analyze-requirement.instructions.md` |
+| Prompt | `prompts/analyze-requirement.prompt.md` |
+| Skill | `skills/analyze-requirement/SKILL.md` |
