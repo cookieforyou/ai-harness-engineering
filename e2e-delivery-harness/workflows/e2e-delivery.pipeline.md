@@ -11,6 +11,22 @@ stages:
   - verify-test
   - deploy-release
   - monitor-operate
+# 支持场景 (按阶段分类)
+supporting-scenarios:
+  # 开发阶段支持
+  implement-feature:
+    - manage-dependencies      # 依赖管理
+    - manage-tech-debt         # 技术债务管理
+  # 部署阶段支持
+  deploy-release:
+    - plan-rollback            # 回滚计划
+  # 运维阶段支持
+  monitor-operate:
+    - respond-incident         # 事件响应
+    - plan-disaster-recovery   # 灾备恢复
+  # 跨阶段支持
+  cross-cutting:
+    - manage-knowledge         # 知识管理
 ---
 
 # E2E Delivery Pipeline

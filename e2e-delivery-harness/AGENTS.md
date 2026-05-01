@@ -108,7 +108,7 @@ e2e-delivery-harness/
 │   ├── global-context.md        # 全局上下文定义
 │   └── handover-context.template.md # 交接上下文模板
 │
-├── scenarios/                    # 场景定义 (31个) ← AI 主要入口
+├── scenarios/                    # 场景定义 (43个) ← AI 主要入口
 │   ├── README.md               # 场景使用指南
 │   ├── analyze-requirement/    # 需求分析场景
 │   │   └── SCENARIO.md
@@ -172,42 +172,59 @@ e2e-delivery-harness/
 │   │   └── SCENARIO.md
 │   └── integrate-monitor/     # 监控集成场景 (扩展)
 │       └── SCENARIO.md
+│   ├── manage-dependencies/   # 依赖管理场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── manage-tech-debt/      # 技术债务场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── plan-rollback/         # 回滚计划场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── respond-incident/      # 事件响应场景 (扩展)
+│   │   └── SCENARIO.md
+│   ├── plan-disaster-recovery/ # 灾备恢复场景 (扩展)
+│   │   └── SCENARIO.md
+│   └── manage-knowledge/       # 知识管理场景 (扩展)
+│       └── SCENARIO.md
 │
-├── agents/                       # Agent 角色定义 (31个)
-│   ├── README.md
-│   ├── requirement-analyst.agent.md
-│   ├── design-systemer.agent.md
-│   ├── task-decomposer.agent.md
-│   ├── developer.agent.md
-│   ├── tester.agent.md
-│   ├── devops-engineer.agent.md
-│   ├── sre-monitor.agent.md
-│   ├── sre-engineer.agent.md
-│   ├── change-manager.agent.md
-│   ├── code-reviewer.agent.md
-│   ├── security-auditor.agent.md
-│   ├── incident-reviewer.agent.md
-│   ├── performance-tester.agent.md
-│   ├── data-migration-engineer.agent.md
-│   ├── hotfix-engineer.agent.md
-│   ├── technical-reviewer.agent.md
-│   ├── capacity-planner.agent.md
-│   ├── test-automation-engineer.agent.md
-│   ├── infrastructure-engineer.agent.md
-│   ├── config-manager.agent.md
-│   ├── release-manager.agent.md
-│   ├── data-backup-engineer.agent.md
-│   ├── api-integration-engineer.agent.md    # (新增)
-│   ├── database-designer.agent.md           # (新增)
-│   ├── cicd-engineer.agent.md               # (新增)
-│   ├── security-engineer.agent.md           # (新增)
-│   ├── solution-architect.agent.md          # (新增)
-│   ├── performance-engineer.agent.md         # (新增)
-│   ├── product-owner.agent.md              # (新增)
-│   ├── technical-writer.agent.md            # (新增)
-│   └── architect.agent.md                  # (新增)
+├── agents/                       # Agent 角色定义 (43个)
+│   ├── analyze-requirement.agent.md
+│   ├── design-system.agent.md
+│   ├── decompose-task.agent.md
+│   ├── implement-feature.agent.md
+│   ├── verify-test.agent.md
+│   ├── deploy-release.agent.md
+│   ├── monitor-operate.agent.md
+│   ├── manage-change.agent.md
+│   ├── review-code.agent.md
+│   ├── audit-security.agent.md
+│   ├── review-incident.agent.md
+│   ├── performance-testing.agent.md
+│   ├── migrate-data.agent.md
+│   ├── hotfix.agent.md
+│   ├── review-design.agent.md
+│   ├── plan-capacity.agent.md
+│   ├── automate-test.agent.md
+│   ├── setup-infra.agent.md
+│   ├── manage-config.agent.md
+│   ├── prepare-release.agent.md
+│   ├── backup-data.agent.md
+│   ├── integrate-api.agent.md      # (新增)
+│   ├── design-database.agent.md    # (新增)
+│   ├── implement-cicd.agent.md     # (新增)
+│   ├── manage-secrets.agent.md     # (新增)
+│   ├── design-architecture.agent.md # (新增)
+│   ├── optimize-performance.agent.md # (新增)
+│   ├── migrate-environment.agent.md # (新增)
+│   ├── plan-sprint.agent.md        # (新增)
+│   ├── document-project.agent.md   # (新增)
+│   ├── integrate-monitor.agent.md  # (新增)
+│   ├── manage-dependencies.agent.md
+│   ├── manage-tech-debt.agent.md
+│   ├── plan-rollback.agent.md
+│   ├── respond-incident.agent.md
+│   ├── plan-disaster-recovery.agent.md
+│   └── manage-knowledge.agent.md
 │
-├── skills/                       # Skill 技能模块 (31个)
+├── skills/                       # Skill 技能模块 (43个)
 │   ├── README.md
 │   ├── analyze-requirement/
 │   │   └── SKILL.md
@@ -269,10 +286,22 @@ e2e-delivery-harness/
 │   │   └── SKILL.md
 │   ├── document-project/            # (扩展)
 │   │   └── SKILL.md
-│   └── integrate-monitor/          # (扩展)
+│   ├── integrate-monitor/          # (扩展)
+│   │   └── SKILL.md
+│   ├── manage-dependencies/       # (扩展)
+│   │   └── SKILL.md
+│   ├── manage-tech-debt/          # (扩展)
+│   │   └── SKILL.md
+│   ├── plan-rollback/             # (扩展)
+│   │   └── SKILL.md
+│   ├── respond-incident/          # (扩展)
+│   │   └── SKILL.md
+│   ├── plan-disaster-recovery/    # (扩展)
+│   │   └── SKILL.md
+│   └── manage-knowledge/           # (扩展)
 │       └── SKILL.md
 │
-├── instructions/                  # Instruction 指令文件 (31个)
+├── instructions/                  # Instruction 指令文件 (43个)
 │   ├── README.md
 │   ├── analyze-requirement.instructions.md
 │   ├── design-system.instructions.md
@@ -305,8 +334,14 @@ e2e-delivery-harness/
 │   ├── plan-sprint.instructions.md      # (新增)
 │   ├── document-project.instructions.md # (新增)
 │   └── integrate-monitor.instructions.md # (新增)
+│   ├── manage-dependencies.instructions.md  # (新增)
+│   ├── manage-tech-debt.instructions.md     # (新增)
+│   ├── plan-rollback.instructions.md        # (新增)
+│   ├── respond-incident.instructions.md
+│   ├── plan-disaster-recovery.instructions.md
+│   └── manage-knowledge.instructions.md
 │
-├── prompts/                      # Prompt 提示词文件 (31个)
+├── prompts/                      # Prompt 提示词文件 (43个)
 │   ├── README.md
 │   ├── analyze-requirement.prompt.md
 │   ├── design-system.prompt.md
@@ -329,16 +364,22 @@ e2e-delivery-harness/
 │   ├── manage-config.prompt.md
 │   ├── prepare-release.prompt.md
 │   ├── backup-data.prompt.md
-│   ├── integrate-api.prompt.md          # (新增)
-│   ├── design-database.prompt.md        # (新增)
-│   ├── implement-cicd.prompt.md         # (新增)
-│   ├── manage-secrets.prompt.md         # (新增)
-│   ├── design-architecture.prompt.md    # (新增)
-│   ├── optimize-performance.prompt.md   # (新增)
-│   ├── migrate-environment.prompt.md     # (新增)
-│   ├── plan-sprint.prompt.md            # (新增)
-│   ├── document-project.prompt.md       # (新增)
-│   └── integrate-monitor.prompt.md      # (新增)
+│   ├── integrate-api.prompt.md
+│   ├── design-database.prompt.md
+│   ├── implement-cicd.prompt.md
+│   ├── manage-secrets.prompt.md
+│   ├── design-architecture.prompt.md
+│   ├── optimize-performance.prompt.md
+│   ├── migrate-environment.prompt.md
+│   ├── plan-sprint.prompt.md
+│   ├── document-project.prompt.md
+│   ├── integrate-monitor.prompt.md
+│   ├── manage-dependencies.prompt.md
+│   ├── manage-tech-debt.prompt.md
+│   ├── plan-rollback.prompt.md
+│   ├── respond-incident.prompt.md
+│   ├── plan-disaster-recovery.prompt.md
+│   └── manage-knowledge.prompt.md
 │
 ├── standards/                    # 规范文件 (5个)
 │   ├── README.md
@@ -440,13 +481,13 @@ e2e-delivery-harness/
 
 | 阶段 | Agent | Instruction | Prompt | Skill | Scenario |
 |------|-------|------------|--------|-------|----------|
-| 1. 需求分析 | requirement-analyst | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement |
-| 2. 系统设计 | system-designer | design-system | design-system | design-system | design-system |
-| 3. 任务拆分 | task-decomposer | decompose-task | decompose-task | decompose-task | decompose-task |
-| 4. 开发实现 | developer | implement-feature | implement-feature | implement-feature | implement-feature |
-| 5. 测试验证 | tester | verify-test | verify-test | verify-test | verify-test |
-| 6. 部署发布 | devops-engineer | deploy-release | deploy-release | deploy-release | deploy-release |
-| 7. 监控运维 | sre-monitor | monitor-operate | monitor-operate | monitor-operate | monitor-operate |
+| 1. 需求分析 | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement |
+| 2. 系统设计 | design-system | design-system | design-system | design-system | design-system |
+| 3. 任务拆分 | decompose-task | decompose-task | decompose-task | decompose-task | decompose-task |
+| 4. 开发实现 | implement-feature | implement-feature | implement-feature | implement-feature | implement-feature |
+| 5. 测试验证 | verify-test | verify-test | verify-test | verify-test | verify-test |
+| 6. 部署发布 | deploy-release | deploy-release | deploy-release | deploy-release | deploy-release |
+| 7. 监控运维 | monitor-operate | monitor-operate | monitor-operate | monitor-operate | monitor-operate |
 
 ---
 
@@ -454,30 +495,45 @@ e2e-delivery-harness/
 
 | 场景 | Agent | Instruction | Prompt | Skill | Scenario |
 |------|-------|------------|--------|-------|----------|
-| 变更管理 | change-manager | manage-change | manage-change | manage-change | manage-change |
-| 代码审查 | code-reviewer | review-code | review-code | review-code | review-code |
-| 安全审计 | security-auditor | audit-security | audit-security | audit-security | audit-security |
-| 故障复盘 | incident-reviewer | review-incident | review-incident | review-incident | review-incident |
-| 性能测试 | performance-tester | performance-testing | performance-testing | performance-testing | performance-testing |
-| 数据迁移 | data-migration-engineer | migrate-data | migrate-data | migrate-data | migrate-data |
-| 紧急修复 | hotfix-engineer | hotfix | hotfix | hotfix | hotfix |
-| 技术方案评审 | technical-reviewer | review-design | review-design | review-design | review-design |
-| 容量规划 | capacity-planner | plan-capacity | plan-capacity | plan-capacity | plan-capacity |
-| 自动化测试 | test-automation-engineer | automate-test | automate-test | automate-test | automate-test |
-| 基础设施搭建 | infrastructure-engineer | setup-infra | setup-infra | setup-infra | setup-infra |
-| 配置管理 | config-manager | manage-config | manage-config | manage-config | manage-config |
-| 发布准备 | release-manager | prepare-release | prepare-release | prepare-release | prepare-release |
-| 数据备份 | data-backup-engineer | backup-data | backup-data | backup-data | backup-data |
-| API 集成 | api-integration-engineer | integrate-api | integrate-api | integrate-api | integrate-api |
-| 数据库设计 | database-designer | design-database | design-database | design-database | design-database |
-| CI/CD 实施 | cicd-engineer | implement-cicd | implement-cicd | implement-cicd | implement-cicd |
-| 密钥管理 | security-engineer | manage-secrets | manage-secrets | manage-secrets | manage-secrets |
-| 架构设计 | solution-architect | design-architecture | design-architecture | design-architecture | design-architecture |
-| 性能优化 | performance-engineer | optimize-performance | optimize-performance | optimize-performance | optimize-performance |
-| 环境迁移 | devops-engineer | migrate-environment | migrate-environment | migrate-environment | migrate-environment |
+| 变更管理 | manage-change | manage-change | manage-change | manage-change | manage-change |
+| 代码审查 | review-code | review-code | review-code | review-code | review-code |
+| 安全审计 | audit-security | audit-security | audit-security | audit-security | audit-security |
+| 故障复盘 | review-incident | review-incident | review-incident | review-incident | review-incident |
+| 性能测试 | performance-testing | performance-testing | performance-testing | performance-testing | performance-testing |
+| 数据迁移 | migrate-data | migrate-data | migrate-data | migrate-data | migrate-data |
+| 紧急修复 | hotfix | hotfix | hotfix | hotfix | hotfix |
+| 技术方案评审 | review-design | review-design | review-design | review-design | review-design |
+| 容量规划 | plan-capacity | plan-capacity | plan-capacity | plan-capacity | plan-capacity |
+| 自动化测试 | automate-test | automate-test | automate-test | automate-test | automate-test |
+| 基础设施搭建 | setup-infra | setup-infra | setup-infra | setup-infra | setup-infra |
+| 配置管理 | manage-config | manage-config | manage-config | manage-config | manage-config |
+| 发布准备 | prepare-release | prepare-release | prepare-release | prepare-release | prepare-release |
+| 数据备份 | backup-data | backup-data | backup-data | backup-data | backup-data |
+| API 集成 | integrate-api | integrate-api | integrate-api | integrate-api | integrate-api |
+| 数据库设计 | design-database | design-database | design-database | design-database | design-database |
+| CI/CD 实施 | implement-cicd | implement-cicd | implement-cicd | implement-cicd | implement-cicd |
+| 密钥管理 | manage-secrets | manage-secrets | manage-secrets | manage-secrets | manage-secrets |
+| 架构设计 | design-architecture | design-architecture | design-architecture | design-architecture | design-architecture |
+| 性能优化 | optimize-performance | optimize-performance | optimize-performance | optimize-performance | optimize-performance |
+| 环境迁移 | migrate-environment | migrate-environment | migrate-environment | migrate-environment | migrate-environment |
+| 冲刺规划 | plan-sprint | plan-sprint | plan-sprint | plan-sprint | plan-sprint |
+| 项目文档 | document-project | document-project | document-project | document-project | document-project |
+| 监控集成 | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor |
+| 依赖管理 | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies |
+| 技术债务管理 | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt |
+| 回滚计划 | plan-rollback | plan-rollback | plan-rollback | plan-rollback | plan-rollback |
+| 事件响应 | respond-incident | respond-incident | respond-incident | respond-incident | respond-incident |
+| 灾备恢复 | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery |
+| 知识管理 | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge |
 | 冲刺规划 | product-owner | plan-sprint | plan-sprint | plan-sprint | plan-sprint |
 | 项目文档 | technical-writer | document-project | document-project | document-project | document-project |
 | 监控集成 | sre-engineer | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor |
+| 依赖管理 | dependency-engineer | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies |
+| 技术债务 | tech-debt-manager | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt |
+| 回滚计划 | rollback-engineer | plan-rollback | plan-rollback | plan-rollback | plan-rollback |
+| 事件响应 | incident-commander | respond-incident | respond-incident | respond-incident | respond-incident |
+| 灾备恢复 | dr-planner | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery |
+| 知识管理 | knowledge-manager | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge |
 
 ---
 
