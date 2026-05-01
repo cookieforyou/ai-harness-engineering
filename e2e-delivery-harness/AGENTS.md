@@ -599,13 +599,15 @@ handoff:
 
 ## 命名规范摘要
 
+> **核心原则**: 所有资产统一采用 `{verb}-{noun}` 命名模式
+
 | 资产类型 | 命名模式 | 示例 |
 |----------|----------|------|
-| Agent | `{role}.agent.md` | `requirement-analyst.agent.md` |
-| Instruction | `{phase}.instructions.md` | `analyze-requirement.instructions.md` |
-| Prompt | `{action}.prompt.md` | `analyze-requirement.prompt.md` |
-| Skill | `skills/{phase}/SKILL.md` | `skills/analyze-requirement/SKILL.md` |
-| Scenario | `scenarios/{phase}/SCENARIO.md` | `scenarios/analyze-requirement/SCENARIO.md` |
+| Agent | `{verb}-{noun}.agent.md` | `analyze-requirement.agent.md` |
+| Instruction | `{verb}-{noun}.instructions.md` | `analyze-requirement.instructions.md` |
+| Prompt | `{verb}-{noun}.prompt.md` | `analyze-requirement.prompt.md` |
+| Skill | `skills/{verb}-{noun}/SKILL.md` | `skills/analyze-requirement/SKILL.md` |
+| Scenario | `scenarios/{verb}-{noun}/SCENARIO.md` | `scenarios/analyze-requirement/SCENARIO.md` |
 | Pipeline | `{name}.pipeline.md` | `e2e-delivery.pipeline.md` |
 | Context | `{type}-{name}.md` | `global-context.md` |
 

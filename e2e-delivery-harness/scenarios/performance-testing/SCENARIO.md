@@ -51,7 +51,7 @@ OUTPUT: 输出性能报告和优化建议
 ## Primary Assets
 
 ### Agent
-- **Agent**: [../../agents/performance-tester.agent.md](../../agents/performance-tester.agent.md)
+- **Agent**: [../../agents/verify-test.agent.md](../../agents/verify-test.agent.md)
 
 ### Instruction
 - **Instruction**: [../../instructions/performance-testing.instructions.md](../../instructions/performance-testing.instructions.md)

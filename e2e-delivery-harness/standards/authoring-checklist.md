@@ -42,10 +42,10 @@
 
 ```yaml
 ---
-name: requirement-analyst
+name: analyze-requirement
 description: 负责需求分析与规划的AI角色代理
 tools: ["search", "edit", "analyze"]
-version: "1.0.0"
+version: "2.0.0"
 ---
 ```
 

@@ -199,6 +199,6 @@ version: "1.0.0"
 
 ## Related Assets
 
-- **Agent**: [../../agents/sre-monitor.agent.md](../../agents/sre-monitor.agent.md)
+- **Agent**: [../../agents/monitor-operate.agent.md](../../agents/monitor-operate.agent.md)
 - **Instruction**: [../../instructions/monitoring-operations.instructions.md](../../instructions/monitoring-operations.instructions.md)
 - **Prompt**: [../../prompts/monitor-operate.prompt.md](../../prompts/monitor-operate.prompt.md)

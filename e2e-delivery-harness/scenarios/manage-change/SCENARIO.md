@@ -84,7 +84,7 @@ THINK: 沟通变更计划
 
 ## Primary Assets
 
-- **Agent**: [../../agents/requirement-analyst.agent.md](../../agents/requirement-analyst.agent.md)
+- **Agent**: [../../agents/analyze-requirement.agent.md](../../agents/analyze-requirement.agent.md)
 - **Instruction**: [../../instructions/change-management.instructions.md](../../instructions/change-management.instructions.md)
 - **Prompt**: [../../prompts/evaluate-change.prompt.md](../../prompts/evaluate-change.prompt.md)
 

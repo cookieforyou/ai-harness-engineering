@@ -117,7 +117,7 @@ stage: development
 
 | 资产类型 | 路径 | 说明 |
 |----------|------|------|
-| **Agent** | `../../agents/developer.agent.md` | 开发者角色 |
+| **Agent** | `../../agents/implement-feature.agent.md` | 开发实现角色 |
 | **Prompt** | `../../prompts/implement-feature.prompt.md` | 功能实现提示词 |
 | **Instruction** | `../../instructions/implement-feature.instructions.md` | 开发实现技术指令 |
 | **Skill** | `../../skills/implement-feature/SKILL.md` | 功能实现技能 |

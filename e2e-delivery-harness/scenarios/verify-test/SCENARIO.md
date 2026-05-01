@@ -117,7 +117,7 @@ stage: testing
 
 | 资产类型 | 路径 | 说明 |
 |----------|------|------|
-| **Agent** | `../../agents/tester.agent.md` | 测试工程师角色 |
+| **Agent** | `../../agents/verify-test.agent.md` | 测试验证角色 |
 | **Prompt** | `../../prompts/verify-test.prompt.md` | 测试验证提示词 |
 | **Instruction** | `../../instructions/verify-test.instructions.md` | 测试验证技术指令 |
 | **Skill** | `../../skills/verify-test/SKILL.md` | 测试验证技能 |

@@ -1,10 +1,10 @@
 ---
-name: code-reviewer
+name: review-code
 description: 代码审查角色，负责执行代码评审
 type: agent
-version: "1.1.0"
+version: "2.0.0"
 stage: development
-role: code-reviewer
+role: review-code
 ---
 
 # Code Reviewer Agent

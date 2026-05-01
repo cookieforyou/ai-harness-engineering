@@ -11,6 +11,50 @@
 3. **简洁性**：避免不必要的冗长
 4. **可搜索性**：支持通过名称快速定位资产
 
+## 命名统一模式
+
+> **核心原则**: 所有资产（Prompt/Instruction/Agent/Skill/Scenario）统一采用 `{verb}-{noun}` 命名模式，确保命名完全对齐
+
+### 统一命名模式表
+
+| 资产类型 | 模式 | 说明 |
+|----------|------|------|
+| Prompt | `{verb}-{noun}` | 动词-名词，如 `analyze-requirement` |
+| Instruction | `{verb}-{noun}` | 与 Prompt 对齐，如 `analyze-requirement` |
+| Agent | `{verb}-{noun}` | 与 Prompt 对齐，如 `analyze-requirement` |
+| Skill | `{verb}-{noun}` | 与 Prompt 对齐，如 `analyze-requirement` |
+| Scenario | `{verb}-{noun}` | 与 Prompt 对齐，如 `analyze-requirement` |
+
+### 命名对齐示例
+
+> **核心原则**: 所有 5 类资产使用统一的 `{verb}-{noun}` 命名
+
+| 场景 | Prompt | Instruction | Agent | Skill | Scenario |
+|------|--------|------------|-------|-------|----------|
+| 需求分析 | `analyze-requirement` | `analyze-requirement` | `analyze-requirement` | `analyze-requirement` | `analyze-requirement` |
+| 系统设计 | `design-system` | `design-system` | `design-system` | `design-system` | `design-system` |
+| 任务分解 | `decompose-task` | `decompose-task` | `decompose-task` | `decompose-task` | `decompose-task` |
+| 开发实现 | `implement-feature` | `implement-feature` | `implement-feature` | `implement-feature` | `implement-feature` |
+| 测试验证 | `verify-test` | `verify-test` | `verify-test` | `verify-test` | `verify-test` |
+| 部署发布 | `deploy-release` | `deploy-release` | `deploy-release` | `deploy-release` | `deploy-release` |
+| 监控运维 | `monitor-operate` | `monitor-operate` | `monitor-operate` | `monitor-operate` | `monitor-operate` |
+| API 集成 | `integrate-api` | `integrate-api` | `integrate-api` | `integrate-api` | `integrate-api` |
+| 数据库设计 | `design-database` | `design-database` | `design-database` | `design-database` | `design-database` |
+| 架构设计 | `design-architecture` | `design-architecture` | `design-architecture` | `design-architecture` | `design-architecture` |
+| CI/CD 实施 | `implement-cicd` | `implement-cicd` | `implement-cicd` | `implement-cicd` | `implement-cicd` |
+| 密钥管理 | `manage-secrets` | `manage-secrets` | `manage-secrets` | `manage-secrets` | `manage-secrets` |
+| 性能优化 | `optimize-performance` | `optimize-performance` | `optimize-performance` | `optimize-performance` | `optimize-performance` |
+| 环境迁移 | `migrate-environment` | `migrate-environment` | `migrate-environment` | `migrate-environment` | `migrate-environment` |
+| 依赖管理 | `manage-dependencies` | `manage-dependencies` | `manage-dependencies` | `manage-dependencies` | `manage-dependencies` |
+| 技术债务 | `manage-tech-debt` | `manage-tech-debt` | `manage-tech-debt` | `manage-tech-debt` | `manage-tech-debt` |
+| 回滚计划 | `plan-rollback` | `plan-rollback` | `plan-rollback` | `plan-rollback` | `plan-rollback` |
+| 事件响应 | `respond-incident` | `respond-incident` | `respond-incident` | `respond-incident` | `respond-incident` |
+| 灾备恢复 | `plan-disaster-recovery` | `plan-disaster-recovery` | `plan-disaster-recovery` | `plan-disaster-recovery` | `plan-disaster-recovery` |
+| 知识管理 | `manage-knowledge` | `manage-knowledge` | `manage-knowledge` | `manage-knowledge` | `manage-knowledge` |
+| 冲刺规划 | `plan-sprint` | `plan-sprint` | `plan-sprint` | `plan-sprint` | `plan-sprint` |
+| 项目文档 | `document-project` | `document-project` | `document-project` | `document-project` | `document-project` |
+| 监控集成 | `integrate-monitor` | `integrate-monitor` | `integrate-monitor` | `integrate-monitor` | `integrate-monitor` |
+
 ## 文件命名
 
 ### 目录命名
@@ -28,52 +72,23 @@
 | 模板目录 | templates | templates |
 | 评估目录 | evaluations | evaluations |
 
-### 资产命名规范
-
-> **核心原则**: 资产命名采用 `{action}-{object}` 模式，确保 Prompt/Instruction/Agent/Skill/Scenario 命名对齐
-
-#### 命名模式定义
-
-| 资产类型 | 模式 | 说明 |
-|----------|------|------|
-| Prompt | `{verb}-{noun}` | 动词-名词，如 `analyze-requirement` |
-| Instruction | `{verb}-{noun}` | 与 Prompt 对齐，如 `analyze-requirement` |
-| Agent | `{noun}-{role}` | 名词-角色，如 `requirement-analyst` |
-| Skill | `{noun}-{domain}` | 名词-领域，如 `requirement-analysis` |
-| Scenario | `{noun}-{noun}` | 与 Skill 对齐，如 `requirement-analysis` |
-
-#### 命名对齐表
-
-> **核心原则**: Prompt/Instruction/Skill/Scenario 采用统一的 `{verb}-{noun}` 命名模式，Agent 采用 `{noun}-{role}` 模式
-
-| 场景 | Prompt | Instruction | Agent | Skill | Scenario |
-|------|--------|------------|-------|-------|----------|
-| 需求分析 | `analyze-requirement` | `analyze-requirement` | `requirement-analyst` | `analyze-requirement` | `analyze-requirement` |
-| 系统设计 | `design-system` | `design-system` | `system-designer` | `design-system` | `design-system` |
-| 任务分解 | `decompose-task` | `decompose-task` | `task-decomposer` | `decompose-task` | `decompose-task` |
-| 开发实现 | `implement-feature` | `implement-feature` | `developer` | `implement-feature` | `implement-feature` |
-| 测试验证 | `verify-test` | `verify-test` | `tester` | `verify-test` | `verify-test` |
-| 部署发布 | `deploy-release` | `deploy-release` | `devops-engineer` | `deploy-release` | `deploy-release` |
-| 监控运维 | `monitor-operate` | `monitor-operate` | `sre-monitor` | `monitor-operate` | `monitor-operate` |
-| 变更管理 | `manage-change` | `manage-change` | `change-manager` | `manage-change` | `manage-change` |
-| 代码审查 | `review-code` | `review-code` | `code-reviewer` | `review-code` | `review-code` |
-| 安全审计 | `audit-security` | `audit-security` | `security-auditor` | `audit-security` | `audit-security` |
-| 故障复盘 | `review-incident` | `review-incident` | `incident-reviewer` | `review-incident` | `review-incident` |
-
-#### Agent 文件
+### Agent 文件
 
 ```regex
 ^[a-z][a-z0-9-]*\.agent\.md$
 
 示例：
-- requirement-analyst.agent.md
-- system-designer.agent.md
-- developer.agent.md
-- change-manager.agent.md
-- code-reviewer.agent.md
+- analyze-requirement.agent.md
+- design-system.agent.md
+- implement-feature.agent.md
+- verify-test.agent.md
+- deploy-release.agent.md
+- manage-dependencies.agent.md
+- respond-incident.agent.md
+- plan-disaster-recovery.agent.md
 ```
 
-#### Skill 目录与文件
+### Skill 目录与文件
 
 ```regex
 # 目录
@@ -94,19 +109,15 @@ skills/
 │   └── SKILL.md
 ├── deploy-release/
 │   └── SKILL.md
-├── monitor-operate/
+├── manage-dependencies/
 │   └── SKILL.md
-├── manage-change/
+├── respond-incident/
 │   └── SKILL.md
-├── review-code/
-│   └── SKILL.md
-├── audit-security/
-│   └── SKILL.md
-└── review-incident/
+└── plan-disaster-recovery/
     └── SKILL.md
 ```
 
-#### Instruction 文件
+### Instruction 文件
 
 ```regex
 ^[a-z][a-z0-9-]*\.instructions\.md$
@@ -117,14 +128,12 @@ skills/
 - implement-feature.instructions.md
 - verify-test.instructions.md
 - deploy-release.instructions.md
-- monitor-operate.instructions.md
-- manage-change.instructions.md
-- review-code.instructions.md
-- audit-security.instructions.md
-- review-incident.instructions.md
+- manage-dependencies.instructions.md
+- respond-incident.instructions.md
+- plan-disaster-recovery.instructions.md
 ```
 
-#### Prompt 文件
+### Prompt 文件
 
 ```regex
 ^[a-z][a-z0-9-]*\.prompt\.md$
@@ -135,14 +144,12 @@ skills/
 - implement-feature.prompt.md
 - verify-test.prompt.md
 - deploy-release.prompt.md
-- monitor-operate.prompt.md
-- manage-change.prompt.md
-- review-code.prompt.md
-- audit-security.prompt.md
-- review-incident.prompt.md
+- manage-dependencies.prompt.md
+- respond-incident.prompt.md
+- plan-disaster-recovery.prompt.md
 ```
 
-#### Scenario 目录与文件
+### Scenario 目录与文件
 
 ```regex
 # 目录
@@ -163,21 +170,27 @@ scenarios/
 │   └── SCENARIO.md
 ├── deploy-release/
 │   └── SCENARIO.md
-├── monitor-operate/
+├── manage-dependencies/
 │   └── SCENARIO.md
-├── manage-change/
+├── respond-incident/
 │   └── SCENARIO.md
-├── review-code/
-│   └── SCENARIO.md
-├── audit-security/
-│   └── SCENARIO.md
-├── review-incident/
+├── plan-disaster-recovery/
 │   └── SCENARIO.md
 └── _template/
     └── SCENARIO.template.md
 ```
 
-### 编号命名规范
+### Workflow 文件
+
+```regex
+^[a-z][a-z0-9-]*\.pipeline\.md$
+
+示例：
+- e2e-delivery.pipeline.md
+- incident-response.pipeline.md
+```
+
+## 编号命名规范
 
 | 类型 | 模式 | 示例 |
 |------|------|------|
@@ -197,153 +210,49 @@ scenarios/
 | 指标项 | `MET-{NNN}` | `MET-001` |
 | 交接项 | `HANDOVER-{NNN}` | `HANDOVER-001` |
 
-### Workflow 文件
+## 命名动词表
 
-```regex
-^[a-z][a-z0-9-]*\.pipeline\.md$
+| 动词 | 用途 | 示例 |
+|------|------|------|
+| analyze | 分析评估 | `analyze-requirement` |
+| design | 设计规划 | `design-system`, `design-architecture` |
+| decompose | 分解细化 | `decompose-task` |
+| implement | 实施开发 | `implement-feature`, `implement-cicd` |
+| verify | 验证测试 | `verify-test` |
+| review | 审查评审 | `review-code`, `review-design`, `review-incident` |
+| deploy | 部署发布 | `deploy-release` |
+| monitor | 监控运维 | `monitor-operate` |
+| manage | 管理工作 | `manage-change`, `manage-config`, `manage-dependencies`, `manage-secrets`, `manage-knowledge` |
+| audit | 审计检查 | `audit-security` |
+| integrate | 集成对接 | `integrate-api`, `integrate-monitor` |
+| optimize | 优化改进 | `optimize-performance` |
+| migrate | 迁移转换 | `migrate-environment`, `migrate-data` |
+| automate | 自动化 | `automate-test` |
+| setup | 搭建配置 | `setup-infra` |
+| backup | 备份 | `backup-data` |
+| plan | 规划计划 | `plan-sprint`, `plan-capacity`, `plan-rollback`, `plan-disaster-recovery` |
+| prepare | 准备 | `prepare-release` |
+| document | 文档化 | `document-project` |
+| respond | 响应处理 | `respond-incident` |
+| hotfix | 热修复 | `hotfix` |
 
-示例：
-workflows/
-├── e2e-delivery.pipeline.md
-├── incident-response.pipeline.md
-└── _template/
-    └── PIPELINE.template.md
-```
+## 禁止的命名模式
 
-### Context 文件
+| 旧模式 | 问题 | 正确模式 |
+|--------|------|----------|
+| `requirement-analyst` | 与其他资产不一致 | `analyze-requirement` |
+| `system-designer` | 与其他资产不一致 | `design-system` |
+| `developer` | 不符合 `{verb}-{noun}` | `implement-feature` |
+| `tester` | 不符合 `{verb}-{noun}` | `verify-test` |
+| `devops-engineer` | 与其他资产不一致 | `deploy-release` |
+| `code-reviewer` | 与其他资产不一致 | `review-code` |
+| `security-auditor` | 与其他资产不一致 | `audit-security` |
+| `change-manager` | 不符合 `{verb}-{noun}` | `manage-change` |
+| `incident-reviewer` | 与其他资产不一致 | `review-incident` |
 
-```regex
-^[a-z][a-z0-9-]*\.md$
+## 版本历史
 
-示例：
-contexts/
-├── global-context.md
-├── handover-context.template.md
-└── unified-handover-template.md
-```
-
-### Evaluations 文件
-
-```regex
-^[a-z][a-z0-9-]*\.md$
-
-示例：
-evaluations/
-├── regression-checklist.md
-├── scorecard-template.md
-├── output-validation-checklist.md
-└── common-error-patterns.md
-```
-
-### Standards 文件
-
-```regex
-^[a-z][a-z0-9-]*\.md$
-
-示例：
-standards/
-├── asset-model.md
-├── naming-conventions.md
-├── id-generation-quantification.md
-└── output-quality-rubric.md
-```
-
-## 变量命名
-
-### YAML 元数据
-
-```yaml
-name: <kebab-case>        # 名称
-description: <string>    # 描述
-category: <kebab-case>    # 分类
-version: <semver>        # 版本
-```
-
-### Markdown 标题
-
-```markdown
-# 页面标题 (Title Case)
-## 二级标题 (Title Case)
-### 三级标题 (Title Case)
-```
-
-## 标签命名
-
-### 标签格式
-
-```regex
-^[a-z][a-z0-9-]*$
-
-示例：
-- requirement
-- design
-- development
-- testing
-- deployment
-```
-
-### 常用标签
-
-| 标签 | 用途 |
-|------|------|
-| requirement | 需求相关 |
-| design | 设计相关 |
-| development | 开发相关 |
-| testing | 测试相关 |
-| deployment | 部署相关 |
-| monitoring | 监控相关 |
-| critical | 关键资产 |
-| deprecated | 已废弃 |
-
-## 命名检查清单
-
-### 文件命名检查
-
-- [ ] 使用小写字母
-- [ ] 使用连字符分隔单词
-- [ ] 包含正确的文件扩展名
-- [ ] 不包含特殊字符
-- [ ] 不超过 100 字符
-
-### 目录命名检查
-
-- [ ] 使用小写字母
-- [ ] 使用连字符分隔单词
-- [ ] 不包含空格
-- [ ] 不以数字开头
-- [ ] 不超过 50 字符
-
-## 反面示例
-
-```markdown
-# 错误
-Requirement Analyst.md        # 包含空格
-requirement_analysis.md       # 使用下划线
-REQ-001.md                   # 使用大写
-analyze requirement.md       # 包含空格
-
-# 正确
-requirement-analyst.agent.md
-requirement-analysis.instructions.md
-```
-
-## 多语言支持
-
-### 文件命名（中文环境）
-
-```regex
-^[a-z][a-z0-9-]*\.[a-z]{2}\.md$
-
-示例：
-- introduction.zh.md
-- usage.zh.md
-- introduction.en.md
-- usage.en.md
-```
-
-### 资源标识（统一英文）
-
-```yaml
-name: requirement-analysis  # 始终使用英文
-description: "需求分析相关"  # 描述可使用本地语言
-```
+| 版本 | 日期 | 变更说明 |
+|------|------|----------|
+| 2.0.0 | - | 统一所有资产为 `{verb}-{noun}` 命名模式 |
+| 1.0.0 | - | 初始版本 |

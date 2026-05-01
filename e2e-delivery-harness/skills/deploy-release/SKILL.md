@@ -194,6 +194,6 @@ version: "1.0.0"
 
 ## Related Assets
 
-- **Agent**: [../../agents/devops-engineer.agent.md](../../agents/devops-engineer.agent.md)
+- **Agent**: [../../agents/deploy-release.agent.md](../../agents/deploy-release.agent.md)
 - **Instruction**: [../../instructions/deployment-release.instructions.md](../../instructions/deployment-release.instructions.md)
 - **Prompt**: [../../prompts/deploy-release.prompt.md](../../prompts/deploy-release.prompt.md)

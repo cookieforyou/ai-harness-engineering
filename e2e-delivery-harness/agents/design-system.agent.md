@@ -1,8 +1,8 @@
 ---
-name: system-designer
+name: design-system
 description: 负责系统架构设计的AI角色代理，将需求规格转换为技术架构设计方案
 tools: ["search", "edit", "analyze", "diagram", "document"]
-version: "1.0.0"
+version: "2.0.0"
 ---
 
 # System Designer

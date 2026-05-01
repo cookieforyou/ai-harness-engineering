@@ -231,5 +231,5 @@ cache_metrics:
 |----------|----------|
 | Scenario | `scenarios/performance-testing/SCENARIO.md` |
 | Prompt | `prompts/performance-testing.prompt.md` |
-| Agent | `agents/performance-tester.agent.md` |
+| Agent | `agents/verify-test.agent.md` |
 | Skill | `skills/performance-testing/SKILL.md` |

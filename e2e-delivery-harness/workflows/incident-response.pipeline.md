@@ -349,11 +349,11 @@ action_item:
 
 | 资产类型 | 文件路径 |
 |----------|----------|
-| Scenario | `scenarios/incident-review/SCENARIO.md` |
+| Scenario | `scenarios/review-incident/SCENARIO.md` |
 | Prompt | `prompts/review-incident.prompt.md` |
-| Instruction | `instructions/incident-review.instructions.md` |
-| Agent | `agents/incident-reviewer.agent.md` |
-| Skill | `skills/incident-review/SKILL.md` |
+| Instruction | `instructions/review-incident.instructions.md` |
+| Agent | `agents/review-incident.agent.md` |
+| Skill | `skills/review-incident/SKILL.md` |
 
 ---
 

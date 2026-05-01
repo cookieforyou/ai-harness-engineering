@@ -201,4 +201,4 @@ rate(http_requests_total{status=~"5.."}[5m])
 | Scenario | `../../scenarios/performance-testing/SCENARIO.md` |
 | Instruction | `../../instructions/performance-testing.instructions.md` |
 | Prompt | `../../prompts/performance-testing.prompt.md` |
-| Agent | `../../agents/performance-tester.agent.md` |
+| Agent | `../../agents/verify-test.agent.md` |

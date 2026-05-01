@@ -116,7 +116,7 @@ stage: monitoring
 
 | 资产类型 | 路径 | 说明 |
 |----------|------|------|
-| **Agent** | `../../agents/sre-monitor.agent.md` | 监控运维工程师角色 |
+| **Agent** | `../../agents/monitor-operate.agent.md` | 监控运维角色 |
 | **Prompt** | `../../prompts/monitor-operate.prompt.md` | 监控运维提示词 |
 | **Instruction** | `../../instructions/monitor-operate.instructions.md` | 监控运维技术指令 |
 | **Skill** | `../../skills/monitor-operate/SKILL.md` | 监控运维技能 |

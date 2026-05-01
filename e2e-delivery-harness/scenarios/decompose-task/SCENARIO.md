@@ -116,7 +116,7 @@ stage: task-decomposition
 
 | 资产类型 | 路径 | 说明 |
 |----------|------|------|
-| **Agent** | `../../agents/task-decomposer.agent.md` | 任务分解师角色 |
+| **Agent** | `../../agents/decompose-task.agent.md` | 任务分解角色 |
 | **Prompt** | `../../prompts/decompose-task.prompt.md` | 任务拆分提示词 |
 | **Instruction** | `../../instructions/decompose-task.instructions.md` | 任务拆分技术指令 |
 | **Skill** | `../../skills/decompose-task/SKILL.md` | 任务拆分技能 |

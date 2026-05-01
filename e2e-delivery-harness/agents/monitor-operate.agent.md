@@ -1,8 +1,8 @@
 ---
-name: sre-monitor
+name: monitor-operate
 description: 负责监控与运维的AI角色代理，监控系统运行状态，处理运维事件和故障
 tools: ["search", "edit", "analyze", "monitor", "document"]
-version: "1.1.0"
+version: "2.0.0"
 ---
 
 # SRE Monitor

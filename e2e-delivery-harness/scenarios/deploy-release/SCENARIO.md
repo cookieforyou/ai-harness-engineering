@@ -116,7 +116,7 @@ stage: deployment
 
 | 资产类型 | 路径 | 说明 |
 |----------|------|------|
-| **Agent** | `../../agents/devops-engineer.agent.md` | 运维工程师角色 |
+| **Agent** | `../../agents/deploy-release.agent.md` | 部署发布角色 |
 | **Prompt** | `../../prompts/deploy-release.prompt.md` | 部署发布提示词 |
 | **Instruction** | `../../instructions/deploy-release.instructions.md` | 部署发布技术指令 |
 | **Skill** | `../../skills/deploy-release/SKILL.md` | 部署发布技能 |

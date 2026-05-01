@@ -1,8 +1,8 @@
 ---
-name: task-decomposer
+name: decompose-task
 description: 负责任务分解与规划的AI角色代理，将架构设计拆解为可执行的任务清单
 tools: ["search", "edit", "analyze", "plan", "document"]
-version: "1.1.0"
+version: "2.0.0"
 ---
 
 # Task Decomposer

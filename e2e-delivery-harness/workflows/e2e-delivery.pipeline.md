@@ -74,7 +74,7 @@ supporting-scenarios:
 | 属性 | 值 |
 |------|-----|
 | **Scenario** | [analyze-requirement](../scenarios/analyze-requirement/SCENARIO.md) |
-| **Agent** | [requirement-analyst](../agents/requirement-analyst.agent.md) |
+| **Agent** | [analyze-requirement](../agents/analyze-requirement.agent.md) |
 | **Prompt** | [analyze-requirement](../prompts/analyze-requirement.prompt.md) |
 | **Instruction** | [analyze-requirement](../instructions/analyze-requirement.instructions.md) |
 | **Skill** | [analyze-requirement](../skills/analyze-requirement/SKILL.md) |
@@ -112,7 +112,7 @@ handoff:
 | 属性 | 值 |
 |------|-----|
 | **Scenario** | [design-system](../scenarios/design-system/SCENARIO.md) |
-| **Agent** | [system-designer](../agents/system-designer.agent.md) |
+| **Agent** | [design-system](../agents/design-system.agent.md) |
 | **Prompt** | [design-system](../prompts/design-system.prompt.md) |
 | **Instruction** | [design-system](../instructions/design-system.instructions.md) |
 | **Skill** | [design-system](../skills/design-system/SKILL.md) |
@@ -149,7 +149,7 @@ handoff:
 | 属性 | 值 |
 |------|-----|
 | **Scenario** | [decompose-task](../scenarios/decompose-task/SCENARIO.md) |
-| **Agent** | [task-decomposer](../agents/task-decomposer.agent.md) |
+| **Agent** | [decompose-task](../agents/decompose-task.agent.md) |
 | **Prompt** | [decompose-task](../prompts/decompose-task.prompt.md) |
 | **Instruction** | [decompose-task](../instructions/decompose-task.instructions.md) |
 | **Skill** | [decompose-task](../skills/decompose-task/SKILL.md) |
@@ -186,7 +186,7 @@ handoff:
 | 属性 | 值 |
 |------|-----|
 | **Scenario** | [implement-feature](../scenarios/implement-feature/SCENARIO.md) |
-| **Agent** | [developer](../agents/developer.agent.md) |
+| **Agent** | [implement-feature](../agents/implement-feature.agent.md) |
 | **Prompt** | [implement-feature](../prompts/implement-feature.prompt.md) |
 | **Instruction** | [implement-feature](../instructions/implement-feature.instructions.md) |
 | **Skill** | [implement-feature](../skills/implement-feature/SKILL.md) |
@@ -223,7 +223,7 @@ handoff:
 | 属性 | 值 |
 |------|-----|
 | **Scenario** | [verify-test](../scenarios/verify-test/SCENARIO.md) |
-| **Agent** | [tester](../agents/tester.agent.md) |
+| **Agent** | [verify-test](../agents/verify-test.agent.md) |
 | **Prompt** | [verify-test](../prompts/verify-test.prompt.md) |
 | **Instruction** | [verify-test](../instructions/verify-test.instructions.md) |
 | **Skill** | [verify-test](../skills/verify-test/SKILL.md) |
@@ -260,7 +260,7 @@ handoff:
 | 属性 | 值 |
 |------|-----|
 | **Scenario** | [deploy-release](../scenarios/deploy-release/SCENARIO.md) |
-| **Agent** | [devops-engineer](../agents/devops-engineer.agent.md) |
+| **Agent** | [deploy-release](../agents/deploy-release.agent.md) |
 | **Prompt** | [deploy-release](../prompts/deploy-release.prompt.md) |
 | **Instruction** | [deploy-release](../instructions/deploy-release.instructions.md) |
 | **Skill** | [deploy-release](../skills/deploy-release/SKILL.md) |
@@ -297,7 +297,7 @@ handoff:
 | 属性 | 值 |
 |------|-----|
 | **Scenario** | [monitor-operate](../scenarios/monitor-operate/SCENARIO.md) |
-| **Agent** | [sre-monitor](../agents/sre-monitor.agent.md) |
+| **Agent** | [monitor-operate](../agents/monitor-operate.agent.md) |
 | **Prompt** | [monitor-operate](../prompts/monitor-operate.prompt.md) |
 | **Instruction** | [monitor-operate](../instructions/monitor-operate.instructions.md) |
 | **Skill** | [monitor-operate](../skills/monitor-operate/SKILL.md) |

@@ -1,10 +1,10 @@
 ---
-name: incident-reviewer
+name: review-incident
 description: 故障复盘角色，负责执行故障复盘分析
 type: agent
-version: "1.1.0"
+version: "2.0.0"
 stage: monitoring
-role: incident-reviewer
+role: review-incident
 ---
 
 # Incident Reviewer Agent

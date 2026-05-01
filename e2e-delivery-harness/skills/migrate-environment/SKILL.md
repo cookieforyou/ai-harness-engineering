@@ -51,4 +51,4 @@ class EnvironmentMigration:
 - **Scenario**: `../../scenarios/migrate-environment/SCENARIO.md`
 - **Instruction**: `../../instructions/migrate-environment.instructions.md`
 - **Prompt**: `../../prompts/migrate-environment.prompt.md`
-- **Agent**: `../../agents/devops-engineer.agent.md`
+- **Agent**: `../../agents/migrate-environment.agent.md`

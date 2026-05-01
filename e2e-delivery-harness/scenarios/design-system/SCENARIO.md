@@ -117,7 +117,7 @@ stage: system-design
 
 | 资产类型 | 路径 | 说明 |
 |----------|------|------|
-| **Agent** | `../../agents/system-designer.agent.md` | 系统设计师角色 |
+| **Agent** | `../../agents/design-system.agent.md` | 系统设计角色 |
 | **Prompt** | `../../prompts/design-system.prompt.md` | 系统设计提示词 |
 | **Instruction** | `../../instructions/design-system.instructions.md` | 系统设计技术指令 |
 | **Skill** | `../../skills/design-system/SKILL.md` | 系统设计技能 |

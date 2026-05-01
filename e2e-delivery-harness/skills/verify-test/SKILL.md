@@ -171,6 +171,6 @@ version: "1.0.0"
 
 ## Related Assets
 
-- **Agent**: [../../agents/tester.agent.md](../../agents/tester.agent.md)
+- **Agent**: [../../agents/verify-test.agent.md](../../agents/verify-test.agent.md)
 - **Instruction**: [../../instructions/testing-verification.instructions.md](../../instructions/testing-verification.instructions.md)
 - **Prompt**: [../../prompts/verify-test.prompt.md](../../prompts/verify-test.prompt.md)

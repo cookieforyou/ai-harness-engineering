@@ -117,7 +117,7 @@ stage: requirement-analysis
 
 | 资产类型 | 路径 | 说明 |
 |----------|------|------|
-| **Agent** | `../../agents/requirement-analyst.agent.md` | 需求分析师角色 |
+| **Agent** | `../../agents/analyze-requirement.agent.md` | 需求分析角色 |
 | **Prompt** | `../../prompts/analyze-requirement.prompt.md` | 需求分析提示词 |
 | **Instruction** | `../../instructions/analyze-requirement.instructions.md` | 需求分析技术指令 |
 | **Skill** | `../../skills/analyze-requirement/SKILL.md` | 需求分析技能 |

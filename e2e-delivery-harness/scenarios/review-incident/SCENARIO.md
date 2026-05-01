@@ -89,7 +89,7 @@ THINK: 跟踪改进落地
 
 ## Primary Assets
 
-- **Agent**: [../../agents/sre-monitor.agent.md](../../agents/sre-monitor.agent.md)
+- **Agent**: [../../agents/monitor-operate.agent.md](../../agents/monitor-operate.agent.md)
 - **Instruction**: [../../instructions/incident-review.instructions.md](../../instructions/incident-review.instructions.md)
 - **Prompt**: [../../prompts/review-incident.prompt.md](../../prompts/review-incident.prompt.md)
 

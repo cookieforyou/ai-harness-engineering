@@ -52,5 +52,5 @@
 
 - **Prompt**: `prompts/migrate-environment.prompt.md`
 - **Instruction**: `instructions/migrate-environment.instructions.md`
-- **Agent**: `agents/devops-engineer.agent.md`
+- **Agent**: `agents/migrate-environment.agent.md`
 - **Skill**: `skills/migrate-environment/SKILL.md`

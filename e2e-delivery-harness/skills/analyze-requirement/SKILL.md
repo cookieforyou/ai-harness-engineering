@@ -239,6 +239,6 @@ version: "1.0.0"
 
 ## Related Assets
 
-- **Agent**: [../../agents/requirement-analyst.agent.md](../../agents/requirement-analyst.agent.md)
+- **Agent**: [../../agents/analyze-requirement.agent.md](../../agents/analyze-requirement.agent.md)
 - **Instruction**: [../../instructions/analyze-requirement.instructions.md](../../instructions/analyze-requirement.instructions.md)
 - **Prompt**: [../../prompts/analyze-requirement.prompt.md](../../prompts/analyze-requirement.prompt.md)

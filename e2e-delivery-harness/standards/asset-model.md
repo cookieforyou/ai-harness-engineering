@@ -216,14 +216,14 @@ Team = Agent[] (主从关系定义)
 
 ```markdown
 依赖资产：
-- Agent: [../agents/requirement-analyst.agent.md](../agents/requirement-analyst.agent.md)
-- Skill: [../skills/requirement-analysis/SKILL.md](../skills/requirement-analysis/SKILL.md)
+- Agent: [../agents/analyze-requirement.agent.md](../agents/analyze-requirement.agent.md)
+- Skill: [../skills/analyze-requirement/SKILL.md](../skills/analyze-requirement/SKILL.md)
 ```
 
 ### 绝对路径引用
 
 ```markdown
-资产路径：${HARNESS_ROOT}/agents/requirement-analyst.agent.md
+资产路径：${HARNESS_ROOT}/agents/analyze-requirement.agent.md
 ```
 
 ## 资产元数据

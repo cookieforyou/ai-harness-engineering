@@ -188,6 +188,6 @@ version: "1.0.0"
 
 ## Related Assets
 
-- **Agent**: [../../agents/task-decomposer.agent.md](../../agents/task-decomposer.agent.md)
+- **Agent**: [../../agents/decompose-task.agent.md](../../agents/decompose-task.agent.md)
 - **Instruction**: [../../instructions/decompose-task.instructions.md](../../instructions/decompose-task.instructions.md)
 - **Prompt**: [../../prompts/decompose-task.prompt.md](../../prompts/decompose-task.prompt.md)
