@@ -48,5 +48,41 @@
 
 - **Prompt**: `prompts/optimize-performance.prompt.md`
 - **Instruction**: `instructions/optimize-performance.instructions.md`
-- **Agent**: `agents/performance-engineer.agent.md`
+- **Agent**: `agents/optimize-performance.agent.md`
 - **Skill**: `skills/optimize-performance/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the optimize-performance scenario.
+>
+> This scenario ensures systematic execution of optimize-performance activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/optimize-performance/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/optimize-performance.prompt.md` | Execution prompt |
+| Instructions | `instructions/optimize-performance.instructions.md` | Technical instructions |
+| Agent | `agents/optimize-performance.agent.md` | Responsible agent |
+| Skill | `skills/optimize-performance/SKILL.md` | Domain skill |
+
+
+## Error Handling
+
+### Error Scenario 1
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+### Error Scenario 2
+**Error**: [Description]
+**Handling**: [Resolution steps]

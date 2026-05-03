@@ -233,3 +233,59 @@ version: "1.0.0"
 | 应急预案 | .md | 是 | 故障处理流程 |
 | 巡检报告 | .md | 是 | 周期巡检结果 |
 | 容量报告 | .md | 否 | 容量评估建议 |
+
+
+## Overview
+
+> High-level description of the monitor-operate execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the monitor-operate scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for monitor-operate.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for monitor-operate execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for monitor-operate.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for monitor-operate deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

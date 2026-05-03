@@ -253,3 +253,30 @@ handoff:
 4. **监控先行**: 回滚前确保监控就绪
 5. **沟通透明**: 及时同步回滚状态
 6. **记录复盘**: 回滚后必须复盘总结
+
+## Task Description
+
+> Describe the specific task for the plan-rollback scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for plan-rollback
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core plan-rollback activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for plan-rollback deliverables
+
+

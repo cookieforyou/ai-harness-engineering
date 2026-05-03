@@ -54,3 +54,39 @@
 - **Instruction**: `instructions/migrate-environment.instructions.md`
 - **Agent**: `agents/migrate-environment.agent.md`
 - **Skill**: `skills/migrate-environment/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the migrate-environment scenario.
+>
+> This scenario ensures systematic execution of migrate-environment activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/migrate-environment/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/migrate-environment.prompt.md` | Execution prompt |
+| Instructions | `instructions/migrate-environment.instructions.md` | Technical instructions |
+| Agent | `agents/migrate-environment.agent.md` | Responsible agent |
+| Skill | `skills/migrate-environment/SKILL.md` | Domain skill |
+
+
+## Error Handling
+
+### Error Scenario 1
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+### Error Scenario 2
+**Error**: [Description]
+**Handling**: [Resolution steps]

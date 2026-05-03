@@ -105,5 +105,62 @@ class SprintPlanning:
 | SCENARIO | `scenarios/plan-sprint/SCENARIO.md` |
 | PROMPT | `prompts/plan-sprint.prompt.md` |
 | INSTRUCTIONS | `instructions/plan-sprint.instructions.md` |
-| AGENT | `agents/product-owner.agent.md` |
+| AGENT | `agents/plan-sprint.agent.md` |
 | SKILL | `skills/plan-sprint/SKILL.md` |
+
+
+## Purpose
+
+> Define the objectives and scope of the plan-sprint scenario.
+>
+> This scenario ensures systematic execution of plan-sprint activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/plan-sprint/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/plan-sprint.prompt.md` | Execution prompt |
+| Instructions | `instructions/plan-sprint.instructions.md` | Technical instructions |
+| Agent | `agents/plan-sprint.agent.md` | Responsible agent |
+| Skill | `skills/plan-sprint/SKILL.md` | Domain skill |
+
+
+## Chain of Thought
+
+1. Understand the context and requirements for plan-sprint
+2. Analyze dependencies and constraints
+3. Execute core activities systematically
+4. Validate outputs against acceptance criteria
+5. Document decisions and handover state
+
+
+## Decision Checkpoints
+
+| Checkpoint | Question | Decision Options |
+|------------|----------|-----------------|
+
+## Error Handling
+
+### Error Scenario 1
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+### Error Scenario 2
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+
+## Handover Criteria
+
+- [ ] Criterion 1: [Description]
+- [ ] Criterion 2: [Description]
+- [ ] Criterion 3: [Description]

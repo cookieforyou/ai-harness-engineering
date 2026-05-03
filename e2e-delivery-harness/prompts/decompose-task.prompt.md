@@ -10,7 +10,7 @@ stage: task-decomposition
 
 > **版本**: 1.1.0 | **适用阶段**: 任务分解 | **预计工时**: 1-2小时
 
-## 变量定义 (Variables)
+## Input Variables
 
 > AI 在执行前必须确认以下变量已填充
 
@@ -48,7 +48,7 @@ interface TeamCapacity {
 7. [OUTPUT] 生成交付物 → 任务清单 + Sprint 计划
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 情况 1：架构设计信息不足
 
@@ -383,3 +383,24 @@ handoff_to_development:
 | 依赖清晰 | 所有依赖已标注 |
 | 优先级合理 | 优先级与价值匹配 |
 | 计划可行 | 在资源和时间约束内可行 |
+
+## Task Description
+
+> Describe the specific task for the decompose-task scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for decompose-task
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core decompose-task activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality

@@ -1,6 +1,14 @@
+---
+name: design-database
+description: design database execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: design-database
+---
+
 # Prompt: 数据库设计 (Design Database)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -18,7 +26,7 @@ inputs:
   consistency_level: string      # 一致性要求：strong|eventual
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Database Architect (数据库架构师)**，负责设计数据库架构、表结构、索引策略等。
 
@@ -120,7 +128,7 @@ inputs:
 - 一致性维护成本
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -251,3 +259,25 @@ design_database_result:
     current_gb: 50
     one_year_later_gb: 200
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for design-database
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core design-database activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for design-database deliverables
+
+

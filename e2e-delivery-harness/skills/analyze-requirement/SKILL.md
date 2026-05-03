@@ -242,3 +242,47 @@ version: "1.0.0"
 - **Agent**: [../../agents/analyze-requirement.agent.md](../../agents/analyze-requirement.agent.md)
 - **Instruction**: [../../instructions/analyze-requirement.instructions.md](../../instructions/analyze-requirement.instructions.md)
 - **Prompt**: [../../prompts/analyze-requirement.prompt.md](../../prompts/analyze-requirement.prompt.md)
+
+
+## Core Knowledge
+
+> Essential knowledge domain for analyze-requirement execution.
+
+### Domain Fundamentals
+- [Core concept 1]
+- [Core concept 2]
+- [Core concept 3]
+
+### Key Principles
+1. [Principle 1]
+2. [Principle 2]
+3. [Principle 3]
+
+
+## Best Practices
+
+> Proven practices for analyze-requirement excellence.
+
+1. **Practice 1**: [Description and rationale]
+2. **Practice 2**: [Description and rationale]
+3. **Practice 3**: [Description and rationale]
+
+
+## Common Pitfalls
+
+> Frequent mistakes to avoid during analyze-requirement execution.
+
+### Pitfall 1: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 2: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 3: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]

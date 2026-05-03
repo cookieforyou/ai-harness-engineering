@@ -62,5 +62,30 @@
 
 - **Prompt**: `prompts/manage-config.prompt.md`
 - **Instruction**: `instructions/manage-config.instructions.md`
-- **Agent**: `agents/config-manager.agent.md`
+- **Agent**: `agents/manage-config.agent.md`
 - **Skill**: `skills/manage-config/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the manage-config scenario.
+>
+> This scenario ensures systematic execution of manage-config activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/manage-config/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/manage-config.prompt.md` | Execution prompt |
+| Instructions | `instructions/manage-config.instructions.md` | Technical instructions |
+| Agent | `agents/manage-config.agent.md` | Responsible agent |
+| Skill | `skills/manage-config/SKILL.md` | Domain skill |

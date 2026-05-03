@@ -10,7 +10,7 @@ stage: testing
 
 > **版本**: 1.1.0 | **适用阶段**: 测试验证 | **预计工时**: 根据测试范围
 
-## 变量定义 (Variables)
+## Input Variables
 
 | 变量名 | 类型 | 必填 | 说明 | 示例 |
 |--------|------|------|------|------|
@@ -32,7 +32,7 @@ stage: testing
 7. [OUTPUT] 生成测试报告
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 情况 1：测试环境不可用
 
@@ -362,3 +362,24 @@ handoff_to_deployment:
     reviewer: string
     date: datetime
 ```
+
+## Task Description
+
+> Describe the specific task for the verify-test scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for verify-test
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core verify-test activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality

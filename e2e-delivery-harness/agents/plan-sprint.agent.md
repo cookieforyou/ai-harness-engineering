@@ -96,3 +96,27 @@ story:
 | Instruction | `instructions/plan-sprint.instructions.md` |
 | Prompt | `prompts/plan-sprint.prompt.md` |
 | Skill | `skills/plan-sprint/SKILL.md` |
+
+
+## Expected Output
+
+```yaml
+output_deliverables:
+  - artifact: "[output_artifact_1]"
+    format: "[format]"
+    validation: "[validation criteria]"
+  - artifact: "[output_artifact_2]"
+    format: "[format]"
+    validation: "[validation criteria]"
+```
+
+
+## Handoff
+
+### To Agent: [Next Agent]
+**Trigger**: [When to hand off]
+**Data**: [What data to pass]
+
+### From Agent: [Previous Agent]
+**Trigger**: [When this agent receives control]
+**Data**: [What data is received]

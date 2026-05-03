@@ -90,7 +90,7 @@ THINK: 制定修复计划
 ## Primary Assets
 
 - **Agent**: [../../agents/verify-test.agent.md](../../agents/verify-test.agent.md)
-- **Instruction**: [../../instructions/security-audit.instructions.md](../../instructions/security-audit.instructions.md)
+- **Instruction**: [../../instructions/audit-security.instructions.md](../../instructions/audit-security.instructions.md)
 - **Prompt**: [../../prompts/audit-security.prompt.md](../../prompts/audit-security.prompt.md)
 
 ## Expected Output

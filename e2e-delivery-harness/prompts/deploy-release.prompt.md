@@ -10,7 +10,7 @@ stage: deployment
 
 > **版本**: 1.1.0 | **适用阶段**: 部署发布 | **预计工时**: 1-3小时
 
-## 变量定义 (Variables)
+## Input Variables
 
 > AI 在执行前必须确认以下变量已填充
 
@@ -50,7 +50,7 @@ interface ClusterInfo {
 8. [MONITOR] 持续监控 → 确保稳定
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 情况 1：部署包校验失败
 
@@ -432,3 +432,24 @@ handoff_to_monitoring:
 | 验证完整 | 核心功能都有验证 |
 | 记录完整 | 部署过程有记录 |
 | 监控就绪 | 监控系统已配置 |
+
+## Task Description
+
+> Describe the specific task for the deploy-release scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for deploy-release
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core deploy-release activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality

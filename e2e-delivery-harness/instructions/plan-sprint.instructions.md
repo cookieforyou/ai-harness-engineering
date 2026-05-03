@@ -1,6 +1,14 @@
+---
+name: plan-sprint
+description: Detailed technical instructions for plan-sprint scenario execution
+type: instruction
+version: "1.1.0"
+stage: plan-sprint
+---
+
 # Instructions: 冲刺规划 (Plan Sprint)
 
-## 概述
+## Overview
 
 本文档定义了 Sprint Planning 的详细技术规范和最佳实践。
 
@@ -295,7 +303,7 @@ def determine_commitment(capacity, strategy='conservative'):
 置信度: {confidence}%
 ```
 
-## 最佳实践
+## Best Practices
 
 ### DO
 
@@ -321,3 +329,43 @@ def determine_commitment(capacity, strategy='conservative'):
 | PROMPT | `../../prompts/plan-sprint.prompt.md` |
 | AGENT | `../../agents/product-owner.agent.md` |
 | SKILL | `../../skills/plan-sprint/SKILL.md` |
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for plan-sprint.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for plan-sprint.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for plan-sprint deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

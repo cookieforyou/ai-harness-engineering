@@ -62,5 +62,30 @@
 
 - **Prompt**: `prompts/setup-infra.prompt.md`
 - **Instruction**: `instructions/setup-infra.instructions.md`
-- **Agent**: `agents/infrastructure-engineer.agent.md`
+- **Agent**: `agents/setup-infra.agent.md`
 - **Skill**: `skills/setup-infra/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the setup-infra scenario.
+>
+> This scenario ensures systematic execution of setup-infra activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/setup-infra/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/setup-infra.prompt.md` | Execution prompt |
+| Instructions | `instructions/setup-infra.instructions.md` | Technical instructions |
+| Agent | `agents/setup-infra.agent.md` | Responsible agent |
+| Skill | `skills/setup-infra/SKILL.md` | Domain skill |

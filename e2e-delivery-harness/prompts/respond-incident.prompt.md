@@ -264,3 +264,30 @@ handoff:
 4. **数据驱动**: 用数据支持决策
 5. **团队协作**: 充分利用团队能力
 6. **持续改进**: 每次事件都是学习机会
+
+## Task Description
+
+> Describe the specific task for the respond-incident scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for respond-incident
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core respond-incident activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for respond-incident deliverables
+
+

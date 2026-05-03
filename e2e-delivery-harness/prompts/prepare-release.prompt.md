@@ -1,6 +1,14 @@
+---
+name: prepare-release
+description: prepare release execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: prepare-release
+---
+
 # Prompt: 发布准备 (Prepare Release)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -22,7 +30,7 @@ inputs:
   change_requests: string[]       # 变更单列表
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Release Manager (发布经理)**，负责规划和管理版本发布。
 
@@ -124,7 +132,7 @@ inputs:
 - 回滚验证确认
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -286,3 +294,25 @@ prepare_release_result:
       - "运维负责人"
       - "测试负责人"
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for prepare-release
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core prepare-release activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for prepare-release deliverables
+
+

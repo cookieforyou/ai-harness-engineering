@@ -1,3 +1,11 @@
+---
+name: review-code
+description: review code execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: review-code
+---
+
 # Prompt: 代码审查场景执行 Prompt
 
 ## 概述
@@ -100,7 +108,7 @@
 4. 建议行动
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 识别信号
 
@@ -213,3 +221,30 @@ interface CodeIssue {
 2. **建设性**: 提供具体可行的改进建议
 3. **高效**: 优先关注高风险问题
 4. **安全优先**: 重点审查安全敏感代码
+
+## Task Description
+
+> Describe the specific task for the review-code scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for review-code
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core review-code activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for review-code deliverables
+
+

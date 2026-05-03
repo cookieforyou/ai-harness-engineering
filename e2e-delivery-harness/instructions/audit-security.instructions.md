@@ -85,3 +85,59 @@ stage: testing
 - [ ] 安全审计报告已完成
 - [ ] 漏洞已确认
 - [ ] 修复建议已提供
+
+
+## Overview
+
+> High-level description of the audit-security execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the audit-security scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for audit-security.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for audit-security execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for audit-security.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for audit-security deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

@@ -53,7 +53,7 @@ OUTPUT: 输出迁移报告
 
 ## Primary Assets
 
-- **Agent**: [../../agents/data-migration-engineer.agent.md](../../agents/data-migration-engineer.agent.md)
+- **Agent**: [../../agents/migrate-data.agent.md](../../agents/migrate-data.agent.md)
 - **Instruction**: [../../instructions/migrate-data.instructions.md](../../instructions/migrate-data.instructions.md)
 - **Prompt**: [../../prompts/migrate-data.prompt.md](../../prompts/migrate-data.prompt.md)
 - **Skill**: [../../skills/migrate-data/SKILL.md](../../skills/migrate-data/SKILL.md)
@@ -113,3 +113,10 @@ OUTPUT: 输出迁移报告
 | 数据准确率 | ≥ 99.99% | 字段校验 |
 | 迁移成功率 | ≥ 99.9% | 成功记录/总数 |
 | 业务停机时间 | 最小化 | 实际停机时长 |
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]

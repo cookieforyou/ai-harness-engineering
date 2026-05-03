@@ -1,3 +1,10 @@
+---
+name: design-database
+description: design database specialist agent for E2E delivery workflow
+tools: []
+version: "1.1.0"
+---
+
 # Agent: Database Architect (数据库架构师)
 
 ## 角色定义
@@ -40,9 +47,64 @@
 - 索引命中率 ≥ 80%
 - SQL 执行计划优化
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `scenarios/design-database/SCENARIO.md`
 - **Instruction**: `instructions/design-database.instructions.md`
 - **Prompt**: `prompts/design-database.prompt.md`
 - **Skill**: `skills/design-database/SKILL.md`
+
+
+## Use When
+
+Activate this agent when:
+- [Trigger condition 1 for design-database]
+- [Trigger condition 2 for design-database]
+- [Trigger condition 3 for design-database]
+
+
+## Working Rules
+
+1. **Rule 1**: [Rule description for design-database agent]
+2. **Rule 2**: [Rule description for design-database agent]
+3. **Rule 3**: [Rule description for design-database agent]
+4. **Rule 4**: [Rule description for design-database agent]
+
+
+## Expected Input
+
+```yaml
+input_context:
+  - field: "[input_field_1]"
+    type: "[type]"
+    required: true
+    description: "[Description of input field 1]"
+  - field: "[input_field_2]"
+    type: "[type]"
+    required: false
+    description: "[Description of input field 2]"
+```
+
+
+## Expected Output
+
+```yaml
+output_deliverables:
+  - artifact: "[output_artifact_1]"
+    format: "[format]"
+    validation: "[validation criteria]"
+  - artifact: "[output_artifact_2]"
+    format: "[format]"
+    validation: "[validation criteria]"
+```
+
+
+## Handoff
+
+### To Agent: [Next Agent]
+**Trigger**: [When to hand off]
+**Data**: [What data to pass]
+
+### From Agent: [Previous Agent]
+**Trigger**: [When this agent receives control]
+**Data**: [What data is received]

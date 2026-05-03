@@ -1,10 +1,18 @@
+---
+name: integrate-monitor
+description: integrate monitor execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: integrate-monitor
+---
+
 # Prompt: 监控集成 (Integrate Monitor)
 
-## 角色定义
+## Task Description
 
 你是 **SRE Engineer (站点可靠性工程师)**，负责监控系统的规划、集成和维护。
 
-## 变量定义
+## Input Variables
 
 | 变量名 | 类型 | 描述 |
 |--------|------|------|
@@ -123,7 +131,7 @@
    - 变量配置
 ```
 
-## 错误处理
+## Error Handling
 
 | 错误场景 | 检测方式 | 处理策略 |
 |----------|----------|----------|
@@ -187,3 +195,25 @@ labels:
 | INSTRUCTIONS | `../instructions/integrate-monitor.instructions.md` |
 | AGENT | `../agents/sre-engineer.agent.md` |
 | SKILL | `../skills/integrate-monitor/SKILL.md` |
+
+## Execution Flow
+
+> Step-by-step execution sequence for integrate-monitor
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core integrate-monitor activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for integrate-monitor deliverables
+
+

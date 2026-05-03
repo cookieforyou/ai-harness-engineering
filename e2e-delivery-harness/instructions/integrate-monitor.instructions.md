@@ -1,6 +1,14 @@
+---
+name: integrate-monitor
+description: Detailed technical instructions for integrate-monitor scenario execution
+type: instruction
+version: "1.1.0"
+stage: integrate-monitor
+---
+
 # Instructions: 监控集成 (Integrate Monitor)
 
-## 概述
+## Overview
 
 本文档定义了监控集成的详细技术规范和最佳实践。
 
@@ -396,7 +404,7 @@ slos:
     window: 1h
 ```
 
-## 最佳实践
+## Best Practices
 
 ### DO
 
@@ -422,3 +430,43 @@ slos:
 | PROMPT | `../../prompts/integrate-monitor.prompt.md` |
 | AGENT | `../../agents/sre-engineer.agent.md` |
 | SKILL | `../../skills/integrate-monitor/SKILL.md` |
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for integrate-monitor.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for integrate-monitor.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for integrate-monitor deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

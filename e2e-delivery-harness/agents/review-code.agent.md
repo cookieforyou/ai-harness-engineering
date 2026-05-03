@@ -87,3 +87,54 @@ handover:
 2. 问题必须准确
 3. 建议必须可行
 4. 结论必须有依据
+
+## Associated Assets
+
+- **Scenario**: `scenarios/review-code/SCENARIO.md`
+- **Instruction**: `instructions/review-code.instructions.md`
+- **Prompt**: `prompts/review-code.prompt.md`
+- **Skill**: `skills/review-code/SKILL.md`
+
+
+## Use When
+
+Activate this agent when:
+- [Trigger condition 1 for review-code]
+- [Trigger condition 2 for review-code]
+- [Trigger condition 3 for review-code]
+
+
+## Working Rules
+
+1. **Rule 1**: [Rule description for review-code agent]
+2. **Rule 2**: [Rule description for review-code agent]
+3. **Rule 3**: [Rule description for review-code agent]
+4. **Rule 4**: [Rule description for review-code agent]
+
+
+## Expected Input
+
+```yaml
+input_context:
+  - field: "[input_field_1]"
+    type: "[type]"
+    required: true
+    description: "[Description of input field 1]"
+  - field: "[input_field_2]"
+    type: "[type]"
+    required: false
+    description: "[Description of input field 2]"
+```
+
+
+## Expected Output
+
+```yaml
+output_deliverables:
+  - artifact: "[output_artifact_1]"
+    format: "[format]"
+    validation: "[validation criteria]"
+  - artifact: "[output_artifact_2]"
+    format: "[format]"
+    validation: "[validation criteria]"
+```

@@ -62,5 +62,30 @@
 
 - **Prompt**: `prompts/integrate-api.prompt.md`
 - **Instruction**: `instructions/integrate-api.instructions.md`
-- **Agent**: `agents/api-integration-engineer.agent.md`
+- **Agent**: `agents/integrate-api.agent.md`
 - **Skill**: `skills/integrate-api/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the integrate-api scenario.
+>
+> This scenario ensures systematic execution of integrate-api activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/integrate-api/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/integrate-api.prompt.md` | Execution prompt |
+| Instructions | `instructions/integrate-api.instructions.md` | Technical instructions |
+| Agent | `agents/integrate-api.agent.md` | Responsible agent |
+| Skill | `skills/integrate-api/SKILL.md` | Domain skill |

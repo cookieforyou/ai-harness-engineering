@@ -1,10 +1,18 @@
+---
+name: hotfix
+description: hotfix execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: hotfix
+---
+
 # Prompt: 紧急修复场景执行 Prompt
 
 ## 概述
 
 本 Prompt 用于指导 AI Agent 执行紧急缺陷修复工作。
 
-## 变量定义 (Variables)
+## Input Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -28,7 +36,7 @@
 6. [OUTPUT] 输出报告 → 修复总结
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### EH-1: 根因不明
 
@@ -76,3 +84,30 @@ handover_to_support:
 1. **快速响应**: 必须立即响应
 2. **最小化修复**: 只修复必要部分
 3. **可回滚**: 修复必须可回滚
+
+## Task Description
+
+> Describe the specific task for the hotfix scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for hotfix
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core hotfix activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for hotfix deliverables
+
+

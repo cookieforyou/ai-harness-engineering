@@ -61,5 +61,30 @@
 
 - **Prompt**: `prompts/automate-test.prompt.md`
 - **Instruction**: `instructions/automate-test.instructions.md`
-- **Agent**: `agents/test-automation-engineer.agent.md`
+- **Agent**: `agents/automate-test.agent.md`
 - **Skill**: `skills/automate-test/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the automate-test scenario.
+>
+> This scenario ensures systematic execution of automate-test activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/automate-test/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/automate-test.prompt.md` | Execution prompt |
+| Instructions | `instructions/automate-test.instructions.md` | Technical instructions |
+| Agent | `agents/automate-test.agent.md` | Responsible agent |
+| Skill | `skills/automate-test/SKILL.md` | Domain skill |

@@ -96,5 +96,62 @@ class ProjectDocumentation:
 | SCENARIO | `scenarios/document-project/SCENARIO.md` |
 | PROMPT | `prompts/document-project.prompt.md` |
 | INSTRUCTIONS | `instructions/document-project.instructions.md` |
-| AGENT | `agents/technical-writer.agent.md` |
+| AGENT | `agents/document-project.agent.md` |
 | SKILL | `skills/document-project/SKILL.md` |
+
+
+## Purpose
+
+> Define the objectives and scope of the document-project scenario.
+>
+> This scenario ensures systematic execution of document-project activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/document-project/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/document-project.prompt.md` | Execution prompt |
+| Instructions | `instructions/document-project.instructions.md` | Technical instructions |
+| Agent | `agents/document-project.agent.md` | Responsible agent |
+| Skill | `skills/document-project/SKILL.md` | Domain skill |
+
+
+## Chain of Thought
+
+1. Understand the context and requirements for document-project
+2. Analyze dependencies and constraints
+3. Execute core activities systematically
+4. Validate outputs against acceptance criteria
+5. Document decisions and handover state
+
+
+## Decision Checkpoints
+
+| Checkpoint | Question | Decision Options |
+|------------|----------|-----------------|
+
+## Error Handling
+
+### Error Scenario 1
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+### Error Scenario 2
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+
+## Handover Criteria
+
+- [ ] Criterion 1: [Description]
+- [ ] Criterion 2: [Description]
+- [ ] Criterion 3: [Description]

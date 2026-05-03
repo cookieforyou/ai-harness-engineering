@@ -1,3 +1,11 @@
+---
+name: setup-infra
+description: Detailed technical instructions for setup-infra scenario execution
+type: instruction
+version: "1.1.0"
+stage: setup-infra
+---
+
 # Instructions: 基础设施搭建 (Setup Infrastructure)
 
 ## 云服务商选择规范
@@ -233,3 +241,59 @@ budget:
     - 90%   # 重度告警
     - 100%  # 超预算告警
 ```
+
+
+## Overview
+
+> High-level description of the setup-infra execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the setup-infra scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for setup-infra.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for setup-infra execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for setup-infra.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for setup-infra deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

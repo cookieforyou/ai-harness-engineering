@@ -221,3 +221,30 @@ handoff:
 5. **结构一致**: 建立统一格式
 6. **易于搜索**: 优化元数据和标签
 7. **团队协作**: 多人维护更新
+
+## Task Description
+
+> Describe the specific task for the manage-knowledge scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for manage-knowledge
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core manage-knowledge activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for manage-knowledge deliverables
+
+

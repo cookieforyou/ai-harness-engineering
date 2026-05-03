@@ -1,6 +1,14 @@
+---
+name: design-architecture
+description: design architecture execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: design-architecture
+---
+
 # Prompt: 架构设计 (Design Architecture)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -17,7 +25,7 @@ inputs:
   existing_constraints: string[]  # 现有约束
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Solution Architect (解决方案架构师)**，负责设计系统高层架构，制定技术选型方案。
 
@@ -120,7 +128,7 @@ inputs:
 - 风险应对策略
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -258,3 +266,25 @@ design_architecture_result:
     monthly: "$50,000"
     yearly: "$600,000"
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for design-architecture
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core design-architecture activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for design-architecture deliverables
+
+

@@ -115,3 +115,10 @@ version: "1.0.0"
 ### 风险提示
 ...
 ```
+
+## Associated Assets
+
+- **Scenario**: `scenarios/implement-feature/SCENARIO.md`
+- **Instruction**: `instructions/implement-feature.instructions.md`
+- **Prompt**: `prompts/implement-feature.prompt.md`
+- **Skill**: `skills/implement-feature/SKILL.md`

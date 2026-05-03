@@ -131,3 +131,23 @@ data_integrity:
 | Rollback takes too long | Automate and test regularly |
 | Partial rollback state | Design atomic deployments |
 | Can't verify rollback | Implement comprehensive checks |
+
+
+## Common Pitfalls
+
+> Frequent mistakes to avoid during plan-rollback execution.
+
+### Pitfall 1: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 2: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 3: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]

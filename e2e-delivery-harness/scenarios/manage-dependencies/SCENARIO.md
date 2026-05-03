@@ -110,3 +110,28 @@ output:
 - [implement-feature](./implement-feature/SCENARIO.md) - 功能实现
 - [audit-security](./audit-security/SCENARIO.md) - 安全审计
 - [verify-test](./verify-test/SCENARIO.md) - 测试验证
+
+
+## Purpose
+
+> Define the objectives and scope of the manage-dependencies scenario.
+>
+> This scenario ensures systematic execution of manage-dependencies activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/manage-dependencies/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/manage-dependencies.prompt.md` | Execution prompt |
+| Instructions | `instructions/manage-dependencies.instructions.md` | Technical instructions |
+| Agent | `agents/manage-dependencies.agent.md` | Responsible agent |
+| Skill | `skills/manage-dependencies/SKILL.md` | Domain skill |

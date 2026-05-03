@@ -10,7 +10,7 @@ stage: monitoring
 
 > **版本**: 1.1.0 | **适用阶段**: 监控运维 | **预计工时**: 持续
 
-## 变量定义 (Variables)
+## Input Variables
 
 > AI 在执行前必须确认以下变量已填充
 
@@ -60,7 +60,7 @@ interface OnCall {
 7. [OUTPUT] 生成报告 → 监控配置报告
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 情况 1：监控数据缺失
 
@@ -466,3 +466,24 @@ handoff_to_next_shift:
 | 告警有效 | 告警阈值合理有效 |
 | 响应及时 | 告警及时响应处理 |
 | 文档完善 | 运维文档完整更新 |
+
+## Task Description
+
+> Describe the specific task for the monitor-operate scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for monitor-operate
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core monitor-operate activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality

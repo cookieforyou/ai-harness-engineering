@@ -90,7 +90,7 @@ THINK: 跟踪改进落地
 ## Primary Assets
 
 - **Agent**: [../../agents/monitor-operate.agent.md](../../agents/monitor-operate.agent.md)
-- **Instruction**: [../../instructions/incident-review.instructions.md](../../instructions/incident-review.instructions.md)
+- **Instruction**: [../../instructions/review-incident.instructions.md](../../instructions/review-incident.instructions.md)
 - **Prompt**: [../../prompts/review-incident.prompt.md](../../prompts/review-incident.prompt.md)
 
 ## Expected Output

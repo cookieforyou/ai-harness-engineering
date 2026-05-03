@@ -127,3 +127,47 @@ stage: cross-phase
 - 工作量：5 人天
 - 影响程度：中
 - 建议：接受
+
+
+## Core Knowledge
+
+> Essential knowledge domain for manage-change execution.
+
+### Domain Fundamentals
+- [Core concept 1]
+- [Core concept 2]
+- [Core concept 3]
+
+### Key Principles
+1. [Principle 1]
+2. [Principle 2]
+3. [Principle 3]
+
+
+## Best Practices
+
+> Proven practices for manage-change excellence.
+
+1. **Practice 1**: [Description and rationale]
+2. **Practice 2**: [Description and rationale]
+3. **Practice 3**: [Description and rationale]
+
+
+## Common Pitfalls
+
+> Frequent mistakes to avoid during manage-change execution.
+
+### Pitfall 1: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 2: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 3: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]

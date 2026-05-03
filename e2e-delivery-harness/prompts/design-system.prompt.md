@@ -10,7 +10,7 @@ stage: system-design
 
 > **版本**: 1.1.0 | **适用阶段**: 系统设计 | **预计工时**: 4-8小时
 
-## 变量定义 (Variables)
+## Input Variables
 
 | 变量名 | 类型 | 必填 | 说明 | 示例 |
 |--------|------|------|------|------|
@@ -33,7 +33,7 @@ stage: system-design
 8. [OUTPUT] 生成设计文档
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 情况 1：需求与设计不匹配
 
@@ -392,3 +392,24 @@ handoff_to_task_decomposition:
 | 架构合理 | 架构风格与项目匹配 |
 | 风险可控 | 主要风险有应对措施 |
 | 可落地 | 设计可实施 |
+
+## Task Description
+
+> Describe the specific task for the design-system scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for design-system
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core design-system activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality

@@ -1,3 +1,11 @@
+---
+name: audit-security
+description: audit security execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: audit-security
+---
+
 # Prompt: 安全审计场景执行 Prompt
 
 ## 概述
@@ -125,7 +133,7 @@ CVSS 评分维度:
 5. 第三方安全 (供应商管理)
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 识别信号
 
@@ -255,3 +263,30 @@ interface Vulnerability {
 3. **保密性**: 审计结果严格保密
 4. **全面性**: 不遗漏任何潜在风险点
 5. **实用性**: 修复建议必须可执行、可验证
+
+## Task Description
+
+> Describe the specific task for the audit-security scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for audit-security
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core audit-security activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for audit-security deliverables
+
+

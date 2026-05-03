@@ -144,3 +144,28 @@ output:
 - [review-code](./review-code/SCENARIO.md) - 代码审查
 - [review-design](./review-design/SCENARIO.md) - 设计审查
 - [verify-test](./verify-test/SCENARIO.md) - 测试验证
+
+
+## Purpose
+
+> Define the objectives and scope of the manage-tech-debt scenario.
+>
+> This scenario ensures systematic execution of manage-tech-debt activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/manage-tech-debt/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/manage-tech-debt.prompt.md` | Execution prompt |
+| Instructions | `instructions/manage-tech-debt.instructions.md` | Technical instructions |
+| Agent | `agents/manage-tech-debt.agent.md` | Responsible agent |
+| Skill | `skills/manage-tech-debt/SKILL.md` | Domain skill |

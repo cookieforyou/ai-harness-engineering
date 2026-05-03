@@ -1,3 +1,11 @@
+---
+name: automate-test
+description: Detailed technical instructions for automate-test scenario execution
+type: instruction
+version: "1.1.0"
+stage: automate-test
+---
+
 # Instructions: 自动化测试 (Automate Test)
 
 ## 测试框架选择规范
@@ -170,3 +178,59 @@ jobs:
 2. 修复或标记为 known issue
 3. 添加跟踪 ticket
 4. 设置合理的重试策略
+
+
+## Overview
+
+> High-level description of the automate-test execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the automate-test scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for automate-test.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for automate-test execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for automate-test.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for automate-test deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

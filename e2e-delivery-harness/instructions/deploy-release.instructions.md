@@ -228,3 +228,59 @@ version: "1.0.0"
 | 回滚方案 | .md | 是 | 回滚操作步骤 |
 | 部署检查清单 | .md | 是 | 验证检查项 |
 | 部署报告 | .md | 是 | 部署执行记录 |
+
+
+## Overview
+
+> High-level description of the deploy-release execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the deploy-release scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for deploy-release.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for deploy-release execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for deploy-release.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for deploy-release deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

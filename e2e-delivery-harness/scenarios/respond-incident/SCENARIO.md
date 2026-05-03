@@ -146,3 +146,28 @@ output:
 - [review-incident](./review-incident/SCENARIO.md) - 事件复盘
 - [plan-rollback](./plan-rollback/SCENARIO.md) - 回滚计划
 - [plan-disaster-recovery](./plan-disaster-recovery/SCENARIO.md) - 灾备恢复
+
+
+## Purpose
+
+> Define the objectives and scope of the respond-incident scenario.
+>
+> This scenario ensures systematic execution of respond-incident activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/respond-incident/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/respond-incident.prompt.md` | Execution prompt |
+| Instructions | `instructions/respond-incident.instructions.md` | Technical instructions |
+| Agent | `agents/respond-incident.agent.md` | Responsible agent |
+| Skill | `skills/respond-incident/SKILL.md` | Domain skill |

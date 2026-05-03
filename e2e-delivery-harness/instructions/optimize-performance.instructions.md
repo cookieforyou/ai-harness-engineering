@@ -1,3 +1,11 @@
+---
+name: optimize-performance
+description: Detailed technical instructions for optimize-performance scenario execution
+type: instruction
+version: "1.1.0"
+stage: optimize-performance
+---
+
 # Instructions: 性能优化 (Optimize Performance)
 
 ## 性能优化层级
@@ -118,3 +126,59 @@ metrics:
   error_rate:
     percentage: "< 0.1%"
 ```
+
+
+## Overview
+
+> High-level description of the optimize-performance execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the optimize-performance scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for optimize-performance.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for optimize-performance execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for optimize-performance.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for optimize-performance deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

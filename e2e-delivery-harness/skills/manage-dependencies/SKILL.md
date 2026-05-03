@@ -143,3 +143,23 @@ Solution:
 - `greenkeeper`: 自动更新 PR
 - `renovate`: 依赖更新机器人
 - `dependabot`: GitHub 原生更新
+
+
+## Common Pitfalls
+
+> Frequent mistakes to avoid during manage-dependencies execution.
+
+### Pitfall 1: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 2: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 3: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]

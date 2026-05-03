@@ -1,6 +1,14 @@
+---
+name: implement-cicd
+description: implement cicd execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: implement-cicd
+---
+
 # Prompt: CI/CD 实施 (Implement CI/CD)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -16,7 +24,7 @@ inputs:
   rollback_strategy: string      # 回滚策略：automatic|manual
 ```
 
-## 角色定义
+## Task Description
 
 你是 **CI/CD Engineer (CI/CD 工程师)**，负责设计并实施持续集成/持续部署流水线。
 
@@ -117,7 +125,7 @@ inputs:
 - 部署监控
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -244,3 +252,25 @@ implement_cicd_result:
     automatic: true
     trigger: "health_check_failed"
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for implement-cicd
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core implement-cicd activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for implement-cicd deliverables
+
+

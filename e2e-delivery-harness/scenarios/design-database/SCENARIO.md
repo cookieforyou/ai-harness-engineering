@@ -62,5 +62,30 @@
 
 - **Prompt**: `prompts/design-database.prompt.md`
 - **Instruction**: `instructions/design-database.instructions.md`
-- **Agent**: `agents/database-architect.agent.md`
+- **Agent**: `agents/design-database.agent.md`
 - **Skill**: `skills/design-database/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the design-database scenario.
+>
+> This scenario ensures systematic execution of design-database activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/design-database/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/design-database.prompt.md` | Execution prompt |
+| Instructions | `instructions/design-database.instructions.md` | Technical instructions |
+| Agent | `agents/design-database.agent.md` | Responsible agent |
+| Skill | `skills/design-database/SKILL.md` | Domain skill |

@@ -62,5 +62,30 @@
 
 - **Prompt**: `prompts/manage-secrets.prompt.md`
 - **Instruction**: `instructions/manage-secrets.instructions.md`
-- **Agent**: `agents/security-engineer.agent.md`
+- **Agent**: `agents/manage-secrets.agent.md`
 - **Skill**: `skills/manage-secrets/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the manage-secrets scenario.
+>
+> This scenario ensures systematic execution of manage-secrets activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/manage-secrets/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/manage-secrets.prompt.md` | Execution prompt |
+| Instructions | `instructions/manage-secrets.instructions.md` | Technical instructions |
+| Agent | `agents/manage-secrets.agent.md` | Responsible agent |
+| Skill | `skills/manage-secrets/SKILL.md` | Domain skill |

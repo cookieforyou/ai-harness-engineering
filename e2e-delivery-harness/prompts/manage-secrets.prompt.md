@@ -1,6 +1,14 @@
+---
+name: manage-secrets
+description: manage secrets execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: manage-secrets
+---
+
 # Prompt: 密钥管理 (Manage Secrets)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -15,7 +23,7 @@ inputs:
   team_members: number          # 团队成员数
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Security Engineer (安全工程师)**，负责管理和保护应用程序密钥、凭证、证书等敏感信息。
 
@@ -119,7 +127,7 @@ inputs:
 - 灾难恢复测试
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -254,3 +262,25 @@ manage_secrets_result:
     auto_rotation: 12
     manual_rotation: 3
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for manage-secrets
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core manage-secrets activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for manage-secrets deliverables
+
+

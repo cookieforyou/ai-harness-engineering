@@ -24,7 +24,7 @@ OUTPUT: 输出评审报告
 
 ## Primary Assets
 
-- **Agent**: [../../agents/technical-reviewer.agent.md](../../agents/technical-reviewer.agent.md)
+- **Agent**: [../../agents/review-design.agent.md](../../agents/review-design.agent.md)
 - **Instruction**: [../../instructions/review-design.instructions.md](../../instructions/review-design.instructions.md)
 - **Prompt**: [../../prompts/review-design.prompt.md](../../prompts/review-design.prompt.md)
 - **Skill**: [../../skills/review-design/SKILL.md](../../skills/review-design/SKILL.md)
@@ -71,3 +71,10 @@ OUTPUT: 输出评审报告
 | 方案完整性 | ≥ 90% | 评审检查项 |
 | 风险识别率 | 100% | 关键风险 |
 | 评审通过率 | - | 统计结果 |
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]

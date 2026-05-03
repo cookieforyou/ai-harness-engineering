@@ -62,5 +62,30 @@
 
 - **Prompt**: `prompts/backup-data.prompt.md`
 - **Instruction**: `instructions/backup-data.instructions.md`
-- **Agent**: `agents/data-backup-engineer.agent.md`
+- **Agent**: `agents/backup-data.agent.md`
 - **Skill**: `skills/backup-data/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the backup-data scenario.
+>
+> This scenario ensures systematic execution of backup-data activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/backup-data/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/backup-data.prompt.md` | Execution prompt |
+| Instructions | `instructions/backup-data.instructions.md` | Technical instructions |
+| Agent | `agents/backup-data.agent.md` | Responsible agent |
+| Skill | `skills/backup-data/SKILL.md` | Domain skill |

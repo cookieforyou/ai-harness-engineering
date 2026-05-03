@@ -91,7 +91,7 @@ THINK: 给出审查结论
 ## Primary Assets
 
 - **Agent**: [../../agents/implement-feature.agent.md](../../agents/implement-feature.agent.md)
-- **Instruction**: [../../instructions/code-review.instructions.md](../../instructions/code-review.instructions.md)
+- **Instruction**: [../../instructions/review-code.instructions.md](../../instructions/review-code.instructions.md)
 - **Prompt**: [../../prompts/review-code.prompt.md](../../prompts/review-code.prompt.md)
 
 ## Expected Output

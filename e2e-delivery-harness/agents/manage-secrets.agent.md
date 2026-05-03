@@ -57,3 +57,58 @@ associated-scenario: manage-secrets
 - PROMPT: `prompts/manage-secrets.prompt.md`
 - INSTRUCTIONS: `instructions/manage-secrets.instructions.md`
 - SKILL: `skills/manage-secrets/SKILL.md`
+
+
+## Use When
+
+Activate this agent when:
+- [Trigger condition 1 for manage-secrets]
+- [Trigger condition 2 for manage-secrets]
+- [Trigger condition 3 for manage-secrets]
+
+
+## Working Rules
+
+1. **Rule 1**: [Rule description for manage-secrets agent]
+2. **Rule 2**: [Rule description for manage-secrets agent]
+3. **Rule 3**: [Rule description for manage-secrets agent]
+4. **Rule 4**: [Rule description for manage-secrets agent]
+
+
+## Expected Input
+
+```yaml
+input_context:
+  - field: "[input_field_1]"
+    type: "[type]"
+    required: true
+    description: "[Description of input field 1]"
+  - field: "[input_field_2]"
+    type: "[type]"
+    required: false
+    description: "[Description of input field 2]"
+```
+
+
+## Expected Output
+
+```yaml
+output_deliverables:
+  - artifact: "[output_artifact_1]"
+    format: "[format]"
+    validation: "[validation criteria]"
+  - artifact: "[output_artifact_2]"
+    format: "[format]"
+    validation: "[validation criteria]"
+```
+
+
+## Handoff
+
+### To Agent: [Next Agent]
+**Trigger**: [When to hand off]
+**Data**: [What data to pass]
+
+### From Agent: [Previous Agent]
+**Trigger**: [When this agent receives control]
+**Data**: [What data is received]

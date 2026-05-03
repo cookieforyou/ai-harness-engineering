@@ -115,3 +115,39 @@ output:
 - [review-design](./review-design/SCENARIO.md) - 设计审查
 - [review-incident](./review-incident/SCENARIO.md) - 事件复盘
 - [monitor-operate](./monitor-operate/SCENARIO.md) - 监控运维
+
+
+## Purpose
+
+> Define the objectives and scope of the manage-knowledge scenario.
+>
+> This scenario ensures systematic execution of manage-knowledge activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/manage-knowledge/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/manage-knowledge.prompt.md` | Execution prompt |
+| Instructions | `instructions/manage-knowledge.instructions.md` | Technical instructions |
+| Agent | `agents/manage-knowledge.agent.md` | Responsible agent |
+| Skill | `skills/manage-knowledge/SKILL.md` | Domain skill |
+
+
+## Error Handling
+
+### Error Scenario 1
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+### Error Scenario 2
+**Error**: [Description]
+**Handling**: [Resolution steps]

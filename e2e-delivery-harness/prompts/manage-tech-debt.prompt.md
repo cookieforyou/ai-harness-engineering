@@ -233,3 +233,30 @@ handoff:
 4. **小步前进**：Boy Scout Rule，每次改进一点
 5. **测试先行**：重构前确保测试覆盖
 6. **代码审查**：将债务发现纳入审查流程
+
+## Task Description
+
+> Describe the specific task for the manage-tech-debt scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for manage-tech-debt
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core manage-tech-debt activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for manage-tech-debt deliverables
+
+

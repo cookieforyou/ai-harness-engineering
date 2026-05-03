@@ -1,10 +1,18 @@
+---
+name: plan-capacity
+description: plan capacity execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: plan-capacity
+---
+
 # Prompt: 容量规划场景执行 Prompt
 
 ## 概述
 
 本 Prompt 用于指导 AI Agent 执行容量规划工作。
 
-## 变量定义 (Variables)
+## Input Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -41,7 +49,7 @@ interface Capacity {
 6. [OUTPUT] 输出报告 → 规划报告
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### EH-1: 数据不足
 
@@ -93,3 +101,30 @@ handover_to_management:
 1. **数据驱动**: 基于数据分析
 2. **成本效益**: 合理控制成本
 3. **可执行**: 方案切实可行
+
+## Task Description
+
+> Describe the specific task for the plan-capacity scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for plan-capacity
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core plan-capacity activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for plan-capacity deliverables
+
+

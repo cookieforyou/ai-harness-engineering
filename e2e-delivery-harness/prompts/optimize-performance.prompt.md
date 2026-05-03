@@ -1,6 +1,14 @@
+---
+name: optimize-performance
+description: optimize performance execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: optimize-performance
+---
+
 # Prompt: 性能优化 (Optimize Performance)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -16,7 +24,7 @@ inputs:
   optimization_scope: string    # 优化范围：frontend|backend|database|cache
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Performance Engineer (性能工程师)**，负责识别和解决系统性能瓶颈。
 
@@ -140,3 +148,25 @@ handover:
     latency_reduction: "延迟降低百分比"
     qps_increase: "QPS 提升百分比"
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for optimize-performance
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core optimize-performance activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for optimize-performance deliverables
+
+

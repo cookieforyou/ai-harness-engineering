@@ -10,7 +10,7 @@ stage: development
 
 > **版本**: 1.1.0 | **适用阶段**: 开发实现 | **预计工时**: 1-3天/任务
 
-## 变量定义 (Variables)
+## Input Variables
 
 | 变量名 | 类型 | 必填 | 说明 | 示例 |
 |--------|------|------|------|------|
@@ -34,7 +34,7 @@ stage: development
 7. [OUTPUT] 生成交付物
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 情况 1：验收标准不清晰
 
@@ -72,14 +72,6 @@ THEN
 END
 ```
 
-## Task Steps
-
-### 依赖任务
-- [Txxx] - 已完成
-
-### 相关文档
-- [接口设计]
-- [数据模型]
 ```
 
 ## Task Steps
@@ -306,3 +298,24 @@ handoff_to_testing:
 | 代码规范 | 遵循编码规范 |
 | 测试通过 | 单元测试全部通过 |
 | 文档同步 | 相关文档已更新 |
+
+## Task Description
+
+> Describe the specific task for the implement-feature scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for implement-feature
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core implement-feature activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality

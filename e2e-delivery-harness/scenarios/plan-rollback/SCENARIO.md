@@ -152,3 +152,28 @@ output:
 - [prepare-release](./prepare-release/SCENARIO.md) - 发布准备
 - [review-incident](./review-incident/SCENARIO.md) - 事件复盘
 - [plan-disaster-recovery](./plan-disaster-recovery/SCENARIO.md) - 灾备恢复
+
+
+## Purpose
+
+> Define the objectives and scope of the plan-rollback scenario.
+>
+> This scenario ensures systematic execution of plan-rollback activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/plan-rollback/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/plan-rollback.prompt.md` | Execution prompt |
+| Instructions | `instructions/plan-rollback.instructions.md` | Technical instructions |
+| Agent | `agents/plan-rollback.agent.md` | Responsible agent |
+| Skill | `skills/plan-rollback/SKILL.md` | Domain skill |

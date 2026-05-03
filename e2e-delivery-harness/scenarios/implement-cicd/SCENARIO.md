@@ -62,5 +62,30 @@
 
 - **Prompt**: `prompts/implement-cicd.prompt.md`
 - **Instruction**: `instructions/implement-cicd.instructions.md`
-- **Agent**: `agents/cicd-engineer.agent.md`
+- **Agent**: `agents/implement-cicd.agent.md`
 - **Skill**: `skills/implement-cicd/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the implement-cicd scenario.
+>
+> This scenario ensures systematic execution of implement-cicd activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/implement-cicd/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/implement-cicd.prompt.md` | Execution prompt |
+| Instructions | `instructions/implement-cicd.instructions.md` | Technical instructions |
+| Agent | `agents/implement-cicd.agent.md` | Responsible agent |
+| Skill | `skills/implement-cicd/SKILL.md` | Domain skill |

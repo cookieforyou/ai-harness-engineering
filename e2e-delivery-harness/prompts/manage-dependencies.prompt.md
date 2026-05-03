@@ -217,3 +217,30 @@ handoff:
 3. **最小依赖**：优先选择轻量级依赖
 4. **监控漏洞**：订阅安全通报邮件
 5. **渐进更新**：避免一次性大量更新
+
+## Task Description
+
+> Describe the specific task for the manage-dependencies scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for manage-dependencies
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core manage-dependencies activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for manage-dependencies deliverables
+
+

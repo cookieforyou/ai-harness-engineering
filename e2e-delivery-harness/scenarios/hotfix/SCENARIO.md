@@ -24,7 +24,7 @@ OUTPUT: 输出修复报告
 
 ## Primary Assets
 
-- **Agent**: [../../agents/hotfix-engineer.agent.md](../../agents/hotfix-engineer.agent.md)
+- **Agent**: [../../agents/hotfix.agent.md](../../agents/hotfix.agent.md)
 - **Instruction**: [../../instructions/hotfix.instructions.md](../../instructions/hotfix.instructions.md)
 - **Prompt**: [../../prompts/hotfix.prompt.md](../../prompts/hotfix.prompt.md)
 - **Skill**: [../../skills/hotfix/SKILL.md](../../skills/hotfix/SKILL.md)
@@ -73,3 +73,10 @@ OUTPUT: 输出修复报告
 | 修复时间 | ≤ 目标时间 | 实际修复时长 |
 | 问题复发 | 0 | 监控验证 |
 | 引入新问题 | 0 | 回归测试 |
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]

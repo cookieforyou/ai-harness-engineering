@@ -162,3 +162,23 @@ gates:
 5. **Prevent Accumulation**: 建立预防机制
 6. **Communicate**: 与业务方沟通债务风险
 7. **Celebrate Progress**: 展示债务减少的成果
+
+
+## Common Pitfalls
+
+> Frequent mistakes to avoid during manage-tech-debt execution.
+
+### Pitfall 1: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 2: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 3: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]

@@ -99,5 +99,62 @@ class MonitoringIntegration:
 | SCENARIO | `scenarios/integrate-monitor/SCENARIO.md` |
 | PROMPT | `prompts/integrate-monitor.prompt.md` |
 | INSTRUCTIONS | `instructions/integrate-monitor.instructions.md` |
-| AGENT | `agents/sre-engineer.agent.md` |
+| AGENT | `agents/integrate-monitor.agent.md` |
 | SKILL | `skills/integrate-monitor/SKILL.md` |
+
+
+## Purpose
+
+> Define the objectives and scope of the integrate-monitor scenario.
+>
+> This scenario ensures systematic execution of integrate-monitor activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/integrate-monitor/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/integrate-monitor.prompt.md` | Execution prompt |
+| Instructions | `instructions/integrate-monitor.instructions.md` | Technical instructions |
+| Agent | `agents/integrate-monitor.agent.md` | Responsible agent |
+| Skill | `skills/integrate-monitor/SKILL.md` | Domain skill |
+
+
+## Chain of Thought
+
+1. Understand the context and requirements for integrate-monitor
+2. Analyze dependencies and constraints
+3. Execute core activities systematically
+4. Validate outputs against acceptance criteria
+5. Document decisions and handover state
+
+
+## Decision Checkpoints
+
+| Checkpoint | Question | Decision Options |
+|------------|----------|-----------------|
+
+## Error Handling
+
+### Error Scenario 1
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+### Error Scenario 2
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+
+## Handover Criteria
+
+- [ ] Criterion 1: [Description]
+- [ ] Criterion 2: [Description]
+- [ ] Criterion 3: [Description]

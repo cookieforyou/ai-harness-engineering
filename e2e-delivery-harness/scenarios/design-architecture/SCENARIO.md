@@ -62,5 +62,30 @@
 
 - **Prompt**: `prompts/design-architecture.prompt.md`
 - **Instruction**: `instructions/design-architecture.instructions.md`
-- **Agent**: `agents/solution-architect.agent.md`
+- **Agent**: `agents/design-architecture.agent.md`
 - **Skill**: `skills/design-architecture/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the design-architecture scenario.
+>
+> This scenario ensures systematic execution of design-architecture activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/design-architecture/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/design-architecture.prompt.md` | Execution prompt |
+| Instructions | `instructions/design-architecture.instructions.md` | Technical instructions |
+| Agent | `agents/design-architecture.agent.md` | Responsible agent |
+| Skill | `skills/design-architecture/SKILL.md` | Domain skill |

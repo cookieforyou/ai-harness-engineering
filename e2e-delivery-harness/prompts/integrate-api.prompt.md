@@ -1,6 +1,14 @@
+---
+name: integrate-api
+description: integrate api execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: integrate-api
+---
+
 # Prompt: API 集成 (Integrate API)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -21,7 +29,7 @@ inputs:
   environments: string[]        # 环境列表
 ```
 
-## 角色定义
+## Task Description
 
 你是 **API Integration Engineer (API 集成工程师)**，负责集成第三方 API 或内部服务 API。
 
@@ -122,7 +130,7 @@ inputs:
 - 限流测试
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -254,3 +262,25 @@ integrate_api_result:
     unit_coverage: 85%
     integration_passed: true
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for integrate-api
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core integrate-api activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for integrate-api deliverables
+
+

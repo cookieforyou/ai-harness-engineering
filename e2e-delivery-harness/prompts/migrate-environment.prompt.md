@@ -1,6 +1,14 @@
+---
+name: migrate-environment
+description: migrate environment execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: migrate-environment
+---
+
 # Prompt: 环境迁移 (Migrate Environment)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -14,7 +22,7 @@ inputs:
   rollback_required: boolean     # 是否需要回滚
 ```
 
-## 角色定义
+## Task Description
 
 你是 **DevOps Engineer (运维工程师)**，负责环境迁移的规划、执行和验证。
 
@@ -110,3 +118,25 @@ handover:
     data_volume: 数据量
     status: 成功/失败
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for migrate-environment
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core migrate-environment activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for migrate-environment deliverables
+
+

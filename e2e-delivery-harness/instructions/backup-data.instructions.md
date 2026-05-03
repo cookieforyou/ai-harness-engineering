@@ -1,3 +1,11 @@
+---
+name: backup-data
+description: Detailed technical instructions for backup-data scenario execution
+type: instruction
+version: "1.1.0"
+stage: backup-data
+---
+
 # Instructions: 数据备份 (Backup Data)
 
 ## 备份策略规范
@@ -373,3 +381,59 @@ compliance_config:
     extended_retention: "1 year"
     archive_retention: "7 years"
 ```
+
+
+## Overview
+
+> High-level description of the backup-data execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the backup-data scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for backup-data.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for backup-data execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for backup-data.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for backup-data deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

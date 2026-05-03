@@ -1,3 +1,11 @@
+---
+name: manage-change
+description: manage change execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: manage-change
+---
+
 # Prompt: 变更管理场景执行 Prompt
 
 ## 概述
@@ -83,7 +91,7 @@ interface ImpactScope {
 4. 是否需要人工介入还是自动回滚
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 识别信号
 
@@ -180,3 +188,30 @@ HIGH 升级条件:
 2. **合规审计**: 所有变更操作必须可追溯
 3. **最小影响**: 优先选择对业务影响最小的变更方案
 4. **及时通知**: 变更状态变更必须及时通知相关方
+
+## Task Description
+
+> Describe the specific task for the manage-change scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for manage-change
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core manage-change activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for manage-change deliverables
+
+

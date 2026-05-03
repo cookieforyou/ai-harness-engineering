@@ -1,6 +1,14 @@
+---
+name: backup-data
+description: backup data execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: backup-data
+---
+
 # Prompt: 数据备份 (Backup Data)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -18,7 +26,7 @@ inputs:
   encryption_required: boolean    # 是否需要加密
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Data Backup Engineer (数据备份工程师)**，负责设计、实现和管理数据备份策略。
 
@@ -121,7 +129,7 @@ inputs:
 - 演练结果报告
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -275,3 +283,25 @@ backup_data_result:
     status: "success"
     duration_minutes: 45
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for backup-data
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core backup-data activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for backup-data deliverables
+
+

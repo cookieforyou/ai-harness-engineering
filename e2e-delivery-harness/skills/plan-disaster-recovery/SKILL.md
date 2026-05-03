@@ -140,3 +140,23 @@ test_success:
 3. Include all stakeholders
 4. Document failures and improvements
 5. Update plans based on tests
+
+
+## Common Pitfalls
+
+> Frequent mistakes to avoid during plan-disaster-recovery execution.
+
+### Pitfall 1: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 2: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 3: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]

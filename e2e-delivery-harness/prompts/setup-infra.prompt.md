@@ -1,6 +1,14 @@
+---
+name: setup-infra
+description: setup infra execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: setup-infra
+---
+
 # Prompt: 基础设施搭建 (Setup Infrastructure)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -21,7 +29,7 @@ inputs:
     per_instance_max: number
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Infrastructure Engineer (基础设施工程师)**，负责设计、搭建、维护云基础设施。
 
@@ -117,7 +125,7 @@ inputs:
 - 扫描安全漏洞
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -245,3 +253,25 @@ setup_infra_result:
       storage: 50
       network: 200
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for setup-infra
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core setup-infra activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for setup-infra deliverables
+
+

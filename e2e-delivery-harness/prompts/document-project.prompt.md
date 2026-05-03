@@ -1,10 +1,18 @@
+---
+name: document-project
+description: document project execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: document-project
+---
+
 # Prompt: 项目文档 (Document Project)
 
-## 角色定义
+## Task Description
 
 你是 **Technical Writer (技术文档工程师)**，负责项目文档的规划、编写和维护。
 
-## 变量定义
+## Input Variables
 
 | 变量名 | 类型 | 描述 |
 |--------|------|------|
@@ -123,7 +131,7 @@
    - 持续改进
 ```
 
-## 错误处理
+## Error Handling
 
 | 错误场景 | 检测方式 | 处理策略 |
 |----------|----------|----------|
@@ -184,3 +192,25 @@
 | INSTRUCTIONS | `../instructions/document-project.instructions.md` |
 | AGENT | `../agents/technical-writer.agent.md` |
 | SKILL | `../skills/document-project/SKILL.md` |
+
+## Execution Flow
+
+> Step-by-step execution sequence for document-project
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core document-project activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for document-project deliverables
+
+

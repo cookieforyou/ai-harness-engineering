@@ -1,10 +1,18 @@
+---
+name: review-design
+description: review design execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: review-design
+---
+
 # Prompt: 技术方案评审场景执行 Prompt
 
 ## 概述
 
 本 Prompt 用于指导 AI Agent 执行技术方案评审工作。
 
-## 变量定义 (Variables)
+## Input Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -24,7 +32,7 @@
 6. [OUTPUT] 输出报告 → 评审报告
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### EH-1: 方案信息不足
 
@@ -81,3 +89,30 @@ handover_to_design_team:
 1. **客观公正**: 基于事实评审
 2. **建设性**: 提供可行建议
 3. **全面性**: 覆盖所有维度
+
+## Task Description
+
+> Describe the specific task for the review-design scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for review-design
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core review-design activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for review-design deliverables
+
+

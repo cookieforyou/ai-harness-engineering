@@ -201,3 +201,23 @@ health_indicators:
 5. **Gather Feedback**: Measure and improve
 6. **Collaborate**: Involve subject matter experts
 7. **Automate**: Use docs-as-code workflows
+
+
+## Common Pitfalls
+
+> Frequent mistakes to avoid during manage-knowledge execution.
+
+### Pitfall 1: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 2: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 3: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]

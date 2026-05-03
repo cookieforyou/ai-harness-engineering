@@ -227,3 +227,59 @@ version: "1.0.0"
 | 测试用例 | .md | 是 | 测试用例集 |
 | 测试报告 | .md | 是 | 测试结果报告 |
 | 缺陷报告 | .md | 是 | 缺陷跟踪报告 |
+
+
+## Overview
+
+> High-level description of the verify-test execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the verify-test scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for verify-test.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for verify-test execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for verify-test.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for verify-test deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

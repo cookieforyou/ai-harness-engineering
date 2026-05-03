@@ -1,3 +1,11 @@
+---
+name: review-incident
+description: review incident execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: review-incident
+---
+
 # Prompt: 故障复盘场景执行 Prompt
 
 ## 概述
@@ -166,7 +174,7 @@ Why 5: 为什么未进行性能评估?
    - 工具平台建设
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 识别信号
 
@@ -287,3 +295,30 @@ interface ActionItem {
 3. **系统视角**: 关注系统和流程问题，不聚焦个人
 4. **可操作**: 每项改进必须有明确的执行人和验收标准
 5. **知识沉淀**: 经验可复用于未来故障预防
+
+## Task Description
+
+> Describe the specific task for the review-incident scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for review-incident
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core review-incident activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for review-incident deliverables
+
+

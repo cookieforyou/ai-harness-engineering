@@ -1,6 +1,14 @@
+---
+name: review-design
+description: Detailed technical instructions for review-design scenario execution
+type: instruction
+version: "1.1.0"
+stage: review-design
+---
+
 # Instruction: 技术方案评审技术规范
 
-## 概述
+## Overview
 
 本文档定义了技术方案评审的评审维度和标准。
 
@@ -21,3 +29,52 @@
 - **Prompt**: `prompts/review-design.prompt.md`
 - **Agent**: `agents/technical-reviewer.agent.md`
 - **Skill**: `skills/review-design/SKILL.md`
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for review-design.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for review-design execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for review-design.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for review-design deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

@@ -1,3 +1,11 @@
+---
+name: implement-cicd
+description: Detailed technical instructions for implement-cicd scenario execution
+type: instruction
+version: "1.1.0"
+stage: implement-cicd
+---
+
 # Instructions: CI/CD 实施 (Implement CI/CD)
 
 ## CI/CD 平台选型
@@ -355,3 +363,59 @@ spec:
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
 ```
+
+
+## Overview
+
+> High-level description of the implement-cicd execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria for the implement-cicd scenario.
+
+
+## Technical Specifications
+
+> Detailed technical requirements and implementation guidelines for implement-cicd.
+
+### Required Tools
+- [List required tools and frameworks]
+
+### Environment Requirements
+- [List environment prerequisites]
+
+### Configuration Parameters
+- [List key configuration parameters]
+
+
+## Best Practices
+
+> Industry-standard best practices for implement-cicd execution.
+
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
+
+
+## Error Handling
+
+> Common error scenarios and resolution strategies for implement-cicd.
+
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+### Error Category 2
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
+
+
+## Quality Standards
+
+> Acceptance criteria and quality gates for implement-cicd deliverables.
+
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |
+| Standard 2 | [Description] | [How to verify] |
+| Standard 3 | [Description] | [How to verify] |

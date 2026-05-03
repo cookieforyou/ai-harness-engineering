@@ -121,3 +121,10 @@ version: "1.0.0"
 ### 验证重点
 ...
 ```
+
+## Associated Assets
+
+- **Scenario**: `scenarios/verify-test/SCENARIO.md`
+- **Instruction**: `instructions/verify-test.instructions.md`
+- **Prompt**: `prompts/verify-test.prompt.md`
+- **Skill**: `skills/verify-test/SKILL.md`

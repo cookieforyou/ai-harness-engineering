@@ -63,5 +63,30 @@
 
 - **Prompt**: `prompts/prepare-release.prompt.md`
 - **Instruction**: `instructions/prepare-release.instructions.md`
-- **Agent**: `agents/release-manager.agent.md`
+- **Agent**: `agents/prepare-release.agent.md`
 - **Skill**: `skills/prepare-release/SKILL.md`
+
+
+## Purpose
+
+> Define the objectives and scope of the prepare-release scenario.
+>
+> This scenario ensures systematic execution of prepare-release activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/prepare-release/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/prepare-release.prompt.md` | Execution prompt |
+| Instructions | `instructions/prepare-release.instructions.md` | Technical instructions |
+| Agent | `agents/prepare-release.agent.md` | Responsible agent |
+| Skill | `skills/prepare-release/SKILL.md` | Domain skill |

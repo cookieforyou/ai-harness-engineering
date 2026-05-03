@@ -10,7 +10,7 @@ stage: requirement-analysis
 
 > **版本**: 1.1.0 | **适用阶段**: 需求分析 | **预计工时**: 2-4小时
 
-## 变量定义 (Variables)
+## Input Variables
 
 > AI 在执行前必须确认以下变量已填充
 
@@ -34,7 +34,7 @@ stage: requirement-analysis
 7. [OUTPUT] 生成交付物 → 需求规格说明书
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 > AI 在执行过程中遇到以下情况时的处理策略
 
@@ -382,3 +382,24 @@ handoff_to_system_design:
 - 结构清晰、层次分明
 - 重点内容加粗标注
 - 使用表格呈现结构化数据
+
+## Task Description
+
+> Describe the specific task for the analyze-requirement scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for analyze-requirement
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core analyze-requirement activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality

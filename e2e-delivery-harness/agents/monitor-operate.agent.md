@@ -127,3 +127,14 @@ version: "2.0.0"
 | Instruction | `instructions/monitor-operate.instructions.md` |
 | Prompt | `prompts/monitor-operate.prompt.md` |
 | Skill | `skills/monitor-operate/SKILL.md` |
+
+
+## Handoff
+
+### To Agent: [Next Agent]
+**Trigger**: [When to hand off]
+**Data**: [What data to pass]
+
+### From Agent: [Previous Agent]
+**Trigger**: [When this agent receives control]
+**Data**: [What data is received]

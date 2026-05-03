@@ -1,10 +1,18 @@
+---
+name: performance-testing
+description: performance testing execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: performance-testing
+---
+
 # Prompt: 性能测试场景执行 Prompt
 
 ## 概述
 
 本 Prompt 用于指导 AI Agent 执行性能测试流程，包括性能需求分析、测试计划制定、测试执行和结果分析。
 
-## 变量定义 (Variables)
+## Input Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -88,7 +96,7 @@ interface SLATargets {
 8. [OUTPUT] 输出报告 → 完整报告和优化建议
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### 情况 1：性能指标不达标
 
@@ -303,3 +311,30 @@ handoff_to_deployment:
 2. **数据充分**: 测试数据必须充分以反映真实负载
 3. **监控完整**: 必须全程监控以便分析
 4. **结论可靠**: 结论必须有数据支撑
+
+## Task Description
+
+> Describe the specific task for the performance-testing scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for performance-testing
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core performance-testing activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for performance-testing deliverables
+
+

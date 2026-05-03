@@ -1,10 +1,18 @@
+---
+name: migrate-data
+description: migrate data execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: migrate-data
+---
+
 # Prompt: 数据迁移场景执行 Prompt
 
 ## 概述
 
 本 Prompt 用于指导 AI Agent 执行数据迁移流程，包括迁移评估、方案设计、迁移执行和数据验证。
 
-## 变量定义 (Variables)
+## Input Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -55,7 +63,7 @@ interface DataVolume {
 7. [OUTPUT] 输出报告 → 迁移结果
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ### EH-1: 数据不一致
 
@@ -131,3 +139,30 @@ handover_to_production:
 1. **零丢失**: 关键数据不能丢失
 2. **可回滚**: 必须有回滚方案
 3. **可追溯**: 迁移过程必须可追溯
+
+## Task Description
+
+> Describe the specific task for the migrate-data scenario execution.
+> AI must understand the context, objectives, and success criteria before proceeding.
+
+## Execution Flow
+
+> Step-by-step execution sequence for migrate-data
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core migrate-data activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for migrate-data deliverables
+
+

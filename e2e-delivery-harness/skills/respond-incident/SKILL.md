@@ -158,3 +158,23 @@ alert_thresholds:
 3. 跟踪行动项完成
 4. 更新流程和文档
 5. 分享学习经验
+
+
+## Common Pitfalls
+
+> Frequent mistakes to avoid during respond-incident execution.
+
+### Pitfall 1: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 2: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]
+
+### Pitfall 3: [Name]
+**Risk**: [Description]
+**Prevention**: [How to avoid]
+**Impact**: [Consequences if not avoided]

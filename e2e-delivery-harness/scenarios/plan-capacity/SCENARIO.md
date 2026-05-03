@@ -24,7 +24,7 @@ OUTPUT: 输出容量规划报告
 
 ## Primary Assets
 
-- **Agent**: [../../agents/capacity-planner.agent.md](../../agents/capacity-planner.agent.md)
+- **Agent**: [../../agents/plan-capacity.agent.md](../../agents/plan-capacity.agent.md)
 - **Instruction**: [../../instructions/plan-capacity.instructions.md](../../instructions/plan-capacity.instructions.md)
 - **Prompt**: [../../prompts/plan-capacity.prompt.md](../../prompts/plan-capacity.prompt.md)
 - **Skill**: [../../skills/plan-capacity/SKILL.md](../../skills/plan-capacity/SKILL.md)
@@ -72,3 +72,10 @@ OUTPUT: 输出容量规划报告
 | 容量利用率 | < 80% | 监控数据 |
 | 扩容周期 | 按计划 | 执行记录 |
 | 预测准确度 | > 80% | 偏差分析 |
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]

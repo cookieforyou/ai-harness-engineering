@@ -1,6 +1,14 @@
+---
+name: manage-config
+description: manage config execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: manage-config
+---
+
 # Prompt: 配置管理 (Manage Configuration)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -15,7 +23,7 @@ inputs:
   config_format: string          # 配置格式：yaml|json|properties|xml
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Configuration Manager (配置管理员)**，负责管理应用程序配置、环境变量、特性开关等。
 
@@ -114,7 +122,7 @@ inputs:
 - 验证访问日志
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -239,3 +247,25 @@ manage_config_result:
         operator: "admin"
         time: "2024-01-20 10:30"
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for manage-config
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core manage-config activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for manage-config deliverables
+
+

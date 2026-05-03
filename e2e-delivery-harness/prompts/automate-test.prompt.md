@@ -1,6 +1,14 @@
+---
+name: automate-test
+description: automate test execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: automate-test
+---
+
 # Prompt: 自动化测试 (Automate Test)
 
-## 变量定义 (Variables)
+## Input Variables
 
 ```yaml
 inputs:
@@ -14,7 +22,7 @@ inputs:
   priority_cases: string[]      # 优先测试的用例列表
 ```
 
-## 角色定义
+## Task Description
 
 你是 **Test Automation Engineer (测试自动化工程师)**，负责搭建自动化测试框架、编写测试用例、集成 CI/CD。
 
@@ -90,7 +98,7 @@ inputs:
 - 设置覆盖率收集
 ```
 
-## 错误处理 (Error Handling)
+## Error Handling
 
 ```yaml
 error_scenarios:
@@ -197,3 +205,25 @@ automate_test_result:
     - ".github/workflows/test.yml"
     - "docs/testing/README.md"
 ```
+
+## Execution Flow
+
+> Step-by-step execution sequence for automate-test
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core automate-test activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for automate-test deliverables
+
+

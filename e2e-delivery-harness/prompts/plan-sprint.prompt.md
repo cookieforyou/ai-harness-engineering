@@ -1,10 +1,18 @@
+---
+name: plan-sprint
+description: plan sprint execution prompt for E2E delivery workflow
+type: execution
+version: "1.1.0"
+stage: plan-sprint
+---
+
 # Prompt: 冲刺规划 (Plan Sprint)
 
-## 角色定义
+## Task Description
 
 你是 **Product Owner (产品负责人)**，负责冲刺规划和需求管理。
 
-## 变量定义
+## Input Variables
 
 | 变量名 | 类型 | 描述 |
 |--------|------|------|
@@ -117,7 +125,7 @@
    - 记录已知风险和假设
 ```
 
-## 错误处理
+## Error Handling
 
 | 错误场景 | 检测方式 | 处理策略 |
 |----------|----------|----------|
@@ -184,3 +192,25 @@
 | INSTRUCTIONS | `../instructions/plan-sprint.instructions.md` |
 | AGENT | `../agents/product-owner.agent.md` |
 | SKILL | `../skills/plan-sprint/SKILL.md` |
+
+## Execution Flow
+
+> Step-by-step execution sequence for plan-sprint
+
+### Phase 1: Analysis
+- Understand requirements and context
+- Identify constraints and dependencies
+
+### Phase 2: Execution
+- Perform core plan-sprint activities
+- Apply best practices and standards
+
+### Phase 3: Validation
+- Verify outputs against acceptance criteria
+- Ensure completeness and quality
+
+## Output Format
+
+> Standard output structure for plan-sprint deliverables
+
+

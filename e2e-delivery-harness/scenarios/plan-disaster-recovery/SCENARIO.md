@@ -125,3 +125,39 @@ output:
 - [plan-rollback](./plan-rollback/SCENARIO.md) - 回滚计划
 - [backup-data](./backup-data/SCENARIO.md) - 数据备份
 - [monitor-operate](./monitor-operate/SCENARIO.md) - 监控运维
+
+
+## Purpose
+
+> Define the objectives and scope of the plan-disaster-recovery scenario.
+>
+> This scenario ensures systematic execution of plan-disaster-recovery activities with clear decision checkpoints and handover criteria.
+
+
+## Prerequisites
+
+- [ ] Prerequisite 1: [Description]
+- [ ] Prerequisite 2: [Description]
+- [ ] Prerequisite 3: [Description]
+
+
+## Primary Assets
+
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `scenarios/plan-disaster-recovery/SCENARIO.md` | This scenario definition |
+| Prompt | `prompts/plan-disaster-recovery.prompt.md` | Execution prompt |
+| Instructions | `instructions/plan-disaster-recovery.instructions.md` | Technical instructions |
+| Agent | `agents/plan-disaster-recovery.agent.md` | Responsible agent |
+| Skill | `skills/plan-disaster-recovery/SKILL.md` | Domain skill |
+
+
+## Error Handling
+
+### Error Scenario 1
+**Error**: [Description]
+**Handling**: [Resolution steps]
+
+### Error Scenario 2
+**Error**: [Description]
+**Handling**: [Resolution steps]

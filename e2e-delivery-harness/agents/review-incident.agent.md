@@ -87,3 +87,54 @@ handover:
 2. 原因必须明确
 3. 措施必须可行
 4. 跟踪必须到位
+
+## Associated Assets
+
+- **Scenario**: `scenarios/review-incident/SCENARIO.md`
+- **Instruction**: `instructions/review-incident.instructions.md`
+- **Prompt**: `prompts/review-incident.prompt.md`
+- **Skill**: `skills/review-incident/SKILL.md`
+
+
+## Use When
+
+Activate this agent when:
+- [Trigger condition 1 for review-incident]
+- [Trigger condition 2 for review-incident]
+- [Trigger condition 3 for review-incident]
+
+
+## Working Rules
+
+1. **Rule 1**: [Rule description for review-incident agent]
+2. **Rule 2**: [Rule description for review-incident agent]
+3. **Rule 3**: [Rule description for review-incident agent]
+4. **Rule 4**: [Rule description for review-incident agent]
+
+
+## Expected Input
+
+```yaml
+input_context:
+  - field: "[input_field_1]"
+    type: "[type]"
+    required: true
+    description: "[Description of input field 1]"
+  - field: "[input_field_2]"
+    type: "[type]"
+    required: false
+    description: "[Description of input field 2]"
+```
+
+
+## Expected Output
+
+```yaml
+output_deliverables:
+  - artifact: "[output_artifact_1]"
+    format: "[format]"
+    validation: "[validation criteria]"
+  - artifact: "[output_artifact_2]"
+    format: "[format]"
+    validation: "[validation criteria]"
+```
