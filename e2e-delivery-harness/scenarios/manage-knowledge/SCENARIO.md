@@ -1,25 +1,14 @@
 ---
 name: manage-knowledge
-type: scenario
-version: 1.0.0
 description: 知识管理场景，建立和维护团队知识库，确保知识有效积累和共享
+type: scenario
+version: "1.1.0"
 trigger: 当需要创建、更新或组织知识时触发
 agent: technical-writer
 phase: document-project
-tags:
-  - knowledge-management
-  - documentation
-  - wikis
-  - collaboration
-input:
-  - project_name
-  - knowledge_category
-  - content_type
-  - target_audience
-output:
-  - knowledge-article.md
-  - index-structure.md
-  - review-status.md
+tags: 
+input: 
+output: 
 ---
 
 # Knowledge Management Scenario
@@ -99,6 +88,24 @@ output:
 - 何时审核？
 - 如何跟踪变更？
 - 过期内容处理？
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `KNOWLEDGE-INDEX` | ≥95% | 知识索引率：已分类知识占比 |
+| `SEARCH-SUCCESS` | ≥80% | 搜索成功率：用户找到所需信息 |
+| `FRESHNESS` | ≥90% | 新鲜度：过去6个月更新的知识占比 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

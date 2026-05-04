@@ -368,7 +368,7 @@ handover_deploy_to_monitor:
 
 ---
 
-## 关联资产
+## Associated Assets
 
 | 资产类型 | 文件路径 |
 |----------|----------|

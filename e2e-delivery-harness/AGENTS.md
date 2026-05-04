@@ -108,7 +108,7 @@ e2e-delivery-harness/
 │   ├── global-context.md        # 全局上下文定义
 │   └── handover-context.template.md # 交接上下文模板
 │
-├── scenarios/                    # 场景定义 (43个) ← AI 主要入口
+├── scenarios/                    # 场景定义 (37个) ← AI 主要入口
 │   ├── README.md               # 场景使用指南
 │   ├── analyze-requirement/    # 需求分析场景
 │   │   └── SCENARIO.md
@@ -185,7 +185,7 @@ e2e-delivery-harness/
 │   └── manage-knowledge/       # 知识管理场景 (扩展)
 │       └── SCENARIO.md
 │
-├── agents/                       # Agent 角色定义 (43个)
+├── agents/                       # Agent 角色定义 (37个)
 │   ├── analyze-requirement.agent.md
 │   ├── design-system.agent.md
 │   ├── decompose-task.agent.md
@@ -224,7 +224,7 @@ e2e-delivery-harness/
 │   ├── plan-disaster-recovery.agent.md
 │   └── manage-knowledge.agent.md
 │
-├── skills/                       # Skill 技能模块 (43个)
+├── skills/                       # Skill 技能模块 (37个)
 │   ├── README.md
 │   ├── analyze-requirement/
 │   │   └── SKILL.md
@@ -301,7 +301,7 @@ e2e-delivery-harness/
 │   └── manage-knowledge/           # (扩展)
 │       └── SKILL.md
 │
-├── instructions/                  # Instruction 指令文件 (43个)
+├── instructions/                  # Instruction 指令文件 (37个)
 │   ├── README.md
 │   ├── analyze-requirement.instructions.md
 │   ├── design-system.instructions.md
@@ -341,7 +341,7 @@ e2e-delivery-harness/
 │   ├── plan-disaster-recovery.instructions.md
 │   └── manage-knowledge.instructions.md
 │
-├── prompts/                      # Prompt 提示词文件 (43个)
+├── prompts/                      # Prompt 提示词文件 (37个)
 │   ├── README.md
 │   ├── analyze-requirement.prompt.md
 │   ├── design-system.prompt.md
@@ -477,66 +477,120 @@ e2e-delivery-harness/
 
 ---
 
-## 交付阶段与资产映射
+## E2E Delivery Phase Mapping (E2E 环节分组映射)
 
-| 阶段 | Agent | Instruction | Prompt | Skill | Scenario |
-|------|-------|------------|--------|-------|----------|
-| 1. 需求分析 | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement |
-| 2. 系统设计 | design-system | design-system | design-system | design-system | design-system |
-| 3. 任务拆分 | decompose-task | decompose-task | decompose-task | decompose-task | decompose-task |
-| 4. 开发实现 | implement-feature | implement-feature | implement-feature | implement-feature | implement-feature |
-| 5. 测试验证 | verify-test | verify-test | verify-test | verify-test | verify-test |
-| 6. 部署发布 | deploy-release | deploy-release | deploy-release | deploy-release | deploy-release |
-| 7. 监控运维 | monitor-operate | monitor-operate | monitor-operate | monitor-operate | monitor-operate |
+All 37 scenarios are grouped by E2E delivery phase:
+
+### Phase 1: Requirement (需求)
+| # | Scenario | Agent | Description |
+|---|----------|-------|-------------|
+| 1 | analyze-requirement | analyze-requirement | Analyze and clarify requirements |
+| 2 | plan-sprint | plan-sprint | Sprint planning and estimation |
+
+### Phase 2: Design (设计)
+| # | Scenario | Agent | Description |
+|---|----------|-------|-------------|
+| 3 | design-system | design-system | System architecture design |
+| 4 | design-architecture | design-architecture | Architecture patterns design |
+| 5 | design-database | design-database | Database schema design |
+| 6 | review-design | review-design | Technical design review |
+
+### Phase 3: Development (开发)
+| # | Scenario | Agent | Description |
+|---|----------|-------|-------------|
+| 7 | decompose-task | decompose-task | Task decomposition and estimation |
+| 8 | implement-feature | implement-feature | Feature development |
+| 9 | integrate-api | integrate-api | API integration |
+| 10 | manage-dependencies | manage-dependencies | Dependency management |
+| 11 | manage-config | manage-config | Configuration management |
+| 12 | manage-secrets | manage-secrets | Secrets and credential management |
+| 13 | document-project | document-project | Project documentation |
+
+### Phase 4: Testing (测试)
+| # | Scenario | Agent | Description |
+|---|----------|-------|-------------|
+| 14 | verify-test | verify-test | Test execution and verification |
+| 15 | automate-test | automate-test | Automated test creation |
+| 16 | performance-testing | performance-testing | Performance and load testing |
+| 17 | review-code | review-code | Code review and quality gate |
+
+### Phase 5: Deployment (部署)
+| # | Scenario | Agent | Description |
+|---|----------|-------|-------------|
+| 18 | setup-infra | setup-infra | Infrastructure setup |
+| 19 | implement-cicd | implement-cicd | CI/CD pipeline implementation |
+| 20 | prepare-release | prepare-release | Release preparation |
+| 21 | deploy-release | deploy-release | Deployment and release |
+| 22 | plan-rollback | plan-rollback | Rollback planning |
+
+### Phase 6: Operations (运维)
+| # | Scenario | Agent | Description |
+|---|----------|-------|-------------|
+| 23 | backup-data | backup-data | Data backup and recovery |
+| 24 | migrate-data | migrate-data | Data migration |
+| 25 | migrate-environment | migrate-environment | Environment migration |
+| 26 | monitor-operate | monitor-operate | Monitoring and alerting |
+| 27 | integrate-monitor | integrate-monitor | Monitoring integration |
+| 28 | manage-change | manage-change | Change management |
+| 29 | optimize-performance | optimize-performance | Performance optimization |
+| 30 | plan-capacity | plan-capacity | Capacity planning |
+
+### Phase 7: Governance (治理)
+| # | Scenario | Agent | Description |
+|---|----------|-------|-------------|
+| 31 | audit-security | audit-security | Security audit and compliance |
+| 32 | manage-tech-debt | manage-tech-debt | Technical debt management |
+| 33 | manage-knowledge | manage-knowledge | Knowledge management |
+| 34 | respond-incident | respond-incident | Incident response |
+| 35 | review-incident | review-incident | Incident postmortem review |
+| 36 | plan-disaster-recovery | plan-disaster-recovery | Disaster recovery planning |
+| 37 | hotfix | hotfix | Emergency hotfix deployment |
 
 ---
 
-## 扩展场景资产映射
+## Complete Asset Mapping Table
 
-| 场景 | Agent | Instruction | Prompt | Skill | Scenario |
-|------|-------|------------|--------|-------|----------|
-| 变更管理 | manage-change | manage-change | manage-change | manage-change | manage-change |
-| 代码审查 | review-code | review-code | review-code | review-code | review-code |
-| 安全审计 | audit-security | audit-security | audit-security | audit-security | audit-security |
-| 故障复盘 | review-incident | review-incident | review-incident | review-incident | review-incident |
-| 性能测试 | performance-testing | performance-testing | performance-testing | performance-testing | performance-testing |
-| 数据迁移 | migrate-data | migrate-data | migrate-data | migrate-data | migrate-data |
-| 紧急修复 | hotfix | hotfix | hotfix | hotfix | hotfix |
-| 技术方案评审 | review-design | review-design | review-design | review-design | review-design |
-| 容量规划 | plan-capacity | plan-capacity | plan-capacity | plan-capacity | plan-capacity |
-| 自动化测试 | automate-test | automate-test | automate-test | automate-test | automate-test |
-| 基础设施搭建 | setup-infra | setup-infra | setup-infra | setup-infra | setup-infra |
-| 配置管理 | manage-config | manage-config | manage-config | manage-config | manage-config |
-| 发布准备 | prepare-release | prepare-release | prepare-release | prepare-release | prepare-release |
-| 数据备份 | backup-data | backup-data | backup-data | backup-data | backup-data |
-| API 集成 | integrate-api | integrate-api | integrate-api | integrate-api | integrate-api |
-| 数据库设计 | design-database | design-database | design-database | design-database | design-database |
-| CI/CD 实施 | implement-cicd | implement-cicd | implement-cicd | implement-cicd | implement-cicd |
-| 密钥管理 | manage-secrets | manage-secrets | manage-secrets | manage-secrets | manage-secrets |
-| 架构设计 | design-architecture | design-architecture | design-architecture | design-architecture | design-architecture |
-| 性能优化 | optimize-performance | optimize-performance | optimize-performance | optimize-performance | optimize-performance |
-| 环境迁移 | migrate-environment | migrate-environment | migrate-environment | migrate-environment | migrate-environment |
-| 冲刺规划 | plan-sprint | plan-sprint | plan-sprint | plan-sprint | plan-sprint |
-| 项目文档 | document-project | document-project | document-project | document-project | document-project |
-| 监控集成 | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor |
-| 依赖管理 | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies |
-| 技术债务管理 | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt |
-| 回滚计划 | plan-rollback | plan-rollback | plan-rollback | plan-rollback | plan-rollback |
-| 事件响应 | respond-incident | respond-incident | respond-incident | respond-incident | respond-incident |
-| 灾备恢复 | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery |
-| 知识管理 | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge |
-| 冲刺规划 | product-owner | plan-sprint | plan-sprint | plan-sprint | plan-sprint |
-| 项目文档 | technical-writer | document-project | document-project | document-project | document-project |
-| 监控集成 | sre-engineer | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor |
-| 依赖管理 | dependency-engineer | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies |
-| 技术债务 | tech-debt-manager | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt |
-| 回滚计划 | rollback-engineer | plan-rollback | plan-rollback | plan-rollback | plan-rollback |
-| 事件响应 | incident-commander | respond-incident | respond-incident | respond-incident | respond-incident |
-| 灾备恢复 | dr-planner | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery |
-| 知识管理 | knowledge-manager | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge |
+| Phase | Scenario | Agent | Instruction | Prompt | Skill |
+|-------|----------|-------|------------|--------|-------|
+| Requirement | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement |
+| Requirement | plan-sprint | plan-sprint | plan-sprint | plan-sprint | plan-sprint |
+| Design | design-system | design-system | design-system | design-system | design-system |
+| Design | design-architecture | design-architecture | design-architecture | design-architecture | design-architecture |
+| Design | design-database | design-database | design-database | design-database | design-database |
+| Design | review-design | review-design | review-design | review-design | review-design |
+| Development | decompose-task | decompose-task | decompose-task | decompose-task | decompose-task |
+| Development | implement-feature | implement-feature | implement-feature | implement-feature | implement-feature |
+| Development | integrate-api | integrate-api | integrate-api | integrate-api | integrate-api |
+| Development | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies |
+| Development | manage-config | manage-config | manage-config | manage-config | manage-config |
+| Development | manage-secrets | manage-secrets | manage-secrets | manage-secrets | manage-secrets |
+| Development | document-project | document-project | document-project | document-project | document-project |
+| Testing | verify-test | verify-test | verify-test | verify-test | verify-test |
+| Testing | automate-test | automate-test | automate-test | automate-test | automate-test |
+| Testing | performance-testing | performance-testing | performance-testing | performance-testing | performance-testing |
+| Testing | review-code | review-code | review-code | review-code | review-code |
+| Deployment | setup-infra | setup-infra | setup-infra | setup-infra | setup-infra |
+| Deployment | implement-cicd | implement-cicd | implement-cicd | implement-cicd | implement-cicd |
+| Deployment | prepare-release | prepare-release | prepare-release | prepare-release | prepare-release |
+| Deployment | deploy-release | deploy-release | deploy-release | deploy-release | deploy-release |
+| Deployment | plan-rollback | plan-rollback | plan-rollback | plan-rollback | plan-rollback |
+| Operations | backup-data | backup-data | backup-data | backup-data | backup-data |
+| Operations | migrate-data | migrate-data | migrate-data | migrate-data | migrate-data |
+| Operations | migrate-environment | migrate-environment | migrate-environment | migrate-environment | migrate-environment |
+| Operations | monitor-operate | monitor-operate | monitor-operate | monitor-operate | monitor-operate |
+| Operations | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor |
+| Operations | manage-change | manage-change | manage-change | manage-change | manage-change |
+| Operations | optimize-performance | optimize-performance | optimize-performance | optimize-performance | optimize-performance |
+| Operations | plan-capacity | plan-capacity | plan-capacity | plan-capacity | plan-capacity |
+| Governance | audit-security | audit-security | audit-security | audit-security | audit-security |
+| Governance | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt |
+| Governance | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge |
+| Governance | respond-incident | respond-incident | respond-incident | respond-incident | respond-incident |
+| Governance | review-incident | review-incident | review-incident | review-incident | review-incident |
+| Governance | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery |
+| Governance | hotfix | hotfix | hotfix | hotfix | hotfix |
 
 ---
-
 ## 端到端 Pipeline
 
 完整的 E2E 交付流程定义在 [workflows/e2e-delivery.pipeline.md](workflows/e2e-delivery.pipeline.md)
@@ -655,7 +709,7 @@ handoff:
 
 ---
 
-## 参考文档
+## References文档
 
 - [Workflows](workflows/) - 端到端工作流定义
 - [Contexts](contexts/) - 共享上下文管理

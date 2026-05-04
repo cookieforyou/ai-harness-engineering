@@ -1,27 +1,14 @@
 ---
 name: plan-disaster-recovery
-type: scenario
-version: 1.0.0
 description: 灾备恢复场景，规划和实施灾难恢复策略，确保业务连续性
+type: scenario
+version: "1.1.0"
 trigger: 当需要进行灾备规划或演练时触发
 agent: solution-architect
 phase: monitor-operate
-tags:
-  - disaster-recovery
-  - business-continuity
-  - backup
-  - failover
-  - rpo-rto
-input:
-  - project_name
-  - business_criticality
-  - data_sensitivity
-  - recovery_requirements
-output:
-  - dr-plan.md
-  - recovery-procedures.md
-  - failover-diagrams.md
-  - test-results.md
+tags: 
+input: 
+output: 
 ---
 
 # Disaster Recovery Planning Scenario
@@ -109,6 +96,24 @@ output:
 - 多久演练一次？
 - 如何衡量成功？
 - 如何改进？
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `RTO-COMPLY` | 100% | RTO达成：恢复时间≤目标 |
+| `RPO-COMPLY` | 100% | RPO达成：数据丢失≤目标 |
+| `DR-TEST-FREQ` | ≥1/year | DR演练频率：每年至少一次全量演练 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

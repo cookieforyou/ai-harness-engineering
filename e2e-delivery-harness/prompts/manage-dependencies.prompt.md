@@ -1,8 +1,9 @@
 ---
 name: manage-dependencies
-type: prompt
-version: 1.0.0
 description: 依赖管理场景的 AI 提示词，定义执行依赖管理任务的完整流程
+type: prompt
+stage: "manage-dependencies."
+version: "1.1.0"
 ---
 
 # Dependency Management Prompt

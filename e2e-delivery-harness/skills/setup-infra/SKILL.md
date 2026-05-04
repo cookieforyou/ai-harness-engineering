@@ -1,3 +1,11 @@
+---
+name: setup-infra
+description: "Domain skill for setup-infra execution"
+type: skill
+version: "1.1.0"
+stage: "setup-infra"
+---
+
 # Skill: 基础设施搭建 (Infrastructure Setup)
 
 ## 概述
@@ -174,7 +182,7 @@ savings_tips = [
 | CloudEye | 华为云 | 监控 |
 | Datadog | 多云 | 统一监控 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/setup-infra/SCENARIO.md`
 - **Instruction**: `../../instructions/setup-infra.instructions.md`

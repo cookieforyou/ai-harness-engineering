@@ -1,8 +1,10 @@
 ---
+type: "instruction"
+stage: "decompose-task"
+version: "1.1.0"
 applyTo: "**/*.md"
 phase: task-decomposition
 order: 3
-version: "1.0.0"
 ---
 
 # Task Decomposition Instructions

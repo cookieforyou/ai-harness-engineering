@@ -1,8 +1,9 @@
 ---
 name: plan-rollback
-type: instructions
-version: 1.0.0
 description: 回滚计划场景的技术指令
+type: instructions
+stage: "plan-rollback"
+version: "1.1.0"
 ---
 
 # Rollback Planning Instructions

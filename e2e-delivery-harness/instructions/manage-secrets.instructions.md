@@ -245,7 +245,7 @@ audit_config:
 
   backends:
     - type: "file"
-      path: "/var/log/vault/audit.log"
+      path: "{{vault_audit_log_path}}"
 
     - type: "syslog"
       facility: "AUTH"

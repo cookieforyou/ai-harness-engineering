@@ -8,11 +8,11 @@ stage: review-code
 
 # Prompt: 代码审查场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行代码审查流程，包括审查准备、问题识别、评审意见生成和质量评估。
 
-## 执行变量 (Variables)
+## Execution Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -30,7 +30,7 @@ stage: review-code
 | `complexity_level` | enum | 否 | 复杂度等级 | LOW/MEDIUM/HIGH |
 | `security_sensitive` | boolean | 否 | 是否涉及安全敏感代码 | true/false |
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### Step 1: 变更范围分析
 
@@ -151,7 +151,7 @@ HIGH 升级条件:
 - 违反团队核心规范
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ### 必须包含的字段
 
@@ -187,10 +187,10 @@ interface CodeIssue {
 | 建议可执行性 | 100% |
 | 审查完整性 | 覆盖所有变更文件 |
 
-## 交接准备 (Handover Context)
+## Handover Preparation
 
 ```markdown
-## 代码审查交接上下文
+## Code Review Handover Context
 
 ### PR 基础信息
 - PR编号: {pr_number}
@@ -215,7 +215,7 @@ interface CodeIssue {
 - 需要再次审查: {needs_reexamination}
 ```
 
-## 执行约束
+## Execution Constraints
 
 1. **客观公正**: 基于代码规范和最佳实践评价，不针对个人
 2. **建设性**: 提供具体可行的改进建议

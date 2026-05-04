@@ -1,12 +1,10 @@
 ---
 name: security-audit
 type: scenario
-version: "1.0.0"
 stage: testing
+version: "1.1.0"
 difficulty: high
-prerequisites:
-  - 测试环境可用
-  - 安全测试工具
+prerequisites: 
 ---
 
 # Security Audit Scenario
@@ -163,6 +161,24 @@ THINK: 制定修复计划
 | **DC-1: 审计策略确认** | 完成范围定义后 | 审计重点？工具选择？ | 继续信息收集 |
 | **DC-2: 严重漏洞确认** | 发现严重漏洞时 | 是否停止审计先修复？ | 继续或暂停 |
 | **DC-3: 审计结论确认** | 完成漏洞评估后 | 审计结论？上线条件？ | 决定下一步 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `FINDING-COVERAGE` | ≥95% | 发现覆盖率：检查项全部执行 |
+| `REMEDIATION-SLA` | ≤30d | 整改SLA：高危问题修复时间 |
+| `COMPLIANCE-SCORE` | ≥95% | 合规得分：框架要求达标比例 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

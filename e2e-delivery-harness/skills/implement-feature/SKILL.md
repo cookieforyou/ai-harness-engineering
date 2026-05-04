@@ -2,7 +2,7 @@
 name: development
 description: 按照任务清单完成代码开发、单元测试和文档更新，确保代码质量
 category: implementation
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # Development Skill

@@ -321,13 +321,13 @@ def determine_commitment(capacity, strategy='conservative'):
 4. **不要模糊目标**: Sprint Goal 必须具体可测量
 5. **不要单人决策**: 任务分配需团队协商
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
 | SCENARIO | `../../scenarios/plan-sprint/SCENARIO.md` |
 | PROMPT | `../../prompts/plan-sprint.prompt.md` |
-| AGENT | `../../agents/product-owner.agent.md` |
+| AGENT | `../../agents/plan-sprint.agent.md` |
 | SKILL | `../../skills/plan-sprint/SKILL.md` |
 
 

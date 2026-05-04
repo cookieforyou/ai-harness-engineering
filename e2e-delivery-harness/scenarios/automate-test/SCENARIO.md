@@ -1,3 +1,9 @@
+---
+name: automate-test
+version: "1.1.0"
+stage: "automate-test"
+---
+
 # Scenario: 自动化测试 (Automate Test)
 
 ## 概述
@@ -49,6 +55,24 @@
 | 依赖安装失败 | 检查 pip/npm 配置 |
 | 测试数据缺失 | 构造测试数据或联系数据团队 |
 
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `AUTO-COVERAGE` | ≥70% | 自动化覆盖率：可自动化场景占比 |
+| `FLAKY-RATE` | ≤5% | 不稳定率： flaky test 占比 |
+| `EXEC-TIME` | ≤30min | 执行时间：全量自动化测试耗时 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
+
 ## Handover Criteria
 
 - [x] 测试框架搭建完成
@@ -57,7 +81,7 @@
 - [x] 测试报告可正常生成
 - [x] 维护文档已编写
 
-## 关联资产
+## Associated Assets
 
 - **Prompt**: `prompts/automate-test.prompt.md`
 - **Instruction**: `instructions/automate-test.instructions.md`

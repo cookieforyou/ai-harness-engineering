@@ -1,3 +1,9 @@
+---
+name: setup-infra
+version: "1.1.0"
+stage: "setup-infra"
+---
+
 # Scenario: 基础设施搭建 (Setup Infrastructure)
 
 ## 概述
@@ -50,6 +56,24 @@
 | 权限不足 | 申请 IAM 权限 |
 | 资源创建失败 | 检查参数或重试 |
 
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `IAC-COVERAGE` | ≥95% | IaC覆盖率：基础设施即代码管理比例 |
+| `DEPLOY-TIME` | ≤30min | 部署时间：新环境就绪时间 |
+| `SEC-BASELINE` | 100% | 安全基线达标率 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
+
 ## Handover Criteria
 
 - [x] 所有资源创建成功
@@ -58,7 +82,7 @@
 - [x] 监控告警已配置
 - [x] 运维文档已编写
 
-## 关联资产
+## Associated Assets
 
 - **Prompt**: `prompts/setup-infra.prompt.md`
 - **Instruction**: `instructions/setup-infra.instructions.md`

@@ -1,8 +1,9 @@
 ---
 name: manage-knowledge
-type: instructions
-version: 1.0.0
 description: 知识管理场景的技术指令
+type: instructions
+stage: "manage-knowledge"
+version: "1.1.0"
 ---
 
 # Knowledge Management Instructions
@@ -95,7 +96,7 @@ title: "Document Title"
 description: "Brief description"
 author: "Author Name"
 date: "2024-01-01"
-version: "1.0.0"
+version: "1.1.0"
 category: "guides"
 tags: ["tag1", "tag2"]
 status: "published|draft|archived"

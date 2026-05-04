@@ -1,3 +1,11 @@
+---
+name: prepare-release
+description: "Domain skill for prepare-release execution"
+type: skill
+version: "1.1.0"
+stage: "prepare-release"
+---
+
 # Skill: 发布准备 (Release Preparation)
 
 ## 概述
@@ -255,7 +263,7 @@ no_go_criteria:
 | Jaeger | 链路追踪 |
 | ELK | 日志分析 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/prepare-release/SCENARIO.md`
 - **Instruction**: `../../instructions/prepare-release.instructions.md`

@@ -1,3 +1,11 @@
+---
+name: migrate-environment
+description: "Domain skill for migrate-environment execution"
+type: skill
+version: "1.1.0"
+stage: "migrate-environment"
+---
+
 # Skill: 环境迁移 (Environment Migration)
 
 ## 概述
@@ -46,7 +54,7 @@ class EnvironmentMigration:
         self.keep_old_env()
 ```
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/migrate-environment/SCENARIO.md`
 - **Instruction**: `../../instructions/migrate-environment.instructions.md`

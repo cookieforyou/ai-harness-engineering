@@ -1,3 +1,11 @@
+---
+name: performance-testing
+description: "Domain skill for performance-testing execution"
+type: skill
+version: "1.1.0"
+stage: "performance-testing"
+---
+
 # Skill: 性能测试 (Performance Testing)
 
 ## 概述
@@ -194,7 +202,7 @@ rate(http_requests_total{status=~"5.."}[5m])
 # 4. 排除异常值
 ```
 
-## 关联资产
+## Associated Assets
 
 | 资产类型 | 文件路径 |
 |----------|----------|

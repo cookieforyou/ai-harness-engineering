@@ -1,3 +1,11 @@
+---
+name: manage-tech-debt
+description: "Domain skill for manage-tech-debt execution"
+type: skill
+version: "1.1.0"
+stage: "manage-tech-debt"
+---
+
 # Technical Debt Management Skill
 
 ## Core Knowledge

@@ -1,3 +1,9 @@
+---
+name: document-project
+version: "1.1.0"
+stage: "document-project"
+---
+
 # Scenario: 项目文档 (Document Project)
 
 ## 概述
@@ -89,7 +95,7 @@ class ProjectDocumentation:
 2. **文档内容**: 各类型文档正文
 3. **更新日志**: 文档变更记录
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
@@ -149,6 +155,24 @@ class ProjectDocumentation:
 **Error**: [Description]
 **Handling**: [Resolution steps]
 
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `DOC-COMPLETENESS` | ≥95% | 文档完整性：必需章节覆盖率 |
+| `STALE-DOC-RATE` | ≤10% | 文档过时率：未及时更新的文档占比 |
+| `USER-SATISFACTION` | ≥4.0/5 | 用户满意度：文档使用方评分 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

@@ -1,12 +1,10 @@
 ---
 name: change-management
 type: scenario
-version: "1.0.0"
 stage: cross-phase
+version: "1.1.0"
 difficulty: medium
-prerequisites:
-  - 已有需求规格说明书
-  - 变更发起人
+prerequisites: 
 ---
 
 # Change Management Scenario
@@ -159,6 +157,24 @@ THINK: 沟通变更计划
 | **DC-1: 变更类型确认** | 完成变更分析后 | 变更类型是否正确？风险等级？ | 继续评估 |
 | **DC-2: 审批确认** | 完成风险评估后 | 是否批准变更？条件？ | 继续或拒绝 |
 | **DC-3: 回滚决策** | 变更执行异常时 | 继续还是回滚？ | 回滚或继续 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `CHANGE-SUCCESS` | ≥95% | 变更成功率：按计划完成且无回退 |
+| `APPROVAL-SLA` | ≤24h | 审批SLA：提交到批准时间 |
+| `INCIDENT-CORRELATION` | ≤2% | 事件关联率：变更引发的事件占比 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

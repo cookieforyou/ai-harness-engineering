@@ -1,15 +1,11 @@
 ---
 name: rollback-engineer
-type: agent
-version: 1.0.0
-description: 回滚计划工程师 Agent，负责制定和执行回滚计划
 role: rollback-engineer
-capabilities:
-  - 回滚策略设计
-  - 回滚脚本开发
-  - 风险评估
-  - 部署协调
-  - 应急响应
+description: 回滚计划工程师 Agent，负责制定和执行回滚计划
+type: agent
+version: "1.1.0"
+applyTo: "plan-rollback"
+capabilities: 
 ---
 
 # Rollback Engineer Agent
@@ -111,31 +107,26 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `current_release` | string | true | 当前发布版本信息 |
+| `previous_stable_version` | string | true | 上一个稳定版本标识 |
+| `rollback_triggers` | list | false | 回滚触发条件定义 |
+| `data_migration_notes` | string | false | 本次发布涉及的数据迁移说明 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `rollback_procedures` | markdown | 详细回滚操作步骤 |
+| `pre_rollback_checklist` | list | 回滚前验证检查清单 |
+| `post_rollback_validation` | list | 回滚后验证步骤 |
+| `data_rollback_plan` | markdown | 数据回滚策略（如适用） |
+| `communication_template` | markdown | 回滚通知模板 |
 
 ## Handoff
 

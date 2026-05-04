@@ -1,3 +1,11 @@
+---
+name: implement-cicd
+description: "Domain skill for implement-cicd execution"
+type: skill
+version: "1.1.0"
+stage: "implement-cicd"
+---
+
 # Skill: CI/CD 实施 (CI/CD Implementation)
 
 ## 概述
@@ -270,7 +278,7 @@ class QualityGate:
 | Terraform | 基础设施管理 |
 | Ansible | 配置管理 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/implement-cicd/SCENARIO.md`
 - **Instruction**: `../../instructions/implement-cicd.instructions.md`

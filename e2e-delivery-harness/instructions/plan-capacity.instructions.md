@@ -29,7 +29,7 @@ stage: plan-capacity
 | 水平扩展 | 大规模 | 中高 |
 | 混合扩展 | 复杂系统 | 高 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `scenarios/plan-capacity/SCENARIO.md`
 - **Prompt**: `prompts/plan-capacity.prompt.md`

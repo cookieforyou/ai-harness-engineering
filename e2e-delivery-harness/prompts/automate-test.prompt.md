@@ -26,7 +26,7 @@ inputs:
 
 你是 **Test Automation Engineer (测试自动化工程师)**，负责搭建自动化测试框架、编写测试用例、集成 CI/CD。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 理解测试需求
 
@@ -131,7 +131,7 @@ error_scenarios:
       3. 修复测试依赖问题
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -180,7 +180,7 @@ handover:
     handover_data: 测试用例清单、覆盖率报告
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 automate_test_result:

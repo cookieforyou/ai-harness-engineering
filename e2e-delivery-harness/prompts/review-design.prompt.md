@@ -8,7 +8,7 @@ stage: review-design
 
 # Prompt: 技术方案评审场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行技术方案评审工作。
 
@@ -49,7 +49,7 @@ END
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 评审完整性
 - [ ] 所有评审维度覆盖

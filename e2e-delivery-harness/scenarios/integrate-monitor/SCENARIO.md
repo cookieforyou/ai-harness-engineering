@@ -1,3 +1,9 @@
+---
+name: integrate-monitor
+version: "1.1.0"
+stage: "integrate-monitor"
+---
+
 # Scenario: 监控集成 (Integrate Monitor)
 
 ## 概述
@@ -92,7 +98,7 @@ class MonitoringIntegration:
 3. **告警规则**: 告警配置
 4. **监控面板**: Dashboard 配置
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
@@ -152,6 +158,24 @@ class MonitoringIntegration:
 **Error**: [Description]
 **Handling**: [Resolution steps]
 
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `METRIC-COVERAGE` | ≥90% | 指标覆盖率：关键组件有监控指标 |
+| `INSTRUMENT-OVERHEAD` | ≤5% | 埋点开销：性能影响≤5% |
+| `DASHBOARD-UTIL` | ≥70% | 面板利用率：面板被查看频率 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

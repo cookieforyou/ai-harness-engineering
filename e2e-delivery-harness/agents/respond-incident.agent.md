@@ -1,15 +1,11 @@
 ---
 name: incident-commander
-type: agent
-version: 1.0.0
-description: 事件指挥官 Agent，负责协调和指挥事件响应
 role: incident-commander
-capabilities:
-  - 事件评估和定级
-  - 响应团队协调
-  - 决策支持
-  - 沟通管理
-  - 复盘组织
+description: 事件指挥官 Agent，负责协调和指挥事件响应
+type: agent
+version: "1.1.0"
+applyTo: "respond-incident"
+capabilities: 
 ---
 
 # Incident Commander Agent
@@ -112,31 +108,26 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `incident_alert` | string | true | 事件告警信息：来源、时间、症状 |
+| `affected_systems` | list | true | 受影响系统和服务清单 |
+| `runbooks` | list | false | 相关运维手册和已知问题文档 |
+| `on_call_team` | table | false | 值班团队和升级路径 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `incident_timeline` | markdown | 事件时间线和关键节点记录 |
+| `impact_assessment` | markdown | 影响评估：用户、业务、SLA |
+| `mitigation_actions` | list | 已执行的缓解措施清单 |
+| `communication_updates` | list | 事件进展沟通记录 |
+| `resolution_summary` | markdown | 事件解决总结和根因初判 |
 
 ## Handoff
 

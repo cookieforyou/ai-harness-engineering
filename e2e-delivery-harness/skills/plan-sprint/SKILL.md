@@ -1,3 +1,11 @@
+---
+name: plan-sprint
+description: "Domain skill for plan-sprint execution"
+type: skill
+version: "1.1.0"
+stage: "plan-sprint"
+---
+
 # Skill: 冲刺规划 (Plan Sprint)
 
 ## 概述
@@ -60,12 +68,12 @@ class SprintPlanningSkill:
         return plan
 ```
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/plan-sprint/SCENARIO.md`
 - **Instruction**: `../../instructions/plan-sprint.instructions.md`
 - **Prompt**: `../../prompts/plan-sprint.prompt.md`
-- **Agent**: `../../agents/product-owner.agent.md`
+- **Agent**: `../../agents/plan-sprint.agent.md`
 
 
 ## Core Knowledge

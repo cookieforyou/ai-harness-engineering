@@ -1,3 +1,11 @@
+---
+name: hotfix
+description: "Domain skill for hotfix execution"
+type: skill
+version: "1.1.0"
+stage: "hotfix"
+---
+
 # Skill: 紧急修复 (Hotfix)
 
 ## 概述
@@ -18,7 +26,7 @@
 - 回滚版本
 - 手动补偿
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/hotfix/SCENARIO.md`
 - **Instruction**: `../../instructions/hotfix.instructions.md`

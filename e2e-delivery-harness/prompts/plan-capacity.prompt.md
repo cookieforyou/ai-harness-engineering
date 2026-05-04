@@ -8,7 +8,7 @@ stage: plan-capacity
 
 # Prompt: 容量规划场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行容量规划工作。
 
@@ -67,7 +67,7 @@ END
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 数据完整性
 - [ ] 历史数据分析完整

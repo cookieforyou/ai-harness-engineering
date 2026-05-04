@@ -1,10 +1,10 @@
 ---
 name: implement-feature
-type: scenario
-version: "1.0.0"
 description: 开发实现场景，按照任务清单完成代码开发、单元测试和文档更新
+type: scenario
 category: development
 stage: development
+version: "1.1.0"
 ---
 
 # Implement Feature
@@ -94,6 +94,24 @@ stage: development
 | **识别信号** | 设计与实现不匹配 |
 | **处理方式** | 1. 分析差异影响；2. 判断是设计还是实现问题；3. 联系系统设计师 |
 | **升级条件** | 需要修改设计 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `CODE-COVERAGE` | ≥80% | 单元测试覆盖率 |
+| `BUG-DENSITY` | ≤0.5/KLOC | 缺陷密度：每千行代码缺陷数 |
+| `CYCLOMATIC` | ≤15 | 圈复杂度：函数平均圈复杂度 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

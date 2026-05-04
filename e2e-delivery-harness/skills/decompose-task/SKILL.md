@@ -2,7 +2,7 @@
 name: decompose-task
 description: 将架构设计拆解为可执行的任务清单，制定迭代计划和里程碑
 category: planning
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # Task Decomposition Skill

@@ -1,3 +1,11 @@
+---
+name: manage-secrets
+description: "Domain skill for manage-secrets execution"
+type: skill
+version: "1.1.0"
+stage: "manage-secrets"
+---
+
 # Skill: 密钥管理 (Secrets Management)
 
 ## 概述
@@ -263,7 +271,7 @@ class SecretRotation:
 | Sops | 密钥加密管理 |
 | envconsul | 环境变量注入 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/manage-secrets/SCENARIO.md`
 - **Instruction**: `../../instructions/manage-secrets.instructions.md`

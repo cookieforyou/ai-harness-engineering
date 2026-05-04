@@ -1,26 +1,14 @@
 ---
 name: manage-tech-debt
-type: scenario
-version: 1.0.0
 description: 技术债务管理场景，识别、量化、跟踪和管理软件开发过程中累积的技术债务
+type: scenario
+version: "1.1.0"
 trigger: 当需要进行技术债务清理或优化时触发
 agent: solution-architect
 phase: implement-feature
-tags:
-  - technical-debt
-  - code-quality
-  - refactoring
-  - maintainability
-input:
-  - project_name
-  - project_path
-  - debt_categories
-  - priority_threshold
-output:
-  - debt-inventory.md
-  - repayment-plan.md
-  - refactoring-guide.md
-  - quality-metrics.md
+tags: 
+input: 
+output: 
 ---
 
 # Technical Debt Management Scenario
@@ -119,6 +107,24 @@ output:
 | 偿还影响正常迭代 | 纳入 Sprint 规划，分配固定时间 |
 | 团队抗拒重构 | 展示债务成本，争取管理层支持 |
 | 偿还后引入新问题 | 小步前进，充分测试，TDD |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `DEBT-VISIBILITY` | 100% | 债务可见性：所有已知债务已登记 |
+| `PAYDOWN-RATE` | ≥10%/quarter | 偿还率：每季度偿还债务比例 |
+| `IMPACT-REDUCTION` | ≥15%/year | 影响降低：债务对交付的影响年降幅 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

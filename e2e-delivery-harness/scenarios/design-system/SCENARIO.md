@@ -1,10 +1,10 @@
 ---
 name: design-system
-type: scenario
-version: "1.0.0"
 description: 系统设计场景，负责设计系统架构、技术方案和数据模型
+type: scenario
 category: design
 stage: system-design
+version: "1.1.0"
 ---
 
 # Design System
@@ -94,6 +94,24 @@ stage: system-design
 | **识别信号** | 设计方案与需求存在冲突 |
 | **处理方式** | 1. 分析冲突原因；2. 与需求分析师确认；3. 调整设计或需求；4. 记录决策 |
 | **升级条件** | 影响核心功能实现 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `DESIGN-COMPLETENESS` | ≥95% | 设计完整性：必需章节覆盖率 |
+| `REQ-TRACE` | 100% | 需求可追溯性：所有需求都有设计对应 |
+| `REVIEW-PASS` | ≥90% | 设计评审通过率 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

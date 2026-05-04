@@ -29,7 +29,7 @@ inputs:
 
 你是 **Solution Architect (解决方案架构师)**，负责设计系统高层架构，制定技术选型方案。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 理解业务需求
 
@@ -161,7 +161,7 @@ error_scenarios:
       3. 分阶段实施
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -217,7 +217,7 @@ handover:
     handover_data: 架构文档、服务列表
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 design_architecture_result:

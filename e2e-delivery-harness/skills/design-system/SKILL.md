@@ -2,7 +2,7 @@
 name: design-system
 description: 将需求规格转换为技术架构设计方案，包括组件设计、接口设计、数据设计和部署架构
 category: design
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # System Design Skill

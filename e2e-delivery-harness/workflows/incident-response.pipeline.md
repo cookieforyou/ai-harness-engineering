@@ -154,7 +154,7 @@ kubectl top pods -n production
 kubectl top nodes
 
 # 查看网络
-kubectl exec -it <pod-name> -n production -- curl localhost:8080/health
+kubectl exec -it <pod-name> -n production -- curl {{health_check_endpoint}}
 netstat -an | grep LISTEN
 
 # 查看数据库
@@ -345,7 +345,7 @@ action_item:
 
 ---
 
-## 关联资产
+## Associated Assets
 
 | 资产类型 | 文件路径 |
 |----------|----------|
@@ -357,7 +357,7 @@ action_item:
 
 ---
 
-## 附录
+## Appendix
 
 ### 常用工具/命令参考
 

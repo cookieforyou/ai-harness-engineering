@@ -8,11 +8,11 @@ stage: audit-security
 
 # Prompt: 安全审计场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行安全审计流程，包括资产识别、威胁分析、漏洞评估和安全建议生成。
 
-## 执行变量 (Variables)
+## Execution Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -42,7 +42,7 @@ interface AuditTarget {
 }
 ```
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### Step 1: 资产识别与分析
 
@@ -178,7 +178,7 @@ HIGH 升级条件:
 - 审计范围存在重大遗漏
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ### 必须包含的字段
 
@@ -221,10 +221,10 @@ interface Vulnerability {
 | 修复建议可行性 | 100% |
 | 合规检查完整性 | 100% |
 
-## 交接准备 (Handover Context)
+## Handover Preparation
 
 ```markdown
-## 安全审计交接上下文
+## Security Audit Handover Context
 
 ### 审计基础信息
 - 审计ID: {audit_id}
@@ -256,7 +256,7 @@ interface Vulnerability {
 - 复审时间: {follow_up_date}
 ```
 
-## 执行约束
+## Execution Constraints
 
 1. **客观独立**: 不受业务压力影响，基于事实评估
 2. **证据驱动**: 所有结论必须有充分证据支持

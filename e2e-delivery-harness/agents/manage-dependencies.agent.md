@@ -1,16 +1,11 @@
 ---
 name: dependency-engineer
-type: agent
-version: 1.0.0
-description: 依赖管理工程师 Agent，负责管理和优化项目依赖
 role: dependency-engineer
-capabilities:
-  - 依赖清单分析
-  - 安全漏洞扫描
-  - 许可证合规检查
-  - 版本兼容性评估
-  - 更新计划制定
-  - 构建验证
+description: 依赖管理工程师 Agent，负责管理和优化项目依赖
+type: agent
+version: "1.1.0"
+applyTo: "manage-dependencies"
+capabilities: 
 ---
 
 # Dependency Engineer Agent
@@ -125,31 +120,25 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `dependency_manifest` | json/yaml | true | 依赖清单：package.json/pom.xml/requirements.txt等 |
+| `vulnerability_scan` | string | false | 已知漏洞扫描报告 |
+| `license_policy` | string | false | 组织许可证策略：允许/禁止的许可证类型 |
+| `update_policy` | string | false | 依赖更新策略：自动/手动/冻结 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `dependency_analysis` | table | 依赖分析报告：直接/传递依赖、版本 |
+| `vulnerability_report` | table | 漏洞影响评估和修复建议 |
+| `license_compliance` | table | 许可证合规性检查报告 |
+| `update_recommendations` | list | 推荐的依赖更新方案 |
 
 ## Handoff
 

@@ -1,143 +1,53 @@
 ---
-applyTo: "<glob-pattern>"
-phase: <phase-name>
-order: <priority>
-version: "<version>"
+name: {scenario-name}
+description: Technical instructions for {scenario-name} scenario execution
+type: instruction
+version: "1.1.0"
+stage: "{scenario-name}"
 ---
 
-# <Instruction Display Name>
+# {Scenario Title} Instructions
 
-## Purpose
+## Overview
 
-本文档定义了 [阶段名称] 阶段的标准操作流程、质量检查标准和工作产出规范。
+> High-level description of the {scenario-name} execution process.
+>
+> This instruction defines the technical approach, key activities, and success criteria.
 
-**目标**：...
+## Technical Specifications
 
-**适用范围**：...
+> Detailed technical requirements and implementation guidelines.
 
-## Investigation Flow
+### Required Tools
+- [List required tools and frameworks]
 
-### 流程概览
+### Environment Requirements
+- [List environment prerequisites]
 
-```
-[步骤1] → [步骤2] → [步骤3] → [步骤4] → [步骤5]
-```
+### Configuration Parameters
+- [List key configuration parameters]
 
-### 步骤 1：<Step Name>
+## Best Practices
 
-**目的**：...
+> Industry-standard best practices for {scenario-name} execution.
 
-**输入**：...
+1. **Practice 1**: [Description]
+2. **Practice 2**: [Description]
+3. **Practice 3**: [Description]
 
-**操作**：
+## Error Handling
 
-1. 操作项 1
-2. 操作项 2
-3. 操作项 3
+> Common error scenarios and resolution strategies.
 
-**输出**：...
+### Error Category 1
+**Symptom**: [Description]
+**Cause**: [Root cause]
+**Resolution**: [Steps to resolve]
 
-### 步骤 2：<Step Name>
+## Quality Standards
 
-**目的**：...
+> Acceptance criteria and quality gates for deliverables.
 
-**输入**：...
-
-**操作**：
-
-1. 操作项 1
-2. 操作项 2
-3. 操作项 3
-
-**输出**：...
-
-### 步骤 3：<Step Name>
-
-**目的**：...
-
-**输入**：...
-
-**操作**：
-
-1. 操作项 1
-2. 操作项 2
-3. 操作项 3
-
-**输出**：...
-
-## What To Check
-
-### 必检项
-
-| 检查项 | 标准 | 检查方法 | 通过条件 |
-|--------|------|----------|----------|
-| 检查项 1 | 标准 1 | 方法 1 | 条件 1 |
-| 检查项 2 | 标准 2 | 方法 2 | 条件 2 |
-| 检查项 3 | 标准 3 | 方法 3 | 条件 3 |
-
-### 建议检查项
-
-| 检查项 | 标准 | 检查方法 | 通过条件 |
-|--------|------|----------|----------|
-| 检查项 1 | 标准 1 | 方法 1 | 条件 1 |
-| 检查项 2 | 标准 2 | 方法 2 | 条件 2 |
-
-## Quality Criteria
-
-### 质量维度
-
-| 维度 | 要求 | 权重 |
-|------|------|------|
-| 完整性 | 产出包含所有必需项 | 30% |
-| 准确性 | 信息准确无误 | 30% |
-| 规范性 | 符合格式和命名规范 | 20% |
-| 可执行性 | 方案可落地实施 | 20% |
-
-### 评分标准
-
-| 等级 | 分值 | 描述 |
-|------|------|------|
-| 卓越 | 5 | 远超预期，全面优秀 |
-| 优秀 | 4 | 超过预期，大部分优秀 |
-| 良好 | 3 | 达到预期，满足要求 |
-| 合格 | 2 | 基本达标，有改进空间 |
-| 不合格 | 1 | 未达要求，需重新完成 |
-
-## Output Specification
-
-### 产出清单
-
-| 产出 | 格式 | 必填 | 描述 |
-|------|------|------|------|
-| 产出 1 | .md | 是 | ... |
-| 产出 2 | .md | 是 | ... |
-| 产出 3 | .json | 否 | ... |
-
-### 产出模板
-
-```markdown
-## <Output Title>
-
-### 基本信息
-- 创建时间：
-- 版本：
-- 作者：
-
-### 内容
-...
-```
-
-## Common Pitfalls
-
-### 常见错误
-
-| 错误类型 | 表现 | 预防措施 |
-|----------|------|----------|
-| 错误 1 | 表现 1 | 预防措施 1 |
-| 错误 2 | 表现 2 | 预防措施 2 |
-
-## Related Assets
-
-- **Agent**: [../../agents/<agent-name>.agent.md](../../agents/<agent-name>.agent.md)
-- **Skill**: [../../skills/<skill-name>/SKILL.md](../../skills/<skill-name>/SKILL.md)
-- **Prompt**: [../../prompts/<prompt-name>.prompt.md](../../prompts/<prompt-name>.prompt.md)
+| Standard | Criteria | Verification Method |
+|----------|----------|---------------------|
+| Standard 1 | [Description] | [How to verify] |

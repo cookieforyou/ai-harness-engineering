@@ -346,13 +346,13 @@ documentation_release:
 4. **不要重复**: 避免重复内容，使用交叉引用
 5. **不要孤立**: 文档应该与项目其他部分关联
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
 | SCENARIO | `../../scenarios/document-project/SCENARIO.md` |
 | PROMPT | `../../prompts/document-project.prompt.md` |
-| AGENT | `../../agents/technical-writer.agent.md` |
+| AGENT | `../../agents/document-project.agent.md` |
 | SKILL | `../../skills/document-project/SKILL.md` |
 
 

@@ -1,15 +1,11 @@
 ---
 name: knowledge-manager
-type: agent
-version: 1.0.0
-description: 知识管理专家 Agent，负责创建和维护团队知识库
 role: knowledge-manager
-capabilities:
-  - 知识识别和创建
-  - 文档撰写
-  - 知识组织
-  - 内容审核
-  - 知识分享
+description: 知识管理专家 Agent，负责创建和维护团队知识库
+type: agent
+version: "1.1.0"
+applyTo: "manage-knowledge"
+capabilities: 
 ---
 
 # Knowledge Manager Agent
@@ -111,31 +107,25 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `knowledge_domains` | list | true | 知识领域分类：技术/业务/流程/运维 |
+| `existing_sources` | list | false | 现有知识源：文档、Wiki、代码库 |
+| `audience_needs` | string | false | 受众需求：新员工/跨团队/外部 |
+| `governance_policy` | string | false | 知识治理策略：所有权、审核、过期 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `knowledge_map` | diagram/markdown | 知识体系图谱和分类 |
+| `documentation_standards` | markdown | 文档编写标准和模板 |
+| `search_index` | string | 知识库索引和检索配置 |
+| `maintenance_schedule` | markdown | 知识内容维护和审核计划 |
 
 ## Handoff
 

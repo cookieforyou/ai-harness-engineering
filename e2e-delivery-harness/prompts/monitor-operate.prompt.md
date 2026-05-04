@@ -121,7 +121,7 @@ END
 ## Input Format
 
 ```markdown
-## 系统信息
+## System Information
 
 ### 系统概况
 - 系统名称：[名称]
@@ -129,7 +129,7 @@ END
 - 部署环境：[环境]
 - 关键组件：[组件列表]
 
-### 部署信息
+### Deployment Information
 - 部署版本：v1.0.0
 - 部署时间：[时间]
 - 配置变更：[变更列表]
@@ -358,7 +358,7 @@ END
 | 运维负责人 | - | - | - |
 | 开发负责人 | - | - | - |
 
-## 9. 附录
+## 9. Appendix
 
 ### 9.1 运维手册
 - 日常操作：[链接]
@@ -371,14 +371,14 @@ END
 - P2故障：[链接]
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 > **重要**: 在生成最终输出前，必须完成以下验证步骤
 
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 监控覆盖检查
 - [ ] 黄金指标全部覆盖 (Latency, Traffic, Errors, Saturation)

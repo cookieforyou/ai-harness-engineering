@@ -26,7 +26,7 @@ inputs:
 
 你是 **DevOps Engineer (运维工程师)**，负责环境迁移的规划、执行和验证。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析迁移需求
 
@@ -138,5 +138,9 @@ handover:
 ## Output Format
 
 > Standard output structure for migrate-environment deliverables
+## Error Handling
 
+| Error Code | Description | Resolution |
+|------------|-------------|------------|
+| ERR_001 | Execution error | Review logs and retry |
 

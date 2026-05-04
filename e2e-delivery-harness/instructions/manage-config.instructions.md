@@ -140,13 +140,13 @@ feature:
 ```yaml
 # application-dev.yml
 database:
-  host: localhost
-  url: jdbc:mysql://localhost:3306/users
+  host: {{db_host}}
+  url: jdbc:mysql://{{db_host}}:{{db_port}}/users
 
 # application-prod.yml
 database:
   host: ${DB_HOST}
-  url: jdbc:mysql://prod.rds.com:3306/users
+  url: jdbc:mysql://{{db_host}}:{{db_port}}/users
 
 # application-staging.yml
 database:
@@ -182,7 +182,7 @@ sensitive_config:
 kms_config:
   - key: "api.token"
     provider: "aliyun-kms"
-    secret_id: "key-xxxxx"
+    secret_id: "{{kms_secret_id}}"
 ```
 
 ### 访问控制矩阵

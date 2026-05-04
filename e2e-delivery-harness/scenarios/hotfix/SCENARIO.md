@@ -1,3 +1,9 @@
+---
+name: hotfix
+version: "1.1.0"
+stage: "hotfix"
+---
+
 # Hotfix Scenario (紧急修复场景)
 
 ## Purpose
@@ -56,6 +62,24 @@ OUTPUT: 输出修复报告
 | **DC-1: 问题确认** | 完成问题分析后 | 影响范围和优先级？ | 继续或升级 |
 | **DC-2: 修复方案确认** | 完成修复设计后 | 方案是否可行？ | 执行修复 |
 | **DC-3: 上线确认** | 完成验证后 | 是否接受上线？ | 部署发布 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `HOTFIX-TIME` | ≤4h | 修复时间：P0问题从发现到修复上线 |
+| `REGRESSION-RATE` | ≤5% | 回归率：热修复引入新问题比例 |
+| `VERIFY-COVERAGE` | 100% | 验证覆盖率：所有场景已回归验证 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

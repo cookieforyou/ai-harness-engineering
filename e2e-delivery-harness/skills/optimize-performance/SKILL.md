@@ -1,3 +1,11 @@
+---
+name: optimize-performance
+description: "Domain skill for optimize-performance execution"
+type: skill
+version: "1.1.0"
+stage: "optimize-performance"
+---
+
 # Skill: 性能优化 (Performance Optimization)
 
 ## 概述
@@ -73,7 +81,7 @@ class PerformanceTest:
         return qps
 ```
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/optimize-performance/SCENARIO.md`
 - **Instruction**: `../../instructions/optimize-performance.instructions.md`

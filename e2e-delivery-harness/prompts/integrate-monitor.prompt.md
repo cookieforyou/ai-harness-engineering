@@ -48,7 +48,7 @@ stage: integrate-monitor
 ## Chain of Thought
 
 ```
-## 监控集成执行流程
+## Monitoring Integration Execution Flow
 
 ### 阶段 1: 监控规划 (30 分钟)
 
@@ -140,7 +140,7 @@ stage: integrate-monitor
 | 数据延迟 | 面板数据滞后 | 检查数据源性能 |
 | 采集开销 | 资源占用过高 | 降低采集频率 |
 
-## 输出验证
+## Output Validation
 
 ### 监控验证清单
 
@@ -155,7 +155,7 @@ stage: integrate-monitor
 ### 输出格式
 
 ```markdown
-## 监控方案
+## Monitoring Plan
 
 ### 监控架构
 {架构图和组件说明}
@@ -178,7 +178,7 @@ labels:
 {面板截图和链接}
 ```
 
-## 交接准备
+## Handover Preparation
 
 ### 传递给后续流程的信息
 
@@ -187,13 +187,13 @@ labels:
 3. **告警手册**: 告警处理指南
 4. **运维文档**: 监控运维手册
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
 | SCENARIO | `../scenarios/integrate-monitor/SCENARIO.md` |
 | INSTRUCTIONS | `../instructions/integrate-monitor.instructions.md` |
-| AGENT | `../agents/sre-engineer.agent.md` |
+| AGENT | `../agents/integrate-monitor.agent.md` |
 | SKILL | `../skills/integrate-monitor/SKILL.md` |
 
 ## Execution Flow

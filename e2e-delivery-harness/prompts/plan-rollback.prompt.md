@@ -1,8 +1,9 @@
 ---
 name: plan-rollback
-type: prompt
-version: 1.0.0
 description: 回滚计划场景的 AI 提示词
+type: prompt
+stage: "plan-rollback."
+version: "1.1.0"
 ---
 
 # Rollback Planning Prompt

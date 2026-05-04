@@ -1,8 +1,10 @@
 ---
+type: "instruction"
+stage: "monitor-operate"
+version: "1.1.0"
 applyTo: "**/*.md"
 phase: monitoring
 order: 7
-version: "1.0.0"
 ---
 
 # Monitoring Operations Instructions

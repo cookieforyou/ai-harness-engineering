@@ -28,7 +28,7 @@ inputs:
 
 你是 **Performance Engineer (性能工程师)**，负责识别和解决系统性能瓶颈。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析性能问题
 
@@ -110,7 +110,7 @@ inputs:
 - 全量验证
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -168,5 +168,9 @@ handover:
 ## Output Format
 
 > Standard output structure for optimize-performance deliverables
+## Error Handling
 
+| Error Code | Description | Resolution |
+|------------|-------------|------------|
+| ERR_001 | Execution error | Review logs and retry |
 

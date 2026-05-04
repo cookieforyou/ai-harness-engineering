@@ -1,3 +1,9 @@
+---
+name: backup-data
+version: "1.1.0"
+stage: "backup-data"
+---
+
 # Scenario: 数据备份 (Backup Data)
 
 ## 概述
@@ -50,6 +56,24 @@
 | 备份损坏 | 使用上一版本 |
 | 恢复失败 | 触发灾备恢复 |
 
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `BACKUP-SUCCESS` | ≥99.5% | 备份成功率 |
+| `RPO-COMPLY` | 100% | RPO达成：数据丢失量≤RPO目标 |
+| `RESTORE-TEST` | ≥1/quarter | 恢复测试频率：每季度至少一次 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
+
 ## Handover Criteria
 
 - [x] 备份策略已定义
@@ -58,7 +82,7 @@
 - [x] 恢复演练已通过
 - [x] 运维文档已编写
 
-## 关联资产
+## Associated Assets
 
 - **Prompt**: `prompts/backup-data.prompt.md`
 - **Instruction**: `instructions/backup-data.instructions.md`

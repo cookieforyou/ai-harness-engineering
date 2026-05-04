@@ -1,3 +1,11 @@
+---
+name: migrate-data
+description: "Domain skill for migrate-data execution"
+type: skill
+version: "1.1.0"
+stage: "migrate-data"
+---
+
 # Skill: 数据迁移 (Data Migration)
 
 ## 概述
@@ -17,7 +25,7 @@
 - 抽样校验
 - 全量校验
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/migrate-data/SCENARIO.md`
 - **Instruction**: `../../instructions/migrate-data.instructions.md`

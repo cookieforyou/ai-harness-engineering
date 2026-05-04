@@ -1,3 +1,9 @@
+---
+name: manage-secrets
+version: "1.1.0"
+stage: "manage-secrets"
+---
+
 # Scenario: 密钥管理 (Manage Secrets)
 
 ## 概述
@@ -50,6 +56,24 @@
 | 密钥泄露 | 立即轮换、审计 |
 | 密钥服务不可用 | 降级到本地缓存 |
 
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `ROTATION-COMPLY` | 100% | 轮换合规率：按计划执行轮换 |
+| `ACCESS-AUDIT` | 100% | 访问审计覆盖率：所有访问有日志 |
+| `LEAK-DETECTION` | ≤1h | 泄露检测时间：发现泄露到告警 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
+
 ## Handover Criteria
 
 - [x] 密钥管理服务部署完成
@@ -58,7 +82,7 @@
 - [x] 密钥审计日志已启用
 - [x] 密钥恢复方案已测试
 
-## 关联资产
+## Associated Assets
 
 - **Prompt**: `prompts/manage-secrets.prompt.md`
 - **Instruction**: `instructions/manage-secrets.instructions.md`

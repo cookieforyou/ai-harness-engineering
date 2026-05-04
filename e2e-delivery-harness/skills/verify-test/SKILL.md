@@ -2,7 +2,7 @@
 name: testing
 description: 设计和执行测试用例，验证功能正确性，发现并跟踪缺陷
 category: verification
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # Testing Skill

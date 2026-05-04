@@ -1,12 +1,10 @@
 ---
 name: incident-review
 type: scenario
-version: "1.0.0"
 stage: monitoring
+version: "1.1.0"
 difficulty: medium
-prerequisites:
-  - 故障已恢复
-  - 故障记录可用
+prerequisites: 
 ---
 
 # Incident Review Scenario
@@ -168,6 +166,24 @@ THINK: 跟踪改进落地
 | **DC-1: 根本原因确认** | 完成初步分析后 | 根因分析是否到位？是否还有遗漏？ | 继续完善 |
 | **DC-2: 改进措施确认** | 完成改进措施制定后 | 措施是否有效？优先级？ | 确认责任人 |
 | **DC-3: 复盘结论确认** | 完成复盘报告后 | 复盘结论是否各方认可？ | 结束复盘 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `POSTMORTEM-COMPLETION` | 100% | 复盘完成率：所有P0/P1有复盘 |
+| `ACTION-CLOSURE` | ≥90% | 措施关闭率：改进措施按时关闭 |
+| `RECURRENCE-RATE` | ≤5% | 复发率：同类事件再次发生比例 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

@@ -1,3 +1,11 @@
+---
+name: plan-capacity
+description: "Domain skill for plan-capacity execution"
+type: skill
+version: "1.1.0"
+stage: "plan-capacity"
+---
+
 # Skill: 容量规划 (Capacity Planning)
 
 ## 概述
@@ -18,7 +26,7 @@
 - 水平扩展
 - 混合扩展
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/plan-capacity/SCENARIO.md`
 - **Instruction**: `../../instructions/plan-capacity.instructions.md`

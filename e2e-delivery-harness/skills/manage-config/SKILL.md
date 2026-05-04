@@ -1,3 +1,11 @@
+---
+name: manage-config
+description: "Domain skill for manage-config execution"
+type: skill
+version: "1.1.0"
+stage: "manage-config"
+---
+
 # Skill: 配置管理 (Configuration Management)
 
 ## 概述
@@ -245,7 +253,7 @@ class ConfigValidator:
 | Consul-template | 配置模板化 |
 | Spring Cloud Bus | Spring 配置刷新 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/manage-config/SCENARIO.md`
 - **Instruction**: `../../instructions/manage-config.instructions.md`

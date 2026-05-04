@@ -8,11 +8,11 @@ stage: review-incident
 
 # Prompt: 故障复盘场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行故障复盘流程，包括事件还原、根因分析、教训总结和改进措施制定。
 
-## 执行变量 (Variables)
+## Execution Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -67,7 +67,7 @@ interface ResolutionInfo {
 }
 ```
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### Step 1: 事件时间线重建
 
@@ -217,7 +217,7 @@ MEDIUM 升级条件:
 - 改进措施涉及跨团队协调
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ### 必须包含的字段
 
@@ -256,10 +256,10 @@ interface ActionItem {
 | 改进措施可执行性 | 每项有明确的 Owner 和验收标准 |
 | 经验教训可复用性 | 可指导类似故障预防 |
 
-## 交接准备 (Handover Context)
+## Handover Preparation
 
 ```markdown
-## 故障复盘交接上下文
+## Incident Review Handover Context
 
 ### 故障基础信息
 - 故障ID: {incident_id}
@@ -288,7 +288,7 @@ interface ActionItem {
 - 下次复审: {follow_up_date}
 ```
 
-## 执行约束
+## Execution Constraints
 
 1. **无责文化**: 复盘目的是改进，不是追责
 2. **事实驱动**: 所有结论基于证据，不推测

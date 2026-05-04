@@ -1,15 +1,11 @@
 ---
 name: tech-debt-manager
-type: agent
-version: 1.0.0
-description: 技术债务管理专家 Agent，负责识别和管理技术债务
 role: tech-debt-manager
-capabilities:
-  - 技术债务识别
-  - 代码质量分析
-  - 重构规划
-  - 债务量化评估
-  - 偿还策略制定
+description: 技术债务管理专家 Agent，负责识别和管理技术债务
+type: agent
+version: "1.1.0"
+applyTo: "manage-tech-debt"
+capabilities: 
 ---
 
 # Tech Debt Manager Agent
@@ -122,31 +118,25 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `codebase_analysis` | string | true | 代码库分析结果：复杂度、重复率、测试覆盖 |
+| `pain_points` | list | false | 团队报告的技术痛点和阻碍 |
+| `business_priorities` | string | false | 当前业务优先级和交付压力 |
+| `debt_catalog` | list | false | 已知技术债务清单（如存在） |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `tech_debt_inventory` | table | 技术债务清单：类型、影响、估算成本 |
+| `prioritization_matrix` | table | 优先级矩阵：业务影响 vs 修复成本 |
+| `refactoring_plan` | markdown | 重构计划和迭代安排 |
+| `investment_proposal` | markdown | 技术债务偿还投入建议 |
 
 ## Handoff
 

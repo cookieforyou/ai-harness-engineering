@@ -61,7 +61,7 @@ templates/
 
 ## 目标
 
-## 前置条件
+## Prerequisites
 
 ## 处理步骤
 
@@ -111,7 +111,7 @@ templates/
 
 ## 技能概述
 
-## 前置条件
+## Prerequisites
 
 ## 知识库
 
@@ -121,7 +121,7 @@ templates/
 
 ## 验证
 
-## 示例
+## Example
 ```
 
 ## 使用方式

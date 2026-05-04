@@ -1,3 +1,11 @@
+---
+name: integrate-monitor
+description: "Domain skill for integrate-monitor execution"
+type: skill
+version: "1.1.0"
+stage: "integrate-monitor"
+---
+
 # Skill: 监控集成 (Integrate Monitor)
 
 ## 概述
@@ -48,12 +56,12 @@ class ObservabilitySkill:
         # 3. 配置导出
 ```
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/integrate-monitor/SCENARIO.md`
 - **Instruction**: `../../instructions/integrate-monitor.instructions.md`
 - **Prompt**: `../../prompts/integrate-monitor.prompt.md`
-- **Agent**: `../../agents/sre-engineer.agent.md`
+- **Agent**: `../../agents/integrate-monitor.agent.md`
 
 
 ## Core Knowledge

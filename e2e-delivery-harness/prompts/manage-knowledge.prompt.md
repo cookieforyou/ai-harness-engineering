@@ -1,8 +1,9 @@
 ---
 name: manage-knowledge
-type: prompt
-version: 1.0.0
 description: 知识管理场景的 AI 提示词
+type: prompt
+stage: "manage-knowledge."
+version: "1.1.0"
 ---
 
 # Knowledge Management Prompt

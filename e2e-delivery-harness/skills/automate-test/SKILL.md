@@ -1,3 +1,11 @@
+---
+name: automate-test
+description: "Domain skill for automate-test execution"
+type: skill
+version: "1.1.0"
+stage: "automate-test"
+---
+
 # Skill: 自动化测试 (Test Automation)
 
 ## 概述
@@ -123,7 +131,7 @@ time.sleep(5)  # 不推荐
 | Cypress | E2E 测试 |
 | Playwright | E2E 测试 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/automate-test/SCENARIO.md`
 - **Instruction**: `../../instructions/automate-test.instructions.md`

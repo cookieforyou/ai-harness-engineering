@@ -1,8 +1,10 @@
 ---
+type: "instruction"
+stage: "implement-feature"
+version: "1.1.0"
 applyTo: "**/*.{ts,js,py,java}"
 phase: development
 order: 4
-version: "1.0.0"
 ---
 
 # Development Implementation Instructions

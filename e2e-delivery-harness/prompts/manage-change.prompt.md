@@ -8,11 +8,11 @@ stage: manage-change
 
 # Prompt: 变更管理场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行变更管理流程，包括变更申请评估、风险分析、审批流程和实施跟踪。
 
-## 执行变量 (Variables)
+## Execution Variables
 
 | 变量名 | 类型 | 必填 | 描述 | 示例 |
 |--------|------|------|------|------|
@@ -40,7 +40,7 @@ interface ImpactScope {
 }
 ```
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### Step 1: 变更类型判定
 
@@ -134,7 +134,7 @@ HIGH 升级条件:
 - 需要特殊权限操作
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ### 必须包含的字段
 
@@ -156,10 +156,10 @@ HIGH 升级条件:
 | 实施计划可执行性 | 每个步骤可验证 |
 | 变更窗口合理性 | 有足够缓冲时间 |
 
-## 交接准备 (Handover Context)
+## Handover Preparation
 
 ```markdown
-## 变更交接上下文
+## Change Handover Context
 
 ### 变更基础信息
 - 变更ID: {change_id}
@@ -182,7 +182,7 @@ HIGH 升级条件:
 - 业务负责人: {business_lead}
 ```
 
-## 执行约束
+## Execution Constraints
 
 1. **信息保密**: 敏感配置信息脱敏处理
 2. **合规审计**: 所有变更操作必须可追溯

@@ -1,10 +1,10 @@
 ---
 name: verify-test
-type: scenario
-version: "1.0.0"
 description: 测试验证场景，负责设计测试用例、执行测试并报告缺陷
+type: scenario
 category: quality
 stage: testing
+version: "1.1.0"
 ---
 
 # Verify Test
@@ -94,6 +94,24 @@ stage: testing
 | **识别信号** | 开发认为不是缺陷 |
 | **处理方式** | 1. 引用需求规格；2. 讨论验收标准；3. 寻求产品确认；4. 记录讨论结果 |
 | **升级条件** | 无法达成共识超过1轮 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `TEST-PASS` | ≥90% | 测试通过率 |
+| `DEFECT-DETECTION` | ≥95% | 缺陷检出率 |
+| `REQ-TRACE` | 100% | 需求可追溯性：所有需求有测试覆盖 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

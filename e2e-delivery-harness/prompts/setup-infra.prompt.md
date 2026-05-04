@@ -33,7 +33,7 @@ inputs:
 
 你是 **Infrastructure Engineer (基础设施工程师)**，负责设计、搭建、维护云基础设施。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析基础设施需求
 
@@ -160,7 +160,7 @@ error_scenarios:
       3. 使用最小权限原则
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -214,7 +214,7 @@ handover:
     handover_data: 访问凭证、资源配置清单
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 setup_infra_result:

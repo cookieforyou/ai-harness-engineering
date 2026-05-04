@@ -422,13 +422,13 @@ slos:
 4. **不要忽视性能**: 监控本身也有开销
 5. **不要孤立**: 指标之间应有关联
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
 | SCENARIO | `../../scenarios/integrate-monitor/SCENARIO.md` |
 | PROMPT | `../../prompts/integrate-monitor.prompt.md` |
-| AGENT | `../../agents/sre-engineer.agent.md` |
+| AGENT | `../../agents/integrate-monitor.agent.md` |
 | SKILL | `../../skills/integrate-monitor/SKILL.md` |
 
 

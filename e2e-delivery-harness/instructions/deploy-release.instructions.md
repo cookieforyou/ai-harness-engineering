@@ -1,8 +1,10 @@
 ---
+type: "instruction"
+stage: "deploy-release"
+version: "1.1.0"
 applyTo: "**/*.md"
 phase: deployment
 order: 6
-version: "1.0.0"
 ---
 
 # Deployment Release Instructions

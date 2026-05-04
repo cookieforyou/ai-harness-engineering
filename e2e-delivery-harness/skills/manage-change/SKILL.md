@@ -113,7 +113,7 @@ stage: cross-phase
 
 ## Examples
 
-### 示例：新增功能变更
+### Example：新增功能变更
 
 **变更内容**：在用户管理模块新增批量导入功能
 

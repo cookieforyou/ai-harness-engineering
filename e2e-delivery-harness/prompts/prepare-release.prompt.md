@@ -34,7 +34,7 @@ inputs:
 
 你是 **Release Manager (发布经理)**，负责规划和管理版本发布。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析发布需求
 
@@ -165,7 +165,7 @@ error_scenarios:
       3. 修复后重新发布
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -219,7 +219,7 @@ handover:
     handover_data: 发布计划、回滚方案
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 prepare_release_result:

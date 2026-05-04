@@ -205,14 +205,14 @@ END
 - [建议2]
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 > **重要**: 在提交代码前，必须完成以下验证步骤
 
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 功能验证
 - [ ] 所有验收标准都已实现

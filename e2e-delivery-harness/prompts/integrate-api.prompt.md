@@ -33,7 +33,7 @@ inputs:
 
 你是 **API Integration Engineer (API 集成工程师)**，负责集成第三方 API 或内部服务 API。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析 API 需求
 
@@ -170,7 +170,7 @@ error_scenarios:
       3. 5xx 可重试
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -223,7 +223,7 @@ handover:
     handover_data: 客户端代码、使用文档
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 integrate_api_result:

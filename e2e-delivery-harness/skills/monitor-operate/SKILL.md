@@ -2,7 +2,7 @@
 name: monitoring
 description: 配置监控系统，执行日常巡检，处理告警和故障，保障系统稳定运行
 category: operations
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # Monitoring Skill

@@ -28,7 +28,7 @@ inputs:
 
 你是 **CI/CD Engineer (CI/CD 工程师)**，负责设计并实施持续集成/持续部署流水线。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析 CI/CD 需求
 
@@ -158,7 +158,7 @@ error_scenarios:
       3. 优化任务性能
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -210,7 +210,7 @@ handover:
     handover_data: 流水线配置、部署脚本
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 implement_cicd_result:

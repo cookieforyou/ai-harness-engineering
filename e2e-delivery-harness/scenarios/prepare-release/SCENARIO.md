@@ -1,3 +1,9 @@
+---
+name: prepare-release
+version: "1.1.0"
+stage: "prepare-release"
+---
+
 # Scenario: 发布准备 (Prepare Release)
 
 ## 概述
@@ -51,6 +57,24 @@
 | 回滚失败 | 紧急故障响应 |
 | 验证不通过 | 修复后重新验证 |
 
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `CHECKLIST-COMPLETE` | 100% | 检查清单完成率：发布前所有检查通过 |
+| `DOC-ACCURACY` | ≥98% | 文档准确性：发布说明与实际变更一致 |
+| `APPROVAL-COMPLY` | 100% | 审批合规率：所有必需审批已完成 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
+
 ## Handover Criteria
 
 - [x] 发布计划已审批
@@ -59,7 +83,7 @@
 - [x] 监控告警已配置
 - [x] 沟通计划已通知
 
-## 关联资产
+## Associated Assets
 
 - **Prompt**: `prompts/prepare-release.prompt.md`
 - **Instruction**: `instructions/prepare-release.instructions.md`

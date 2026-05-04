@@ -1,3 +1,11 @@
+---
+name: design-database
+description: "Domain skill for design-database execution"
+type: skill
+version: "1.1.0"
+stage: "design-database"
+---
+
 # Skill: 数据库设计 (Database Design)
 
 ## 概述
@@ -217,7 +225,7 @@ postgres_tuning:
 | mysqldumpslow | 慢查询分析 |
 | pt-query-digest | 查询分析 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/design-database/SCENARIO.md`
 - **Instruction**: `../../instructions/design-database.instructions.md`

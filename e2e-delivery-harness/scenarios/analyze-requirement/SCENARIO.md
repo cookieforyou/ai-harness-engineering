@@ -1,10 +1,10 @@
 ---
 name: analyze-requirement
-type: scenario
-version: "1.0.0"
 description: 需求分析场景，负责将原始业务需求转换为结构化的需求规格说明书
+type: scenario
 category: planning
 stage: requirement-analysis
+version: "1.1.0"
 ---
 
 # Analyze Requirement
@@ -94,6 +94,24 @@ stage: requirement-analysis
 | **识别信号** | 需求范围不断扩大，超出原定边界 |
 | **处理方式** | 1. 标记新增需求；2. 评估影响；3. 与产品负责人确认；4. 调整范围或延期 |
 | **升级条件** | 影响超过20%原定范围 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `REQ-COVER` | ≥95% | 需求覆盖率：已分析需求占总需求比例 |
+| `STAKEHOLDER-ID` | 100% | 干系人识别率：关键干系人全部识别 |
+| `AC-CLARITY` | ≥90% | 验收标准清晰度：可量化验收标准占比 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

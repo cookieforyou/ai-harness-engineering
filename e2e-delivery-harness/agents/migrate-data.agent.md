@@ -1,9 +1,10 @@
 ---
 name: migrate-data
+role: Data Migration Engineer
+description: 数据迁移工程师，负责设计和执行数据迁移方案
 type: agent
 version: "1.1.0"
-description: 数据迁移工程师，负责设计和执行数据迁移方案
-role: Data Migration Engineer
+applyTo: "migrate-data"
 associated-scenario: migrate-data
 ---
 
@@ -77,31 +78,27 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `source_schema` | sql/markdown | true | 源数据库Schema和数据结构 |
+| `target_schema` | sql/markdown | true | 目标数据库Schema和数据结构 |
+| `data_volume` | string | true | 数据量估算：记录数、存储大小 |
+| `downtime_budget` | string | false | 允许的停机时间窗口 |
+| `transformation_rules` | string | false | 数据转换和清洗规则 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `migration_plan` | markdown | 数据迁移计划和执行步骤 |
+| `migration_scripts` | sql/code | 数据迁移/ETL脚本 |
+| `validation_queries` | sql | 数据一致性验证SQL |
+| `rollback_procedures` | markdown | 迁移回滚方案 |
+| `performance_estimates` | table | 迁移性能估算和时间表 |
 
 ## Handoff
 

@@ -8,7 +8,7 @@ stage: performance-testing
 
 # Prompt: 性能测试场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行性能测试流程，包括性能需求分析、测试计划制定、测试执行和结果分析。
 
@@ -152,9 +152,9 @@ END
 ## Input Format
 
 ```markdown
-## 输入信息
+## Input Information
 
-### 系统信息
+### System Information
 - 系统名称: {system_name}
 - 版本: {system_version}
 - 架构: {架构描述}
@@ -225,7 +225,7 @@ END
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 测试覆盖检查
 - [ ] 关键业务场景全部覆盖

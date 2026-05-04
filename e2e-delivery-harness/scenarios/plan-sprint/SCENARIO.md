@@ -1,3 +1,9 @@
+---
+name: plan-sprint
+version: "1.1.0"
+stage: "plan-sprint"
+---
+
 # Scenario: 冲刺规划 (Plan Sprint)
 
 ## 概述
@@ -98,7 +104,7 @@ class SprintPlanning:
 3. **Task Board**: 任务分解与分配
 4. **Sprint Burndown**: 燃尽图基准
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
@@ -158,6 +164,24 @@ class SprintPlanning:
 **Error**: [Description]
 **Handling**: [Resolution steps]
 
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `COMMITMENT-ACCURACY` | ≥80% | 承诺准确率：实际完成/承诺完成 |
+| `CAPACITY-UTIL` | 85-95% | 容量利用率：实际使用/可用容量 |
+| `CARRYOVER-RATE` | ≤20% | 遗留率：遗留到下次冲刺的故事占比 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

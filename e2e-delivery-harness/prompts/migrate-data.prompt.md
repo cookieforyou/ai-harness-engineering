@@ -8,7 +8,7 @@ stage: migrate-data
 
 # Prompt: 数据迁移场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行数据迁移流程，包括迁移评估、方案设计、迁移执行和数据验证。
 
@@ -94,7 +94,7 @@ END
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 数据完整性
 - [ ] 记录数一致

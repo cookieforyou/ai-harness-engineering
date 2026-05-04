@@ -1,12 +1,10 @@
 ---
 name: code-review
 type: scenario
-version: "1.0.0"
 stage: development
+version: "1.1.0"
 difficulty: medium
-prerequisites:
-  - 有待审查的代码
-  - 编码规范文档
+prerequisites: 
 ---
 
 # Code Review Scenario
@@ -162,6 +160,24 @@ THINK: 给出审查结论
 | **DC-1: 审查范围确认** | 开始审查前 | 审查重点是什么？优先级？ | 继续审查 |
 | **DC-2: 严重问题确认** | 发现严重问题时 | 是否接受继续？条件？ | 修复或讨论 |
 | **DC-3: 最终结论确认** | 所有问题处理后 | 是否批准合并？ | 合并或继续 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `DEFECT-DETECTION` | ≥85% | 缺陷检出率：代码审查发现的问题 |
+| `REVIEW-TURNAROUND` | ≤24h | 审查周转时间 |
+| `SECURITY-FINDINGS` | 0 | 安全漏洞遗留：P0/P1安全漏洞数 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

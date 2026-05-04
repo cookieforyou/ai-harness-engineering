@@ -1,8 +1,10 @@
 ---
+type: "instruction"
+stage: "design-system"
+version: "1.1.0"
 applyTo: "**/*.md"
 phase: system-design
 order: 2
-version: "1.0.0"
 ---
 
 # System Design Instructions

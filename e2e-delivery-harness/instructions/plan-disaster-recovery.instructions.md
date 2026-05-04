@@ -1,8 +1,9 @@
 ---
 name: plan-disaster-recovery
-type: instructions
-version: 1.0.0
 description: 灾备恢复规划场景的技术指令
+type: instructions
+stage: "plan-disaster-recovery"
+version: "1.1.0"
 ---
 
 # Disaster Recovery Planning Instructions

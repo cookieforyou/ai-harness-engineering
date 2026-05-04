@@ -1,3 +1,11 @@
+---
+name: manage-dependencies
+description: "Domain skill for manage-dependencies execution"
+type: skill
+version: "1.1.0"
+stage: "manage-dependencies"
+---
+
 # Dependency Management Skill
 
 ## Core Knowledge

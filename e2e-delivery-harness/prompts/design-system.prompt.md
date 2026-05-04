@@ -137,7 +137,7 @@ END
 ```markdown
 # 架构设计文档
 
-## 1. 文档信息
+## 1. Document Information
 - 项目名称：
 - 版本：1.0
 - 日期：[当前日期]
@@ -301,14 +301,14 @@ END
 - [资料2]
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 > **重要**: 在生成最终输出前，必须完成以下验证步骤
 
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 需求覆盖检查
 - [ ] 所有功能需求都有对应的设计实现

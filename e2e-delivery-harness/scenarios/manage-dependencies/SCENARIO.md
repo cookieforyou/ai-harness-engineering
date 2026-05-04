@@ -1,25 +1,14 @@
 ---
 name: manage-dependencies
-type: scenario
-version: 1.0.0
 description: 依赖管理场景，管理系统和项目依赖，确保依赖的安全性、兼容性和可维护性
+type: scenario
+version: "1.1.0"
 trigger: 当需要分析、更新或审计项目依赖时触发
 agent: developer
 phase: implement-feature
-tags:
-  - dependencies
-  - security
-  - package-management
-  - vulnerability
-input:
-  - project_name
-  - project_path
-  - dependency_list
-  - audit_scope
-output:
-  - dependency-report.md
-  - update-plan.md
-  - vulnerability-assessment.md
+tags: 
+input: 
+output: 
 ---
 
 # Dependency Management Scenario
@@ -86,6 +75,24 @@ output:
 | 脆弱依赖 | 评估替代方案，制定迁移计划 |
 | 许可证冲突 | 咨询法务，评估替换或购买许可 |
 | 更新后构建失败 | 自动回滚，分析兼容性变更 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `VULN-DETECTION` | 100% | 漏洞检测率：已知CVE全部识别 |
+| `LICENSE-COMPLY` | 100% | 许可证合规率：无禁止许可证 |
+| `UPDATE-LATENCY` | ≤30d | 更新延迟：关键补丁应用时间 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

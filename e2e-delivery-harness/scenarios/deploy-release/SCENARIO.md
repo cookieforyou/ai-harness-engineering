@@ -1,10 +1,10 @@
 ---
 name: deploy-release
-type: scenario
-version: "1.0.0"
 description: 部署发布场景，负责将软件部署到目标环境并完成发布
+type: scenario
 category: operations
 stage: deployment
+version: "1.1.0"
 ---
 
 # Deploy Release
@@ -94,6 +94,24 @@ stage: deployment
 | **识别信号** | 发布后性能指标异常 |
 | **处理方式** | 1. 评估性能影响；2. 分析原因；3. 优化或回滚；4. 持续监控 |
 | **升级条件** | SLA 面临违约风险 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `DEPLOY-SUCCESS` | ≥99% | 部署成功率 |
+| `ROLLBACK-TIME` | ≤15min | 回滚时间：触发回滚到恢复服务 |
+| `ZERO-DOWNTIME` | 100% | 零停机达成：生产环境无感知切换 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

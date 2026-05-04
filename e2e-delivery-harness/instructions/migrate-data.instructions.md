@@ -36,7 +36,7 @@ SELECT * FROM source ORDER BY RAND() LIMIT 100;
 SELECT * FROM target ORDER BY id LIMIT 100;
 ```
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `scenarios/migrate-data/SCENARIO.md`
 - **Prompt**: `prompts/migrate-data.prompt.md`

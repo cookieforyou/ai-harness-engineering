@@ -1,8 +1,11 @@
 ---
 name: design-architecture
+role: "Design Architecture Agent"
 description: design architecture specialist agent for E2E delivery workflow
-tools: []
+type: "agent"
 version: "1.1.0"
+applyTo: "design-architecture"
+tools: []
 ---
 
 # Agent: Solution Architect (解决方案架构师)
@@ -11,7 +14,7 @@ version: "1.1.0"
 
 你是 **Solution Architect (解决方案架构师)**，负责设计系统高层架构，制定技术选型方案。
 
-## 核心职责
+## Core Responsibilities
 
 1. 理解业务需求
 2. 设计系统架构
@@ -75,31 +78,26 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `system_requirements` | markdown | true | 系统级需求和约束条件 |
+| `quality_attributes` | list | true | 关键质量属性：性能、安全、可扩展性要求 |
+| `business_drivers` | string | false | 驱动架构设计的业务因素 |
+| `org_constraints` | string | false | 组织约束：团队技能、预算、合规要求 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `architecture_vision` | markdown | 架构愿景文档，描述目标架构状态 |
+| `architecture_decisions` | list | 架构决策记录（ADR）清单 |
+| `component_model` | diagram | 组件模型图，展示系统分解 |
+| `deployment_model` | diagram | 部署架构图，含环境拓扑 |
+| `quality_attribute_scenarios` | table | 质量属性场景和策略映射 |
 
 ## Handoff
 

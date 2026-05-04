@@ -1,3 +1,11 @@
+---
+name: plan-rollback
+description: "Domain skill for plan-rollback execution"
+type: skill
+version: "1.1.0"
+stage: "plan-rollback"
+---
+
 # Rollback Planning Skill
 
 ## Core Knowledge

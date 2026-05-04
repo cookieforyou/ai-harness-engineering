@@ -1,3 +1,11 @@
+---
+name: manage-knowledge
+description: "Domain skill for manage-knowledge execution"
+type: skill
+version: "1.1.0"
+stage: "manage-knowledge"
+---
+
 # Knowledge Management Skill
 
 ## Core Knowledge

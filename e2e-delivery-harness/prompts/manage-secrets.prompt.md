@@ -27,7 +27,7 @@ inputs:
 
 你是 **Security Engineer (安全工程师)**，负责管理和保护应用程序密钥、凭证、证书等敏感信息。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析密钥需求
 
@@ -161,7 +161,7 @@ error_scenarios:
       3. 触发高可用切换
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -213,7 +213,7 @@ handover:
     handover_data: 密钥清单、访问配置
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 manage_secrets_result:

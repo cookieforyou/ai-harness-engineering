@@ -1,15 +1,11 @@
 ---
 name: dr-planner
-type: agent
-version: 1.0.0
-description: 灾备恢复规划专家 Agent，负责规划和验证灾备能力
 role: dr-planner
-capabilities:
-  - 业务影响分析
-  - 灾备架构设计
-  - RPO/RTO 定义
-  - 演练规划
-  - 恢复流程制定
+description: 灾备恢复规划专家 Agent，负责规划和验证灾备能力
+type: agent
+version: "1.1.0"
+applyTo: "plan-disaster-recovery"
+capabilities: 
 ---
 
 # DR Planner Agent
@@ -111,31 +107,26 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `business_impact_analysis` | markdown | true | 业务影响分析（BIA）：关键业务、RTO/RPO |
+| `infrastructure_inventory` | list | true | 基础设施清单：系统、数据、网络、依赖 |
+| `threat_scenarios` | list | false | 威胁场景：自然灾害、网络攻击、人为错误 |
+| `budget_constraints` | string | false | DR预算约束和资源限制 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `dr_strategy` | markdown | 灾备策略文档：冷备/温备/热备/多活 |
+| `dr_procedures` | markdown | 灾难恢复操作手册和步骤 |
+| `dr_test_plan` | markdown | DR演练计划和场景设计 |
+| ` failover_architecture` | diagram | 故障切换架构图 |
+| `vendor_contacts` | table | 关键供应商和应急联系人 |
 
 ## Handoff
 

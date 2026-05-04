@@ -1,7 +1,7 @@
 ---
 name: <scenario-name>
 type: scenario
-version: "1.0.0"
+version: "1.1.0"
 description: <scenario-description>
 category: <category>
 stage: <stage-name>

@@ -1,8 +1,9 @@
 ---
 name: respond-incident
-type: instructions
-version: 1.0.0
 description: 事件响应场景的技术指令
+type: instructions
+stage: "respond-incident"
+version: "1.1.0"
 ---
 
 # Incident Response Instructions
@@ -87,7 +88,7 @@ ps aux | grep <process>
 systemctl status <service>
 
 # Logs
-tail -f /var/log/<service>.log
+tail -f {{log_dir}}/<service>.log
 journalctl -u <service> -n 100
 
 # Port check
@@ -227,7 +228,7 @@ ps aux --sort=-%cpu | head -10
 docker stats --no-stream
 
 # 4. Application logs
-grep -i "error\|warning" /var/log/app.log | tail -50
+grep -i "error\|warning" {{log_dir}}/app.log | tail -50
 
 # 5. If necessary, restart
 systemctl restart <service>

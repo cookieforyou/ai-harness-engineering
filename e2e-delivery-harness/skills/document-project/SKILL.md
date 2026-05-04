@@ -1,3 +1,11 @@
+---
+name: document-project
+description: "Domain skill for document-project execution"
+type: skill
+version: "1.1.0"
+stage: "document-project"
+---
+
 # Skill: 项目文档 (Document Project)
 
 ## 概述
@@ -62,12 +70,12 @@ class DocumentationSkill:
         return doc
 ```
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/document-project/SCENARIO.md`
 - **Instruction**: `../../instructions/document-project.instructions.md`
 - **Prompt**: `../../prompts/document-project.prompt.md`
-- **Agent**: `../../agents/technical-writer.agent.md`
+- **Agent**: `../../agents/document-project.agent.md`
 
 
 ## Core Knowledge

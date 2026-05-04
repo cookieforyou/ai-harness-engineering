@@ -8,7 +8,7 @@ stage: automate-test
 
 # Instructions: 自动化测试 (Automate Test)
 
-## 测试框架选择规范
+## Test Framework Selection
 
 ### Python 技术栈
 
@@ -35,7 +35,7 @@ stage: automate-test
 | 集成测试 | TestNG | 高级特性 |
 | E2E 测试 | Selenium | Web 测试 |
 
-## 测试分层规范
+## Test Layering Standards
 
 ### 分层结构
 
@@ -76,7 +76,7 @@ def test_login():
     driver.find_element(By.ID, "username").send_keys("user")  # 不推荐
 ```
 
-## 测试数据管理
+## Test Data Management
 
 ### 测试数据策略
 
@@ -93,7 +93,7 @@ def test_login():
 - 使用 try-finally 确保清理执行
 - 并行测试使用唯一数据标识
 
-## 断言规范
+## Assertion Standards
 
 ### 断言命名
 
@@ -156,7 +156,7 @@ jobs:
 | 定时任务 | 每日 | 全量测试 |
 | 发布前 | 手动 | 全量 + 回归 |
 
-## 覆盖率要求
+## Coverage Requirements
 
 | 级别 | 要求 | 说明 |
 |------|------|------|
@@ -164,7 +164,7 @@ jobs:
 | 集成测试 | ≥ 60% | API 和数据层 |
 | E2E 测试 | ≥ 40% | 关键用户路径 |
 
-## 维护规范
+## Maintenance Standards
 
 ### 用例维护
 

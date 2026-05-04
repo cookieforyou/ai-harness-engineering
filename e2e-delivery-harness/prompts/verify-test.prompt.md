@@ -237,14 +237,14 @@ END
 - [工作1]
 - [工作2]
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 > **重要**: 在生成最终输出前，必须完成以下验证步骤
 
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 测试用例完整性
 - [ ] 核心功能用例覆盖率 100%
@@ -286,7 +286,7 @@ THEN
 END
 ```
 
-## 附录
+## Appendix
 
 ### A. 测试环境
 - 环境：测试环境

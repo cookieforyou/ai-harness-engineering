@@ -1,3 +1,11 @@
+---
+name: backup-data
+description: "Domain skill for backup-data execution"
+type: skill
+version: "1.1.0"
+stage: "backup-data"
+---
+
 # Skill: 数据备份 (Data Backup)
 
 ## 概述
@@ -311,7 +319,7 @@ common_issues = {
 | Grafana | 监控面板 |
 | ELK | 日志分析 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/backup-data/SCENARIO.md`
 - **Instruction**: `../../instructions/backup-data.instructions.md`

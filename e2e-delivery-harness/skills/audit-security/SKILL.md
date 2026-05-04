@@ -110,7 +110,7 @@ stage: testing
 
 ## Examples
 
-### 示例：SQL 注入漏洞
+### Example：SQL 注入漏洞
 
 **发现位置**：/api/users?id=1
 

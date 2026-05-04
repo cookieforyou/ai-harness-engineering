@@ -1,8 +1,10 @@
 ---
+type: "instruction"
+stage: "analyze-requirement"
+version: "1.1.0"
 applyTo: "**/*.md"
 phase: requirement-analysis
 order: 1
-version: "1.0.0"
 ---
 
 # Requirement Analysis Instructions

@@ -1,8 +1,9 @@
 ---
 name: respond-incident
-type: prompt
-version: 1.0.0
 description: 事件响应场景的 AI 提示词
+type: prompt
+stage: "respond-incident."
+version: "1.1.0"
 ---
 
 # Incident Response Prompt

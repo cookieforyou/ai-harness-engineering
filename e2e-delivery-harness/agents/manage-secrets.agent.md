@@ -1,9 +1,10 @@
 ---
 name: manage-secrets
+role: Secrets Manager
+description: 密钥管理专家，负责安全管理敏感信息和凭证
 type: agent
 version: "1.1.0"
-description: 密钥管理专家，负责安全管理敏感信息和凭证
-role: Secrets Manager
+applyTo: "manage-secrets"
 associated-scenario: manage-secrets
 ---
 
@@ -77,31 +78,26 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `secrets_inventory` | list | true | 密钥清单：名称、用途、当前存储位置 |
+| `vault_system` | string | false | 目标密钥管理系统（HashiCorp Vault/AWS KMS等） |
+| `access_policies` | string | false | 访问控制策略：谁可以访问什么 |
+| `rotation_schedule` | string | false | 密钥轮换策略和周期 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
 
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `secrets_architecture` | diagram/markdown | 密钥管理架构图和流程 |
+| `vault_config` | hcl/yaml | Vault/密钥管理系统的配置文件 |
+| `access_control_matrix` | table | 角色到密钥的访问权限矩阵 |
+| `rotation_procedures` | markdown | 密钥轮换操作手册 |
+| `audit_policy` | markdown | 密钥访问审计策略 |
 
 ## Handoff
 

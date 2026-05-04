@@ -8,7 +8,7 @@ stage: backup-data
 
 # Instructions: 数据备份 (Backup Data)
 
-## 备份策略规范
+## Backup Strategy
 
 ### 备份类型对比
 
@@ -64,7 +64,7 @@ backup_windows:
     recommended: true
 ```
 
-## 数据库备份规范
+## Database Backup Standards
 
 ### MySQL 备份
 
@@ -129,7 +129,7 @@ mongodump \
 tar -czf ${BACKUP_DIR}/mongo_${DATE}.tar.gz ${BACKUP_DIR}/${DATE}
 ```
 
-## 文件备份规范
+## File Backup Standards
 
 ### 备份范围定义
 
@@ -149,7 +149,7 @@ backup_scope:
       priority: "medium"
 
   should_include:
-    - path: "/opt/application"
+    - path: "{{app_install_dir}}"
       description: "应用程序"
       priority: "medium"
 

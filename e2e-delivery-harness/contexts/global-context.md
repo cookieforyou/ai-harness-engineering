@@ -14,7 +14,7 @@ scope: all-stages
 project:
   name: ""                    # 项目名称
   code: ""                    # 项目代码 (如: PRJ-001)
-  version: "1.0.0"            # 当前版本
+  version: "1.1.0"            # 当前版本
   stage: "init"               # 当前阶段
   owner: ""                   # 项目负责人
   description: ""             # 项目描述

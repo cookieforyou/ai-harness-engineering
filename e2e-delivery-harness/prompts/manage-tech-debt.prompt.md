@@ -1,8 +1,9 @@
 ---
 name: manage-tech-debt
-type: prompt
-version: 1.0.0
 description: 技术债务管理场景的 AI 提示词
+type: prompt
+stage: "manage-tech-debt."
+version: "1.1.0"
 ---
 
 # Technical Debt Management Prompt

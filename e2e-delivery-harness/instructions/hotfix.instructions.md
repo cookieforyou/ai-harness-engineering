@@ -26,7 +26,7 @@ stage: hotfix
 | P1 | 30 分钟 | 4 小时 | 8 小时 |
 | P2 | 1 小时 | 24 小时 | 48 小时 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `scenarios/hotfix/SCENARIO.md`
 - **Prompt**: `prompts/hotfix.prompt.md`

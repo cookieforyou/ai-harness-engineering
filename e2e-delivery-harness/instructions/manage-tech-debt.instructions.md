@@ -1,8 +1,9 @@
 ---
 name: manage-tech-debt
-type: instructions
-version: 1.0.0
 description: 技术债务管理场景的技术指令
+type: instructions
+stage: "manage-tech-debt"
+version: "1.1.0"
 ---
 
 # Technical Debt Management Instructions

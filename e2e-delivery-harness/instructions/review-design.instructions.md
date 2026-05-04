@@ -23,7 +23,7 @@ stage: review-design
 | 可维护性 | 易于维护 | 15% |
 | 成本 | 成本合理 | 10% |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `scenarios/review-design/SCENARIO.md`
 - **Prompt**: `prompts/review-design.prompt.md`

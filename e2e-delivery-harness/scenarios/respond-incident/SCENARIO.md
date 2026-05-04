@@ -1,26 +1,14 @@
 ---
 name: respond-incident
-type: scenario
-version: 1.0.0
 description: 事件响应场景，定义生产环境事故的发现、响应、处理和恢复流程
+type: scenario
+version: "1.1.0"
 trigger: 当发生生产环境事故时触发
 agent: sre-engineer
 phase: monitor-operate
-tags:
-  - incident-response
-  - on-call
-  - sla
-  - reliability
-input:
-  - incident_id
-  - incident_severity
-  - affected_services
-  - initial_symptoms
-output:
-  - incident-timeline.md
-  - resolution-steps.md
-  - impact-report.md
-  - follow-up-actions.md
+tags: 
+input: 
+output: 
 ---
 
 # Incident Response Scenario
@@ -121,6 +109,24 @@ output:
 | 修复失败 | 回滚到上一版本，重复修复 |
 | 影响扩大 | 立即升级，启动应急响应 |
 | 数据损坏 | 启动数据恢复流程 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `MTTR` | ≤1h | 恢复时间目标 |
+| `ESCALATION-ACCURACY` | ≥90% | 升级准确性：正确触发升级的比例 |
+| `COMM-TIMELINESS` | ≤15min | 沟通及时性：首次沟通时间 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

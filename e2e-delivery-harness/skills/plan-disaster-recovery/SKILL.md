@@ -1,3 +1,11 @@
+---
+name: plan-disaster-recovery
+description: "Domain skill for plan-disaster-recovery execution"
+type: skill
+version: "1.1.0"
+stage: "plan-disaster-recovery"
+---
+
 # Disaster Recovery Planning Skill
 
 ## Core Knowledge

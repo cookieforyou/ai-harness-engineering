@@ -8,7 +8,7 @@ stage: hotfix
 
 # Prompt: 紧急修复场景执行 Prompt
 
-## 概述
+## Overview
 
 本 Prompt 用于指导 AI Agent 执行紧急缺陷修复工作。
 
@@ -54,7 +54,7 @@ END
 ### 验证清单
 
 ```markdown
-## 自我验证报告
+## Self-Validation Report
 
 ### V-001: 修复验证
 - [ ] 问题已修复

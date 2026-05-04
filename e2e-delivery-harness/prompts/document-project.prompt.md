@@ -52,7 +52,7 @@ stage: document-project
 ## Chain of Thought
 
 ```
-## 项目文档编写流程
+## Project Documentation Workflow
 
 ### 阶段 1: 文档规划 (30 分钟)
 
@@ -140,7 +140,7 @@ stage: document-project
 | 术语不一致 | 与项目词汇表冲突 | 统一为标准术语 |
 | 示例错误 | 代码无法运行 | 修复或移除示例 |
 
-## 输出验证
+## Output Validation
 
 ### 文档验证清单
 
@@ -159,24 +159,24 @@ stage: document-project
 ```markdown
 # {文档标题}
 
-## 概述
+## Overview
 {文档目的和范围}
 
-## 前置条件
+## Prerequisites
 {阅读前需要了解的内容}
 
 ##主要内容
 {核心内容}
 
-## 示例
+## Example
 ```代码示例
 ```
 
-## 参考
+## References
 {相关文档链接}
 ```
 
-## 交接准备
+## Handover Preparation
 
 ### 传递给后续流程的信息
 
@@ -184,13 +184,13 @@ stage: document-project
 2. **待补充项**: 需要后续补充的内容
 3. **维护计划**: 文档更新计划
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
 | SCENARIO | `../scenarios/document-project/SCENARIO.md` |
 | INSTRUCTIONS | `../instructions/document-project.instructions.md` |
-| AGENT | `../agents/technical-writer.agent.md` |
+| AGENT | `../agents/document-project.agent.md` |
 | SKILL | `../skills/document-project/SKILL.md` |
 
 ## Execution Flow

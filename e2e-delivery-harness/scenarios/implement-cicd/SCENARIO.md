@@ -1,3 +1,9 @@
+---
+name: implement-cicd
+version: "1.1.0"
+stage: "implement-cicd"
+---
+
 # Scenario: CI/CD 实施 (Implement CI/CD)
 
 ## 概述
@@ -50,6 +56,24 @@
 | 部署失败 | 自动回滚、发送通知 |
 | 超时 | 重试或人工介入 |
 
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `LEAD-TIME` | ≤1d | 交付前置时间：代码提交到生产部署 |
+| `DEPLOY-FREQ` | ≥1/day | 部署频率：每日部署次数 |
+| `MTTR` | ≤1h | 恢复时间：故障到恢复平均时间 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
+
 ## Handover Criteria
 
 - [x] 流水线配置完成
@@ -58,7 +82,7 @@
 - [x] 监控告警已配置
 - [x] 文档已编写
 
-## 关联资产
+## Associated Assets
 
 - **Prompt**: `prompts/implement-cicd.prompt.md`
 - **Instruction**: `instructions/implement-cicd.instructions.md`

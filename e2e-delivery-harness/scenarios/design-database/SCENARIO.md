@@ -1,3 +1,9 @@
+---
+name: design-database
+version: "1.1.0"
+stage: "design-database"
+---
+
 # Scenario: 数据库设计 (Design Database)
 
 ## 概述
@@ -50,6 +56,24 @@
 | 表结构冲突 | 评审和协调 |
 | 容量预估不足 | 扩容或归档策略 |
 
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `NORMALIZATION` | 3NF | 规范化程度：达到第三范式 |
+| `INDEX-COVERAGE` | ≥90% | 查询索引覆盖率：高频查询有索引 |
+| `SCHEMA-DOCS` | 100% | Schema文档化率：所有表和字段有注释 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
+
 ## Handover Criteria
 
 - [x] ER 图已完成
@@ -58,7 +82,7 @@
 - [x] DDL 脚本已准备
 - [x] 数据字典已编写
 
-## 关联资产
+## Associated Assets
 
 - **Prompt**: `prompts/design-database.prompt.md`
 - **Instruction**: `instructions/design-database.instructions.md`

@@ -111,7 +111,7 @@ stage: development
 
 ## Examples
 
-### 示例：SQL 注入检查
+### Example：SQL 注入检查
 
 **代码**：
 ```python

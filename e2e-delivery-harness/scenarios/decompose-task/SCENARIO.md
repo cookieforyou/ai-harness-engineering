@@ -1,10 +1,10 @@
 ---
 name: decompose-task
-type: scenario
-version: "1.0.0"
 description: 任务拆分场景，负责将需求分解为可执行的技术任务
+type: scenario
 category: planning
 stage: task-decomposition
+version: "1.1.0"
 ---
 
 # Decompose Task
@@ -94,6 +94,24 @@ stage: task-decomposition
 | **识别信号** | 团队对估算有分歧 |
 | **处理方式** | 1. 讨论估算依据；2. 参考历史数据；3. 使用 Planning Poker；4. 达成共识 |
 | **升级条件** | 无法达成共识 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `TASK-CLARITY` | ≥95% | 任务清晰度：满足DoR的任务占比 |
+| `EST-ACCURACY` | ±20% | 估算准确度：实际/估算偏差 |
+| `DEPENDENCY-COVER` | 100% | 依赖覆盖率：所有跨任务依赖已识别 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

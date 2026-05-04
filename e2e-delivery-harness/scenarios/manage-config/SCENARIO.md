@@ -1,3 +1,9 @@
+---
+name: manage-config
+version: "1.1.0"
+stage: "manage-config"
+---
+
 # Scenario: 配置管理 (Manage Configuration)
 
 ## 概述
@@ -50,6 +56,24 @@
 | 配置服务不可用 | 降级到文件配置 |
 | 敏感配置泄露 | 立即轮换密钥 |
 
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `CONFIG-VALID` | 100% | 配置验证通过率 |
+| `ENV-PARITY` | ≥95% | 环境一致性：配置项在各环境对齐率 |
+| `SECRETS-ISOLATION` | 100% | 密钥隔离率：无硬编码密钥 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
+
 ## Handover Criteria
 
 - [x] 配置中心部署完成
@@ -58,7 +82,7 @@
 - [x] 监控告警已设置
 - [x] 运维文档已编写
 
-## 关联资产
+## Associated Assets
 
 - **Prompt**: `prompts/manage-config.prompt.md`
 - **Instruction**: `instructions/manage-config.instructions.md`

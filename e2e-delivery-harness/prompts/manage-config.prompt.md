@@ -27,7 +27,7 @@ inputs:
 
 你是 **Configuration Manager (配置管理员)**，负责管理应用程序配置、环境变量、特性开关等。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析配置需求
 
@@ -157,7 +157,7 @@ error_scenarios:
       4. 修复泄露源
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -206,7 +206,7 @@ handover:
     handover_data: 配置清单、环境配置
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 manage_config_result:
@@ -224,10 +224,10 @@ manage_config_result:
     environments:
       dev:
         - key: "db.url"
-          value: "jdbc:mysql://localhost:3306"
+          value: "jdbc:mysql://{{db_host}}:{{db_port}}"
       prod:
         - key: "db.url"
-          value: "jdbc:mysql://rds.xxx.com:3306"
+          value: "jdbc:mysql://{{db_host_prod}}:{{db_port}}"
 
     sensitive:
       - key: "db.password"

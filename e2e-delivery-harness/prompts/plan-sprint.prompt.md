@@ -134,7 +134,7 @@ stage: plan-sprint
 | 容量超载 | 任务量 > 容量 * 0.9 | 移除低优先级 Item |
 | 依赖风险 | 存在外部依赖 | 标记风险并制定预案 |
 
-## 输出验证
+## Output Validation
 
 ### Sprint Plan 验证清单
 
@@ -175,7 +175,7 @@ stage: plan-sprint
 - [ ] 假设: 设计稿在 Sprint 第 2 天完成
 ```
 
-## 交接准备
+## Handover Preparation
 
 ### 传递给 Sprint Execution 的信息
 
@@ -184,13 +184,13 @@ stage: plan-sprint
 3. **Capacity**: 团队可用容量
 4. **Dependencies**: 已知依赖和风险
 
-## 关联资产
+## Associated Assets
 
 | 类型 | 路径 |
 |------|------|
 | SCENARIO | `../scenarios/plan-sprint/SCENARIO.md` |
 | INSTRUCTIONS | `../instructions/plan-sprint.instructions.md` |
-| AGENT | `../agents/product-owner.agent.md` |
+| AGENT | `../agents/plan-sprint.agent.md` |
 | SKILL | `../skills/plan-sprint/SKILL.md` |
 
 ## Execution Flow

@@ -1,10 +1,11 @@
 ---
 name: review-code
+role: review-code
 description: 代码审查角色，负责执行代码评审
 type: agent
-version: "2.0.0"
 stage: development
-role: review-code
+version: "1.1.0"
+applyTo: "review-code"
 ---
 
 # Code Reviewer Agent
@@ -114,27 +115,23 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `code_changes` | diff/string | true | 代码变更内容：diff或完整文件 |
+| `coding_standards` | string | false | 团队编码规范和风格指南 |
+| `security_checklist` | list | false | 安全审查检查清单 |
+| `review_scope` | string | false | 审查范围：功能/性能/安全/可维护性 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
+
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `review_report` | markdown | 代码审查报告，含问题分类和严重程度 |
+| `defect_list` | table | 发现的问题清单：位置、描述、修复建议 |
+| `security_findings` | table | 安全漏洞发现（如有） |
+| `approval_decision` | string | 审查结论：通过/需修改/拒绝 |
+| `metrics` | table | 代码质量指标：复杂度、重复率、测试覆盖率 |

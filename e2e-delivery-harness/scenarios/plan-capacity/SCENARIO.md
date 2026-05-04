@@ -1,3 +1,9 @@
+---
+name: plan-capacity
+version: "1.1.0"
+stage: "plan-capacity"
+---
+
 # Plan Capacity Scenario (容量规划场景)
 
 ## Purpose
@@ -55,6 +61,24 @@ OUTPUT: 输出容量规划报告
 |--------|----------|----------|--------|
 | **DC-1: 预测模型确认** | 完成需求预测后 | 预测模型是否合理？ | 继续规划 |
 | **DC-2: 扩容方案确认** | 完成方案制定后 | 扩容方案和预算？ | 输出报告 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `FORECAST-ACCURACY` | ±15% | 预测准确度：实际vs预测偏差 |
+| `HEADROOM-MAINTAIN` | ≥20% | 容量余量：峰值时剩余容量 |
+| `COST-ACCURACY` | ±20% | 成本准确度：预测vs实际成本 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

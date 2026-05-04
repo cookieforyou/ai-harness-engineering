@@ -1,3 +1,9 @@
+---
+name: migrate-data
+version: "1.1.0"
+stage: "migrate-data"
+---
+
 # Migrate Data Scenario (数据迁移场景)
 
 ## Purpose
@@ -95,6 +101,24 @@ OUTPUT: 输出迁移报告
 | **DC-1: 迁移方案确认** | 完成迁移方案后 | 方案是否可行？回滚策略？ | 继续准备 |
 | **DC-2: 数据校验确认** | 完成数据验证后 | 数据是否可接受？ | 切换或回滚 |
 | **DC-3: 业务验证确认** | 完成业务验证后 | 是否切换流量？ | 正式切换 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `DATA-INTEGRITY` | 100% | 数据完整性：迁移后数据一致性校验通过 |
+| `DOWNTIME` | ≤{{downtime_budget}} | 停机时间：在预算范围内 |
+| `ROLLBACK-READY` | 100% | 回滚就绪：迁移全程可回滚 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

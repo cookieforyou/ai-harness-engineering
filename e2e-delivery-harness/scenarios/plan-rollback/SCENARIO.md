@@ -1,25 +1,14 @@
 ---
 name: plan-rollback
-type: scenario
-version: 1.0.0
 description: 回滚计划场景，为部署发布制定详细的回滚策略和执行方案
+type: scenario
+version: "1.1.0"
 trigger: 当需要进行部署发布前触发
 agent: release-manager
 phase: deploy-release
-tags:
-  - rollback
-  - deployment
-  - disaster-recovery
-  - risk-mitigation
-input:
-  - project_name
-  - release_version
-  - deployment_scope
-  - risk_level
-output:
-  - rollback-plan.md
-  - rollback-scripts.md
-  - verification-checklist.md
+tags: 
+input: 
+output: 
 ---
 
 # Rollback Planning Scenario
@@ -127,6 +116,24 @@ output:
 | 部分回滚 | 评估状态，决定是否完全回滚 |
 | 数据损坏 | 启动数据恢复流程 |
 | 回滚超时 | 强制停止，分析原因 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `ROLLBACK-TESTED` | 100% | 回滚方案测试率：所有场景已演练 |
+| `RECOVERY-RTO` | ≤15min | 恢复时间目标：回滚到稳定状态 |
+| `DATA-CONSISTENCY` | 100% | 数据一致性：回滚后数据完整性 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

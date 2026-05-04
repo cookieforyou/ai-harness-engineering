@@ -1,3 +1,11 @@
+---
+name: respond-incident
+description: "Domain skill for respond-incident execution"
+type: skill
+version: "1.1.0"
+stage: "respond-incident"
+---
+
 # Incident Response Skill
 
 ## Core Knowledge

@@ -1,3 +1,11 @@
+---
+name: design-architecture
+description: "Domain skill for design-architecture execution"
+type: skill
+version: "1.1.0"
+stage: "design-architecture"
+---
+
 # Skill: 架构设计 (Architecture Design)
 
 ## 概述
@@ -279,7 +287,7 @@ class ArchitectureAssessment:
 | SonarQube | 代码质量 |
 | LoadRunner | 性能测试 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/design-architecture/SCENARIO.md`
 - **Instruction**: `../../instructions/design-architecture.instructions.md`

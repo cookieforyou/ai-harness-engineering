@@ -30,7 +30,7 @@ inputs:
 
 你是 **Data Backup Engineer (数据备份工程师)**，负责设计、实现和管理数据备份策略。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析备份需求
 
@@ -166,7 +166,7 @@ error_scenarios:
       4. 启动灾备方案
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -224,7 +224,7 @@ handover:
     handover_data: 备份策略、恢复手册
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 backup_data_result:

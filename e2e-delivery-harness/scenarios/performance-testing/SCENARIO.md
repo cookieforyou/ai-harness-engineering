@@ -1,3 +1,9 @@
+---
+name: performance-testing
+version: "1.1.0"
+stage: "performance-testing"
+---
+
 # Performance Testing Scenario (性能测试场景)
 
 ## Purpose
@@ -164,6 +170,24 @@ OUTPUT: 输出性能报告和优化建议
 4. 获取决策 → 继续或修正
 5. 记录决策 → 归档到输出文档
 ```
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `SLO-ACHIEVE` | ≥99.5% | SLO达成率 |
+| `BOTTLENECK-ID` | 100% | 瓶颈识别率：所有已知瓶颈被定位 |
+| `TEST-VALIDITY` | ≥95% | 测试有效性：结果与生产环境相关性 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

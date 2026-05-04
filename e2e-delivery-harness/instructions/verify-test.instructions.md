@@ -1,8 +1,10 @@
 ---
+type: "instruction"
+stage: "verify-test"
+version: "1.1.0"
 applyTo: "**/*.md"
 phase: testing
 order: 5
-version: "1.0.0"
 ---
 
 # Testing Verification Instructions

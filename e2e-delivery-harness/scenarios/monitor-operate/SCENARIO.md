@@ -1,10 +1,10 @@
 ---
 name: monitor-operate
-type: scenario
-version: "1.0.0"
 description: 监控运维场景，负责系统上线后的监控、告警和运维支持
+type: scenario
 category: operations
 stage: monitoring
+version: "1.1.0"
 ---
 
 # Monitor Operate
@@ -94,6 +94,24 @@ stage: monitoring
 | **识别信号** | 系统性能下降但未宕机 |
 | **处理方式** | 1. 评估影响范围；2. 触发降级预案；3. 通知相关方；4. 持续监控 |
 | **升级条件** | SLO 面临违约风险 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `MTTD` | ≤5min | 平均检测时间：异常发生到告警触发 |
+| `ALERT-NOISE` | ≤20% | 告警噪声率：无效告警占比 |
+| `SLO-COMPLY` | ≥99.5% | SLO合规率：服务水平目标达成 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria
 

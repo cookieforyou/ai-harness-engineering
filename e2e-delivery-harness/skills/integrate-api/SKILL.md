@@ -1,3 +1,11 @@
+---
+name: integrate-api
+description: "Domain skill for integrate-api execution"
+type: skill
+version: "1.1.0"
+stage: "integrate-api"
+---
+
 # Skill: API 集成 (API Integration)
 
 ## 概述
@@ -225,7 +233,7 @@ class MultiLevelCache:
 | New Relic | APM |
 | Sentry | 错误追踪 |
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/integrate-api/SCENARIO.md`
 - **Instruction**: `../../instructions/integrate-api.instructions.md`

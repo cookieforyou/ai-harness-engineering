@@ -1,3 +1,11 @@
+---
+name: review-design
+description: "Domain skill for review-design execution"
+type: skill
+version: "1.1.0"
+stage: "review-design"
+---
+
 # Skill: 技术方案评审 (Technical Design Review)
 
 ## 概述
@@ -21,7 +29,7 @@
 - [ ] 扩展性考虑
 - [ ] 安全合规
 
-## 关联资产
+## Associated Assets
 
 - **Scenario**: `../../scenarios/review-design/SCENARIO.md`
 - **Instruction**: `../../instructions/review-design.instructions.md`

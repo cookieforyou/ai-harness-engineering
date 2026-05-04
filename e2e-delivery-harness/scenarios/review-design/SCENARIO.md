@@ -1,3 +1,9 @@
+---
+name: review-design
+version: "1.1.0"
+stage: "review-design"
+---
+
 # Review Design Scenario (技术方案评审场景)
 
 ## Purpose
@@ -55,6 +61,24 @@ OUTPUT: 输出评审报告
 |--------|----------|----------|--------|
 | **DC-1: 评审范围确认** | 开始评审前 | 评审重点和范围？ | 执行评审 |
 | **DC-2: 评审结论确认** | 完成评审后 | 结论是否通过？ | 结束评审 |
+
+
+## Quality Metrics
+
+> Quality metrics for measuring scenario execution success.
+
+| KPI | Target | Description |
+|-----|--------|-------------|
+| `ISSUE-DETECTION` | ≥95% | 问题检出率：实际发现/潜在问题 |
+| `REVIEW-TURNAROUND` | ≤2d | 评审周转时间：提交到结论 |
+| `DEFECT-ESCAPE` | ≤5% | 缺陷逃逸率：评审后仍发现的问题 |
+
+### Traceability
+
+- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
+- **Execution ID**: `{{execution.id}}` — 执行实例标识
+- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
+- **Agent**: `{{agent.name}}` — 执行Agent标识
 
 ## Handover Criteria (交接标准)
 

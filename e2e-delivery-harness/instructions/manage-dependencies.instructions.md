@@ -1,8 +1,9 @@
 ---
 name: manage-dependencies
-type: instructions
-version: 1.0.0
 description: 依赖管理场景的技术指令，详细说明依赖管理的工具和方法
+type: instructions
+stage: "manage-dependencies"
+version: "1.1.0"
 ---
 
 # Dependency Management Instructions

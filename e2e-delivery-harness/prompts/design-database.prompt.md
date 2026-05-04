@@ -30,7 +30,7 @@ inputs:
 
 你是 **Database Architect (数据库架构师)**，负责设计数据库架构、表结构、索引策略等。
 
-## 思维链 (Chain of Thought)
+## Chain of Thought
 
 ### 1. 分析业务需求
 
@@ -161,7 +161,7 @@ error_scenarios:
       3. 实施归档策略
 ```
 
-## 输出验证 (Output Validation)
+## Output Validation
 
 ```yaml
 validation:
@@ -218,7 +218,7 @@ handover:
     handover_data: DDL 脚本、数据字典
 ```
 
-## 示例输出结构
+## Example Output Structure
 
 ```yaml
 design_database_result:

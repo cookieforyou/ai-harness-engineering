@@ -1,10 +1,11 @@
 ---
 name: review-incident
+role: review-incident
 description: 故障复盘角色，负责执行故障复盘分析
 type: agent
-version: "2.0.0"
 stage: monitoring
-role: review-incident
+version: "1.1.0"
+applyTo: "review-incident"
 ---
 
 # Incident Reviewer Agent
@@ -114,27 +115,23 @@ Activate this agent when:
 
 ## Expected Input
 
-```yaml
-input_context:
-  - field: "[input_field_1]"
-    type: "[type]"
-    required: true
-    description: "[Description of input field 1]"
-  - field: "[input_field_2]"
-    type: "[type]"
-    required: false
-    description: "[Description of input field 2]"
-```
 
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `incident_record` | markdown | true | 完整事件记录：时间线、影响、处置过程 |
+| `postmortem_participants` | list | false | 复盘参与人员名单 |
+| `previous_postmortems` | string | false | 历史复盘报告（同类事件） |
+| `improvement_tracking` | string | false | 前期改进措施跟踪状态 |
 
 ## Expected Output
 
-```yaml
-output_deliverables:
-  - artifact: "[output_artifact_1]"
-    format: "[format]"
-    validation: "[validation criteria]"
-  - artifact: "[output_artifact_2]"
-    format: "[format]"
-    validation: "[validation criteria]"
-```
+
+
+| Artifact | Format | Validation |
+|----------|--------|------------|
+| `postmortem_report` | markdown | 事后复盘报告：5 Whys、时间线、影响 |
+| `action_items` | table | 改进措施清单：责任人、截止日期、验收标准 |
+| `lessons_learned` | markdown | 经验教训总结和最佳实践更新 |
+| `runbook_updates` | markdown | 运维手册更新建议 |
+| `metric_impact` | table | 事件对SLO/指标的影响分析 |
