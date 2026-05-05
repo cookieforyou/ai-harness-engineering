@@ -8,11 +8,11 @@ stage: "migrate-environment"
 
 # Skill: 环境迁移 (Environment Migration)
 
-## 概述
+## Overview
 
 本 Skill 定义了环境迁移的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 迁移方法
 

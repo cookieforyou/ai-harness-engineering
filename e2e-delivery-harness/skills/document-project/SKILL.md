@@ -8,11 +8,11 @@ stage: "document-project"
 
 # Skill: 项目文档 (Document Project)
 
-## 概述
+## Overview
 
 本 Skill 定义了项目文档编写的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 文档编写方法
 

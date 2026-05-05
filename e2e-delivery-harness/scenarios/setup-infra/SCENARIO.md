@@ -6,7 +6,7 @@ stage: "setup-infra"
 
 # Scenario: 基础设施搭建 (Setup Infrastructure)
 
-## 概述
+## Overview
 
 本场景用于搭建项目基础设施，包括云资源、网络、安全组、存储等。
 

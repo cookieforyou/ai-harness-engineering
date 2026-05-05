@@ -8,7 +8,7 @@ stage: manage-secrets
 
 # Instructions: 密钥管理 (Manage Secrets)
 
-## 密钥管理服务选型
+## Secret Management Service Selection
 
 ### 主流服务对比
 
@@ -42,7 +42,7 @@ vault_architecture:
       - "cloudwatch"
 ```
 
-## 密钥类型规范
+## Secret Type Standards
 
 ### 密钥分类
 
@@ -73,7 +73,7 @@ secret_types:
     encryption: "optional"
 ```
 
-## 访问控制规范
+## Access Control Standards
 
 ### 基于角色的访问控制
 
@@ -103,7 +103,7 @@ path "secret/metadata/*" {
 | LDAP Auth | 人类用户 | 中 |
 | Token Auth | 临时访问 | 低 |
 
-## 密钥轮换规范
+## Secret Rotation Standards
 
 ### 轮换策略
 
@@ -150,7 +150,7 @@ comparison:
       - "证书私钥"
 ```
 
-## 密钥存储规范
+## Secret Storage Standards
 
 ### 密钥存储结构
 
@@ -187,7 +187,7 @@ naming_convention:
     - "环境名称混淆"
 ```
 
-## 密钥使用规范
+## Secret Usage Standards
 
 ### 安全最佳实践
 
@@ -235,7 +235,7 @@ access_patterns:
       password = client.get_secret("secret/prod/db/password")
 ```
 
-## 审计规范
+## Audit Standards
 
 ### 审计日志配置
 
@@ -290,7 +290,7 @@ alert_rules:
     action: "log_only"
 ```
 
-## 合规要求
+## Compliance Requirements
 
 ### 常见合规标准
 

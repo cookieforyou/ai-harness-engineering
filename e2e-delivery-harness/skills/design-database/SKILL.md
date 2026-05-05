@@ -8,11 +8,11 @@ stage: "design-database"
 
 # Skill: 数据库设计 (Database Design)
 
-## 概述
+## Overview
 
 本 Skill 定义了数据库设计的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 数据建模方法
 
@@ -172,7 +172,7 @@ postgres_tuning:
   work_mem: "根据查询复杂度设置"
 ```
 
-## 最佳实践
+## Best Practices
 
 ### 表设计原则
 
@@ -205,7 +205,7 @@ postgres_tuning:
    - SELECT 的字段都在索引中
    - 避免回表查询
 
-## 工具链
+## Toolchain
 
 ### 数据库设计工具
 

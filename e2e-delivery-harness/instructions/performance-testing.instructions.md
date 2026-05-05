@@ -12,7 +12,7 @@ stage: performance-testing
 
 本文档定义了性能测试阶段的技术规范和执行标准，用于指导 AI Agent 执行专业级的性能测试工作。
 
-## 性能测试类型
+## Performance Test Types
 
 | 测试类型 | 目的 | 持续时间 | 并发用户 |
 |----------|------|----------|----------|
@@ -22,7 +22,7 @@ stage: performance-testing
 | 稳定性测试 | 验证长时间运行稳定性 | 8-24 小时 | 目标 70% |
 | 峰值测试 | 验证峰值负载能力 | 1-2 小时 | 目标 100%+ |
 
-## 性能指标标准
+## Performance Metrics Standards
 
 ### 响应时间标准
 
@@ -50,7 +50,7 @@ stage: performance-testing
 | Disk IO | < 70% | 70-85% | > 85% |
 | Network | < 50% | 50-70% | > 70% |
 
-## 测试脚本规范
+## Test Script Standards
 
 ### JMeter 脚本规范
 
@@ -94,7 +94,7 @@ class WebsiteUser(HttpUser):
         })
 ```
 
-## 监控指标规范
+## Monitoring Metrics Standards
 
 ### 必监控指标
 
@@ -131,7 +131,7 @@ cache_metrics:
 | 稳定性测试 | 30 秒 | 30 天 |
 | 问题诊断 | 1 秒 | 24 小时 |
 
-## 测试数据规范
+## Test Data Standards
 
 ### 数据准备原则
 
@@ -151,9 +151,9 @@ cache_metrics:
 - 长期测试 (30天): 1.05
 ```
 
-## 报告模板
+## Report Templates
 
-### 性能测试报告结构
+### Performance Test Report结构
 
 ```markdown
 ## 1. 测试概述
@@ -190,7 +190,7 @@ cache_metrics:
 ### 6.2 优化建议
 ```
 
-## 瓶颈分析方法
+## Bottleneck Analysis Methods
 
 ### 响应时间分解
 
@@ -223,7 +223,7 @@ cache_metrics:
    └── 网络带宽
 ```
 
-## 优化建议优先级
+## Optimization Priority
 
 | 优先级 | 优化类型 | 预期收益 | 实施难度 |
 |--------|----------|----------|----------|

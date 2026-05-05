@@ -6,11 +6,11 @@ stage: "integrate-monitor"
 
 # Scenario: 监控集成 (Integrate Monitor)
 
-## 概述
+## Overview
 
 监控集成是系统可观测性的核心，负责指标采集、日志收集、链路追踪的统一集成。
 
-## 核心决策点
+## Core Decision Points
 
 | 阶段 | 决策点 | 输出 |
 |------|--------|------|
@@ -19,7 +19,7 @@ stage: "integrate-monitor"
 | 告警配置 | Alert Configuration | 告警规则 |
 | 可视化 | Dashboard Design | 监控面板 |
 
-## 执行流程
+## Execution Flow
 
 ```python
 class MonitoringIntegration:
@@ -65,14 +65,14 @@ class MonitoringIntegration:
         pass
 ```
 
-## 决策检查点
+## Decision Checkpoints
 
 - [ ] **指标完整性**: 核心指标是否覆盖？
 - [ ] **采集开销**: 监控采集对性能的影响是否可接受？
 - [ ] **告警有效性**: 告警规则是否能及时发现问题？
 - [ ] **可视化可用性**: 面板是否便于日常巡检和故障排查？
 
-## 错误处理
+## Error Handling
 
 | 场景 | 处理方式 |
 |------|----------|
@@ -80,7 +80,7 @@ class MonitoringIntegration:
 | 告警风暴 | 启用告警聚合和静默规则 |
 | 数据延迟 | 配置数据刷新频率 |
 
-## 交接标准
+## Handover Standards
 
 ### 监控集成完成标准
 
@@ -147,18 +147,6 @@ class MonitoringIntegration:
 
 | Checkpoint | Question | Decision Options |
 |------------|----------|-----------------|
-
-## Error Handling
-
-### Error Scenario 1
-**Error**: [Description]
-**Handling**: [Resolution steps]
-
-### Error Scenario 2
-**Error**: [Description]
-**Handling**: [Resolution steps]
-
-
 
 ## Quality Metrics
 

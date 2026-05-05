@@ -262,7 +262,7 @@ quality_gates:
 ### Code Review Checklist
 
 ```markdown
-## 技术债务审查清单
+## Technical Debt Review Checklist
 
 ### 代码质量
 - [ ] 函数长度 < 50 行

@@ -8,11 +8,11 @@ stage: "backup-data"
 
 # Skill: 数据备份 (Data Backup)
 
-## 概述
+## Overview
 
 本 Skill 定义了数据备份的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 备份概念
 
@@ -253,7 +253,7 @@ class BackupRestoreTest:
         }
 ```
 
-## 最佳实践
+## Best Practices
 
 ### 备份检查清单
 
@@ -276,7 +276,7 @@ backup_best_practices:
     - "告警通知结果"
 ```
 
-### 常见问题处理
+### FAQ处理
 
 ```python
 common_issues = {
@@ -297,7 +297,7 @@ common_issues = {
 }
 ```
 
-## 工具链
+## Toolchain
 
 ### 备份工具
 
@@ -324,7 +324,7 @@ common_issues = {
 - **Scenario**: `../../scenarios/backup-data/SCENARIO.md`
 - **Instruction**: `../../instructions/backup-data.instructions.md`
 - **Prompt**: `../../prompts/backup-data.prompt.md`
-- **Agent**: `../../agents/data-backup-engineer.agent.md`
+- **Agent**: `../../agents/backup-data.agent.md`
 
 
 ## Core Knowledge

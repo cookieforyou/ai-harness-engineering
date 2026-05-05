@@ -74,7 +74,7 @@ backup_windows:
 BACKUP_DIR="/backup/mysql"
 DATE=$(date +%Y%m%d)
 MYSQL_USER="backup"
-MYSQL_PASSWORD="xxx"
+MYSQL_PASSWORD="{{db_password}}"
 
 # 创建备份目录
 mkdir -p ${BACKUP_DIR}/${DATE}
@@ -181,7 +181,7 @@ rsync -avz \
 ln -nfs ${BACKUP_DIR}/${DATE} ${BACKUP_DIR}/current
 ```
 
-## 存储方案规范
+## Storage Strategy Standards
 
 ### 存储分层
 
@@ -237,7 +237,7 @@ capacity_planning:
   safety_margin: 1.2
 ```
 
-## 恢复演练规范
+## Recovery Drill Standards
 
 ### 演练频率
 
@@ -287,7 +287,7 @@ restore_test_checklist:
       required: false
 ```
 
-## 监控告警规范
+## Monitoring and Alerting Standards
 
 ### 监控指标
 
@@ -315,7 +315,7 @@ backup_monitoring:
       alert_threshold: "> 24 hours"
 ```
 
-### 告警配置
+### Alert Configuration
 
 ```yaml
 alert_config:
@@ -346,7 +346,7 @@ alert_config:
         - recipients: ["team-channel"]
 ```
 
-## 合规要求
+## Compliance Requirements
 
 ### 常见合规标准
 

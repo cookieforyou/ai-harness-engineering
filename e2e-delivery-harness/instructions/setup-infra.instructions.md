@@ -8,7 +8,7 @@ stage: setup-infra
 
 # Instructions: 基础设施搭建 (Setup Infrastructure)
 
-## 云服务商选择规范
+## Cloud Provider Selection Standards
 
 ### AWS
 
@@ -88,7 +88,7 @@ Ingress:
   - Port: 3389, Source: 0.0.0.0/0    # 禁止 RDP
 ```
 
-## 资源规格选择
+## Resource Specification Selection
 
 ### 计算资源
 
@@ -108,7 +108,7 @@ Ingress:
 | Cold Storage | 归档 | 低成本 |
 | EFS/SMB | 共享存储 | 网络文件系统 |
 
-## 高可用架构
+## High Availability Architecture
 
 ### 多可用区部署
 
@@ -158,7 +158,7 @@ scaling_policies:
     cooldown: 600
 ```
 
-## 监控告警配置
+## Monitoring and Alerting Configuration
 
 ### 基础监控指标
 
@@ -205,7 +205,7 @@ terraform/
     └── prod/
 ```
 
-### 状态管理
+### Status管理
 
 ```bash
 # 使用远程状态
@@ -218,7 +218,7 @@ terraform {
 }
 ```
 
-## 成本优化
+## Cost Optimization
 
 ### 成本节省策略
 

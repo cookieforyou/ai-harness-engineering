@@ -8,7 +8,7 @@ stage: optimize-performance
 
 # Instructions: 性能优化 (Optimize Performance)
 
-## 性能优化层级
+## Performance Optimization Layers
 
 ### 优化层次结构
 
@@ -28,7 +28,7 @@ stage: optimize-performance
 └─────────────────────────────────────┘
 ```
 
-## 代码优化规范
+## Code Optimization Standards
 
 ### 算法优化
 
@@ -58,7 +58,7 @@ executor_config = {
 }
 ```
 
-## 数据库优化规范
+## Database Optimization Standards
 
 ### 索引优化
 
@@ -84,7 +84,7 @@ SELECT * FROM logs WHERE created_at > ? LIMIT 100;
 EXPLAIN SELECT * FROM orders WHERE user_id = 1;
 ```
 
-## 缓存优化规范
+## Cache Optimization Standards
 
 ### 多级缓存
 
@@ -111,7 +111,7 @@ cache_levels:
 | Write-Through | 数据一致性 | 中 |
 | Write-Behind | 高写入性能 | 高 |
 
-## 性能监控指标
+## Performance Monitoring Metrics
 
 ```yaml
 metrics:

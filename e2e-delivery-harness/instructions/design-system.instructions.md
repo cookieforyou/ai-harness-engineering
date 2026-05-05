@@ -1,10 +1,9 @@
 ---
-type: "instruction"
-stage: "design-system"
+name: design-system
+description: "Technical instructions for system design execution"
+type: instruction
 version: "1.1.0"
-applyTo: "**/*.md"
-phase: system-design
-order: 2
+stage: "design-system"
 ---
 
 # System Design Instructions

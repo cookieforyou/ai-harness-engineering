@@ -4,7 +4,7 @@ description: 灾备恢复场景，规划和实施灾难恢复策略，确保业�
 type: scenario
 version: "1.1.0"
 trigger: 当需要进行灾备规划或演练时触发
-agent: solution-architect
+agent: design-architecture
 phase: monitor-operate
 tags: 
 input: 

@@ -6,7 +6,7 @@ stage: "automate-test"
 
 # Scenario: 自动化测试 (Automate Test)
 
-## 概述
+## Overview
 
 本场景用于搭建自动化测试框架、编写自动化测试用例、集成 CI/CD 流水线。
 

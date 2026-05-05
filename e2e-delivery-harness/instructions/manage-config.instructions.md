@@ -8,7 +8,7 @@ stage: manage-config
 
 # Instructions: 配置管理 (Manage Configuration)
 
-## 配置中心选型
+## Configuration Center Selection
 
 ### 主流配置中心对比
 
@@ -45,7 +45,7 @@ stage: manage-config
                    └─────────────┘
 ```
 
-## 配置分层规范
+## Configuration Layering Standards
 
 ### 分层结构
 
@@ -103,7 +103,7 @@ namespaces:
     description: "特性开关配置"
 ```
 
-## 配置格式规范
+## Configuration Format Standards
 
 ### YAML 配置示例
 
@@ -151,10 +151,10 @@ database:
 # application-staging.yml
 database:
   host: staging.rds.com
-  url: jdbc:mysql://staging.rds.com:3306/users
+  url: jdbc:mysql://{{db_host}}:{{db_port}}/{{db_name}}
 ```
 
-## 敏感配置管理
+## Sensitive Configuration Management
 
 ### 敏感配置分类
 
@@ -204,7 +204,7 @@ access_control:
       - role: security-officer
 ```
 
-## 特性开关规范
+## Feature Toggle Standards
 
 ### 开关命名
 
@@ -252,7 +252,7 @@ switch_lifecycle:
       requires: "业务确认"
 ```
 
-## 配置变更流程
+## Configuration Change Process
 
 ### 变更流程
 
@@ -298,7 +298,7 @@ rollback:
       action: "选择版本回滚"
 ```
 
-## 监控告警规范
+## Monitoring and Alerting Standards
 
 ### 监控指标
 
@@ -309,7 +309,7 @@ rollback:
 | 节点配置不一致 | > 0 | 集群问题 |
 | 未授权访问 | > 0 | 安全问题 |
 
-### 告警配置
+### Alert Configuration
 
 ```yaml
 alerts:

@@ -1,5 +1,5 @@
 ---
-name: sre-engineer
+name: integrate-monitor
 role: "Integrate Monitor Agent"
 description: 负责监控系统集成、告警配置和可观测性建设的AI角色代理
 type: "agent"

@@ -1,3 +1,10 @@
+---
+name: incident-response
+description: Incident response and emergency handling pipeline
+type: pipeline
+version: "1.1.0"
+---
+
 # Pipeline: 故障响应流程 (Incident Response Pipeline)
 
 ## 概述

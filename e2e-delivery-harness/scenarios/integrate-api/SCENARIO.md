@@ -6,7 +6,7 @@ stage: "integrate-api"
 
 # Scenario: API 集成 (Integrate API)
 
-## 概述
+## Overview
 
 本场景用于集成第三方 API 或内部服务 API，包括接口对接、认证授权、数据转换、错误处理等。
 

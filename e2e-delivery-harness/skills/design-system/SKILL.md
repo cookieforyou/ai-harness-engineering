@@ -1,8 +1,10 @@
 ---
+
 name: design-system
 description: 将需求规格转换为技术架构设计方案，包括组件设计、接口设计、数据设计和部署架构
 category: design
 version: "1.1.0"
+type: skill
 ---
 
 # System Design Skill
@@ -188,7 +190,7 @@ version: "1.1.0"
 ### 输出格式
 
 ```markdown
-## 架构设计文档
+## Architecture Design Document
 
 ### 文档信息
 ...

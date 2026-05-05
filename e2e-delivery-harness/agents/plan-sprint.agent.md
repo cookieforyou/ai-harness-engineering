@@ -1,5 +1,5 @@
 ---
-name: product-owner
+name: plan-sprint
 role: "Plan Sprint Agent"
 description: 负责产品规划、需求管理、Sprint Planning 等工作的AI角色代理
 type: "agent"

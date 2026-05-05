@@ -1,8 +1,10 @@
 ---
+
 name: development
 description: 按照任务清单完成代码开发、单元测试和文档更新，确保代码质量
 category: implementation
 version: "1.1.0"
+type: skill
 ---
 
 # Development Skill
@@ -142,7 +144,7 @@ version: "1.1.0"
 ### 输出格式
 
 ```markdown
-## 实现报告
+## Implementation Report
 
 ### 任务完成情况
 ...

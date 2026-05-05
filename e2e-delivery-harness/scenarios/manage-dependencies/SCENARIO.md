@@ -4,7 +4,7 @@ description: 依赖管理场景，管理系统和项目依赖，确保依赖的�
 type: scenario
 version: "1.1.0"
 trigger: 当需要分析、更新或审计项目依赖时触发
-agent: developer
+agent: implement-feature
 phase: implement-feature
 tags: 
 input: 

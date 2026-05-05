@@ -8,7 +8,7 @@ stage: design-database
 
 # Instructions: 数据库设计 (Design Database)
 
-## 数据库选型规范
+## Database Selection Standards
 
 ### 选型决策矩阵
 
@@ -32,7 +32,7 @@ stage: design-database
 | GIS 支持 | 需要插件 | 原生支持 |
 | 复制 | 半同步/异步 | 同步/异步 |
 
-## 命名规范
+## Naming Standards
 
 ### 表命名
 
@@ -90,7 +90,7 @@ business_fields:
   product: ["name", "description", "price", "stock"]
 ```
 
-## 范式设计规范
+## Normalization Design Standards
 
 ### 三大范式
 
@@ -130,7 +130,7 @@ normalization:
       user(id, name, department_id)
 ```
 
-## 索引设计规范
+## Index Design Standards
 
 ### 索引类型
 
@@ -192,7 +192,7 @@ SELECT * FROM users WHERE name LIKE '%张%'
 SELECT * FROM users WHERE name LIKE '张%'
 ```
 
-## 分区设计规范
+## Partitioning Standards
 
 ### 分区类型
 
@@ -238,7 +238,7 @@ partitioning:
       )
 ```
 
-## 分库分表规范
+## Sharding Standards
 
 ### 分片策略
 
@@ -281,7 +281,7 @@ sharding:
 | TiDB | 分布式原生 | NewSQL |
 | Vitess | MySQL 协议兼容 | Kubernetes |
 
-## 数据类型规范
+## Data Type Standards
 
 ### 数值类型
 
@@ -330,7 +330,7 @@ datetime_types:
   timestamp: "时间戳（带时区）"
 ```
 
-## 约束设计规范
+## Constraint Design Standards
 
 ```sql
 -- 主键约束

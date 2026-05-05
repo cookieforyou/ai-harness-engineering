@@ -8,11 +8,11 @@ stage: "integrate-monitor"
 
 # Skill: 监控集成 (Integrate Monitor)
 
-## 概述
+## Overview
 
 本 Skill 定义了监控集成的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 可观测性三大支柱
 

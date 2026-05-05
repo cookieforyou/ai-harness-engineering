@@ -8,11 +8,11 @@ stage: "hotfix"
 
 # Skill: 紧急修复 (Hotfix)
 
-## 概述
+## Overview
 
 本 Skill 定义了紧急修复领域的核心知识和最佳实践。
 
-## 核心知识
+## Core Knowledge
 
 ### 快速定位方法
 - 日志分析

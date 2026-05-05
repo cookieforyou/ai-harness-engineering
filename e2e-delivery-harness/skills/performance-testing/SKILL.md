@@ -8,11 +8,11 @@ stage: "performance-testing"
 
 # Skill: 性能测试 (Performance Testing)
 
-## 概述
+## Overview
 
 本 Skill 定义了性能测试领域的核心知识、工具使用和最佳实践，用于指导 AI Agent 执行专业的性能测试工作。
 
-## 核心知识
+## Core Knowledge
 
 ### 1. 性能测试基础
 
@@ -22,7 +22,7 @@ stage: "performance-testing"
 - **资源利用率**: 资源使用效率
 - **稳定性**: 长时间运行可靠性
 
-#### 性能测试类型
+#### Performance Test Types
 | 类型 | 描述 | 适用场景 |
 |------|------|----------|
 | 基准测试 | 单用户性能基线 | 新系统上线 |
@@ -64,7 +64,7 @@ ETT: End-to-End Time (端到端时间)
 - **P99**: 99% 请求的响应时间
 - **P999**: 99.9% 请求的响应时间
 
-## 工具使用
+## Tool Usage
 
 ### JMeter
 
@@ -117,7 +117,7 @@ histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))
 rate(http_requests_total{status=~"5.."}[5m])
 ```
 
-## 最佳实践
+## Best Practices
 
 ### 测试设计
 1. **真实模拟**: 模拟真实用户行为
@@ -131,13 +131,13 @@ rate(http_requests_total{status=~"5.."}[5m])
 3. **记录**: 详细记录测试过程
 4. **监控**: 全程监控系统状态
 
-### 结果分析
+### Consequences分析
 1. **对比**: 与基线和目标对比
 2. **分解**: 分解响应时间组成
 3. **关联**: 关联系统指标分析
 4. **验证**: 验证分析结论
 
-## 性能优化指南
+## Performance Optimization Guide
 
 ### 优化层次
 
@@ -175,7 +175,7 @@ rate(http_requests_total{status=~"5.."}[5m])
 | 4 | 代码优化 | 中 | 高 |
 | 5 | 架构调整 | 高 | 高 |
 
-## 常见问题
+## FAQ
 
 ### Q1: 如何确定并发用户数？
 

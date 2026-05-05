@@ -4,7 +4,7 @@ description: 事件响应场景，定义生产环境事故的发现、响应、�
 type: scenario
 version: "1.1.0"
 trigger: 当发生生产环境事故时触发
-agent: sre-engineer
+agent: integrate-monitor
 phase: monitor-operate
 tags: 
 input: 

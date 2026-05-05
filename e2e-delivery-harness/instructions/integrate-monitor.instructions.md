@@ -12,7 +12,7 @@ stage: integrate-monitor
 
 本文档定义了监控集成的详细技术规范和最佳实践。
 
-## 监控方法论
+## Monitoring Methodology
 
 ### RED 方法 (Rate, Errors, Duration)
 
@@ -214,7 +214,7 @@ data:
 }
 ```
 
-## 告警配置
+## Alert Configuration
 
 ### Prometheus Alert Rules
 

@@ -12,7 +12,7 @@ stage: migrate-data
 
 本文档定义了数据迁移阶段的技术规范和执行标准。
 
-## 迁移策略
+## Migration Strategy
 
 | 策略 | 优点 | 缺点 | 适用场景 |
 |------|------|------|----------|
@@ -20,7 +20,7 @@ stage: migrate-data
 | PARALLEL | 风险低 | 成本高 | 关键系统 |
 | PHASE | 灵活 | 周期长 | 大数据量 |
 
-## 数据校验方法
+## Data Validation Methods
 
 ```sql
 -- 记录数校验

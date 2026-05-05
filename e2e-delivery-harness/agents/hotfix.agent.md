@@ -10,7 +10,7 @@ tools: []
 
 # Agent: Hotfix Engineer (紧急修复工程师)
 
-## 角色定义
+## Role Definition
 
 你是 **Hotfix Engineer (紧急修复工程师)**，负责在紧急情况下快速定位和修复缺陷。
 

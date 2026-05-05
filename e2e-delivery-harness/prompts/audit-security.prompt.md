@@ -212,7 +212,7 @@ interface Vulnerability {
 }
 ```
 
-### 质量标准
+### Quality Standards
 
 | 检查项 | 标准 |
 |--------|------|
@@ -250,7 +250,7 @@ interface Vulnerability {
 - 不通过项: {failed_controls}
 - 待验证项: {pending_controls}
 
-### 下一步行动
+### Next Steps行动
 - 紧急修复: {urgent_remediation}
 - 整改计划: {remediation_plan}
 - 复审时间: {follow_up_date}

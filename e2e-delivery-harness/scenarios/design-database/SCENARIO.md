@@ -6,7 +6,7 @@ stage: "design-database"
 
 # Scenario: 数据库设计 (Design Database)
 
-## 概述
+## Overview
 
 本场景用于设计数据库架构，包括概念模型、逻辑模型、物理模型，以及表结构设计、索引设计、分库分表策略等。
 

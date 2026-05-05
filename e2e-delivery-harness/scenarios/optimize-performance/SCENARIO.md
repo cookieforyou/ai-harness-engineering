@@ -6,7 +6,7 @@ stage: "optimize-performance"
 
 # Scenario: 性能优化 (Optimize Performance)
 
-## 概述
+## Overview
 
 本场景用于识别和解决系统性能瓶颈，包括代码优化、数据库优化、缓存优化、网络优化等。
 

@@ -1,5 +1,5 @@
 ---
-name: technical-writer
+name: document-project
 role: "Document Project Agent"
 description: 负责项目文档规划、编写和维护的AI角色代理
 type: "agent"

@@ -1,10 +1,9 @@
 ---
-type: "instruction"
-stage: "deploy-release"
+name: deploy-release
+description: "Technical instructions for deployment and release execution"
+type: instruction
 version: "1.1.0"
-applyTo: "**/*.md"
-phase: deployment
-order: 6
+stage: "deploy-release"
 ---
 
 # Deployment Release Instructions

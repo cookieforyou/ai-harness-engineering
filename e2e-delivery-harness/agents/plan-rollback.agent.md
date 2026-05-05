@@ -1,6 +1,6 @@
 ---
-name: rollback-engineer
-role: rollback-engineer
+name: plan-rollback
+role: "Plan Rollback Agent"
 description: 回滚计划工程师 Agent，负责制定和执行回滚计划
 type: agent
 version: "1.1.0"

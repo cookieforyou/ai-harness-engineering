@@ -242,7 +242,7 @@ psql -c "SELECT 1"
 ## DR Test Checklist
 
 ```markdown
-## DR Test Checklist
+
 
 ### Pre-Test
 - [ ] Notify all stakeholders

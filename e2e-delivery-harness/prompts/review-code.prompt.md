@@ -178,7 +178,7 @@ interface CodeIssue {
 }
 ```
 
-### 质量标准
+### Quality Standards
 
 | 检查项 | 标准 |
 |--------|------|
@@ -210,7 +210,7 @@ interface CodeIssue {
 - 必须修复: {must_fix_items}
 - 建议修复: {suggested_items}
 
-### 下一步
+### Next Steps
 - 等待作者修复: {pending_fixes}
 - 需要再次审查: {needs_reexamination}
 ```

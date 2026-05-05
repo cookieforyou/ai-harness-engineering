@@ -8,11 +8,11 @@ stage: "integrate-api"
 
 # Skill: API 集成 (API Integration)
 
-## 概述
+## Overview
 
 本 Skill 定义了 API 集成的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### API 集成模式
 
@@ -190,7 +190,7 @@ class MultiLevelCache:
         await self.l2_cache.set(key, value, ttl)
 ```
 
-## 最佳实践
+## Best Practices
 
 ### API 设计原则
 
@@ -214,7 +214,7 @@ class MultiLevelCache:
    - 设置告警阈值
    - 定期分析错误趋势
 
-## 工具链
+## Toolchain
 
 ### API 开发工具
 

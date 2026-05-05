@@ -1,10 +1,9 @@
 ---
-type: "instruction"
-stage: "verify-test"
+name: verify-test
+description: "Technical instructions for test verification execution"
+type: instruction
 version: "1.1.0"
-applyTo: "**/*.md"
-phase: testing
-order: 5
+stage: "verify-test"
 ---
 
 # Testing Verification Instructions

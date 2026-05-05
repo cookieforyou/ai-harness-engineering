@@ -103,7 +103,7 @@ THINK: 跟踪改进落地
 ### 输出格式
 
 ```markdown
-## 故障复盘报告
+## Incident Postmortem Report
 
 ### 1. 故障概述
 - 故障编号：

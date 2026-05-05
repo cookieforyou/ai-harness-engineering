@@ -1,10 +1,9 @@
 ---
-type: "instruction"
-stage: "monitor-operate"
+name: monitor-operate
+description: "Technical instructions for monitoring and operations execution"
+type: instruction
 version: "1.1.0"
-applyTo: "**/*.md"
-phase: monitoring
-order: 7
+stage: "monitor-operate"
 ---
 
 # Monitoring Operations Instructions

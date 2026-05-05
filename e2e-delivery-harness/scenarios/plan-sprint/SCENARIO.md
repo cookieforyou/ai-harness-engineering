@@ -6,11 +6,11 @@ stage: "plan-sprint"
 
 # Scenario: 冲刺规划 (Plan Sprint)
 
-## 概述
+## Overview
 
 Sprint Planning 是敏捷开发中的核心仪式，负责定义冲刺周期内的目标与任务分配。
 
-## 核心决策点
+## Core Decision Points
 
 | 阶段 | 决策点 | 输出 |
 |------|--------|------|
@@ -18,7 +18,7 @@ Sprint Planning 是敏捷开发中的核心仪式，负责定义冲刺周期内�
 | 任务分解 | Task Breakdown | Task List |
 | 资源评估 | Capacity Planning | Sprint Commitment |
 
-## 执行流程
+## Execution Flow
 
 ```python
 class SprintPlanning:
@@ -70,14 +70,14 @@ class SprintPlanning:
         pass
 ```
 
-## 决策检查点
+## Decision Checkpoints
 
 - [ ] **需求完整性**: 所有纳入的 Backlog Item 是否有清晰定义？
 - [ ] **估算合理性**: 工作量估算是否经过团队共识？
 - [ ] **容量匹配**: Sprint Commitment 是否在团队容量范围内？
 - [ ] **依赖识别**: 是否识别并记录了所有跨团队依赖？
 
-## 错误处理
+## Error Handling
 
 | 场景 | 处理方式 |
 |------|----------|
@@ -85,7 +85,7 @@ class SprintPlanning:
 | 容量超载 | 减少 Backlog Item 或延长期限 |
 | 需求不清 | 推迟该 Item 到澄清会议 |
 
-## 交接标准
+## Handover Standards
 
 ### Sprint Planning 完成标准
 
@@ -153,18 +153,6 @@ class SprintPlanning:
 
 | Checkpoint | Question | Decision Options |
 |------------|----------|-----------------|
-
-## Error Handling
-
-### Error Scenario 1
-**Error**: [Description]
-**Handling**: [Resolution steps]
-
-### Error Scenario 2
-**Error**: [Description]
-**Handling**: [Resolution steps]
-
-
 
 ## Quality Metrics
 

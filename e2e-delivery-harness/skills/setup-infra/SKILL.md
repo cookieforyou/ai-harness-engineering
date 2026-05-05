@@ -8,11 +8,11 @@ stage: "setup-infra"
 
 # Skill: 基础设施搭建 (Infrastructure Setup)
 
-## 概述
+## Overview
 
 本 Skill 定义了云基础设施搭建的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 云计算基础
 
@@ -128,7 +128,7 @@ VPC (网络隔离)
 }
 ```
 
-### 成本优化
+### Cost Optimization
 
 #### 成本分类
 
@@ -162,7 +162,7 @@ savings_tips = [
 ]
 ```
 
-## 工具链
+## Toolchain
 
 ### IaC 工具
 

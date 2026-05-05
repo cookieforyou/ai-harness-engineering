@@ -1,6 +1,6 @@
 ---
-name: dr-planner
-role: dr-planner
+name: plan-disaster-recovery
+role: "Plan Disaster Recovery Agent"
 description: 灾备恢复规划专家 Agent，负责规划和验证灾备能力
 type: agent
 version: "1.1.0"

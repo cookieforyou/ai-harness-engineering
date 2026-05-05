@@ -6,7 +6,7 @@ stage: "design-architecture"
 
 # Scenario: 架构设计 (Design Architecture)
 
-## 概述
+## Overview
 
 本场景用于设计系统高层架构，包括微服务拆分、技术选型、系统拓扑、数据架构等。
 

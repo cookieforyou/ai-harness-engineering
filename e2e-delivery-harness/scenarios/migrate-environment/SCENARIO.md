@@ -6,7 +6,7 @@ stage: "migrate-environment"
 
 # Scenario: 环境迁移 (Migrate Environment)
 
-## 概述
+## Overview
 
 本场景用于将应用程序从一个环境迁移到另一个环境，包括开发、测试、预发布、生产环境之间的迁移。
 

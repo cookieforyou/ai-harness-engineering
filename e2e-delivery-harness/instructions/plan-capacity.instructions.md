@@ -12,7 +12,7 @@ stage: plan-capacity
 
 本文档定义了容量规划的技术规范和方法。
 
-## 容量评估方法
+## Capacity Assessment Methods
 
 ### 指标采集
 - CPU 利用率

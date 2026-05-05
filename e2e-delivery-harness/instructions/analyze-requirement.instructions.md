@@ -1,10 +1,9 @@
 ---
-type: "instruction"
-stage: "analyze-requirement"
+name: analyze-requirement
+description: "Technical instructions for requirement analysis execution"
+type: instruction
 version: "1.1.0"
-applyTo: "**/*.md"
-phase: requirement-analysis
-order: 1
+stage: "analyze-requirement"
 ---
 
 # Requirement Analysis Instructions

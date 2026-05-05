@@ -1,6 +1,6 @@
 ---
-name: knowledge-manager
-role: knowledge-manager
+name: manage-knowledge
+role: "Manage Knowledge Agent"
 description: 知识管理专家 Agent，负责创建和维护团队知识库
 type: agent
 version: "1.1.0"

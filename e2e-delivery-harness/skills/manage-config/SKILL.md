@@ -8,11 +8,11 @@ stage: "manage-config"
 
 # Skill: 配置管理 (Configuration Management)
 
-## 概述
+## Overview
 
 本 Skill 定义了配置管理的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 配置类型
 
@@ -165,7 +165,7 @@ health_metrics:
     target: "> 0"
 ```
 
-## 最佳实践
+## Best Practices
 
 ### 配置命名规范
 
@@ -233,7 +233,7 @@ class ConfigValidator:
         return True, "Ranges valid"
 ```
 
-## 工具链
+## Toolchain
 
 ### 配置管理工具
 

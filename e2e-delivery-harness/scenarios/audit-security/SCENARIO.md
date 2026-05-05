@@ -103,7 +103,7 @@ THINK: 制定修复计划
 ### 输出格式
 
 ```markdown
-## 安全审计报告
+## Security Audit Report
 
 ### 1. 审计概述
 - 审计范围：

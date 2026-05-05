@@ -8,11 +8,11 @@ stage: "design-architecture"
 
 # Skill: 架构设计 (Architecture Design)
 
-## 概述
+## Overview
 
 本 Skill 定义了架构设计的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 架构模式
 
@@ -246,29 +246,29 @@ class ArchitectureAssessment:
         }
 ```
 
-## 架构决策记录 (ADR)
+## Architecture Decision Records (ADR)
 
 ```markdown
 # ADR-001: 使用微服务架构
 
-## 状态
+## Status
 已接受
 
-## 背景
+## Context
 电商平台需要支持日活 100 万用户，峰值 QPS 10,000
 
-## 决策
+## Decision
 采用微服务架构，按业务域拆分为用户、商品、订单、支付等服务
 
-## 结果
+## Consequences
 - 正面：独立部署、故障隔离、技术自由
 - 负面：分布式复杂度增加
 
-## 权衡
+## Trade-offs
 增加运维复杂度，换取业务敏捷性
 ```
 
-## 工具链
+## Toolchain
 
 ### 架构设计工具
 
@@ -292,7 +292,7 @@ class ArchitectureAssessment:
 - **Scenario**: `../../scenarios/design-architecture/SCENARIO.md`
 - **Instruction**: `../../instructions/design-architecture.instructions.md`
 - **Prompt**: `../../prompts/design-architecture.prompt.md`
-- **Agent**: `../../agents/solution-architect.agent.md`
+- **Agent**: `../../agents/design-architecture.agent.md`
 
 
 ## Core Knowledge

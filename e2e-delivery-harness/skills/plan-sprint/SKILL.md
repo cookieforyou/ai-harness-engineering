@@ -8,11 +8,11 @@ stage: "plan-sprint"
 
 # Skill: 冲刺规划 (Plan Sprint)
 
-## 概述
+## Overview
 
 本 Skill 定义了 Sprint Planning 的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 敏捷方法论
 

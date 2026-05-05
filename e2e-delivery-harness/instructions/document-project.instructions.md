@@ -12,7 +12,7 @@ stage: document-project
 
 本文档定义了项目文档编写的详细技术规范和最佳实践。
 
-## 文档类型规范
+## Document Type Standards
 
 ### 文档类型矩阵
 
@@ -31,10 +31,10 @@ stage: document-project
 ```markdown
 # {项目名称} 入门指南
 
-## 什么是 {项目名称}
+## What is {project_name}
 {一句话描述项目及其核心价值}
 
-## 快速开始
+## Quick Start
 ### 安装
 ```bash
 pip install {package-name}
@@ -49,11 +49,11 @@ result = {package}.do_something()
 print(result)
 ```
 
-## 下一步
+## Next Steps
 - 想深入了解？查看 [用户手册](user-guide.md)
 - 遇到问题？查看 [FAQ](faq.md)
 
-## 获取帮助
+## Getting Help
 - GitHub Issues
 - 社区论坛
 ```
@@ -63,7 +63,7 @@ print(result)
 ```markdown
 # API 参考
 
-## 认证
+## Authentication
 所有 API 请求需要认证令牌。
 
 ### 获取令牌
@@ -73,7 +73,7 @@ curl -X POST /api/auth/token \
   -d '{"api_key": "your-key"}'
 ```
 
-## 用户 API
+## User API
 
 ### 创建用户
 创建新用户账户。
@@ -123,7 +123,7 @@ GET /api/users/{id}
 ```
 ```
 
-## 编写规范
+## Writing Standards
 
 ### Markdown 规范
 
@@ -131,23 +131,23 @@ GET /api/users/{id}
 MARKDOWN_STYLE_GUIDE = """
 # Markdown 编写规范
 
-## 标题层级
+## Heading Levels
 - H1: 文档标题 (每个文档只有一个)
 - H2: 主要章节
 - H3: 子章节
 - H4: 更细的分节
 
-## 代码块
+## Code Blocks
 - 必须指定语言: ```python
 - 代码行号仅在需要时添加
 - 过长代码应分段说明
 
-## 列表
+## Lists
 - 使用有序列表表示步骤
 - 使用无序列表表示要点
 - 嵌套不超过 3 层
 
-## 链接
+## Links
 - 使用相对路径链接内部文档
 - 使用完整 URL 链接外部资源
 """
@@ -190,7 +190,7 @@ technical_doc_standards:
     - consistent_spelling: true
 ```
 
-## 文档工具链
+## Documentation Toolchain
 
 ### 文档生成工具
 
@@ -235,13 +235,13 @@ markdown_extensions:
   - tables
 ```
 
-## 文档质量检查
+## Documentation Quality Checks
 
 ### 检查清单
 
 ```python
 DOCUMENTATION_CHECKLIST = """
-## 发布前检查清单
+## Pre-release Checklist
 
 ### 内容检查
 [ ] 所有章节都有实质内容
@@ -284,7 +284,7 @@ def quality_check(doc):
     return issues
 ```
 
-## 文档维护流程
+## Documentation Maintenance Process
 
 ### 版本管理
 

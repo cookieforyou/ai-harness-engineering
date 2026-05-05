@@ -53,7 +53,7 @@ build:
     - docker build -t app:$IMAGE_TAG .
 ```
 
-## 流水线设计规范
+## Pipeline Design Standards
 
 ### 流水线阶段
 
@@ -106,7 +106,7 @@ pipeline_stages:
       - deploy_prod
 ```
 
-## 构建配置规范
+## Build Configuration Standards
 
 ### Docker 构建优化
 
@@ -152,7 +152,7 @@ cache:
     - .gradle/
 ```
 
-## 测试配置规范
+## Test Configuration Standards
 
 ### 测试金字塔
 
@@ -174,7 +174,7 @@ test_strategy:
     environment: "测试环境"
 ```
 
-### 测试报告配置
+### Test Report配置
 
 ```yaml
 # JUnit XML 报告
@@ -192,7 +192,7 @@ coverage_reports:
     branch: 70
 ```
 
-## 部署策略规范
+## Deployment Strategy Standards
 
 ### 部署类型对比
 
@@ -249,7 +249,7 @@ canary:
       - templateName: "latency"
 ```
 
-## 安全配置规范
+## Security Configuration Standards
 
 ### 密钥管理
 
@@ -289,7 +289,7 @@ security_scans:
     action: "block_deploy"
 ```
 
-## 监控告警规范
+## Monitoring and Alerting Standards
 
 ### 流水线监控
 

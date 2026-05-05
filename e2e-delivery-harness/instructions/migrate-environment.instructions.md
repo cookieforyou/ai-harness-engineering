@@ -8,7 +8,7 @@ stage: migrate-environment
 
 # Instructions: 环境迁移 (Migrate Environment)
 
-## 迁移类型规范
+## Migration Type Standards
 
 ### 迁移类型对比
 
@@ -19,7 +19,7 @@ stage: migrate-environment
 | 蓝绿部署 | 双环境切换 | 极短 | 生产环境 |
 | 滚动迁移 | 逐步迁移 | 无 | 高可用要求 |
 
-## 数据迁移规范
+## Data Migration Standards
 
 ### 数据迁移策略
 
@@ -41,7 +41,7 @@ migration_strategy:
     downtime: "接近零"
 ```
 
-## 回滚规范
+## Rollback Standards
 
 ### 回滚策略
 

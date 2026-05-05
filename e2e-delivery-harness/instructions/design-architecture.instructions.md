@@ -8,7 +8,7 @@ stage: design-architecture
 
 # Instructions: 架构设计 (Design Architecture)
 
-## 架构风格规范
+## Architecture Style Standards
 
 ### 主流架构风格对比
 
@@ -51,7 +51,7 @@ decomposition_principles:
     metrics: "服务间调用依赖 < 3"
 ```
 
-## 技术选型规范
+## Technology Selection Standards
 
 ### 后端技术选型
 
@@ -82,7 +82,7 @@ decomposition_principles:
 | RocketMQ | 事务消息 | 电商交易 |
 | Redis Stream | 轻量级 | 简单场景 |
 
-## 系统拓扑规范
+## System Topology Standards
 
 ### 典型微服务架构
 
@@ -111,7 +111,7 @@ decomposition_principles:
 └───────────────┘    └───────────────┘    └───────────────┘
 ```
 
-### 高可用架构
+### High Availability Architecture
 
 ```yaml
 # 多可用区部署
@@ -132,7 +132,7 @@ high_availability:
     rpo: "< 1 minute"
 ```
 
-## 数据架构规范
+## Data Architecture Standards
 
 ### 数据管理策略
 
@@ -186,7 +186,7 @@ data_sync:
       - "异步复制"
 ```
 
-## 可扩展性设计
+## Scalability Design
 
 ### 扩展策略
 
@@ -231,7 +231,7 @@ load_balancing:
     timeout: "5 seconds"
 ```
 
-## 安全性设计
+## Security Design
 
 ### 安全架构
 
@@ -261,7 +261,7 @@ security_architecture:
     - "密钥管理 (KMS)"
 ```
 
-## 成本优化
+## Cost Optimization
 
 ### 成本评估模型
 

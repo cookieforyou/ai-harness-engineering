@@ -1,6 +1,6 @@
 ---
-name: incident-commander
-role: incident-commander
+name: respond-incident
+role: "Respond Incident Agent"
 description: 事件指挥官 Agent，负责协调和指挥事件响应
 type: agent
 version: "1.1.0"

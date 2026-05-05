@@ -6,11 +6,11 @@ stage: "document-project"
 
 # Scenario: 项目文档 (Document Project)
 
-## 概述
+## Overview
 
 项目文档是知识管理和信息传递的关键载体，负责创建和维护项目全生命周期的技术文档。
 
-## 核心决策点
+## Core Decision Points
 
 | 阶段 | 决策点 | 输出 |
 |------|--------|------|
@@ -19,7 +19,7 @@ stage: "document-project"
 | 评审优化 | Review & Refine | 终稿 |
 | 发布维护 | Publish & Maintain | 可用文档 |
 
-## 执行流程
+## Execution Flow
 
 ```python
 class ProjectDocumentation:
@@ -61,14 +61,14 @@ class ProjectDocumentation:
         pass
 ```
 
-## 决策检查点
+## Decision Checkpoints
 
 - [ ] **结构合理性**: 文档结构是否便于查找和理解？
 - [ ] **内容完整性**: 是否覆盖了目标读者的所有需求？
 - [ ] **可维护性**: 文档是否易于更新和维护？
 - [ ] **一致性**: 文档风格和格式是否统一？
 
-## 错误处理
+## Error Handling
 
 | 场景 | 处理方式 |
 |------|----------|
@@ -76,7 +76,7 @@ class ProjectDocumentation:
 | 内容冲突 | 以最新权威来源为准 |
 | 过时信息 | 标记并创建更新任务 |
 
-## 交接标准
+## Handover Standards
 
 ### 文档交付完成标准
 
@@ -144,18 +144,6 @@ class ProjectDocumentation:
 
 | Checkpoint | Question | Decision Options |
 |------------|----------|-----------------|
-
-## Error Handling
-
-### Error Scenario 1
-**Error**: [Description]
-**Handling**: [Resolution steps]
-
-### Error Scenario 2
-**Error**: [Description]
-**Handling**: [Resolution steps]
-
-
 
 ## Quality Metrics
 

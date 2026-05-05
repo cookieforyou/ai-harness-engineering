@@ -8,13 +8,13 @@ stage: "review-design"
 
 # Skill: 技术方案评审 (Technical Design Review)
 
-## 概述
+## Overview
 
 本 Skill 定义了技术方案评审的核心知识和评审方法。
 
-## 评审方法
+## Review Methods
 
-### 评审维度
+### Review Dimensions
 - 需求匹配
 - 技术可行性
 - 安全性

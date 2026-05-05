@@ -243,7 +243,7 @@ log "Rollback completed successfully"
 ### Rollback Notification
 
 ```markdown
-## 🔴 回滚通知
+## Rollback Notification
 
 **服务**: <SERVICE_NAME>
 **版本**: <VERSION> → <PREVIOUS_VERSION>
@@ -257,7 +257,7 @@ log "Rollback completed successfully"
 - 用户影响: <USER_IMPACT>
 - 预计恢复时间: <ESTIMATED_RECOVERY_TIME>
 
-### 状态
+### Status
 - [ ] 回滚已启动
 - [ ] 回滚执行中
 - [ ] 回滚完成

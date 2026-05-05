@@ -4,7 +4,7 @@ description: 技术债务管理场景，识别、量化、跟踪和管理软件�
 type: scenario
 version: "1.1.0"
 trigger: 当需要进行技术债务清理或优化时触发
-agent: solution-architect
+agent: design-architecture
 phase: implement-feature
 tags: 
 input: 

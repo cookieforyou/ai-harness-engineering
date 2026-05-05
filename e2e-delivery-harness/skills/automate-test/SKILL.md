@@ -8,11 +8,11 @@ stage: "automate-test"
 
 # Skill: 自动化测试 (Test Automation)
 
-## 概述
+## Overview
 
 本 Skill 定义了自动化测试的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 测试金字塔
 
@@ -70,7 +70,7 @@ class UserFactory:
 | Factory | 动态生成 | 需要唯一数据 |
 | Faker | 随机生成 | 大批量数据 |
 
-## 最佳实践
+## Best Practices
 
 ### 测试用例设计
 
@@ -105,7 +105,7 @@ element = WebDriverWait(driver, 10).until(
 time.sleep(5)  # 不推荐
 ```
 
-## 工具链
+## Toolchain
 
 ### Python 生态
 
@@ -136,7 +136,7 @@ time.sleep(5)  # 不推荐
 - **Scenario**: `../../scenarios/automate-test/SCENARIO.md`
 - **Instruction**: `../../instructions/automate-test.instructions.md`
 - **Prompt**: `../../prompts/automate-test.prompt.md`
-- **Agent**: `../../agents/test-automation-engineer.agent.md`
+- **Agent**: `../../agents/automate-test.agent.md`
 
 
 ## Core Knowledge

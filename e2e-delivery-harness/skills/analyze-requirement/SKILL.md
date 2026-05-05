@@ -1,8 +1,10 @@
 ---
+
 name: analyze-requirement
 description: 将原始业务需求转换为结构化的需求规格说明书，包含干系人分析、业务建模和验收标准定义
 category: analysis
 version: "1.1.0"
+type: skill
 ---
 
 # Requirement Analysis Skill
@@ -158,7 +160,7 @@ version: "1.1.0"
 ### 输出格式
 
 ```markdown
-## 需求规格说明书
+## Requirements Specification
 
 ### 文档信息
 - 项目名称：
@@ -193,7 +195,7 @@ version: "1.1.0"
 
 ## Quality Criteria
 
-### 质量标准
+### Quality Standards
 
 | 维度 | 标准 | 检查方法 |
 |------|------|----------|

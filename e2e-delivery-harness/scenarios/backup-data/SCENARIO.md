@@ -6,7 +6,7 @@ stage: "backup-data"
 
 # Scenario: 数据备份 (Backup Data)
 
-## 概述
+## Overview
 
 本场景用于设计、实现和管理数据备份策略，包括数据库备份、文件备份、灾备方案等。
 

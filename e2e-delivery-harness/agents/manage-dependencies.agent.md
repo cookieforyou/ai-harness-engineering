@@ -1,6 +1,6 @@
 ---
-name: dependency-engineer
-role: dependency-engineer
+name: manage-dependencies
+role: "Manage Dependencies Agent"
 description: 依赖管理工程师 Agent，负责管理和优化项目依赖
 type: agent
 version: "1.1.0"
@@ -54,7 +54,7 @@ capabilities:
 - 分析安全风险
 - 制定优化策略
 
-### 工具使用
+### Tool Usage
 - npm/yarn/pnpm
 - pip/poetry
 - go mod

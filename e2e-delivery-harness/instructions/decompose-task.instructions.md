@@ -1,10 +1,9 @@
 ---
-type: "instruction"
-stage: "decompose-task"
+name: decompose-task
+description: "Technical instructions for task decomposition execution"
+type: instruction
 version: "1.1.0"
-applyTo: "**/*.md"
-phase: task-decomposition
-order: 3
+stage: "decompose-task"
 ---
 
 # Task Decomposition Instructions

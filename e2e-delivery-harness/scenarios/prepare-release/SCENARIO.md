@@ -6,7 +6,7 @@ stage: "prepare-release"
 
 # Scenario: 发布准备 (Prepare Release)
 
-## 概述
+## Overview
 
 本场景用于准备版本发布，包括发布计划、变更评审、风险评估、回滚方案等。
 

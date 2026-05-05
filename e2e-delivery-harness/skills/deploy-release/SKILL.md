@@ -1,8 +1,10 @@
 ---
+
 name: deployment
 description: 规划和管理应用的部署发布流程，确保部署安全、可回滚
 category: release
 version: "1.1.0"
+type: skill
 ---
 
 # Deployment Skill
@@ -159,7 +161,7 @@ version: "1.1.0"
 ### 输出格式
 
 ```markdown
-## 部署报告
+## Deployment Report
 
 ### 部署信息
 ...
@@ -167,7 +169,7 @@ version: "1.1.0"
 ### 部署计划
 ...
 
-### 回滚方案
+### Rollback Plan
 ...
 
 ### 部署执行
@@ -195,7 +197,7 @@ version: "1.1.0"
 ## Related Assets
 
 - **Agent**: [../../agents/deploy-release.agent.md](../../agents/deploy-release.agent.md)
-- **Instruction**: [../../instructions/deployment-release.instructions.md](../../instructions/deployment-release.instructions.md)
+- **Instruction**: [../../instructions/deploy-release.instructions.md](../../instructions/deploy-release.instructions.md)
 - **Prompt**: [../../prompts/deploy-release.prompt.md](../../prompts/deploy-release.prompt.md)
 
 

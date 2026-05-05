@@ -8,11 +8,11 @@ stage: "optimize-performance"
 
 # Skill: 性能优化 (Performance Optimization)
 
-## 概述
+## Overview
 
 本 Skill 定义了性能优化的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 性能分析方法
 

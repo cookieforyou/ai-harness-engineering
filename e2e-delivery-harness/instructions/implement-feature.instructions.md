@@ -1,10 +1,9 @@
 ---
-type: "instruction"
-stage: "implement-feature"
+name: implement-feature
+description: "Technical instructions for feature implementation execution"
+type: instruction
 version: "1.1.0"
-applyTo: "**/*.{ts,js,py,java}"
-phase: development
-order: 4
+stage: "implement-feature"
 ---
 
 # Development Implementation Instructions

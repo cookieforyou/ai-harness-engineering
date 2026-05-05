@@ -6,7 +6,7 @@ stage: "manage-config"
 
 # Scenario: 配置管理 (Manage Configuration)
 
-## 概述
+## Overview
 
 本场景用于管理应用程序配置、环境变量、特性开关等。
 

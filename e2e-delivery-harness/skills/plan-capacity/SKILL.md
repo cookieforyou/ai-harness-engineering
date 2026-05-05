@@ -8,11 +8,11 @@ stage: "plan-capacity"
 
 # Skill: 容量规划 (Capacity Planning)
 
-## 概述
+## Overview
 
 本 Skill 定义了容量规划的核心知识和方法。
 
-## 核心知识
+## Core Knowledge
 
 ### 容量指标
 - CPU 利用率

@@ -8,11 +8,11 @@ stage: "prepare-release"
 
 # Skill: 发布准备 (Release Preparation)
 
-## 概述
+## Overview
 
 本 Skill 定义了发布准备的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 发布生命周期
 
@@ -234,7 +234,7 @@ no_go_criteria:
   - "发布评审未通过"
 ```
 
-## 工具链
+## Toolchain
 
 ### 发布管理平台
 

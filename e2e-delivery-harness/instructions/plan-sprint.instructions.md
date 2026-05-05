@@ -235,15 +235,15 @@ def calculate_capacity(team, sprint_days, holidays=[]):
 COMMITMENT_STRATEGY = """
 # 容量承诺策略
 
-## 保守策略 (推荐)
+## Conservative Strategy (Recommended)
 承诺容量 = 可用容量 * 0.8
 适用于: 新团队、不稳定需求、高风险 Sprint
 
-## 平衡策略
+## Balanced Strategy
 承诺容量 = 可用容量 * 0.9
 适用于: 成熟团队、稳定需求
 
-## 激进策略
+## Aggressive Strategy
 承诺容量 = 可用容量
 适用于: 高绩效团队、低风险 Sprint
 """
@@ -257,7 +257,7 @@ def determine_commitment(capacity, strategy='conservative'):
         return capacity
 ```
 
-## 交付物模板
+## Deliverable Templates
 
 ### Sprint Plan 模板
 

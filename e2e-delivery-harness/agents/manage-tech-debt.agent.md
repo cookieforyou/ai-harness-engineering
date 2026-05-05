@@ -1,6 +1,6 @@
 ---
-name: tech-debt-manager
-role: tech-debt-manager
+name: manage-tech-debt
+role: "Manage Tech Debt Agent"
 description: 技术债务管理专家 Agent，负责识别和管理技术债务
 type: agent
 version: "1.1.0"
@@ -54,7 +54,7 @@ capabilities:
 - 测试驱动重构
 - 安全重构技术
 
-### 工具使用
+### Tool Usage
 - SonarQube
 - ESLint / Pylint
 - Jest / Pytest

@@ -136,7 +136,7 @@ kubectl exec <pod> -n <namespace> -- kill -HUP 1
 
 ### Incident Declaration
 ```markdown
-## 🚨 事件声明
+## Incident Declaration
 
 **事件 ID**: INC-2024-001
 **严重程度**: P1
@@ -161,7 +161,7 @@ kubectl exec <pod> -n <namespace> -- kill -HUP 1
 
 ### Status Update
 ```markdown
-## 📊 状态更新 (15:00 UTC)
+## Status Update (15:00 UTC)
 
 **事件 ID**: INC-2024-001
 **更新次数**: 3
@@ -181,7 +181,7 @@ kubectl exec <pod> -n <namespace> -- kill -HUP 1
 
 ### Incident Resolution
 ```markdown
-## ✅ 事件解决
+## Incident Resolution
 
 **事件 ID**: INC-2024-001
 **解决时间**: 15:45 UTC
@@ -259,7 +259,7 @@ curl -s <app>/actuator/metrics/hikaricp.connections.active
 
 # 1. Check if service is running
 systemctl status <service>
-curl -v http://localhost:<port>/health
+curl -v {{health_endpoint}}
 
 # 2. Check network connectivity
 telnet <host> <port>

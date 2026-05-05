@@ -8,7 +8,7 @@ stage: prepare-release
 
 # Instructions: 发布准备 (Prepare Release)
 
-## 发布类型规范
+## Release Type Standards
 
 ### 版本号规范
 
@@ -44,7 +44,7 @@ version_rules:
     description: "生产问题紧急修复"
 ```
 
-## 发布流程规范
+## Release Process Standards
 
 ### 发布阶段
 
@@ -102,7 +102,7 @@ pre_release_checklist:
       required: false
 ```
 
-## 发布评审规范
+## Release Review Standards
 
 ### 评审委员会
 
@@ -138,7 +138,7 @@ release_review_board:
 | 文档完整性 | 10% | 完整 |
 | 回滚方案 | 10% | 可行 |
 
-## 回滚方案规范
+## Rollback Plan Standards
 
 ### 回滚触发条件
 
@@ -202,7 +202,7 @@ rollback_triggers:
 | 容器 | 10 分钟 |
 | Serverless | 5 分钟 |
 
-## 发布窗口规范
+## Release Window Standards
 
 ### 推荐发布时间
 
@@ -246,7 +246,7 @@ oncall_requirements:
     level3: "技术总监"
 ```
 
-## 监控告警规范
+## Monitoring and Alerting Standards
 
 ### 发布监控指标
 
@@ -304,17 +304,17 @@ release_dashboard:
         - "同环比分析"
 ```
 
-## 沟通规范
+## Communication Standards
 
 ### 发布通知模板
 
 ```markdown
 # 【发布通知】{项目名称} {版本号}
 
-## 发布时间
+## Release Time
 {日期} {时间}
 
-## 发布内容
+## Release Content
 1. 功能更新
    - {功能1}
    - {功能2}
@@ -322,23 +322,23 @@ release_dashboard:
 2. 问题修复
    - {BUG-123}: {问题描述}
 
-## 影响范围
+## Impact Scope
 - {系统A}: 无影响
 - {系统B}: 需要配合升级
 
-## 注意事项
+## Notes
 - {注意事项1}
 - {注意事项2}
 
-## 回滚方案
+## Rollback Plan
 如遇问题，请联系 {联系方式}
 
-## 联系人
+## Contacts
 - 技术负责人: {姓名}
 - 值班电话: {电话}
 ```
 
-## 发布后评审
+## Post-release Review
 
 ### Post-Release Review
 

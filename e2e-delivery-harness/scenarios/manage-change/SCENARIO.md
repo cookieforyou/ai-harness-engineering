@@ -98,7 +98,7 @@ THINK: 沟通变更计划
 ### 输出格式
 
 ```markdown
-## 变更评估报告
+## Change Assessment Report
 
 ### 1. 变更信息
 - 变更编号：

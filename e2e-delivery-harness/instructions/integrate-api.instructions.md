@@ -8,9 +8,9 @@ stage: integrate-api
 
 # Instructions: API 集成 (Integrate API)
 
-## 认证方式规范
+## Authentication方式规范
 
-### 认证类型对比
+### Authentication类型对比
 
 | 类型 | 适用场景 | 实现复杂度 | 安全性 |
 |------|----------|------------|--------|
@@ -100,7 +100,7 @@ request_config:
     timeout: 60               # 熔断超时（秒）
 ```
 
-## 重试策略规范
+## Retry Strategy Standards
 
 ### 重试决策矩阵
 
@@ -148,7 +148,7 @@ def calculate_backoff(attempt, base=2, max_delay=60):
 # attempt=5: delay=32-33s
 ```
 
-## 限流策略规范
+## Rate Limiting Standards
 
 ### 限流算法
 
@@ -201,7 +201,7 @@ class TokenBucket:
         return False
 ```
 
-## 熔断器规范
+## Circuit Breaker Standards
 
 ### 熔断器状态机
 
@@ -278,7 +278,7 @@ class CircuitBreaker:
         return elapsed >= self.timeout
 ```
 
-## 日志与监控规范
+## Logging and Monitoring Standards
 
 ### 日志规范
 

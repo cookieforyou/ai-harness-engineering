@@ -8,13 +8,13 @@ stage: "migrate-data"
 
 # Skill: 数据迁移 (Data Migration)
 
-## 概述
+## Overview
 
 本 Skill 定义了数据迁移领域的核心知识和最佳实践。
 
-## 核心知识
+## Core Knowledge
 
-### 迁移策略
+### Migration Strategy
 - BIG_BANG: 一次性迁移
 - PARALLEL: 双写并行
 - PHASE: 分阶段迁移

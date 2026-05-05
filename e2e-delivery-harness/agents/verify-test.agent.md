@@ -1,5 +1,5 @@
 ---
-name: tester
+name: verify-test
 role: "Verify Test Agent"
 description: 负责测试验证的AI角色代理，设计和执行测试用例，验证功能正确性
 type: "agent"

@@ -1,8 +1,10 @@
 ---
+
 name: decompose-task
 description: 将架构设计拆解为可执行的任务清单，制定迭代计划和里程碑
 category: planning
 version: "1.1.0"
+type: skill
 ---
 
 # Task Decomposition Skill
@@ -159,7 +161,7 @@ version: "1.1.0"
 ### 输出格式
 
 ```markdown
-## 任务分解清单
+## Task Decomposition Checklist
 
 ### 任务总览
 ...

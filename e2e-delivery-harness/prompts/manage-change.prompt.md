@@ -146,7 +146,7 @@ HIGH 升级条件:
 - [ ] `verification_steps`: 变更后验证步骤
 - [ ] `communication_plan`: 通知计划
 
-### 质量标准
+### Quality Standards
 
 | 检查项 | 标准 |
 |--------|------|

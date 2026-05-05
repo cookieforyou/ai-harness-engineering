@@ -6,7 +6,7 @@ stage: "manage-secrets"
 
 # Scenario: 密钥管理 (Manage Secrets)
 
-## 概述
+## Overview
 
 本场景用于管理和保护应用程序密钥、凭证、证书等敏感信息，包括密钥生成、存储、轮换、审计等。
 

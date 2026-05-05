@@ -8,11 +8,11 @@ stage: "manage-secrets"
 
 # Skill: 密钥管理 (Secrets Management)
 
-## 概述
+## Overview
 
 本 Skill 定义了密钥管理的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 密钥生命周期
 
@@ -217,7 +217,7 @@ class SecretRotation:
                 self.execute_rotation(secret_path)
 ```
 
-## 最佳实践
+## Best Practices
 
 ### 密钥管理原则
 
@@ -251,7 +251,7 @@ class SecretRotation:
    - 基于角色
    - 基于属性
 
-## 工具链
+## Toolchain
 
 ### 密钥管理工具
 

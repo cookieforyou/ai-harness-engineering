@@ -8,11 +8,11 @@ stage: "implement-cicd"
 
 # Skill: CI/CD 实施 (CI/CD Implementation)
 
-## 概述
+## Overview
 
 本 Skill 定义了 CI/CD 实施的核心知识体系。
 
-## 核心知识
+## Core Knowledge
 
 ### 持续集成 (CI)
 
@@ -256,7 +256,7 @@ class QualityGate:
         return check
 ```
 
-## 工具链
+## Toolchain
 
 ### CI/CD 工具
 

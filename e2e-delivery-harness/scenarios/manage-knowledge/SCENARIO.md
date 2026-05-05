@@ -4,7 +4,7 @@ description: 知识管理场景，建立和维护团队知识库，确保知识�
 type: scenario
 version: "1.1.0"
 trigger: 当需要创建、更新或组织知识时触发
-agent: technical-writer
+agent: document-project
 phase: document-project
 tags: 
 input: 

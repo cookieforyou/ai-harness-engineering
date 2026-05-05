@@ -103,7 +103,7 @@ THINK: 给出审查结论
 ### 输出格式
 
 ```markdown
-## 代码审查报告
+## Code Review Report
 
 ### 1. 审查信息
 - 变更编号：

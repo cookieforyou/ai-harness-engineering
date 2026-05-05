@@ -247,7 +247,7 @@ interface ActionItem {
 }
 ```
 
-### 质量标准
+### Quality Standards
 
 | 检查项 | 标准 |
 |--------|------|

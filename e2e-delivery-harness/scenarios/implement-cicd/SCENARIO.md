@@ -6,7 +6,7 @@ stage: "implement-cicd"
 
 # Scenario: CI/CD 实施 (Implement CI/CD)
 
-## 概述
+## Overview
 
 本场景用于设计并实施持续集成/持续部署流水线，包括构建、测试、部署全流程自动化。
 
