@@ -255,9 +255,9 @@ stage: "verify-test"
 
 > Industry-standard best practices for verify-test execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Execute tests according to approved test plan
+2. **Practice 2**: Log all defects with reproducible steps and evidence
+3. **Practice 3**: Report test coverage and traceability to requirements
 
 
 ## Error Handling
@@ -265,12 +265,12 @@ stage: "verify-test"
 > Common error scenarios and resolution strategies for verify-test.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Tests do not cover all requirements
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Defects are not tracked or resolved systematically
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -281,6 +281,6 @@ stage: "verify-test"
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Test pass rate is 90% or higher | Automated check |
+| Standard 2 | Requirement traceability coverage is 100% | Automated check |
+| Standard 3 | Defect detection rate is 95% or higher | Automated check |

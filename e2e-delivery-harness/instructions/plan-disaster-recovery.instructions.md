@@ -318,9 +318,9 @@ compute_strategy:
 
 > Industry-standard best practices for plan-disaster-recovery execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Define RTO and RPO targets based on business impact analysis
+2. **Practice 2**: Design DR architecture (cold, warm, hot, or active-active)
+3. **Practice 3**: Conduct annual DR drills with documented outcomes
 
 
 ## Error Handling
@@ -328,12 +328,12 @@ compute_strategy:
 > Common error scenarios and resolution strategies for plan-disaster-recovery.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: DR plan does not meet RTO/RPO targets
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: DR procedures are untested or outdated
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -344,6 +344,6 @@ compute_strategy:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | RTO and RPO targets are achievable and verified | Automated check |
+| Standard 2 | RPO compliance is 100% with acceptable data loss | Automated check |
+| Standard 3 | Full DR drill is conducted at least annually | Automated check |

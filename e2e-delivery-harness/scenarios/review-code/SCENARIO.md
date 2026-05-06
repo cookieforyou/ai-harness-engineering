@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: review-code
 type: scenario
 stage: development
 version: "1.1.0"
@@ -88,7 +88,7 @@ THINK: 给出审查结论
 
 ## Primary Assets
 
-- **Agent**: [../../agents/implement-feature.agent.md](../../agents/implement-feature.agent.md)
+- **Agent**: [../../agents/review-code.agent.md](../../agents/review-code.agent.md)
 - **Instruction**: [../../instructions/review-code.instructions.md](../../instructions/review-code.instructions.md)
 - **Prompt**: [../../prompts/review-code.prompt.md](../../prompts/review-code.prompt.md)
 

@@ -261,9 +261,9 @@ stage: "monitor-operate"
 
 > Industry-standard best practices for monitor-operate execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Define SLOs with measurable error budgets
+2. **Practice 2**: Configure actionable alerts with clear runbooks
+3. **Practice 3**: Maintain operational dashboards for real-time visibility
 
 
 ## Error Handling
@@ -271,12 +271,12 @@ stage: "monitor-operate"
 > Common error scenarios and resolution strategies for monitor-operate.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Alerts are noisy or fail to signal real issues
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Mean time to detect (MTTD) exceeds target
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -287,6 +287,6 @@ stage: "monitor-operate"
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | MTTD is 5 minutes or less | Automated check |
+| Standard 2 | Alert noise rate is 20% or lower | Automated check |
+| Standard 3 | SLO compliance is 99.5% or higher | Automated check |

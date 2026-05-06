@@ -1,5 +1,5 @@
 ---
-name: change-management
+name: manage-change
 description: 变更管理执行指南，用于处理需求变更请求
 type: instruction
 version: "1.1.0"
@@ -113,9 +113,9 @@ stage: cross-phase
 
 > Industry-standard best practices for manage-change execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Assess change impact on systems, users, and operations
+2. **Practice 2**: Obtain required approvals before implementation
+3. **Practice 3**: Validate changes post-deployment with defined criteria
 
 
 ## Error Handling
@@ -123,12 +123,12 @@ stage: cross-phase
 > Common error scenarios and resolution strategies for manage-change.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Change causes unexpected service disruption
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Approval process delays critical changes
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -139,6 +139,6 @@ stage: cross-phase
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Change success rate is 95% or higher | Automated check |
+| Standard 2 | Approval SLA is within 24 hours | Automated check |
+| Standard 3 | Change-correlated incident rate is below 2% | Automated check |

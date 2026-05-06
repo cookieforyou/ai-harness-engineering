@@ -118,9 +118,9 @@ class MonitoringIntegration:
 
 ## Prerequisites
 
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
+- [ ] Prerequisite 1: Monitoring tool stack is selected and provisioned
+- [ ] Prerequisite 2: Application instrumentation points are identified
+- [ ] Prerequisite 3: Notification channels are configured and tested
 
 
 ## Primary Assets
@@ -167,6 +167,6 @@ class MonitoringIntegration:
 
 ## Handover Criteria
 
-- [ ] Criterion 1: [Description]
-- [ ] Criterion 2: [Description]
-- [ ] Criterion 3: [Description]
+- [ ] Criterion 1: All critical components have active monitoring
+- [ ] Criterion 2: Alerting rules are validated with test scenarios
+- [ ] Criterion 3: Dashboards are deployed and accessible to stakeholders

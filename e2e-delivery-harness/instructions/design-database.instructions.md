@@ -383,9 +383,9 @@ ALTER TABLE users MODIFY COLUMN username VARCHAR(50) NOT NULL;
 
 > Industry-standard best practices for design-database execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Apply normalization up to 3NF for relational schemas
+2. **Practice 2**: Design indexes based on query patterns and access frequency
+3. **Practice 3**: Document data dictionary with field definitions and constraints
 
 
 ## Error Handling
@@ -393,12 +393,12 @@ ALTER TABLE users MODIFY COLUMN username VARCHAR(50) NOT NULL;
 > Common error scenarios and resolution strategies for design-database.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Schema design causes performance bottlenecks
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Data integrity constraints are incomplete or missing
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -409,6 +409,6 @@ ALTER TABLE users MODIFY COLUMN username VARCHAR(50) NOT NULL;
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Schema achieves third normal form (3NF) | Automated check |
+| Standard 2 | Index coverage meets 90% of frequent queries | Automated check |
+| Standard 3 | All tables and columns have documented descriptions | Automated check |

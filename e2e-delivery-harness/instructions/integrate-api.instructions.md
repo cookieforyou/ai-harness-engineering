@@ -359,9 +359,9 @@ metrics:
 
 > Industry-standard best practices for integrate-api execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Design resilient clients with retry and circuit breaker patterns
+2. **Practice 2**: Version APIs to maintain backward compatibility
+3. **Practice 3**: Document integration contracts with examples
 
 
 ## Error Handling
@@ -369,12 +369,12 @@ metrics:
 > Common error scenarios and resolution strategies for integrate-api.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: API integration fails under load or network issues
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Error responses are not handled gracefully
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -385,6 +385,6 @@ metrics:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Integration test pass rate is 95% or higher | Automated check |
+| Standard 2 | All error codes have corresponding handling logic | Automated check |
+| Standard 3 | API latency P99 is within SLA thresholds | Automated check |

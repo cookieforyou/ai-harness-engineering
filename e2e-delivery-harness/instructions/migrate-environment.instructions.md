@@ -91,9 +91,9 @@ rollback:
 
 > Industry-standard best practices for migrate-environment execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Map source-to-target environment configurations
+2. **Practice 2**: Validate application functionality post-migration
+3. **Practice 3**: Plan cutover with minimal service disruption
 
 
 ## Error Handling
@@ -101,12 +101,12 @@ rollback:
 > Common error scenarios and resolution strategies for migrate-environment.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Applications fail after environment migration
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Performance degrades in the new environment
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -117,6 +117,6 @@ rollback:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Migration success rate is 98% or higher | Automated check |
+| Standard 2 | New environment performance is 95%+ of original | Automated check |
+| Standard 3 | Environment cost is within 110% of original budget | Automated check |

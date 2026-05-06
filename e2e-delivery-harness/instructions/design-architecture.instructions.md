@@ -307,9 +307,9 @@ cost_optimization:
 
 > Industry-standard best practices for design-architecture execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Define architecture decision records (ADRs) for key choices
+2. **Practice 2**: Model quality attribute scenarios for critical requirements
+3. **Practice 3**: Validate architecture against organizational constraints
 
 
 ## Error Handling
@@ -317,12 +317,12 @@ cost_optimization:
 > Common error scenarios and resolution strategies for design-architecture.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Architecture does not satisfy key quality attributes
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Stakeholders reject architecture due to misalignment
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -333,6 +333,6 @@ cost_optimization:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | All quality attributes have verifiable scenarios | Automated check |
+| Standard 2 | ADRs are complete with rationale and trade-offs | Automated check |
+| Standard 3 | Architecture review achieves stakeholder consensus | Automated check |

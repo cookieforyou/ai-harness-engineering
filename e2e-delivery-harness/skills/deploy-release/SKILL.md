@@ -1,6 +1,6 @@
 ---
 
-name: deployment
+name: deploy-release
 description: 规划和管理应用的部署发布流程，确保部署安全、可回滚
 category: release
 version: "1.1.0"

@@ -1,5 +1,5 @@
 ---
-name: security-audit
+name: audit-security
 description: 安全审计技能，提供安全测试和漏洞评估的方法论
 type: skill
 version: "1.1.0"

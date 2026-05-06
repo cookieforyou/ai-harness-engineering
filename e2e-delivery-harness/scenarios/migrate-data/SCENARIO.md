@@ -141,6 +141,6 @@ OUTPUT: 输出迁移报告
 
 ## Prerequisites
 
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
+- [ ] Prerequisite 1: Source and target schemas are documented and aligned
+- [ ] Prerequisite 2: Data volume and transformation rules are analyzed
+- [ ] Prerequisite 3: Rollback procedures are prepared and tested

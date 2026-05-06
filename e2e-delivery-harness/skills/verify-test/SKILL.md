@@ -1,6 +1,6 @@
 ---
 
-name: testing
+name: verify-test
 description: 设计和执行测试用例，验证功能正确性，发现并跟踪缺陷
 category: verification
 version: "1.1.0"
@@ -174,7 +174,7 @@ type: skill
 ## Related Assets
 
 - **Agent**: [../../agents/verify-test.agent.md](../../agents/verify-test.agent.md)
-- **Instruction**: [../../instructions/testing-verification.instructions.md](../../instructions/testing-verification.instructions.md)
+- **Instruction**: [../../instructions/verify-test.instructions.md](../../instructions/verify-test.instructions.md)
 - **Prompt**: [../../prompts/verify-test.prompt.md](../../prompts/verify-test.prompt.md)
 
 

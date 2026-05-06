@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: review-code
 description: 代码审查执行指南，用于执行代码评审
 type: instruction
 version: "1.1.0"
@@ -117,9 +117,9 @@ stage: development
 
 > Industry-standard best practices for review-code execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Review for logic correctness, security, and performance
+2. **Practice 2**: Ensure code follows team style and architecture guidelines
+3. **Practice 3**: Provide actionable feedback with examples
 
 
 ## Error Handling
@@ -127,12 +127,12 @@ stage: development
 > Common error scenarios and resolution strategies for review-code.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Defects escape code review into production
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Security vulnerabilities are missed during review
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -143,6 +143,6 @@ stage: development
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Defect detection rate is 85% or higher | Automated check |
+| Standard 2 | Review turnaround time is 24 hours or less | Automated check |
+| Standard 3 | Zero P0/P1 security vulnerabilities are missed | Automated check |

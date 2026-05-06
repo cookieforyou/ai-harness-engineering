@@ -355,9 +355,9 @@ alerts:
 
 > Industry-standard best practices for manage-config execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Externalize configuration from application code
+2. **Practice 2**: Use environment-specific config with validation schemas
+3. **Practice 3**: Track configuration changes with version control
 
 
 ## Error Handling
@@ -365,12 +365,12 @@ alerts:
 > Common error scenarios and resolution strategies for manage-config.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Configuration is inconsistent across environments
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Sensitive values are hardcoded in source code
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -381,6 +381,6 @@ alerts:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | All configurations pass schema validation | Automated check |
+| Standard 2 | Environment parity is 95% or higher | Automated check |
+| Standard 3 | No hardcoded secrets in codebase | Automated check |

@@ -1,5 +1,5 @@
 ---
-name: incident-review
+name: review-incident
 description: 故障复盘技能，提供故障分析和改进制定的方法论
 type: skill
 version: "1.1.0"

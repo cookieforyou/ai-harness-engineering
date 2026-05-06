@@ -1,5 +1,5 @@
 ---
-name: incident-review
+name: review-incident
 description: 故障复盘执行指南，用于执行故障复盘
 type: instruction
 version: "1.1.0"
@@ -110,9 +110,9 @@ stage: monitoring
 
 > Industry-standard best practices for review-incident execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Conduct blameless postmortems focused on system improvements
+2. **Practice 2**: Identify root cause using structured methods like 5 Whys
+3. **Practice 3**: Track action items to completion with defined owners
 
 
 ## Error Handling
@@ -120,12 +120,12 @@ stage: monitoring
 > Common error scenarios and resolution strategies for review-incident.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Postmortem does not identify actionable improvements
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Similar incidents recur without corrective action
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -136,6 +136,6 @@ stage: monitoring
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | All P0/P1 incidents have completed postmortems | Automated check |
+| Standard 2 | Action item closure rate is 90% or higher | Automated check |
+| Standard 3 | Incident recurrence rate is 5% or lower | Automated check |

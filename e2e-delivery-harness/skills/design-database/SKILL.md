@@ -230,7 +230,7 @@ postgres_tuning:
 - **Scenario**: `../../scenarios/design-database/SCENARIO.md`
 - **Instruction**: `../../instructions/design-database.instructions.md`
 - **Prompt**: `../../prompts/design-database.prompt.md`
-- **Agent**: `../../agents/database-architect.agent.md`
+- **Agent**: `../../agents/design-database.agent.md`
 
 
 ## Core Knowledge

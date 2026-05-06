@@ -237,7 +237,7 @@ type: skill
 
 ## Related Assets
 
-- **Agent**: [../../agents/design-systemer.agent.md](../../agents/design-systemer.agent.md)
+- **Agent**: [../../agents/design-system.agent.md](../../agents/design-system.agent.md)
 - **Instruction**: [../../instructions/design-system.instructions.md](../../instructions/design-system.instructions.md)
 - **Prompt**: [../../prompts/design-system.prompt.md](../../prompts/design-system.prompt.md)
 

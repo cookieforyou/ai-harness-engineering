@@ -268,7 +268,7 @@ no_go_criteria:
 - **Scenario**: `../../scenarios/prepare-release/SCENARIO.md`
 - **Instruction**: `../../instructions/prepare-release.instructions.md`
 - **Prompt**: `../../prompts/prepare-release.prompt.md`
-- **Agent**: `../../agents/release-manager.agent.md`
+- **Agent**: `../../agents/prepare-release.agent.md`
 
 
 ## Core Knowledge

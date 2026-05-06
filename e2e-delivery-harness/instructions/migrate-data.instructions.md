@@ -40,7 +40,7 @@ SELECT * FROM target ORDER BY id LIMIT 100;
 
 - **Scenario**: `scenarios/migrate-data/SCENARIO.md`
 - **Prompt**: `prompts/migrate-data.prompt.md`
-- **Agent**: `agents/data-migration-engineer.agent.md`
+- **Agent**: `agents/migrate-data.agent.md`
 - **Skill**: `skills/migrate-data/SKILL.md`
 
 
@@ -62,9 +62,9 @@ SELECT * FROM target ORDER BY id LIMIT 100;
 
 > Industry-standard best practices for migrate-data execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Plan migration with clear rollback strategy
+2. **Practice 2**: Validate data integrity with checksums and row counts
+3. **Practice 3**: Minimize downtime with incremental or online migration
 
 
 ## Error Handling
@@ -72,12 +72,12 @@ SELECT * FROM target ORDER BY id LIMIT 100;
 > Common error scenarios and resolution strategies for migrate-data.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Data loss or corruption occurs during migration
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Migration downtime exceeds business tolerance
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -88,6 +88,6 @@ SELECT * FROM target ORDER BY id LIMIT 100;
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Data integrity validation passes 100% | Automated check |
+| Standard 2 | Downtime is within budget constraints | Automated check |
+| Standard 3 | Rollback capability is maintained throughout migration | Automated check |

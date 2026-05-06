@@ -265,12 +265,12 @@ go mod download
 > Common error scenarios and resolution strategies for manage-dependencies.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Vulnerable dependencies are not identified promptly
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: License violations are discovered late in cycle
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -281,6 +281,6 @@ go mod download
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | All known CVEs are identified and tracked | Automated check |
+| Standard 2 | License compliance is 100% with no prohibited licenses | Automated check |
+| Standard 3 | Critical patches are applied within 30 days | Automated check |

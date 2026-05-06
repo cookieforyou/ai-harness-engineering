@@ -324,9 +324,9 @@ quality_gates:
 
 > Industry-standard best practices for manage-tech-debt execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Catalog technical debt with impact and remediation estimates
+2. **Practice 2**: Prioritize debt repayment based on business impact
+3. **Practice 3**: Allocate capacity for systematic refactoring
 
 
 ## Error Handling
@@ -334,12 +334,12 @@ quality_gates:
 > Common error scenarios and resolution strategies for manage-tech-debt.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Technical debt is invisible to stakeholders
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Debt accumulation slows feature delivery
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -350,6 +350,6 @@ quality_gates:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | All known debt is registered and visible | Automated check |
+| Standard 2 | Debt paydown rate is 10% or higher per quarter | Automated check |
+| Standard 3 | Debt impact on delivery decreases 15% year-over-year | Automated check |

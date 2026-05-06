@@ -1,6 +1,6 @@
 ---
 
-name: monitoring
+name: monitor-operate
 description: 配置监控系统，执行日常巡检，处理告警和故障，保障系统稳定运行
 category: operations
 version: "1.1.0"
@@ -202,7 +202,7 @@ type: skill
 ## Related Assets
 
 - **Agent**: [../../agents/monitor-operate.agent.md](../../agents/monitor-operate.agent.md)
-- **Instruction**: [../../instructions/monitoring-operations.instructions.md](../../instructions/monitoring-operations.instructions.md)
+- **Instruction**: [../../instructions/monitor-operate.instructions.md](../../instructions/monitor-operate.instructions.md)
 - **Prompt**: [../../prompts/monitor-operate.prompt.md](../../prompts/monitor-operate.prompt.md)
 
 

@@ -1,5 +1,5 @@
 ---
-name: security-audit
+name: audit-security
 type: scenario
 stage: testing
 version: "1.1.0"
@@ -87,7 +87,7 @@ THINK: 制定修复计划
 
 ## Primary Assets
 
-- **Agent**: [../../agents/verify-test.agent.md](../../agents/verify-test.agent.md)
+- **Agent**: [../../agents/audit-security.agent.md](../../agents/audit-security.agent.md)
 - **Instruction**: [../../instructions/audit-security.instructions.md](../../instructions/audit-security.instructions.md)
 - **Prompt**: [../../prompts/audit-security.prompt.md](../../prompts/audit-security.prompt.md)
 

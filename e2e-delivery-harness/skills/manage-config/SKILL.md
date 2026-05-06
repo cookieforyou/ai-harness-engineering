@@ -258,7 +258,7 @@ class ConfigValidator:
 - **Scenario**: `../../scenarios/manage-config/SCENARIO.md`
 - **Instruction**: `../../instructions/manage-config.instructions.md`
 - **Prompt**: `../../prompts/manage-config.prompt.md`
-- **Agent**: `../../agents/config-manager.agent.md`
+- **Agent**: `../../agents/manage-config.agent.md`
 
 
 ## Core Knowledge

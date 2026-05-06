@@ -153,9 +153,9 @@ metrics:
 
 > Industry-standard best practices for optimize-performance execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Profile applications to identify actual bottlenecks
+2. **Practice 2**: Optimize at the code, database, and infrastructure layers
+3. **Practice 3**: Validate improvements do not regress other metrics
 
 
 ## Error Handling
@@ -163,12 +163,12 @@ metrics:
 > Common error scenarios and resolution strategies for optimize-performance.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Performance bottlenecks are not clearly identified
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Optimization causes regression in other areas
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -179,6 +179,6 @@ metrics:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Target metric improves by 20% or more | Automated check |
+| Standard 2 | No regression in non-target metrics | Automated check |
+| Standard 3 | Optimization cost does not exceed resource budget | Automated check |

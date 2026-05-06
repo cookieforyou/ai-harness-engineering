@@ -390,9 +390,9 @@ spec:
 
 > Industry-standard best practices for implement-cicd execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Define pipeline stages with clear quality gates
+2. **Practice 2**: Automate build, test, and deployment with artifact versioning
+3. **Practice 3**: Integrate security scanning into the pipeline
 
 
 ## Error Handling
@@ -400,12 +400,12 @@ spec:
 > Common error scenarios and resolution strategies for implement-cicd.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Pipeline failures are frequent or unexplained
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Deployment frequency does not meet team targets
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -416,6 +416,6 @@ spec:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Lead time from commit to production is under 1 day | Automated check |
+| Standard 2 | Deployment frequency is at least once per day | Automated check |
+| Standard 3 | Mean time to recovery (MTTR) is under 1 hour | Automated check |

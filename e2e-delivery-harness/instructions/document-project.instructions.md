@@ -375,12 +375,12 @@ documentation_release:
 > Common error scenarios and resolution strategies for document-project.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Documentation is incomplete or outdated
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Users report difficulty finding required information
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -391,6 +391,6 @@ documentation_release:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Documentation completeness covers all required topics | Automated check |
+| Standard 2 | Stale documentation rate is below 10% | Automated check |
+| Standard 3 | User satisfaction rating is 4.0 or higher out of 5 | Automated check |

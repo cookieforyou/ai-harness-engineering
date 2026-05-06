@@ -271,9 +271,9 @@ stage: "analyze-requirement"
 
 > Industry-standard best practices for analyze-requirement execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Elicit requirements through structured interviews and workshops
+2. **Practice 2**: Document functional and non-functional requirements with acceptance criteria
+3. **Practice 3**: Validate requirements with stakeholders before formal sign-off
 
 
 ## Error Handling
@@ -281,12 +281,12 @@ stage: "analyze-requirement"
 > Common error scenarios and resolution strategies for analyze-requirement.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Requirements are ambiguous or conflicting
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Stakeholders provide incomplete or inconsistent input
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -297,6 +297,6 @@ stage: "analyze-requirement"
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | All requirements have unambiguous acceptance criteria | Automated check |
+| Standard 2 | Stakeholder sign-off achieved for scope baseline | Automated check |
+| Standard 3 | Traceability matrix covers all business objectives | Automated check |

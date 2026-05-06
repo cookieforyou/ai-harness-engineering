@@ -346,9 +346,9 @@ encryption_standards:
 
 > Industry-standard best practices for manage-secrets execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Store secrets in dedicated vault or KMS solutions
+2. **Practice 2**: Implement least-privilege access controls
+3. **Practice 3**: Rotate secrets on schedule or after suspected compromise
 
 
 ## Error Handling
@@ -356,12 +356,12 @@ encryption_standards:
 > Common error scenarios and resolution strategies for manage-secrets.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Secrets are found in source code or logs
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Access to secrets is not audited or controlled
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -372,6 +372,6 @@ encryption_standards:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Secret rotation compliance is 100% | Automated check |
+| Standard 2 | All secret access is logged and auditable | Automated check |
+| Standard 3 | Secret leak detection time is under 1 hour | Automated check |

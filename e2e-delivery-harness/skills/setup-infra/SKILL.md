@@ -187,7 +187,7 @@ savings_tips = [
 - **Scenario**: `../../scenarios/setup-infra/SCENARIO.md`
 - **Instruction**: `../../instructions/setup-infra.instructions.md`
 - **Prompt**: `../../prompts/setup-infra.prompt.md`
-- **Agent**: `../../agents/infrastructure-engineer.agent.md`
+- **Agent**: `../../agents/setup-infra.agent.md`
 
 
 ## Core Knowledge

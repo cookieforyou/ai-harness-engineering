@@ -34,7 +34,7 @@ stage: "review-design"
 - **Scenario**: `../../scenarios/review-design/SCENARIO.md`
 - **Instruction**: `../../instructions/review-design.instructions.md`
 - **Prompt**: `../../prompts/review-design.prompt.md`
-- **Agent**: `../../agents/technical-reviewer.agent.md`
+- **Agent**: `../../agents/review-design.agent.md`
 
 
 ## Core Knowledge

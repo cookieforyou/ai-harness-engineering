@@ -268,9 +268,9 @@ budget:
 
 > Industry-standard best practices for setup-infra execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Define infrastructure as code with version control
+2. **Practice 2**: Apply security baseline and network segmentation
+3. **Practice 3**: Document environment topology and access controls
 
 
 ## Error Handling
@@ -278,12 +278,12 @@ budget:
 > Common error scenarios and resolution strategies for setup-infra.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Infrastructure deployment is manual and error-prone
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Security baseline is not enforced consistently
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -294,6 +294,6 @@ budget:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | IaC coverage is 95% or higher | Automated check |
+| Standard 2 | New environment provisioning is 30 minutes or less | Automated check |
+| Standard 3 | Security baseline compliance is 100% | Automated check |

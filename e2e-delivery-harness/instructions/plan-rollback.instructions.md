@@ -312,12 +312,12 @@ log "Rollback completed successfully"
 > Common error scenarios and resolution strategies for plan-rollback.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Rollback procedure is untested or incomplete
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Rollback causes data inconsistency or corruption
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -328,6 +328,6 @@ log "Rollback completed successfully"
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Rollback plan is tested for all release scenarios | Automated check |
+| Standard 2 | Recovery time objective (RTO) is 15 minutes or less | Automated check |
+| Standard 3 | Data consistency is maintained after rollback | Automated check |

@@ -205,9 +205,9 @@ jobs:
 
 > Industry-standard best practices for automate-test execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Design test automation with maintainable page-object patterns
+2. **Practice 2**: Integrate automated tests into CI/CD pipeline gates
+3. **Practice 3**: Maintain test data independence and environment isolation
 
 
 ## Error Handling
@@ -215,12 +215,12 @@ jobs:
 > Common error scenarios and resolution strategies for automate-test.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Automated tests are flaky or unreliable
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Test execution time exceeds acceptable thresholds
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -231,6 +231,6 @@ jobs:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Automated test coverage meets team-defined targets | Automated check |
+| Standard 2 | Test flakiness rate is below 5% | Automated check |
+| Standard 3 | CI pipeline integration passes consistently | Automated check |

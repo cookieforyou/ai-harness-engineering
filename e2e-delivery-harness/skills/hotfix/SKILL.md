@@ -31,7 +31,7 @@ stage: "hotfix"
 - **Scenario**: `../../scenarios/hotfix/SCENARIO.md`
 - **Instruction**: `../../instructions/hotfix.instructions.md`
 - **Prompt**: `../../prompts/hotfix.prompt.md`
-- **Agent**: `../../agents/hotfix-engineer.agent.md`
+- **Agent**: `../../agents/hotfix.agent.md`
 
 
 ## Core Knowledge

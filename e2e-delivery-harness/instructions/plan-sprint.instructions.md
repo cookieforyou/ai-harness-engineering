@@ -350,12 +350,12 @@ def determine_commitment(capacity, strategy='conservative'):
 > Common error scenarios and resolution strategies for plan-sprint.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Sprint commitment is consistently not met
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Scope creep occurs mid-sprint
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -366,6 +366,6 @@ def determine_commitment(capacity, strategy='conservative'):
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Sprint commitment accuracy is 80% or higher | Automated check |
+| Standard 2 | Capacity utilization is 85-95% | Automated check |
+| Standard 3 | Carryover rate is 20% or lower | Automated check |

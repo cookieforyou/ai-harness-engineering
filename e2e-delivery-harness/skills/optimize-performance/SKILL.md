@@ -86,7 +86,7 @@ class PerformanceTest:
 - **Scenario**: `../../scenarios/optimize-performance/SCENARIO.md`
 - **Instruction**: `../../instructions/optimize-performance.instructions.md`
 - **Prompt**: `../../prompts/optimize-performance.prompt.md`
-- **Agent**: `../../agents/performance-engineer.agent.md`
+- **Agent**: `../../agents/optimize-performance.agent.md`
 
 
 ## Core Knowledge

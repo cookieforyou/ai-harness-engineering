@@ -239,7 +239,7 @@ cache_metrics:
 |----------|----------|
 | Scenario | `scenarios/performance-testing/SCENARIO.md` |
 | Prompt | `prompts/performance-testing.prompt.md` |
-| Agent | `agents/verify-test.agent.md` |
+| Agent | `agents/performance-testing.agent.md` |
 | Skill | `skills/performance-testing/SKILL.md` |
 
 
@@ -261,9 +261,9 @@ cache_metrics:
 
 > Industry-standard best practices for performance-testing execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Design realistic load models based on production traffic
+2. **Practice 2**: Isolate test environment to prevent production impact
+3. **Practice 3**: Analyze results with statistical significance
 
 
 ## Error Handling
@@ -271,12 +271,12 @@ cache_metrics:
 > Common error scenarios and resolution strategies for performance-testing.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Performance test results do not correlate with production
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Bottlenecks are not reproducible or actionable
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -287,6 +287,6 @@ cache_metrics:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | SLO achievement rate is 99.5% or higher | Automated check |
+| Standard 2 | All known bottlenecks are identified and documented | Automated check |
+| Standard 3 | Test validity correlation is 95% or higher | Automated check |

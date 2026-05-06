@@ -283,7 +283,7 @@ class QualityGate:
 - **Scenario**: `../../scenarios/implement-cicd/SCENARIO.md`
 - **Instruction**: `../../instructions/implement-cicd.instructions.md`
 - **Prompt**: `../../prompts/implement-cicd.prompt.md`
-- **Agent**: `../../agents/cicd-engineer.agent.md`
+- **Agent**: `../../agents/implement-cicd.agent.md`
 
 
 ## Core Knowledge

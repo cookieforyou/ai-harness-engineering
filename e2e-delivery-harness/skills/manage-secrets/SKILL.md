@@ -276,7 +276,7 @@ class SecretRotation:
 - **Scenario**: `../../scenarios/manage-secrets/SCENARIO.md`
 - **Instruction**: `../../instructions/manage-secrets.instructions.md`
 - **Prompt**: `../../prompts/manage-secrets.prompt.md`
-- **Agent**: `../../agents/security-engineer.agent.md`
+- **Agent**: `../../agents/manage-secrets.agent.md`
 
 
 ## Core Knowledge

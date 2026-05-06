@@ -115,9 +115,9 @@ class ProjectDocumentation:
 
 ## Prerequisites
 
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
+- [ ] Prerequisite 1: Documentation scope and target audience are defined
+- [ ] Prerequisite 2: Source artifacts and reference materials are available
+- [ ] Prerequisite 3: Documentation style guide is approved
 
 
 ## Primary Assets
@@ -164,6 +164,6 @@ class ProjectDocumentation:
 
 ## Handover Criteria
 
-- [ ] Criterion 1: [Description]
-- [ ] Criterion 2: [Description]
-- [ ] Criterion 3: [Description]
+- [ ] Criterion 1: All required documentation types are produced
+- [ ] Criterion 2: Documentation is reviewed and approved by stakeholders
+- [ ] Criterion 3: Documentation is published to the knowledge repository

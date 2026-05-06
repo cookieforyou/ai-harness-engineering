@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: review-code
 description: 代码审查技能，提供代码评审的方法论和最佳实践
 type: skill
 version: "1.1.0"

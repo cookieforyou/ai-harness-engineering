@@ -229,9 +229,9 @@ stage: "decompose-task"
 
 > Industry-standard best practices for decompose-task execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Break down epics into independently deliverable user stories
+2. **Practice 2**: Estimate using team-calibrated story points or hours
+3. **Practice 3**: Identify and document cross-story dependencies early
 
 
 ## Error Handling
@@ -239,12 +239,12 @@ stage: "decompose-task"
 > Common error scenarios and resolution strategies for decompose-task.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Tasks are too large for single-sprint completion
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Hidden dependencies cause mid-sprint blockers
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -255,6 +255,6 @@ stage: "decompose-task"
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | All tasks meet Definition of Ready criteria | Automated check |
+| Standard 2 | Estimation variance is within acceptable threshold | Automated check |
+| Standard 3 | Dependency map is complete and reviewed | Automated check |

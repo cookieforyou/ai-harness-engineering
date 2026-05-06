@@ -124,9 +124,9 @@ class SprintPlanning:
 
 ## Prerequisites
 
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
+- [ ] Prerequisite 1: Product backlog is groomed and prioritized
+- [ ] Prerequisite 2: Team capacity and availability are confirmed
+- [ ] Prerequisite 3: Definition of Ready criteria are established
 
 
 ## Primary Assets
@@ -173,6 +173,6 @@ class SprintPlanning:
 
 ## Handover Criteria
 
-- [ ] Criterion 1: [Description]
-- [ ] Criterion 2: [Description]
-- [ ] Criterion 3: [Description]
+- [ ] Criterion 1: Sprint backlog is committed and documented
+- [ ] Criterion 2: All stories meet Definition of Ready standards
+- [ ] Criterion 3: Risk register is reviewed and mitigations are in place

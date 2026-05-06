@@ -256,9 +256,9 @@ stage: "deploy-release"
 
 > Industry-standard best practices for deploy-release execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Use blue-green or canary deployment to minimize risk
+2. **Practice 2**: Automate rollback triggers based on health metrics
+3. **Practice 3**: Maintain deployment audit logs for compliance
 
 
 ## Error Handling
@@ -266,12 +266,12 @@ stage: "deploy-release"
 > Common error scenarios and resolution strategies for deploy-release.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Deployment causes service degradation or outage
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Rollback procedure fails or takes excessive time
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -282,6 +282,6 @@ stage: "deploy-release"
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Deployment success rate meets 99% target | Automated check |
+| Standard 2 | Rollback completes within 15 minutes | Automated check |
+| Standard 3 | Zero-downtime deployment achieved for user-facing services | Automated check |

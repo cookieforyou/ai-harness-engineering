@@ -100,6 +100,6 @@ OUTPUT: 输出容量规划报告
 
 ## Prerequisites
 
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
+- [ ] Prerequisite 1: Current capacity metrics and utilization data are available
+- [ ] Prerequisite 2: Growth forecast and business projections are provided
+- [ ] Prerequisite 3: Budget constraints and procurement timelines are known

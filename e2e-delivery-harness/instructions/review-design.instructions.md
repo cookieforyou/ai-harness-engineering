@@ -27,7 +27,7 @@ stage: review-design
 
 - **Scenario**: `scenarios/review-design/SCENARIO.md`
 - **Prompt**: `prompts/review-design.prompt.md`
-- **Agent**: `agents/technical-reviewer.agent.md`
+- **Agent**: `agents/review-design.agent.md`
 - **Skill**: `skills/review-design/SKILL.md`
 
 
@@ -49,9 +49,9 @@ stage: review-design
 
 > Industry-standard best practices for review-design execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Evaluate design against requirements and quality attributes
+2. **Practice 2**: Check for consistency with architecture standards
+3. **Practice 3**: Document review findings with severity and action items
 
 
 ## Error Handling
@@ -59,12 +59,12 @@ stage: review-design
 > Common error scenarios and resolution strategies for review-design.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Design does not satisfy key requirements
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Review feedback is vague or not actionable
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -75,6 +75,6 @@ stage: review-design
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Issue detection rate is 95% or higher | Automated check |
+| Standard 2 | Review turnaround is 2 days or less | Automated check |
+| Standard 3 | Defect escape rate after review is 5% or lower | Automated check |

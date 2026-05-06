@@ -1,5 +1,5 @@
 ---
-name: change-management
+name: manage-change
 type: scenario
 stage: cross-phase
 version: "1.1.0"
@@ -82,7 +82,7 @@ THINK: 沟通变更计划
 
 ## Primary Assets
 
-- **Agent**: [../../agents/analyze-requirement.agent.md](../../agents/analyze-requirement.agent.md)
+- **Agent**: [../../agents/manage-change.agent.md](../../agents/manage-change.agent.md)
 - **Instruction**: [../../instructions/manage-change.instructions.md](../../instructions/manage-change.instructions.md)
 - **Prompt**: [../../prompts/manage-change.prompt.md](../../prompts/manage-change.prompt.md)
 

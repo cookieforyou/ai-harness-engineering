@@ -1,5 +1,5 @@
 ---
-name: security-audit
+name: audit-security
 description: 安全审计执行指南，用于执行安全测试
 type: instruction
 version: "1.1.0"
@@ -112,9 +112,9 @@ stage: testing
 
 > Industry-standard best practices for audit-security execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Conduct regular vulnerability assessments and penetration testing
+2. **Practice 2**: Maintain compliance mapping against security frameworks
+3. **Practice 3**: Document all findings with severity ratings and evidence
 
 
 ## Error Handling
@@ -122,12 +122,12 @@ stage: testing
 > Common error scenarios and resolution strategies for audit-security.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Security scan reveals critical vulnerabilities
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Compliance audit identifies policy gaps
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -138,6 +138,6 @@ stage: testing
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | All critical and high findings have remediation plans | Automated check |
+| Standard 2 | Compliance coverage meets target framework requirements | Automated check |
+| Standard 3 | Audit trail is complete and tamper-evident | Automated check |

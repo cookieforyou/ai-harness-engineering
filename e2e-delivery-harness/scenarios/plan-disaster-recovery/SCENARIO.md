@@ -141,9 +141,9 @@ output:
 
 ## Prerequisites
 
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
+- [ ] Prerequisite 1: Business impact analysis (BIA) is completed with RTO/RPO
+- [ ] Prerequisite 2: Infrastructure inventory and dependencies are documented
+- [ ] Prerequisite 3: Threat scenarios and risk appetite are defined
 
 
 ## Primary Assets
@@ -160,9 +160,9 @@ output:
 ## Error Handling
 
 ### Error Scenario 1
-**Error**: [Description]
+**Error**: DR plan does not meet recovery time objective (RTO) targets
 **Handling**: [Resolution steps]
 
 ### Error Scenario 2
-**Error**: [Description]
+**Error**: DR procedures have not been tested or are outdated
 **Handling**: [Resolution steps]

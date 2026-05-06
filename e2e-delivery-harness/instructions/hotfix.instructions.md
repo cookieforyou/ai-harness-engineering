@@ -30,7 +30,7 @@ stage: hotfix
 
 - **Scenario**: `scenarios/hotfix/SCENARIO.md`
 - **Prompt**: `prompts/hotfix.prompt.md`
-- **Agent**: `agents/hotfix-engineer.agent.md`
+- **Agent**: `agents/hotfix.agent.md`
 - **Skill**: `skills/hotfix/SKILL.md`
 
 
@@ -52,9 +52,9 @@ stage: hotfix
 
 > Industry-standard best practices for hotfix execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Prioritize hotfix severity and impact assessment
+2. **Practice 2**: Maintain minimal change scope to reduce regression risk
+3. **Practice 3**: Validate fix through targeted testing before deployment
 
 
 ## Error Handling
@@ -62,12 +62,12 @@ stage: hotfix
 > Common error scenarios and resolution strategies for hotfix.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Hotfix introduces new defects or regressions
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Emergency deployment bypasses standard validation
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -78,6 +78,6 @@ stage: hotfix
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Hotfix resolves the target defect without regression | Automated check |
+| Standard 2 | Hotfix deploys within 4 hours for P0 issues | Automated check |
+| Standard 3 | All hotfixes have follow-up plans for permanent fixes | Automated check |

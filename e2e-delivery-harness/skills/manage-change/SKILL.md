@@ -1,5 +1,5 @@
 ---
-name: change-management
+name: manage-change
 description: 变更管理技能，提供变更评估和管理的方法论
 type: skill
 version: "1.1.0"

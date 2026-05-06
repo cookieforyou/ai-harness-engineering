@@ -30,7 +30,7 @@ stage: "migrate-data"
 - **Scenario**: `../../scenarios/migrate-data/SCENARIO.md`
 - **Instruction**: `../../instructions/migrate-data.instructions.md`
 - **Prompt**: `../../prompts/migrate-data.prompt.md`
-- **Agent**: `../../agents/data-migration-engineer.agent.md`
+- **Agent**: `../../agents/migrate-data.agent.md`
 
 
 ## Core Knowledge

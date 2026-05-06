@@ -238,7 +238,7 @@ class MultiLevelCache:
 - **Scenario**: `../../scenarios/integrate-api/SCENARIO.md`
 - **Instruction**: `../../instructions/integrate-api.instructions.md`
 - **Prompt**: `../../prompts/integrate-api.prompt.md`
-- **Agent**: `../../agents/api-integration-engineer.agent.md`
+- **Agent**: `../../agents/integrate-api.agent.md`
 
 
 ## Core Knowledge

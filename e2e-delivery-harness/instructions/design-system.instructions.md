@@ -258,9 +258,9 @@ stage: "design-system"
 
 > Industry-standard best practices for design-system execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Model system components using domain-driven design principles
+2. **Practice 2**: Define clear interfaces and data contracts between modules
+3. **Practice 3**: Evaluate technology stack against team capability and constraints
 
 
 ## Error Handling
@@ -268,12 +268,12 @@ stage: "design-system"
 > Common error scenarios and resolution strategies for design-system.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: System design lacks clear module boundaries
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Integration points are poorly defined or inconsistent
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -284,6 +284,6 @@ stage: "design-system"
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Design completeness covers all functional requirements | Automated check |
+| Standard 2 | All requirements are traceable to design elements | Automated check |
+| Standard 3 | Design review passes with 90% or higher acceptance | Automated check |

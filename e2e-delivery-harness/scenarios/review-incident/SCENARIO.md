@@ -1,5 +1,5 @@
 ---
-name: incident-review
+name: review-incident
 type: scenario
 stage: monitoring
 version: "1.1.0"
@@ -87,7 +87,7 @@ THINK: 跟踪改进落地
 
 ## Primary Assets
 
-- **Agent**: [../../agents/monitor-operate.agent.md](../../agents/monitor-operate.agent.md)
+- **Agent**: [../../agents/review-incident.agent.md](../../agents/review-incident.agent.md)
 - **Instruction**: [../../instructions/review-incident.instructions.md](../../instructions/review-incident.instructions.md)
 - **Prompt**: [../../prompts/review-incident.prompt.md](../../prompts/review-incident.prompt.md)
 
@@ -209,8 +209,8 @@ THINK: 跟踪改进落地
 
 ## Related Scenarios
 
-- **Related**: [../monitor-operate/](../monitor-operate/) - 监控运维
-- **Related**: [../deploy-release/](../deploy-release/) - 部署发布
+- **Related**: [../respond-incident/](../respond-incident/) - Incident Response
+- **Related**: [../plan-disaster-recovery/](../plan-disaster-recovery/) - Disaster Recovery Planning
 
 ## Metrics
 

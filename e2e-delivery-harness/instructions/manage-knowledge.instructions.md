@@ -287,9 +287,9 @@ findability_factors:
 
 > Industry-standard best practices for manage-knowledge execution.
 
-1. **Practice 1**: [Description]
-2. **Practice 2**: [Description]
-3. **Practice 3**: [Description]
+1. **Practice 1**: Organize knowledge by domain with clear ownership
+2. **Practice 2**: Maintain freshness with periodic review cycles
+3. **Practice 3**: Enable discoverability through indexing and tagging
 
 
 ## Error Handling
@@ -297,12 +297,12 @@ findability_factors:
 > Common error scenarios and resolution strategies for manage-knowledge.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Knowledge is fragmented and difficult to locate
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Documentation is outdated or unmaintained
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -313,6 +313,6 @@ findability_factors:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Knowledge indexing coverage is 95% or higher | Automated check |
+| Standard 2 | User search success rate is 80% or higher | Automated check |
+| Standard 3 | Content updated within last 6 months is 90% or higher | Automated check |

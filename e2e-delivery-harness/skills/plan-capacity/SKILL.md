@@ -31,7 +31,7 @@ stage: "plan-capacity"
 - **Scenario**: `../../scenarios/plan-capacity/SCENARIO.md`
 - **Instruction**: `../../instructions/plan-capacity.instructions.md`
 - **Prompt**: `../../prompts/plan-capacity.prompt.md`
-- **Agent**: `../../agents/capacity-planner.agent.md`
+- **Agent**: `../../agents/plan-capacity.agent.md`
 
 
 ## Core Knowledge

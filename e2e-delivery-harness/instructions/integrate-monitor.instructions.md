@@ -451,12 +451,12 @@ slos:
 > Common error scenarios and resolution strategies for integrate-monitor.
 
 ### Error Category 1
-**Symptom**: [Description]
+**Symptom**: Monitoring integration fails or produces inconsistent metrics
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
 ### Error Category 2
-**Symptom**: [Description]
+**Symptom**: Instrumentation overhead exceeds acceptable performance impact
 **Cause**: [Root cause]
 **Resolution**: [Steps to resolve]
 
@@ -467,6 +467,6 @@ slos:
 
 | Standard | Criteria | Verification Method |
 |----------|----------|---------------------|
-| Standard 1 | [Description] | [How to verify] |
-| Standard 2 | [Description] | [How to verify] |
-| Standard 3 | [Description] | [How to verify] |
+| Standard 1 | Metric coverage for critical components is 90% or higher | Review dashboard completeness |
+| Standard 2 | Instrumentation overhead is 5% or lower | Performance benchmark comparison |
+| Standard 3 | Dashboard utilization is 70% or higher | Access analytics review |
