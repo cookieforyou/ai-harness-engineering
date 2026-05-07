@@ -1,11 +1,12 @@
 ---
 name: integrate-api
-role: "Integrate Api Agent"
+role: Integrate Api Agent
 description: integrate api specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "integrate-api"
+type: agent
+version: 1.1.0
+applyTo: integrate-api
 tools: []
+stage: development
 ---
 
 # Agent: API Integration Engineer (API 集成工程师)

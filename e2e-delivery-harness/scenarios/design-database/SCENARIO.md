@@ -1,7 +1,10 @@
 ---
 name: design-database
-version: "1.1.0"
-stage: "design-database"
+version: 1.1.0
+stage: design-database
+description: Design Database scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 数据库设计 (Design Database)

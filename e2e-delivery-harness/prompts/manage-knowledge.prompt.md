@@ -246,6 +246,28 @@ handoff:
 
 ## Output Format
 
-> Standard output structure for manage-knowledge deliverables
+```markdown
+## Knowledge Management Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Knowledge Map**: Taxonomy and categorized knowledge structure
+2. **Documentation Standards**: Writing standards and templates
+3. **Search Index**: Configured indexing and retrieval setup
+4. **Maintenance Schedule**: Content review and refresh calendar
+5. **Usage Analytics**: Search and access metrics report
+
+### Validation Checklist
+- [ ] Knowledge indexing coverage is 95% or higher
+- [ ] User search success rate is 80% or higher
+- [ ] Content updated within last 6 months is 90% or higher
+- [ ] Ownership and review assignments are clear
+
+### Next Steps
+- [ ] Announce knowledge base launch
+- [ ] Schedule quarterly content audits
+```
 

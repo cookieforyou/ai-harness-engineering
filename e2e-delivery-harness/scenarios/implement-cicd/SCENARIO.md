@@ -1,7 +1,10 @@
 ---
 name: implement-cicd
-version: "1.1.0"
-stage: "implement-cicd"
+version: 1.1.0
+stage: implement-cicd
+description: Implement Cicd scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: CI/CD 实施 (Implement CI/CD)

@@ -1,11 +1,12 @@
 ---
 name: migrate-environment
-role: "Migrate Environment Agent"
+role: Migrate Environment Agent
 description: migrate environment specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "migrate-environment"
+type: agent
+version: 1.1.0
+applyTo: migrate-environment
 tools: []
+stage: deployment
 ---
 
 # Agent: Data Migration Engineer (数据迁移工程师)

@@ -1,7 +1,10 @@
 ---
 name: prepare-release
-version: "1.1.0"
-stage: "prepare-release"
+version: 1.1.0
+stage: prepare-release
+description: Prepare Release scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 发布准备 (Prepare Release)

@@ -1,7 +1,10 @@
 ---
 name: migrate-data
-version: "1.1.0"
-stage: "migrate-data"
+version: 1.1.0
+stage: migrate-data
+description: Migrate Data scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Migrate Data Scenario (数据迁移场景)

@@ -266,6 +266,28 @@ manage_config_result:
 
 ## Output Format
 
-> Standard output structure for manage-config deliverables
+```markdown
+## Configuration Management Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Config Schema**: Validation schema and rules
+2. **Environment Configs**: Per-environment configuration files
+3. **Config Documentation**: Item descriptions with defaults and impact
+4. **Migration Guide**: Configuration change migration instructions
+5. **Audit Trail**: Change history and approval log
+
+### Validation Checklist
+- [ ] All configurations pass schema validation
+- [ ] Environment parity is 95% or higher
+- [ ] No hardcoded secrets in codebase
+- [ ] Feature toggles are documented and traceable
+
+### Next Steps
+- [ ] Deploy configurations to target environments
+- [ ] Set up configuration change alerts
+```
 

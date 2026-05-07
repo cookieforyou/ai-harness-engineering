@@ -1,11 +1,12 @@
 ---
 name: design-architecture
-role: "Design Architecture Agent"
+role: Design Architecture Agent
 description: design architecture specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "design-architecture"
+type: agent
+version: 1.1.0
+applyTo: design-architecture
 tools: []
+stage: design
 ---
 
 # Agent: Solution Architect (解决方案架构师)

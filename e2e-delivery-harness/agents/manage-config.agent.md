@@ -1,11 +1,12 @@
 ---
 name: manage-config
-role: "Manage Config Agent"
+role: Manage Config Agent
 description: manage config specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "manage-config"
+type: agent
+version: 1.1.0
+applyTo: manage-config
 tools: []
+stage: deployment
 ---
 
 # Agent: Configuration Manager (配置管理员)

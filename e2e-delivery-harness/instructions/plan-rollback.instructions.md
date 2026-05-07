@@ -10,7 +10,8 @@ version: "1.1.0"
 
 ## Overview
 
-本指令提供回滚计划的技术规范和实施指南。
+This instruction establishes the technical standards and detailed procedures for safe and efficient rollback planning within release management. It covers rollback trigger conditions, data consistency preservation during rollback, stateful vs. stateless rollback strategies, communication protocols, and post-rollback validation procedures. The instruction ensures every release has a tested, executable rollback plan that can restore service within defined recovery time objectives while preserving data integrity.
+
 
 ## Rollback Strategy Comparison
 

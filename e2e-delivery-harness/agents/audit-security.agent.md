@@ -1,11 +1,12 @@
 ---
 name: audit-security
-role: "Audit Security Agent"
+role: Audit Security Agent
 description: audit security specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "audit-security"
+type: agent
+version: 1.1.0
+applyTo: audit-security
 tools: []
+stage: testing
 ---
 
 # Agent: Security Engineer (安全工程师)

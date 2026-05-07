@@ -211,6 +211,28 @@ stage: plan-sprint
 
 ## Output Format
 
-> Standard output structure for plan-sprint deliverables
+```markdown
+## Sprint Planning Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Sprint Backlog**: Committed user stories and tasks for the sprint
+2. **Sprint Plan**: Timeline with milestones and key dates
+3. **Capacity Allocation**: Workload distribution by team member/role
+4. **Risk Register**: Identified risks with mitigation plans
+5. **Commitment Statement**: Team commitment to sprint goal
+
+### Validation Checklist
+- [ ] Sprint commitment accuracy target is met
+- [ ] Capacity utilization is 85-95%
+- [ ] Carryover rate is 20% or lower
+- [ ] All stories meet Definition of Ready
+
+### Next Steps
+- [ ] Kick off sprint with team
+- [ ] Set up daily standup and review cadence
+```
 

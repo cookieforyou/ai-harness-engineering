@@ -1,11 +1,12 @@
 ---
 name: prepare-release
-role: "Prepare Release Agent"
+role: Prepare Release Agent
 description: prepare release specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "prepare-release"
+type: agent
+version: 1.1.0
+applyTo: prepare-release
 tools: []
+stage: deployment
 ---
 
 # Agent: Release Manager (发布经理)

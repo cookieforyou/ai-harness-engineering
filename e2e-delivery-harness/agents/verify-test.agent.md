@@ -1,11 +1,17 @@
 ---
 name: verify-test
-role: "Verify Test Agent"
+role: Verify Test Agent
 description: 负责测试验证的AI角色代理，设计和执行测试用例，验证功能正确性
-type: "agent"
-version: "1.1.0"
-applyTo: "verify-test"
-tools: ["search", "edit", "analyze", "test", "document"]
+type: agent
+version: 1.1.0
+applyTo: verify-test
+tools:
+- search
+- edit
+- analyze
+- test
+- document
+stage: testing
 ---
 
 # Tester

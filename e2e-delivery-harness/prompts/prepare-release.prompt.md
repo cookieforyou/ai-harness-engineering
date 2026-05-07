@@ -14,7 +14,7 @@ stage: prepare-release
 inputs:
   project_name: string           # 项目名称
   release_version: string         # 发布版本：v1.0.0
-  release_type: string            # 发布类型：major|minor|patch|hotfix
+  release_type: string            # 发布类型：major|minor|patch|apply-hotfix
   release_scope: string           # 发布范围描述
   release_criteria: object        # 发布标准
     test_pass_rate: number        # 测试通过率 ≥ 95%
@@ -313,6 +313,28 @@ prepare_release_result:
 
 ## Output Format
 
-> Standard output structure for prepare-release deliverables
+```markdown
+## Release Preparation Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Release Package**: Build artifacts, configurations, and deployment scripts
+2. **Release Notes**: User-facing and operations-facing change documentation
+3. **Deployment Checklist**: Pre-deployment verification items
+4. **Rollback Plan**: Tested rollback procedure and validation steps
+5. **Communication Plan**: Notification schedule and audience targeting
+
+### Validation Checklist
+- [ ] Pre-release checklist completion is 100%
+- [ ] Release notes accuracy is 98% or higher
+- [ ] All required approvals are obtained and documented
+- [ ] Rollback plan is tested and ready
+
+### Next Steps
+- [ ] Schedule deployment window
+- [ ] Notify stakeholders of release timeline
+```
 

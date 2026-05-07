@@ -213,7 +213,30 @@ END
 ## Output Format
 
 ```markdown
-# 运维报告
+## Monitoring & Operations Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Monitoring Configuration**: Collection and alerting rule configs
+2. **Dashboard Definitions**: Pre-built dashboard JSON/markdown
+3. **Runbook Library**: Operational procedures for common scenarios
+4. **SLO Dashboard**: Service level objective tracking and reporting
+5. **Alert Routing**: Escalation path and notification channel setup
+
+### Validation Checklist
+- [ ] MTTD is 5 minutes or less
+- [ ] Alert noise rate is 20% or lower
+- [ ] SLO compliance is 99.5% or higher
+- [ ] Runbooks cover 90% of alert types
+
+### Next Steps
+- [ ] Train operations team on new monitoring
+- [ ] Schedule monthly SLO review
+```
+
 
 ## 1. 报告概要
 

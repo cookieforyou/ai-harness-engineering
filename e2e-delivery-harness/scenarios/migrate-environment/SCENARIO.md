@@ -1,7 +1,10 @@
 ---
 name: migrate-environment
-version: "1.1.0"
-stage: "migrate-environment"
+version: 1.1.0
+stage: migrate-environment
+description: Migrate Environment scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 环境迁移 (Migrate Environment)

@@ -281,6 +281,28 @@ manage_secrets_result:
 
 ## Output Format
 
-> Standard output structure for manage-secrets deliverables
+```markdown
+## Secret Management Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Secret Architecture**: Architecture diagram and access flow documentation
+2. **Vault Configuration**: HashiCorp Vault/KMS configuration files
+3. **Access Control Matrix**: Role-to-secret permission mapping
+4. **Rotation Procedures**: Automated and manual rotation playbooks
+5. **Audit Policy**: Access logging and audit trail configuration
+
+### Validation Checklist
+- [ ] Secret rotation compliance is 100%
+- [ ] All secret access is logged and auditable
+- [ ] Secret leak detection time is under 1 hour
+- [ ] No secrets exist in source code or logs
+
+### Next Steps
+- [ ] Enable automated rotation for critical secrets
+- [ ] Conduct access review quarterly
+```
 

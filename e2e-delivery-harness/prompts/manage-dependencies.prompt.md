@@ -242,6 +242,28 @@ handoff:
 
 ## Output Format
 
-> Standard output structure for manage-dependencies deliverables
+```markdown
+## Dependency Management Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Dependency Analysis**: Direct and transitive dependency inventory
+2. **Vulnerability Report**: CVE impact assessment and remediation plan
+3. **License Compliance**: License compatibility check results
+4. **Update Recommendations**: Prioritized dependency update plan
+5. **SBOM**: Software Bill of Materials export
+
+### Validation Checklist
+- [ ] All known CVEs are identified and tracked
+- [ ] License compliance is 100% with no prohibited licenses
+- [ ] Critical patches are applied within 30 days
+- [ ] Dependency update cadence is maintained
+
+### Next Steps
+- [ ] Schedule vulnerability remediation sprint
+- [ ] Automate dependency update checks
+```
 

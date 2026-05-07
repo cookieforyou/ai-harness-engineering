@@ -335,6 +335,28 @@ handoff_to_deployment:
 
 ## Output Format
 
-> Standard output structure for performance-testing deliverables
+```markdown
+## Performance Testing Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Test Plan**: Scenarios, load models, and acceptance criteria
+2. **Test Scripts**: JMeter/k6/Locust performance test scripts
+3. **Test Results**: Metrics, charts, and statistical analysis
+4. **Bottleneck Analysis**: Root cause identification for each bottleneck
+5. **Tuning Recommendations**: Prioritized optimization suggestions
+
+### Validation Checklist
+- [ ] SLO achievement rate is 99.5% or higher
+- [ ] All known bottlenecks are identified and documented
+- [ ] Test validity correlation is 95% or higher
+- [ ] Results are reproducible across runs
+
+### Next Steps
+- [ ] Share results with engineering team
+- [ ] Create optimization backlog items
+```
 

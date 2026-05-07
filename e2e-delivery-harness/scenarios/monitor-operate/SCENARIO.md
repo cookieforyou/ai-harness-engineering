@@ -4,7 +4,8 @@ description: 监控运维场景，负责系统上线后的监控、告警和运�
 type: scenario
 category: operations
 stage: monitoring
-version: "1.1.0"
+version: 1.1.0
+author: AI Harness Engineering Team
 ---
 
 # Monitor Operate

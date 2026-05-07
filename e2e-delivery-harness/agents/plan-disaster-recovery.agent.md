@@ -1,11 +1,12 @@
 ---
 name: plan-disaster-recovery
-role: "Plan Disaster Recovery Agent"
+role: Plan Disaster Recovery Agent
 description: 灾备恢复规划专家 Agent，负责规划和验证灾备能力
 type: agent
-version: "1.1.0"
-applyTo: "plan-disaster-recovery"
-capabilities: 
+version: 1.1.0
+applyTo: plan-disaster-recovery
+capabilities: null
+stage: operations
 ---
 
 # DR Planner Agent

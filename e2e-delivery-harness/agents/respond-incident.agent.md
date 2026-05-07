@@ -1,11 +1,12 @@
 ---
 name: respond-incident
-role: "Respond Incident Agent"
+role: Respond Incident Agent
 description: 事件指挥官 Agent，负责协调和指挥事件响应
 type: agent
-version: "1.1.0"
-applyTo: "respond-incident"
-capabilities: 
+version: 1.1.0
+applyTo: respond-incident
+capabilities: null
+stage: monitoring
 ---
 
 # Incident Commander Agent

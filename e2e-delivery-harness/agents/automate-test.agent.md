@@ -1,11 +1,12 @@
 ---
 name: automate-test
-role: "Automate Test Agent"
+role: Automate Test Agent
 description: automate test specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "automate-test"
+type: agent
+version: 1.1.0
+applyTo: automate-test
 tools: []
+stage: testing
 ---
 
 # Agent: Test Automation Engineer (测试自动化工程师)

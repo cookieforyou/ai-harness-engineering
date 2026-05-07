@@ -2,13 +2,15 @@
 name: plan-disaster-recovery
 description: 灾备恢复场景，规划和实施灾难恢复策略，确保业务连续性
 type: scenario
-version: "1.1.0"
+version: 1.1.0
 trigger: 当需要进行灾备规划或演练时触发
 agent: design-architecture
 phase: monitor-operate
-tags: 
-input: 
-output: 
+tags: null
+input: null
+output: null
+author: AI Harness Engineering Team
+stage: operations
 ---
 
 # Disaster Recovery Planning Scenario

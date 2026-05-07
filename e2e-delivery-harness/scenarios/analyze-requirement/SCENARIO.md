@@ -4,7 +4,8 @@ description: 需求分析场景，负责将原始业务需求转换为结构化�
 type: scenario
 category: planning
 stage: requirement-analysis
-version: "1.1.0"
+version: 1.1.0
+author: AI Harness Engineering Team
 ---
 
 # Analyze Requirement

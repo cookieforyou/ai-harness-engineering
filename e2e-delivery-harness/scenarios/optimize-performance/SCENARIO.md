@@ -1,7 +1,10 @@
 ---
 name: optimize-performance
-version: "1.1.0"
-stage: "optimize-performance"
+version: 1.1.0
+stage: optimize-performance
+description: Optimize Performance scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 性能优化 (Optimize Performance)

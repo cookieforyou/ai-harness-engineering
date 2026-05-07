@@ -136,7 +136,7 @@ e2e-delivery-harness/
 │   │   └── SCENARIO.md
 │   ├── migrate-data/           # 数据迁移场景 (扩展)
 │   │   └── SCENARIO.md
-│   ├── hotfix/                # 紧急修复场景 (扩展)
+│   ├── apply-hotfix/                # 紧急修复场景 (扩展)
 │   │   └── SCENARIO.md
 │   ├── review-design/          # 技术方案评审场景 (扩展)
 │   │   └── SCENARIO.md
@@ -199,7 +199,7 @@ e2e-delivery-harness/
 │   ├── review-incident.agent.md
 │   ├── performance-testing.agent.md
 │   ├── migrate-data.agent.md
-│   ├── hotfix.agent.md
+│   ├── apply-hotfix.agent.md
 │   ├── review-design.agent.md
 │   ├── plan-capacity.agent.md
 │   ├── automate-test.agent.md
@@ -252,7 +252,7 @@ e2e-delivery-harness/
 │   │   └── SKILL.md
 │   ├── migrate-data/
 │   │   └── SKILL.md
-│   ├── hotfix/
+│   ├── apply-hotfix/
 │   │   └── SKILL.md
 │   ├── review-design/
 │   │   └── SKILL.md
@@ -316,7 +316,7 @@ e2e-delivery-harness/
 │   ├── review-incident.instructions.md
 │   ├── performance-testing.instructions.md
 │   ├── migrate-data.instructions.md
-│   ├── hotfix.instructions.md
+│   ├── apply-hotfix.instructions.md
 │   ├── review-design.instructions.md
 │   ├── plan-capacity.instructions.md
 │   ├── automate-test.instructions.md
@@ -356,7 +356,7 @@ e2e-delivery-harness/
 │   ├── review-incident.prompt.md
 │   ├── performance-testing.prompt.md
 │   ├── migrate-data.prompt.md
-│   ├── hotfix.prompt.md
+│   ├── apply-hotfix.prompt.md
 │   ├── review-design.prompt.md
 │   ├── plan-capacity.prompt.md
 │   ├── automate-test.prompt.md
@@ -544,7 +544,7 @@ All 37 scenarios are grouped by E2E delivery phase:
 | 34 | respond-incident | respond-incident | Incident response |
 | 35 | review-incident | review-incident | Incident postmortem review |
 | 36 | plan-disaster-recovery | plan-disaster-recovery | Disaster recovery planning |
-| 37 | hotfix | hotfix | Emergency hotfix deployment |
+| 37 | apply-hotfix | apply-hotfix | Emergency apply-hotfix deployment |
 
 ---
 
@@ -588,7 +588,7 @@ All 37 scenarios are grouped by E2E delivery phase:
 | Governance | respond-incident | respond-incident | respond-incident | respond-incident | respond-incident |
 | Governance | review-incident | review-incident | review-incident | review-incident | review-incident |
 | Governance | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery |
-| Governance | hotfix | hotfix | hotfix | hotfix | hotfix |
+| Governance | apply-hotfix | apply-hotfix | apply-hotfix | apply-hotfix | apply-hotfix |
 
 ---
 ## 端到端 Pipeline

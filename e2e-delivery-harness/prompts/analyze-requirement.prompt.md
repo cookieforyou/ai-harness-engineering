@@ -144,7 +144,30 @@ END
 ## Output Format
 
 ```markdown
-# 需求规格说明书
+## Requirement Analysis Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Requirements Specification**: Structured functional and non-functional requirements with acceptance criteria
+2. **Stakeholder Analysis**: Impact and interest matrix for all identified stakeholders
+3. **Use Case Model**: System use cases and business process descriptions
+4. **Traceability Matrix**: Mapping from business objectives to requirements
+5. **Constraints & Assumptions**: Documented limitations and assumptions
+
+### Validation Checklist
+- [ ] All requirements have unambiguous acceptance criteria
+- [ ] Stakeholder sign-off is obtained for scope baseline
+- [ ] Traceability matrix covers all business objectives
+- [ ] No conflicting or duplicate requirements remain
+
+### Next Steps
+- [ ] Review requirements with stakeholders
+- [ ] Proceed to system design phase
+```
+
 
 ## 1. Document Information
 - 项目名称：

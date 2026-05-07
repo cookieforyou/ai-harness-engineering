@@ -285,6 +285,28 @@ design_architecture_result:
 
 ## Output Format
 
-> Standard output structure for design-architecture deliverables
+```markdown
+## Architecture Design Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Architecture Vision**: Target architecture state description
+2. **Architecture Decisions**: ADRs with rationale and trade-offs
+3. **Component Model**: System decomposition diagrams
+4. **Deployment Model**: Environment topology and infrastructure mapping
+5. **Quality Attribute Scenarios**: Measurable quality goals and strategies
+
+### Validation Checklist
+- [ ] All quality attributes have verifiable scenarios
+- [ ] ADRs are complete with rationale and trade-offs
+- [ ] Architecture review achieves stakeholder consensus
+- [ ] Design aligns with organizational constraints
+
+### Next Steps
+- [ ] Schedule architecture review
+- [ ] Proceed to detailed system design
+```
 

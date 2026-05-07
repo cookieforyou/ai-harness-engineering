@@ -135,7 +135,30 @@ END
 ## Output Format
 
 ```markdown
-# 架构设计文档
+## System Design Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **System Design Document**: Module decomposition and component interactions
+2. **Data Flow Diagrams**: Data movement between components
+3. **Interface Definitions**: API/module contracts and protocol specifications
+4. **Technology Stack**: Recommended stack with selection rationale
+5. **Design Decisions**: ADRs documenting key architectural choices
+
+### Validation Checklist
+- [ ] Design completeness covers all functional requirements
+- [ ] All requirements are traceable to design elements
+- [ ] Design review passes with 90% or higher acceptance
+- [ ] Integration points are clearly defined
+
+### Next Steps
+- [ ] Conduct design review with stakeholders
+- [ ] Proceed to implementation planning
+```
+
 
 ## 1. Document Information
 - 项目名称：

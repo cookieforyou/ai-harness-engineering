@@ -1,7 +1,10 @@
 ---
 name: integrate-monitor
-version: "1.1.0"
-stage: "integrate-monitor"
+version: 1.1.0
+stage: integrate-monitor
+description: Integrate Monitor scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 监控集成 (Integrate Monitor)

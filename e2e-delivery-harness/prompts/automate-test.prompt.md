@@ -224,6 +224,28 @@ automate_test_result:
 
 ## Output Format
 
-> Standard output structure for automate-test deliverables
+```markdown
+## Test Automation Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Automation Scripts**: Test scripts for selected automation framework
+2. **Page Object Model**: Maintainable UI test models or API test contracts
+3. **Test Data Strategy**: Data management and isolation approach
+4. **CI Pipeline Config**: Integration configuration for automated execution
+5. **Execution Guide**: Maintenance and execution instructions
+
+### Validation Checklist
+- [ ] Automated test coverage meets team targets
+- [ ] Test flakiness rate is below 5%
+- [ ] CI pipeline integration passes consistently
+- [ ] Scripts follow maintainability standards
+
+### Next Steps
+- [ ] Integrate into CI/CD pipeline
+- [ ] Monitor flaky test rate
+```
 

@@ -10,7 +10,8 @@ stage: document-project
 
 ## Overview
 
-本文档定义了项目文档编写的详细技术规范和最佳实践。
+This instruction defines the comprehensive technical specifications and standards for project documentation within the E2E delivery lifecycle. It covers the creation, maintenance, and governance of all technical documentation including API documentation, architectural decision records (ADRs), runbooks, user guides, and inline code documentation. The instruction ensures documentation remains consistent with implementation, supports onboarding and knowledge transfer, and integrates with documentation-as-code practices using tools like Markdown, Docusaurus, MkDocs, or Confluence. Key focus areas include diagramming standards, versioning strategies, and automated freshness checks to prevent documentation drift.
+
 
 ## Document Type Standards
 

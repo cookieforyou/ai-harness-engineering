@@ -10,7 +10,8 @@ stage: review-design
 
 ## Overview
 
-本文档定义了技术方案评审的评审维度和标准。
+This instruction establishes the comprehensive technical standards and evaluation criteria for reviewing system and software design artifacts within the E2E delivery lifecycle. It covers design completeness assessment, quality attribute validation, security and scalability review dimensions, ADR evaluation, and traceability verification against requirements. The instruction ensures designs are reviewed systematically with measurable quality gates, capturing risks early before implementation investment.
+
 
 ## Review Dimensions
 

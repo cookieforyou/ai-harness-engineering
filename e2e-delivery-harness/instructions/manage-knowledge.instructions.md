@@ -10,7 +10,8 @@ version: "1.1.0"
 
 ## Overview
 
-本指令提供知识管理的详细技术规范和最佳实践。
+This instruction provides the comprehensive technical specifications and governance framework for knowledge management across engineering teams. It covers knowledge base architecture, taxonomy design, documentation lifecycle management, search and retrieval optimization, and content quality standards. The instruction ensures organizational knowledge is captured, discoverable, and maintained as a first-class engineering asset. Key focus areas include ownership models, review cadences, deprecation policies, and integration with developer workflows to maximize knowledge reuse and minimize silos.
+
 
 ## Documentation Types
 

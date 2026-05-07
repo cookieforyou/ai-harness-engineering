@@ -252,6 +252,28 @@ handoff:
 
 ## Output Format
 
-> Standard output structure for plan-disaster-recovery deliverables
+```markdown
+## Disaster Recovery Planning Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **DR Strategy**: Cold/warm/hot/active-active architecture decision
+2. **DR Procedures**: Step-by-step disaster recovery operations manual
+3. **DR Test Plan**: Drill scenarios and success criteria
+4. **Failover Architecture**: Failover topology diagrams
+5. **Vendor Contacts**: Critical supplier and emergency contact list
+
+### Validation Checklist
+- [ ] RTO and RPO targets are achievable and verified
+- [ ] RPO compliance is 100% with acceptable data loss
+- [ ] Full DR drill is conducted at least annually
+- [ ] DR procedures are accessible during system outage
+
+### Next Steps
+- [ ] Schedule first DR drill
+- [ ] Review and update procedures quarterly
+```
 

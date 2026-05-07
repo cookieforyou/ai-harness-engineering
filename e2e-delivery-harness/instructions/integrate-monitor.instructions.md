@@ -10,7 +10,8 @@ stage: integrate-monitor
 
 ## Overview
 
-本文档定义了监控集成的详细技术规范和最佳实践。
+This instruction defines the comprehensive technical specifications for integrating observability and monitoring capabilities into systems across the E2E delivery lifecycle. It covers instrumentation strategies using OpenTelemetry, Prometheus, or cloud-native monitoring services; metric definition standards (naming, labeling, cardinality); alerting rule design with signal-to-noise optimization; and dashboard creation best practices. The instruction ensures systems are observable from day one, with actionable alerts, meaningful SLIs/SLOs, and comprehensive tracing for distributed systems.
+
 
 ## Monitoring Methodology
 

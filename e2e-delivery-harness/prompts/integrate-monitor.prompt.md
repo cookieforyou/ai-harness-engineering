@@ -214,6 +214,28 @@ labels:
 
 ## Output Format
 
-> Standard output structure for integrate-monitor deliverables
+```markdown
+## Monitoring Integration Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Instrumentation Code**: Code-level metrics and tracing implementation
+2. **Metric Definitions**: Standardized metric names, labels, and types
+3. **Alerting Rules**: Condition-based alert configurations
+4. **Dashboard Exports**: Pre-configured monitoring dashboards
+5. **Integration Guide**: Operational guide for maintenance
+
+### Validation Checklist
+- [ ] Metric coverage for critical components is 90% or higher
+- [ ] Instrumentation overhead is 5% or lower
+- [ ] Dashboard utilization is 70% or higher
+- [ ] Alerts are actionable with runbook links
+
+### Next Steps
+- [ ] Validate alerting with test scenarios
+- [ ] Train operations team on dashboards
+```
 

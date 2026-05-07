@@ -10,7 +10,8 @@ version: "1.1.0"
 
 ## Overview
 
-本指令提供灾备恢复规划的详细技术规范和实施指南。
+This instruction provides the comprehensive technical specifications and implementation guidance for disaster recovery planning across mission-critical systems. It covers DR strategy selection (cold/warm/hot/active-active), RTO/RPO target definition, failover automation design, backup validation procedures, and recovery drill execution. The instruction ensures business continuity during catastrophic failures by defining recoverable system boundaries, documenting step-by-step recovery procedures, and maintaining regular drill cadences to validate and improve recovery capabilities.
+
 
 ## Recovery Architectures
 

@@ -1,7 +1,10 @@
 ---
 name: manage-secrets
-version: "1.1.0"
-stage: "manage-secrets"
+version: 1.1.0
+stage: manage-secrets
+description: Manage Secrets scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 密钥管理 (Manage Secrets)

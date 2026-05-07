@@ -1,7 +1,10 @@
 ---
 name: plan-sprint
-version: "1.1.0"
-stage: "plan-sprint"
+version: 1.1.0
+stage: plan-sprint
+description: Plan Sprint scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 冲刺规划 (Plan Sprint)

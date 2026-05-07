@@ -278,6 +278,28 @@ design_database_result:
 
 ## Output Format
 
-> Standard output structure for design-database deliverables
+```markdown
+## Database Design Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Entity Relationship Diagram**: ER diagram with entities, attributes, and relationships
+2. **Schema Definition**: DDL scripts or schema definition document
+3. **Indexing Strategy**: Index recommendations based on query patterns
+4. **Data Dictionary**: Field definitions, constraints, and defaults
+5. **Migration Plan**: Schema change strategy (if applicable)
+
+### Validation Checklist
+- [ ] Schema achieves third normal form (3NF)
+- [ ] Index coverage meets 90% of frequent queries
+- [ ] All tables and columns have documented descriptions
+- [ ] Data integrity constraints are complete
+
+### Next Steps
+- [ ] Review schema with DBA and development team
+- [ ] Set up database migration pipeline
+```
 

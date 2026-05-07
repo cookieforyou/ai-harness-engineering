@@ -167,7 +167,32 @@ handover:
 
 ## Output Format
 
-> Standard output structure for optimize-performance deliverables
+```markdown
+## Performance Optimization Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Optimization Plan**: Prioritized improvement initiatives
+2. **Optimized Configuration**: Updated code/config with performance gains
+3. **Before/After Metrics**: Comparative performance analysis
+4. **Implementation Guide**: Step-by-step optimization deployment
+5. **Regression Test Results**: Verification of non-target metrics
+
+### Validation Checklist
+- [ ] Target metric improves by 20% or more
+- [ ] No regression in non-target metrics
+- [ ] Optimization cost does not exceed resource budget
+- [ ] Changes are reviewed and approved
+
+### Next Steps
+- [ ] Deploy optimizations incrementally
+- [ ] Monitor metrics for stability period
+```
+
+
 ## Error Handling
 
 | Error Code | Description | Resolution |

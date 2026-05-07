@@ -1,11 +1,12 @@
 ---
 name: plan-capacity
-role: "Plan Capacity Agent"
+role: Plan Capacity Agent
 description: plan capacity specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "plan-capacity"
+type: agent
+version: 1.1.0
+applyTo: plan-capacity
 tools: []
+stage: operations
 ---
 
 # Agent: Capacity Planner (容量规划工程师)

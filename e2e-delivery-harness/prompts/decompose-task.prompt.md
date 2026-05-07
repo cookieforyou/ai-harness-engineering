@@ -178,7 +178,30 @@ END
 ## Output Format
 
 ```markdown
-# 任务分解清单
+## Task Decomposition Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Task Breakdown**: Decomposed sub-tasks with dependency relationships
+2. **Estimation Sheet**: Story points or hours per task
+3. **Assignment Plan**: Task-to-team-member allocation recommendations
+4. **Dependency Graph**: Visual or textual task dependency mapping
+5. **Iteration Plan**: Sprint-ready task organization
+
+### Validation Checklist
+- [ ] All tasks meet Definition of Ready criteria
+- [ ] Estimation variance is within acceptable threshold
+- [ ] Dependency map is complete and reviewed
+- [ ] No task exceeds single-sprint capacity
+
+### Next Steps
+- [ ] Present decomposition to team
+- [ ] Load tasks into sprint backlog
+```
+
 
 ## 1. Document Information
 - 项目名称：

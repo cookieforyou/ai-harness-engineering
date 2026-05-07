@@ -212,6 +212,28 @@ HIGH 升级条件:
 
 ## Output Format
 
-> Standard output structure for manage-change deliverables
+```markdown
+## Change Management Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Change Record**: Documented change with status and timeline
+2. **Impact Analysis**: System, team, and user impact assessment
+3. **Approval Status**: Approval chain documentation
+4. **Execution Schedule**: Change implementation window and steps
+5. **Validation Results**: Post-change verification results
+
+### Validation Checklist
+- [ ] Change success rate target is met
+- [ ] Approval SLA is within 24 hours
+- [ ] Change-correlated incident rate is below 2%
+- [ ] Rollback plan is tested and ready
+
+### Next Steps
+- [ ] Execute change in approved window
+- [ ] Monitor for incidents post-change
+```
 

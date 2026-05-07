@@ -1,11 +1,12 @@
 ---
 name: review-design
-role: "Review Design Agent"
+role: Review Design Agent
 description: review design specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "review-design"
+type: agent
+version: 1.1.0
+applyTo: review-design
 tools: []
+stage: design
 ---
 
 # Agent: Technical Reviewer (技术评审专家)

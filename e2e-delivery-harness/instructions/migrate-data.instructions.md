@@ -10,7 +10,8 @@ stage: migrate-data
 
 ## Overview
 
-本文档定义了数据迁移阶段的技术规范和执行标准。
+This instruction defines the technical standards and execution procedures for data migration projects within the E2E delivery lifecycle. It covers migration strategy selection (big-bang vs. incremental vs. synchronization), ETL pipeline design, data quality validation techniques, zero-downtime migration patterns, and rollback strategies. The instruction ensures data integrity is preserved throughout migration, downstream consumers are properly notified and validated, and business continuity is maintained. Key focus areas include consistency checks, reconciliation procedures, and performance optimization for large-scale data movements.
+
 
 ## Migration Strategy
 

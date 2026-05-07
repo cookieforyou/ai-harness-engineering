@@ -1,11 +1,12 @@
 ---
 name: manage-change
-role: "Manage Change Agent"
+role: Manage Change Agent
 description: manage change specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "manage-change"
+type: agent
+version: 1.1.0
+applyTo: manage-change
 tools: []
+stage: governance
 ---
 
 # Agent: Change Manager (变更经理)

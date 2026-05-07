@@ -289,6 +289,29 @@ handoff:
 
 ## Output Format
 
-> Standard output structure for respond-incident deliverables
+```markdown
+## Incident Response Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Severity: [P0 | P1 | P2 | P3]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Incident Timeline**: Chronological record of events and actions
+2. **Impact Assessment**: User, business, and SLA impact analysis
+3. **Mitigation Actions**: List of executed containment and recovery steps
+4. **Communication Updates**: Stakeholder notification history
+5. **Resolution Summary**: Root cause hypothesis and resolution details
+
+### Validation Checklist
+- [ ] MTTR is within SLA for severity level
+- [ ] Escalation accuracy is 90% or higher
+- [ ] First communication is sent within 15 minutes
+- [ ] Timeline is complete and accurate
+
+### Next Steps
+- [ ] Schedule post-incident review
+- [ ] Create follow-up action items
+```
 

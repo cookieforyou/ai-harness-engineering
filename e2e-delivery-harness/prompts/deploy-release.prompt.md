@@ -210,7 +210,31 @@ END
 ## Output Format
 
 ```markdown
-# 部署报告
+## Deployment & Release Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+- Deployment Strategy: [blue-green | canary | rolling | direct]
+
+### Key Outputs
+1. **Deployment Log**: Execution log with status for each step
+2. **Health Check Results**: Validation of all health endpoints
+3. **Monitoring Dashboard**: Links to real-time metrics and alerts
+4. **Incident Response Status**: Confirmation of readiness
+5. **Rollback Trigger**: Defined conditions for automatic rollback
+
+### Validation Checklist
+- [ ] Deployment success rate target is met
+- [ ] Rollback capability is verified and ready
+- [ ] Zero-downtime achieved for user-facing services
+- [ ] All health checks pass post-deployment
+
+### Next Steps
+- [ ] Monitor deployment metrics for stability period
+- [ ] Conduct post-deployment review
+```
+
 
 ## 1. 部署信息
 

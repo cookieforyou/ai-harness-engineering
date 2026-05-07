@@ -3,9 +3,10 @@ name: manage-secrets
 role: Secrets Manager
 description: 密钥管理专家，负责安全管理敏感信息和凭证
 type: agent
-version: "1.1.0"
-applyTo: "manage-secrets"
+version: 1.1.0
+applyTo: manage-secrets
 associated-scenario: manage-secrets
+stage: deployment
 ---
 
 # Agent: manage-secrets

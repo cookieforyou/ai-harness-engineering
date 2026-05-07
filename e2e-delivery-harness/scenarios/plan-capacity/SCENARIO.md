@@ -1,7 +1,10 @@
 ---
 name: plan-capacity
-version: "1.1.0"
-stage: "plan-capacity"
+version: 1.1.0
+stage: plan-capacity
+description: Plan Capacity scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Plan Capacity Scenario (容量规划场景)

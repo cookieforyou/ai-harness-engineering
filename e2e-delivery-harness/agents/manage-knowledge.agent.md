@@ -1,11 +1,12 @@
 ---
 name: manage-knowledge
-role: "Manage Knowledge Agent"
+role: Manage Knowledge Agent
 description: 知识管理专家 Agent，负责创建和维护团队知识库
 type: agent
-version: "1.1.0"
-applyTo: "manage-knowledge"
-capabilities: 
+version: 1.1.0
+applyTo: manage-knowledge
+capabilities: null
+stage: governance
 ---
 
 # Knowledge Manager Agent

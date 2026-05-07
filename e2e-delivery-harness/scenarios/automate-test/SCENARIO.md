@@ -1,7 +1,10 @@
 ---
 name: automate-test
-version: "1.1.0"
-stage: "automate-test"
+version: 1.1.0
+stage: automate-test
+description: Automate Test scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 自动化测试 (Automate Test)

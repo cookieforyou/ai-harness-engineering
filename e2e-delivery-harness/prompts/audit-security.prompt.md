@@ -287,6 +287,29 @@ interface Vulnerability {
 
 ## Output Format
 
-> Standard output structure for audit-security deliverables
+```markdown
+## Security Audit Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+- Risk Level: [critical | high | medium | low]
+
+### Key Outputs
+1. **Audit Report**: Comprehensive security audit findings with evidence
+2. **Finding Register**: List of issues with severity, evidence, and remediation recommendations
+3. **Compliance Matrix**: Mapping against target frameworks (ISO27001, SOC2, etc.)
+4. **Remediation Plan**: Prioritized action items with timelines and owners
+5. **Risk Register**: Security risk assessment summary
+
+### Validation Checklist
+- [ ] All critical and high findings have remediation plans
+- [ ] Compliance coverage meets target framework requirements
+- [ ] Audit trail is complete and tamper-evident
+- [ ] Risk ratings are justified with evidence
+
+### Next Steps
+- [ ] Present findings to security committee
+- [ ] Track remediation progress
+```
 

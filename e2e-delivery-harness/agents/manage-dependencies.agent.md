@@ -1,11 +1,12 @@
 ---
 name: manage-dependencies
-role: "Manage Dependencies Agent"
+role: Manage Dependencies Agent
 description: 依赖管理工程师 Agent，负责管理和优化项目依赖
 type: agent
-version: "1.1.0"
-applyTo: "manage-dependencies"
-capabilities: 
+version: 1.1.0
+applyTo: manage-dependencies
+capabilities: null
+stage: governance
 ---
 
 # Dependency Engineer Agent

@@ -1,11 +1,12 @@
 ---
 name: implement-cicd
-role: "Implement Cicd Agent"
+role: Implement Cicd Agent
 description: implement cicd specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "implement-cicd"
+type: agent
+version: 1.1.0
+applyTo: implement-cicd
 tools: []
+stage: deployment
 ---
 
 # Agent: CI/CD Engineer (CI/CD 工程师)

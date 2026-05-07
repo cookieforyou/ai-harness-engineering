@@ -1,11 +1,12 @@
 ---
 name: deploy-release
-role: "Deploy Release Agent"
+role: Deploy Release Agent
 description: deploy release specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "deploy-release"
+type: agent
+version: 1.1.0
+applyTo: deploy-release
 tools: []
+stage: deployment
 ---
 
 # Agent: DevOps Engineer (运维工程师)

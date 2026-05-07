@@ -1,11 +1,12 @@
 ---
 name: design-database
-role: "Design Database Agent"
+role: Design Database Agent
 description: design database specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "design-database"
+type: agent
+version: 1.1.0
+applyTo: design-database
 tools: []
+stage: design
 ---
 
 # Agent: Database Architect (数据库架构师)

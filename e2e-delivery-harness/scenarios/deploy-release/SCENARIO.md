@@ -4,7 +4,8 @@ description: 部署发布场景，负责将软件部署到目标环境并完成�
 type: scenario
 category: operations
 stage: deployment
-version: "1.1.0"
+version: 1.1.0
+author: AI Harness Engineering Team
 ---
 
 # Deploy Release

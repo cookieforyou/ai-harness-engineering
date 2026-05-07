@@ -1,11 +1,17 @@
 ---
 name: document-project
-role: "Document Project Agent"
+role: Document Project Agent
 description: 负责项目文档规划、编写和维护的AI角色代理
-type: "agent"
-version: "1.1.0"
-applyTo: "document-project"
-tools: ["search", "edit", "analyze", "document", "review"]
+type: agent
+version: 1.1.0
+applyTo: document-project
+tools:
+- search
+- edit
+- analyze
+- document
+- review
+stage: governance
 ---
 
 # Technical Writer (技术文档工程师)

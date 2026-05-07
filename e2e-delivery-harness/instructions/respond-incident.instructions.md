@@ -10,7 +10,8 @@ version: "1.1.0"
 
 ## Overview
 
-本指令提供事件响应的详细技术规范和执行指南。
+This instruction defines the technical execution standards and operational procedures for incident response across the E2E delivery lifecycle. It covers incident classification and severity assignment, triage procedures, communication cadences, escalation paths, mitigation techniques, and post-incident stabilization procedures. The instruction ensures rapid, coordinated response to production incidents with clear roles, defined service level targets for detection and resolution, and continuous improvement through blameless post-incident reviews.
+
 
 ## Incident Lifecycle
 

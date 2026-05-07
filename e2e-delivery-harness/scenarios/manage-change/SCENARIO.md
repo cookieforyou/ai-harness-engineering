@@ -2,9 +2,11 @@
 name: manage-change
 type: scenario
 stage: cross-phase
-version: "1.1.0"
+version: 1.1.0
 difficulty: medium
-prerequisites: 
+prerequisites: null
+description: Manage Change scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
 ---
 
 # Change Management Scenario

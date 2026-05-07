@@ -3,9 +3,10 @@ name: migrate-data
 role: Data Migration Engineer
 description: 数据迁移工程师，负责设计和执行数据迁移方案
 type: agent
-version: "1.1.0"
-applyTo: "migrate-data"
+version: 1.1.0
+applyTo: migrate-data
 associated-scenario: migrate-data
+stage: deployment
 ---
 
 # Agent: migrate-data

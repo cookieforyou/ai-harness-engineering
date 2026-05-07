@@ -10,7 +10,8 @@ stage: plan-capacity
 
 ## Overview
 
-本文档定义了容量规划的技术规范和方法。
+This instruction defines the technical methodology and standards for capacity planning across infrastructure, compute, storage, and team resources. It covers workload forecasting models, demand-based scaling strategies, cost-performance optimization, and procurement readiness planning. The instruction ensures systems maintain adequate headroom for growth while avoiding over-provisioning waste. Key focus areas include seasonal pattern analysis, autoscaling policy design, multi-region capacity distribution, and integration with financial planning cycles.
+
 
 ## Capacity Assessment Methods
 

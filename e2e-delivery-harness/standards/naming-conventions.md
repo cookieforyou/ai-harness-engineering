@@ -234,7 +234,7 @@ scenarios/
 | prepare | 准备 | `prepare-release` |
 | document | 文档化 | `document-project` |
 | respond | 响应处理 | `respond-incident` |
-| hotfix | 热修复 | `hotfix` |
+| apply-hotfix | 热修复 | `apply-hotfix` |
 
 ## 禁止的命名模式
 

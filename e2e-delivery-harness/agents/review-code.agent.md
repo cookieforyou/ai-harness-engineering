@@ -61,7 +61,7 @@ applyTo: "review-code"
 - 阻塞问题必须说明
 - 建议应提供理由
 
-## Handoff Protocol
+## Handoff
 
 ### 交接给开发者
 

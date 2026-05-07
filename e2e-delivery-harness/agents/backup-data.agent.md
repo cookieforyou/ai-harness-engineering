@@ -1,11 +1,12 @@
 ---
 name: backup-data
-role: "Backup Data Agent"
+role: Backup Data Agent
 description: backup data specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "backup-data"
+type: agent
+version: 1.1.0
+applyTo: backup-data
 tools: []
+stage: deployment
 ---
 
 # Agent: Data Backup Engineer (数据备份工程师)

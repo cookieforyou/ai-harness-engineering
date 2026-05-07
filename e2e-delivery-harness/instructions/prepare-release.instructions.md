@@ -38,7 +38,7 @@ version_rules:
     example: "1.0.0-alpha.1"
     description: "测试版本"
 
-  hotfix:
+  apply-hotfix:
     trigger: "紧急修复"
     example: "1.0.1"
     description: "生产问题紧急修复"

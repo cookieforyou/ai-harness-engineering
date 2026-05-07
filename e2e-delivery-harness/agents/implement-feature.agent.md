@@ -1,11 +1,17 @@
 ---
 name: implement-feature
-role: "Implement Feature Agent"
+role: Implement Feature Agent
 description: 负责代码开发实现的AI角色代理，按照任务清单完成功能开发和代码实现
-type: "agent"
-version: "1.1.0"
-applyTo: "implement-feature"
-tools: ["codebase", "search", "edit", "test", "document"]
+type: agent
+version: 1.1.0
+applyTo: implement-feature
+tools:
+- codebase
+- search
+- edit
+- test
+- document
+stage: development
 ---
 
 # Developer

@@ -4,7 +4,8 @@ description: 开发实现场景，按照任务清单完成代码开发、单元�
 type: scenario
 category: development
 stage: development
-version: "1.1.0"
+version: 1.1.0
+author: AI Harness Engineering Team
 ---
 
 # Implement Feature

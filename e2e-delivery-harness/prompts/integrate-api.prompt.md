@@ -281,6 +281,28 @@ integrate_api_result:
 
 ## Output Format
 
-> Standard output structure for integrate-api deliverables
+```markdown
+## API Integration Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Integration Code**: API client/SDK integration implementation
+2. **Test Cases**: Integration tests with mock data
+3. **Error Handling Implementation**: Retry, circuit breaker, and fallback logic
+4. **Integration Guide**: Usage guide for consuming the API
+5. **Contract Documentation**: Interface definitions and examples
+
+### Validation Checklist
+- [ ] Integration test pass rate is 95% or higher
+- [ ] All error codes have corresponding handling logic
+- [ ] API latency P99 is within SLA thresholds
+- [ ] Backward compatibility is maintained (if applicable)
+
+### Next Steps
+- [ ] Conduct integration testing
+- [ ] Monitor API consumption metrics
+```
 

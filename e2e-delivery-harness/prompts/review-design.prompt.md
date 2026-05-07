@@ -113,6 +113,28 @@ handover_to_design_team:
 
 ## Output Format
 
-> Standard output structure for review-design deliverables
+```markdown
+## Design Review Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Review Report**: Findings organized by category and severity
+2. **Action Items**: Required changes with owners and deadlines
+3. **Approval Status**: Pass / conditional pass / reject
+4. **Risk Assessment**: Design risks and mitigation recommendations
+5. **Traceability Check**: Requirements-to-design coverage verification
+
+### Validation Checklist
+- [ ] Issue detection rate is 95% or higher
+- [ ] Review turnaround is 2 days or less
+- [ ] Defect escape rate after review is 5% or lower
+- [ ] All findings have clear remediation guidance
+
+### Next Steps
+- [ ] Communicate review results to design team
+- [ ] Track action items to closure
+```
 

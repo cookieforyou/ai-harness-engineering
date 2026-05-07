@@ -163,6 +163,28 @@ handover_to_production:
 
 ## Output Format
 
-> Standard output structure for migrate-data deliverables
+```markdown
+## Data Migration Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Migration Plan**: Detailed execution plan with timelines
+2. **Migration Scripts**: ETL/migration scripts with rollback capability
+3. **Validation Queries**: Data consistency check SQL/scripts
+4. **Rollback Procedures**: Step-by-step rollback instructions
+5. **Performance Estimates**: Migration duration and resource projections
+
+### Validation Checklist
+- [ ] Data integrity validation passes 100%
+- [ ] Downtime is within budget constraints
+- [ ] Rollback capability is maintained throughout migration
+- [ ] All downstream consumers are notified and validated
+
+### Next Steps
+- [ ] Execute migration in approved window
+- [ ] Validate downstream systems post-migration
+```
 

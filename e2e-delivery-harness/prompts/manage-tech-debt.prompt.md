@@ -258,6 +258,28 @@ handoff:
 
 ## Output Format
 
-> Standard output structure for manage-tech-debt deliverables
+```markdown
+## Technical Debt Management Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Tech Debt Inventory**: Categorized debt with impact and cost estimates
+2. **Prioritization Matrix**: Business impact vs. remediation cost mapping
+3. **Refactoring Plan**: Iterative repayment schedule
+4. **Investment Proposal**: Capacity allocation recommendation for debt repayment
+5. **Metrics Dashboard**: Debt trend and impact visualization
+
+### Validation Checklist
+- [ ] All known debt is registered and visible
+- [ ] Debt paydown rate is 10% or higher per quarter
+- [ ] Debt impact on delivery decreases 15% year-over-year
+- [ ] Stakeholders are informed of debt status
+
+### Next Steps
+- [ ] Present prioritization to leadership
+- [ ] Allocate sprint capacity for refactoring
+```
 

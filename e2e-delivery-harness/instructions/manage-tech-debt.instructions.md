@@ -10,7 +10,8 @@ version: "1.1.0"
 
 ## Overview
 
-本指令提供技术债务管理的详细技术规范和工具使用指南。
+This instruction establishes the technical standards and governance framework for identifying, tracking, and strategically managing technical debt across the software delivery lifecycle. It covers debt quantification methodologies, prioritization frameworks balancing business impact against remediation cost, refactoring strategies that minimize delivery risk, and investment proposals for leadership alignment. The instruction ensures technical debt remains visible and actively managed rather than accumulating silently, with measurable paydown targets and trend tracking.
+
 
 ## Debt Quantification Framework
 

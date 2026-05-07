@@ -1,11 +1,17 @@
 ---
 name: monitor-operate
-role: "Monitor Operate Agent"
+role: Monitor Operate Agent
 description: 负责监控与运维的AI角色代理，监控系统运行状态，处理运维事件和故障
-type: "agent"
-version: "1.1.0"
-applyTo: "monitor-operate"
-tools: ["search", "edit", "analyze", "monitor", "document"]
+type: agent
+version: 1.1.0
+applyTo: monitor-operate
+tools:
+- search
+- edit
+- analyze
+- monitor
+- document
+stage: monitoring
 ---
 
 # SRE Monitor

@@ -4,7 +4,8 @@ description: 任务拆分场景，负责将需求分解为可执行的技术任�
 type: scenario
 category: planning
 stage: task-decomposition
-version: "1.1.0"
+version: 1.1.0
+author: AI Harness Engineering Team
 ---
 
 # Decompose Task

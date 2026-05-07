@@ -1,11 +1,12 @@
 ---
 name: optimize-performance
-role: "Optimize Performance Agent"
+role: Optimize Performance Agent
 description: optimize performance specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "optimize-performance"
+type: agent
+version: 1.1.0
+applyTo: optimize-performance
 tools: []
+stage: operations
 ---
 
 # Agent: Performance Engineer (性能工程师)

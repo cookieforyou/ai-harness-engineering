@@ -272,6 +272,28 @@ setup_infra_result:
 
 ## Output Format
 
-> Standard output structure for setup-infra deliverables
+```markdown
+## Infrastructure Setup Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Infrastructure as Code**: Terraform/ARM/CloudFormation resource definitions
+2. **Network Diagram**: Topology with security groups and routing rules
+3. **Deployment Guide**: Step-by-step infrastructure provisioning manual
+4. **Cost Estimate**: Monthly/annual resource cost projections
+5. **Security Baseline**: Hardening configuration and compliance checks
+
+### Validation Checklist
+- [ ] IaC coverage is 95% or higher
+- [ ] New environment provisioning is 30 minutes or less
+- [ ] Security baseline compliance is 100%
+- [ ] All resources are tagged and documented
+
+### Next Steps
+- [ ] Deploy to target environment
+- [ ] Validate with security scan
+```
 

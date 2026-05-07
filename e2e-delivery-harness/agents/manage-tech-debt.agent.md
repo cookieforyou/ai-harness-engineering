@@ -1,11 +1,12 @@
 ---
 name: manage-tech-debt
-role: "Manage Tech Debt Agent"
+role: Manage Tech Debt Agent
 description: 技术债务管理专家 Agent，负责识别和管理技术债务
 type: agent
-version: "1.1.0"
-applyTo: "manage-tech-debt"
-capabilities: 
+version: 1.1.0
+applyTo: manage-tech-debt
+capabilities: null
+stage: governance
 ---
 
 # Tech Debt Manager Agent

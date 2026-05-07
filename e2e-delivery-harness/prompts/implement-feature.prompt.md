@@ -138,7 +138,30 @@ END
 ## Output Format
 
 ```markdown
-# 实现报告
+## Feature Implementation Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Source Code**: Implemented feature with comments and documentation
+2. **Unit Tests**: Test code with coverage report
+3. **Integration Tests**: Integration test code (if applicable)
+4. **Code Documentation**: Module/function-level documentation
+5. **Implementation Notes**: Key decisions and considerations
+
+### Validation Checklist
+- [ ] Code coverage meets or exceeds 80%
+- [ ] Code review passes with no critical findings
+- [ ] Feature is demonstrable and meets acceptance criteria
+- [ ] No regression in existing functionality
+
+### Next Steps
+- [ ] Submit for code review
+- [ ] Merge to main branch after approval
+```
+
 
 ## 1. 任务信息
 - 任务ID：T001

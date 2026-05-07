@@ -2,13 +2,15 @@
 name: manage-knowledge
 description: 知识管理场景，建立和维护团队知识库，确保知识有效积累和共享
 type: scenario
-version: "1.1.0"
+version: 1.1.0
 trigger: 当需要创建、更新或组织知识时触发
 agent: document-project
 phase: document-project
-tags: 
-input: 
-output: 
+tags: null
+input: null
+output: null
+author: AI Harness Engineering Team
+stage: governance
 ---
 
 # Knowledge Management Scenario

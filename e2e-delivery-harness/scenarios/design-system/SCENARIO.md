@@ -4,7 +4,8 @@ description: 系统设计场景，负责设计系统架构、技术方案和数�
 type: scenario
 category: design
 stage: system-design
-version: "1.1.0"
+version: 1.1.0
+author: AI Harness Engineering Team
 ---
 
 # Design System

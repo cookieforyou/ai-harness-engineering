@@ -211,6 +211,28 @@ stage: document-project
 
 ## Output Format
 
-> Standard output structure for document-project deliverables
+```markdown
+## Project Documentation Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Technical Documentation**: API docs, architecture descriptions
+2. **User Guides**: End-user manuals and operation guides
+3. **Diagrams**: Architecture, flow, and sequence diagrams
+4. **Glossary**: Terminology and abbreviation definitions
+5. **Index/Search Metadata**: Knowledge base organization
+
+### Validation Checklist
+- [ ] Documentation completeness covers all required topics
+- [ ] Stale documentation rate is below 10%
+- [ ] User satisfaction rating is 4.0 or higher
+- [ ] All diagrams are consistent with current implementation
+
+### Next Steps
+- [ ] Publish to documentation portal
+- [ ] Schedule quarterly review cycle
+```
 

@@ -2,13 +2,15 @@
 name: plan-rollback
 description: 回滚计划场景，为部署发布制定详细的回滚策略和执行方案
 type: scenario
-version: "1.1.0"
+version: 1.1.0
 trigger: 当需要进行部署发布前触发
 agent: release-manager
 phase: deploy-release
-tags: 
-input: 
-output: 
+tags: null
+input: null
+output: null
+author: AI Harness Engineering Team
+stage: deployment
 ---
 
 # Rollback Planning Scenario

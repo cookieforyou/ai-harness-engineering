@@ -125,6 +125,28 @@ handover_to_management:
 
 ## Output Format
 
-> Standard output structure for plan-capacity deliverables
+```markdown
+## Capacity Planning Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Capacity Plan**: Resource requirements and scaling recommendations
+2. **Scaling Recommendations**: Vertical/horizontal/auto-scaling strategy
+3. **Cost Projection**: Expansion cost forecast with confidence intervals
+4. **Procurement Timeline**: Hardware/resource readiness schedule
+5. **Headroom Analysis**: Buffer capacity for unexpected growth
+
+### Validation Checklist
+- [ ] Forecast accuracy is within 15% of actual
+- [ ] Headroom maintained at 20% or higher
+- [ ] Cost prediction accuracy is within 20% of actual
+- [ ] All peak load scenarios are modeled
+
+### Next Steps
+- [ ] Present plan to finance and infrastructure teams
+- [ ] Initiate procurement for approved resources
+```
 

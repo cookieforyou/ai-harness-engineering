@@ -2,9 +2,11 @@
 name: audit-security
 type: scenario
 stage: testing
-version: "1.1.0"
+version: 1.1.0
 difficulty: high
-prerequisites: 
+prerequisites: null
+description: Audit Security scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
 ---
 
 # Security Audit Scenario

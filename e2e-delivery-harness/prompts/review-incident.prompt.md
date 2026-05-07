@@ -319,6 +319,28 @@ interface ActionItem {
 
 ## Output Format
 
-> Standard output structure for review-incident deliverables
+```markdown
+## Incident Review Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Postmortem Report**: 5 Whys analysis, timeline, and impact assessment
+2. **Action Items**: Improvements with owners, deadlines, and acceptance criteria
+3. **Lessons Learned**: Knowledge capture and best practice updates
+4. **Runbook Updates**: Operational procedure improvements
+5. **Metric Impact**: SLO/performance impact analysis
+
+### Validation Checklist
+- [ ] All P0/P1 incidents have completed postmortems
+- [ ] Action item closure rate is 90% or higher
+- [ ] Incident recurrence rate is 5% or lower
+- [ ] Review is blameless and constructive
+
+### Next Steps
+- [ ] Distribute postmortem to all stakeholders
+- [ ] Track action items in project management tool
+```
 

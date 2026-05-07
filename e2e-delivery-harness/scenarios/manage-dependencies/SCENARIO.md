@@ -2,13 +2,15 @@
 name: manage-dependencies
 description: 依赖管理场景，管理系统和项目依赖，确保依赖的安全性、兼容性和可维护性
 type: scenario
-version: "1.1.0"
+version: 1.1.0
 trigger: 当需要分析、更新或审计项目依赖时触发
 agent: implement-feature
 phase: implement-feature
-tags: 
-input: 
-output: 
+tags: null
+input: null
+output: null
+author: AI Harness Engineering Team
+stage: governance
 ---
 
 # Dependency Management Scenario

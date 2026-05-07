@@ -1,7 +1,10 @@
 ---
 name: review-design
-version: "1.1.0"
-stage: "review-design"
+version: 1.1.0
+stage: review-design
+description: Review Design scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Review Design Scenario (技术方案评审场景)

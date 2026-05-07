@@ -137,7 +137,32 @@ handover:
 
 ## Output Format
 
-> Standard output structure for migrate-environment deliverables
+```markdown
+## Environment Migration Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Migration Strategy**: Rehost/refactor/replace decision and rationale
+2. **Cutover Plan**: Step-by-step switchover procedures
+3. **Environment Mapping**: Source-to-target configuration mapping
+4. **Validation Checklist**: Post-migration verification items
+5. **Risk Mitigation**: Identified risks and mitigation measures
+
+### Validation Checklist
+- [ ] Migration success rate is 98% or higher
+- [ ] New environment performance is 95%+ of original
+- [ ] Environment cost is within 110% of original budget
+- [ ] All applications pass functional validation
+
+### Next Steps
+- [ ] Execute cutover in maintenance window
+- [ ] Decommission old environment after stability period
+```
+
+
 ## Error Handling
 
 | Error Code | Description | Resolution |

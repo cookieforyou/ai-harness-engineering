@@ -278,6 +278,28 @@ handoff:
 
 ## Output Format
 
-> Standard output structure for plan-rollback deliverables
+```markdown
+## Rollback Planning Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Rollback Procedures**: Detailed step-by-step rollback instructions
+2. **Pre-Rollback Checklist**: Validation before initiating rollback
+3. **Post-Rollback Validation**: Verification steps after rollback
+4. **Data Rollback Plan**: Strategy for data consistency during rollback
+5. **Communication Template**: Stakeholder notification templates
+
+### Validation Checklist
+- [ ] Rollback plan is tested for all release scenarios
+- [ ] Recovery time objective (RTO) is 15 minutes or less
+- [ ] Data consistency is maintained after rollback
+- [ ] Rollback triggers are clearly defined
+
+### Next Steps
+- [ ] Test rollback procedure in staging
+- [ ] Integrate rollback triggers into deployment pipeline
+```
 

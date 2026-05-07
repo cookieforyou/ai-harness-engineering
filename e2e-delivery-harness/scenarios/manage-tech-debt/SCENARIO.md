@@ -2,13 +2,15 @@
 name: manage-tech-debt
 description: 技术债务管理场景，识别、量化、跟踪和管理软件开发过程中累积的技术债务
 type: scenario
-version: "1.1.0"
+version: 1.1.0
 trigger: 当需要进行技术债务清理或优化时触发
 agent: design-architecture
 phase: implement-feature
-tags: 
-input: 
-output: 
+tags: null
+input: null
+output: null
+author: AI Harness Engineering Team
+stage: governance
 ---
 
 # Technical Debt Management Scenario

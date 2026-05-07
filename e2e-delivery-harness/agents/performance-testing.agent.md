@@ -1,11 +1,12 @@
 ---
 name: performance-testing
-role: "Performance Testing Agent"
+role: Performance Testing Agent
 description: performance testing specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "performance-testing"
+type: agent
+version: 1.1.0
+applyTo: performance-testing
 tools: []
+stage: testing
 ---
 
 # Agent: Performance Tester (性能测试工程师)

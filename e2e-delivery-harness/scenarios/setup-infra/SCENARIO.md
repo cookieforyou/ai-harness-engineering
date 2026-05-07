@@ -1,7 +1,10 @@
 ---
 name: setup-infra
-version: "1.1.0"
-stage: "setup-infra"
+version: 1.1.0
+stage: setup-infra
+description: Setup Infra scenario for the E2E delivery lifecycle
+author: AI Harness Engineering Team
+type: scenario
 ---
 
 # Scenario: 基础设施搭建 (Setup Infrastructure)

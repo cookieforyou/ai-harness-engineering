@@ -245,6 +245,28 @@ interface CodeIssue {
 
 ## Output Format
 
-> Standard output structure for review-code deliverables
+```markdown
+## Code Review Deliverables
 
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Review Report**: Categorized findings with severity levels
+2. **Defect List**: Issues with location, description, and fix suggestions
+3. **Security Findings**: Vulnerability discoveries (if any)
+4. **Approval Decision**: Pass / needs changes / reject with rationale
+5. **Quality Metrics**: Complexity, duplication, and coverage statistics
+
+### Validation Checklist
+- [ ] Defect detection rate is 85% or higher
+- [ ] Review turnaround time is 24 hours or less
+- [ ] Zero P0/P1 security vulnerabilities are missed
+- [ ] Feedback is actionable and specific
+
+### Next Steps
+- [ ] Request author to address findings
+- [ ] Re-review after fixes are applied
+```
 

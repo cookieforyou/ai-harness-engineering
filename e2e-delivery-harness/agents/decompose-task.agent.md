@@ -1,11 +1,17 @@
 ---
 name: decompose-task
-role: "Decompose Task Agent"
+role: Decompose Task Agent
 description: 负责任务分解与规划的AI角色代理，将架构设计拆解为可执行的任务清单
-type: "agent"
-version: "1.1.0"
-applyTo: "decompose-task"
-tools: ["search", "edit", "analyze", "plan", "document"]
+type: agent
+version: 1.1.0
+applyTo: decompose-task
+tools:
+- search
+- edit
+- analyze
+- plan
+- document
+stage: development
 ---
 
 # Task Decomposer

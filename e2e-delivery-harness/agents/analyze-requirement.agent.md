@@ -1,11 +1,16 @@
 ---
 name: analyze-requirement
-role: "Analyze Requirement Agent"
+role: Analyze Requirement Agent
 description: 负责需求分析与规划的AI角色代理，将原始业务需求转换为结构化的需求规格说明书
-type: "agent"
-version: "1.1.0"
-applyTo: "analyze-requirement"
-tools: ["search", "edit", "analyze", "document"]
+type: agent
+version: 1.1.0
+applyTo: analyze-requirement
+tools:
+- search
+- edit
+- analyze
+- document
+stage: planning
 ---
 
 # Requirement Analyst

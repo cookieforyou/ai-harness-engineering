@@ -1,11 +1,12 @@
 ---
 name: setup-infra
-role: "Setup Infra Agent"
+role: Setup Infra Agent
 description: setup infra specialist agent for E2E delivery workflow
-type: "agent"
-version: "1.1.0"
-applyTo: "setup-infra"
+type: agent
+version: 1.1.0
+applyTo: setup-infra
 tools: []
+stage: deployment
 ---
 
 # Agent: Infrastructure Engineer (基础设施工程师)

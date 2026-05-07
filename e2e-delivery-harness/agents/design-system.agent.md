@@ -1,11 +1,17 @@
 ---
 name: design-system
-role: "Design System Agent"
+role: Design System Agent
 description: 负责系统架构设计的AI角色代理，将需求规格转换为技术架构设计方案
-type: "agent"
-version: "1.1.0"
-applyTo: "design-system"
-tools: ["search", "edit", "analyze", "diagram", "document"]
+type: agent
+version: 1.1.0
+applyTo: design-system
+tools:
+- search
+- edit
+- analyze
+- diagram
+- document
+stage: design
 ---
 
 # System Designer

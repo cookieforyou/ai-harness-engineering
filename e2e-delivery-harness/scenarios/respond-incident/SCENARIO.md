@@ -2,13 +2,15 @@
 name: respond-incident
 description: 事件响应场景，定义生产环境事故的发现、响应、处理和恢复流程
 type: scenario
-version: "1.1.0"
+version: 1.1.0
 trigger: 当发生生产环境事故时触发
 agent: integrate-monitor
 phase: monitor-operate
-tags: 
-input: 
-output: 
+tags: null
+input: null
+output: null
+author: AI Harness Engineering Team
+stage: monitoring
 ---
 
 # Incident Response Scenario

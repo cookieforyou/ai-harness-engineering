@@ -135,7 +135,30 @@ END
 ## Output Format
 
 ```markdown
-# 测试报告
+## Test Verification Deliverables
+
+### Summary
+- Status: [completed | partial | blocked]
+- Completion: [percentage]
+
+### Key Outputs
+1. **Test Execution Report**: Pass/fail statistics with evidence
+2. **Defect Reports**: Discovered issues with reproduction steps
+3. **Coverage Report**: Requirement-to-test traceability matrix
+4. **Quality Assessment**: Go/no-go recommendation with rationale
+5. **Test Log**: Detailed execution log with timestamps
+
+### Validation Checklist
+- [ ] Test pass rate is 90% or higher
+- [ ] Requirement traceability coverage is 100%
+- [ ] Defect detection rate is 95% or higher
+- [ ] All critical defects are documented and triaged
+
+### Next Steps
+- [ ] Triage defects with product owner
+- [ ] Proceed to release decision
+```
+
 
 ## 1. 测试概要
 

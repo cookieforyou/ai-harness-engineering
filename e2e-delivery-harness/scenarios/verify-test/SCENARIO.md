@@ -4,7 +4,8 @@ description: 测试验证场景，负责设计测试用例、执行测试并报�
 type: scenario
 category: quality
 stage: testing
-version: "1.1.0"
+version: 1.1.0
+author: AI Harness Engineering Team
 ---
 
 # Verify Test
