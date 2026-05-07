@@ -1,19 +1,28 @@
 ---
 name: decompose-task
-description: "Technical instructions for task decomposition execution"
-type: instruction
+description: 任务分解阶段的标准操作流程、质量检查标准和工作产出规范
 version: "1.2.0"
+type: instruction
+category: planning
+stage: task-decomposition
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['instruction', 'technical']
+tags: [planning, decomposition, tasks]
 ---
 # Task Decomposition Instructions
 
 ## Purpose
 
-本文档定义了任务分解阶段的标准操作流程、质量检查标准和工作产出规范。任务分解是将架构设计拆解为可执行、可管理的小任务的过程。
+本文档定义了**任务分解阶段**的标准操作流程、质量检查标准和工作产出规范。任务分解是将架构设计拆解为可执行、可管理、可度量的开发任务的关键过程。
+
+### Business Value
+
+- **降低认知负荷**: 将复杂架构拆解为小颗粒度任务
+- **提升可预测性**: 通过任务估算和依赖分析提高计划准确性
+- **增强可追溯性**: 建立需求-设计-任务-代码的完整追溯链
+- **优化资源配置**: 基于任务优先级和技能匹配合理分配人力
 
 ## Investigation Flow
 
@@ -195,69 +204,32 @@ tags: ['instruction', 'technical']
 | 依赖清晰 | 依赖关系明确 | 20% |
 | 优先级合理 | 优先级与价值匹配 | 25% |
 
-## Output Specification
+## Output Specification (输出规范)
 
 ### 产出清单
 
 | 产出 | 格式 | 必填 | 描述 |
 |------|------|------|------|
-| 任务分解清单 | .md | 是 | 完整的任务列表 |
-| 任务依赖图 | .md | 是 | 依赖关系说明 |
-| 迭代计划 | .md | 是 | 各迭代任务分配 |
-| 工作量评估 | .md | 是 | 工时估算汇总 |
+| `task-list.md` | markdown | 是 | 完整的任务列表，包含ID、名称、模块、类型、优先级、估算、依赖、验收标准 |
+| `dependency-graph.png` | image/mermaid | 是 | 可视化的任务依赖关系图 |
+| `iteration-plan.md` | markdown | 是 | Sprint计划和里程碑安排 |
+| `estimation-notes.md` | markdown | 是 | 估算依据和风险标注说明 |
 
+## Related Assets (关联资产)
 
-## Overview
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `../scenarios/decompose-task/SCENARIO.md` | 任务分解场景定义 |
+| Agent | `../agents/decompose-task.agent.md` | 任务分解Agent |
+| Prompt | `../prompts/decompose-task.prompt.md` | 任务分解提示词模板 |
+| Skill | `../skills/decompose-task/SKILL.md` | 任务分解技能包 |
 
-> High-level description of the decompose-task execution process.
->
-> This instruction defines the technical approach, key activities, and success criteria for the decompose-task scenario.
+## Related Resources (相关资源)
 
-
-## Technical Specifications
-
-> Detailed technical requirements and implementation guidelines for decompose-task.
-
-### Required Tools
-- [List required tools and frameworks]
-
-### Environment Requirements
-- [List environment prerequisites]
-
-### Configuration Parameters
-- [List key configuration parameters]
-
-
-## Best Practices
-
-> Industry-standard best practices for decompose-task execution.
-
-1. **Practice 1**: Break down epics into independently deliverable user stories
-2. **Practice 2**: Estimate using team-calibrated story points or hours
-3. **Practice 3**: Identify and document cross-story dependencies early
-
-
-## Error Handling
-
-> Common error scenarios and resolution strategies for decompose-task.
-
-### Error Category 1
-**Symptom**: Tasks are too large for single-sprint completion
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
-
-### Error Category 2
-**Symptom**: Hidden dependencies cause mid-sprint blockers
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
-
-
-## Quality Standards
-
-> Acceptance criteria and quality gates for decompose-task deliverables.
-
-| Standard | Criteria | Verification Method |
-|----------|----------|---------------------|
-| Standard 1 | All tasks meet Definition of Ready criteria | Automated check |
-| Standard 2 | Estimation variance is within acceptable threshold | Automated check |
-| Standard 3 | Dependency map is complete and reviewed | Automated check |
+- **Standards**: 
+  - [Definition of Ready](../standards/dor.md)
+  - [INVEST Principle](../standards/invest.md)
+- **Templates**: 
+  - [Task List Template](../templates/task-list.template.md)
+- **Evaluations**: 
+  - [Task Decomposition Checklist](../evaluations/task-decomposition-checklist.md)

@@ -1,228 +1,127 @@
 ---
 name: decompose-task
-description: "任务分解提示词，用于将架构设计拆解为可执行的任务清单"
-type: execution
+description: 任务分解提示词，用于将架构设计拆解为可执行的任务清单
 version: "1.2.0"
+type: prompt
+category: planning
+stage: task-decomposition
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['prompt', 'ai-execution']
+tags: [planning, decomposition, tasks]
 ---
-# Decompose Task
+# Task Decomposition Prompt
 
-> **版本**: 1.1.0 | **适用阶段**: 任务分解 | **预计工时**: 1-2小时
+> **版本**: 1.2.0 | **适用阶段**: 任务分解 | **预计工时**: 1-2小时
 
-## Input Variables
+## Purpose
+
+将架构设计文档和技术方案转换为可执行、可跟踪、可度量的技术任务清单，为开发团队提供清晰的工作项和迭代计划。
+
+### Business Value
+
+- **降低认知负荷**: 将复杂架构拆解为小颗粒度任务
+- **提升可预测性**: 通过任务估算和依赖分析提高计划准确性
+- **增强可追溯性**: 建立需求-设计-任务-代码的完整追溯链
+- **优化资源配置**: 基于任务优先级和技能匹配合理分配人力
+
+## Input Variables (变量定义)
+
+> **AI 在执行前必须确认以下变量已填充**，如未填充则请求用户提供
+
+| Variable | Type | Required | Default | Description | Validation |
+|----------|------|----------|---------|-------------|------------|
+| `project_name` | string | true | - | 项目名称 | 非空字符串 |
+| `architecture_design` | string | true | - | 架构设计文档路径或内容 | 文件存在或内容有效 |
+| `tech_design` | string | false | - | 技术设计方案（可选） | 文件存在或内容有效 |
+| `team_capacity` | object | true | - | 团队产能配置 | 符合TeamCapacity结构 |
+| `sprint_duration` | number | true | 14 | Sprint周期(天) | 7-30之间的整数 |
+| `team_members` | array | true | - | 团队成员列表 | 至少1个成员 |
+| `available_skills` | array | false | [] | 可用技能列表 | 字符串数组 |
+| `risk_tolerance` | enum | false | MEDIUM | 风险承受能力 | LOW/MEDIUM/HIGH |
+| `historical_data` | object | false | null | 历史估算数据 | 包含类似项目的估算记录 |
+
+### TeamCapacity Structure
+
+```typescript
+interface TeamCapacity {
+  developers: number;          // 开发人员数量 (≥1)
+  qa_engineers: number;        // QA人员数量 (≥0)
+  devops: number;              // DevOps人员数量 (≥0)
+  working_hours_per_day: number; // 每日有效工时 (6-8)
+  capacity_per_sprint: number; // 每Sprint可用工时 (自动计算)
+}
+```
+
+### Variable Examples
+
+```yaml
+# 示例: 变量的正确格式
+project_name: "电商订单系统"
+architecture_design: "docs/architecture-design.md"
+tech_design: "docs/technical-design.md"
+team_capacity:
+  developers: 3
+  qa_engineers: 1
+  devops: 1
+  working_hours_per_day: 7
+  capacity_per_sprint: 210  # 3人 * 7小时 * 10天
+sprint_duration: 14
+team_members:
+  - name: "张三"
+    role: "frontend"
+    skills: ["Vue3", "TypeScript"]
+  - name: "李四"
+    role: "backend"
+    skills: ["Java", "Spring Boot"]
+available_skills:
+  - "Vue3"
+  - "Java"
+  - "MySQL"
+risk_tolerance: "MEDIUM"
+```
 
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
 
 ```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
+[THINK] Step 1: 理解架构设计和上下文
+   ├─ 输入: architecture_design, tech_design, project_name
+   ├─ 思考: 架构的核心模块是什么？技术选型有哪些？关键约束是什么？
+   ├─ 验证: 确认架构设计完整，无缺失的关键信息
+   └─ 输出: 架构分析摘要
    ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
+[ANALYZE] Step 2: 识别任务和依赖
+   ├─ 输入: 架构分析摘要, team_capacity
+   ├─ 思考: 每个模块需要哪些开发任务？任务间的依赖关系如何？
+   ├─ 验证: 覆盖所有功能模块、基础设施、测试任务
+   └─ 输出: 初步任务列表和依赖图
    ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
+[DESIGN] Step 3: 细化任务粒度和结构
+   ├─ 输入: 初步任务列表
+   ├─ 思考: 任务粒度是否符合INVEST原则（1-3天）？是否需要拆分或合并？
+   ├─ 验证: 90%任务在1-3天范围内，符合INVEST原则
+   └─ 输出: 细化后的任务清单
    ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
+[ESTIMATE] Step 4: 估算工作量和优先级
+   ├─ 输入: 细化任务清单, historical_data, risk_tolerance
+   ├─ 思考: 每个任务的复杂度如何？参考历史数据，考虑风险缓冲
+   ├─ 验证: 估算有依据支撑，考虑了团队能力和风险因素
+   └─ 输出: 带估算和优先级的任务清单
    ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
+[VERIFY] Step 5: 验证任务分解质量
+   ├─ 输入: 带估算的任务清单
+   ├─ 执行: 完整性检查、粒度检查、依赖检查、估算检查
+   ├─ 验证: 通过所有验证检查项（V-001至V-005）
    └─ 输出: 验证报告
    ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
+[HANDOVER] Step 6: 准备交接给开发阶段
+   ├─ 生成: Handover Context（包含任务清单、依赖图、迭代计划）
+   ├─ 更新: Global Context（任务状态追踪）
+   └─ 通知: Feature Implementer Agent
 ```
-
-
-
-
-> AI 在执行前必须确认以下变量已填充
-
-| 变量名 | 类型 | 必填 | 说明 | 示例 |
-|--------|------|------|------|------|
-| `project_name` | string | 是 | 项目名称 | "电商订单系统" |
-| `architecture_design` | string | 是 | 架构设计文档路径 | "design.md" |
-| `team_capacity` | object | 是 | 团队产能配置 | 见 TeamCapacity 结构 |
-| `sprint_duration` | number | 是 | Sprint 周期(天) | 14 |
-| `team_members` | string[] | 是 | 团队成员列表 | ["开发A", "开发B"] |
-| `available_skills` | string[] | 否 | 可用技能 | ["React", "Python"] |
-| `risk_tolerance` | enum | 否 | 风险承受能力 | LOW/MEDIUM/HIGH |
-
-### TeamCapacity 结构
-
-```typescript
-interface TeamCapacity {
-  developers: number;          // 开发人员数量
-  qa_engineers: number;        // QA 人员数量
-  devops: number;             // DevOps 人员数量
-  working_hours_per_day: number; // 每日有效工时
-  capacity_per_sprint: number; // 每 Sprint 可用工时
-}
-```
-
-## Chain of Thought
-
-```
-1. [THINK] 理解架构 → 模块边界和技术选型是否清晰？
-2. [THINK] 任务识别 → 所有功能模块都有对应任务？
-3. [THINK] 任务细化 → 任务粒度是否适中(1-3天)？
-4. [THINK] 依赖分析 → 依赖关系是否完整无遗漏？
-5. [THINK] 估算排序 → 估算是否考虑了风险？
-6. [VALIDATE] 验证输出 → 任务清单是否完整可执行？
-7. [OUTPUT] 生成交付物 → 任务清单 + Sprint 计划
-```
-
-## Error Handling
-
-### 情况 1：架构设计信息不足
-
-```
-IF 架构设计文档缺少关键信息
-THEN
-  1. 识别缺失的信息项
-  2. 基于常见架构模式进行合理假设
-  3. 在输出中标注 [基于假设] 的部分
-  4. 列出需要补充确认的问题
-END
-```
-
-### 情况 2：任务粒度不均
-
-```
-IF 任务粒度差异过大
-THEN
-  1. 识别粒度过大的任务 (> 5天)
-  2. 拆分为子任务
-  3. 识别粒度过小的任务 (< 0.5天)
-  4. 合并为组合任务
-END
-```
-
-### 情况 3：资源不足冲突
-
-```
-IF 任务需求超出团队产能
-THEN
-  1. 计算产能缺口
-  2. 识别可推迟的任务
-  3. 建议调整 Sprint 范围
-  4. 标记为 [需要决策] 的事项
-END
-```
-
-### 情况 4：循环依赖
-
-```
-IF 存在循环依赖
-THEN
-  1. 识别参与循环的任务
-  2. 引入抽象层打破循环
-  3. 或标记需要并行开发的窗口
-  4. 制定临时方案
-END
-```
-
-## Input Format
-
-```markdown
-## Architecture Design Document
-
-### 模块划分
-[模块列表及职责]
-
-### 接口设计
-[接口列表]
-
-### 数据设计
-[数据模型]
-
-### 部署方案
-[部署架构]
-
-### 技术选型
-[技术栈]
-
-### 实施计划
-[里程碑计划]
-```
-
-## Task Steps
-
-### 步骤 1：任务识别
-
-**任务**：
-- 从模块划分中识别开发任务
-- 识别基础设施任务
-- 识别公共模块任务
-- 识别集成任务
-- 识别测试任务
-
-**产出**：初步任务清单
-
-### 步骤 2：任务细化
-
-**任务**：
-- 将大任务拆分为小任务
-- 确保粒度适中（1-3天）
-- 为每个任务定义验收标准
-- 标注任务类型
-
-**产出**：细化后的任务清单
-
-### 步骤 3：依赖分析
-
-**任务**：
-- 分析任务间的依赖关系
-- 绘制依赖图
-- 识别可并行任务
-- 识别关键路径
-
-**产出**：任务依赖图
-
-### 步骤 4：估算与排序
-
-**任务**：
-- 估算每个任务的工时
-- 确定任务优先级
-- 考虑资源约束
-- 制定初步计划
-
-**产出**：带估算的任务清单
-
-### 步骤 5：迭代规划
-
-**任务**：
-- 划分迭代周期
-- 分配任务到迭代
-- 平衡迭代负载
-- 制定里程碑
-
-**产出**：迭代计划
-
-
 
 ## Error Handling (错误处理)
 
@@ -237,90 +136,154 @@ END
 | P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
 | P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
 
-### Error Scenario 1: 通用错误处理
+### Error Scenario 1: 架构设计信息不足
 
 **识别信号**: 
-- 检测到异常情况
-- 验证失败
+- 架构设计文档缺少模块划分、接口设计或数据模型
+- 技术选型不明确
+- 部署方案缺失
 
 **处理流程**:
 ```
-IF 检测到错误
+IF 架构设计文档缺少关键信息
 THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
+  1. 识别缺失的信息项（模块/接口/数据/部署）
+  2. 基于常见架构模式进行合理假设
+  3. 在输出中标注 [基于假设] 的部分
+  4. 列出需要补充确认的问题清单
+  5. IF 缺失超过50% THEN 升级为P1错误，请求补充文档
 END
 ```
 
-**降级方案**: 根据具体情况选择适当的降级策略
+**降级方案**: 使用默认架构模板生成占位任务，标记为“待细化”
 
-**升级条件**: P0 或 P1 级别错误
+**升级条件**: 缺失关键架构信息超过50%，无法进行合理的任务分解
 
-**错误日志格式**:
+---
+
+### Error Scenario 2: 任务粒度不均
+
+**识别信号**: 
+- 任务估算工作量 >5天（过粗）或 <0.5天（过细）
+- 90%任务不在1-3天范围内
+- 任务描述模糊，无法明确验收标准
+
+**处理流程**:
+```
+IF 任务粒度差异过大
+THEN
+  1. 识别粒度过大的任务 (>5天)
+  2. 拆分为子任务，确保每个子任务符合INVEST原则
+  3. 识别粒度过小的任务 (<0.5天)
+  4. 合并相关任务，减少上下文切换成本
+  5. 验证新粒度是否合适（1-3天工作量为佳）
+  6. 更新任务清单和依赖关系
+END
+```
+
+**降级方案**: 如无法确定合适粒度，标记为“待细化”并升级到Tech Lead确认
+
+**升级条件**: 经过2次调整后仍无法确定合适粒度
+
+---
+
+### Error Scenario 3: 资源不足冲突
+
+**识别信号**: 
+- 任务总工时超出团队产能 >20%
+- 关键路径上的任务缺乏所需技能的成员
+- 多个高优先级任务需要同一资源
+
+**处理流程**:
+```
+IF 任务需求超出团队产能
+THEN
+  1. 计算产能缺口（总工时 - 可用工时）
+  2. 识别可推迟的任务（P2/P3优先级）
+  3. 建议调整Sprint范围或增加Sprint数量
+  4. 标记为 [需要决策] 的事项
+  5. 提供至少2个备选方案（缩减范围/延长时间/增加资源）
+END
+```
+
+**降级方案**: 优先保证P0任务，将P1/P2任务推迟到后续Sprint
+
+**升级条件**: 产能缺口 >30%且无可行调整方案
+
+---
+
+### Error Scenario 4: 循环依赖
+
+**识别信号**: 
+- 任务A依赖任务B，任务B依赖任务A
+- 依赖图中存在环路
+- 无法确定任务的执行顺序
+
+**处理流程**:
+```
+IF 存在循环依赖
+THEN
+  1. 识别参与循环的任务集合
+  2. 分析循环的根本原因（设计问题/拆分不当）
+  3. 引入抽象层或接口打破循环
+  4. 或标记需要并行开发的窗口
+  5. 制定临时方案和长期重构计划
+  6. 更新依赖图并重新验证
+END
+```
+
+**降级方案**: 将循环依赖的任务组标记为“需并行开发”，增加协调成本估算
+
+**升级条件**: 循环依赖涉及核心模块，需要架构师重新设计
+
+---
+
+### 错误日志格式
+
 ```yaml
 error_log:
   error_id: "ERR-{timestamp}-XXX"
   timestamp: "{{ISO8601}}"
   level: "P0/P1/P2/P3"
-  type: "{错误类型}"
+  type: "{insufficient_architecture/uneven_granularity/resource_conflict/circular_dependency}"
   description: "{详细描述}"
   action_taken: "{已采取的行动}"
   result: "resolved/blocked/degraded/escalated"
+  escalated_to: "{升级对象，如有}"
 ```
 
 
 
-## Output Format
+## Output Format (输出格式)
+
+> **AI 必须严格按照以下格式生成输出**
+
+### 标准输出结构
 
 ```markdown
-## Task Decomposition Deliverables
-
-### Summary
-- Status: [completed | partial | blocked]
-- Completion: [percentage]
-
-### Key Outputs
-1. **Task Breakdown**: Decomposed sub-tasks with dependency relationships
-2. **Estimation Sheet**: Story points or hours per task
-3. **Assignment Plan**: Task-to-team-member allocation recommendations
-4. **Dependency Graph**: Visual or textual task dependency mapping
-5. **Iteration Plan**: Sprint-ready task organization
-
-### Validation Checklist
-- [ ] All tasks meet Definition of Ready criteria
-- [ ] Estimation variance is within acceptable threshold
-- [ ] Dependency map is complete and reviewed
-- [ ] No task exceeds single-sprint capacity
-
-### Next Steps
-- [ ] Present decomposition to team
-- [ ] Load tasks into sprint backlog
-```
-
+# Task Decomposition Deliverables
 
 ## 1. Document Information
-- 项目名称：
-- 版本：1.0
-- 日期：[当前日期]
-- 总任务数：X
-- 总工时：X 人天
+- **项目名称**: {{project_name}}
+- **版本**: 1.0
+- **日期**: {{current_date}}
+- **总任务数**: {{total_tasks}}
+- **总工时**: {{total_effort}} 人天
+- **质量评分**: {{quality_score}}/100
 
 ## 2. Task List
 
 ### 2.1 任务总览
 | ID | 任务名称 | 模块 | 类型 | 优先级 | 估算(人天) | 负责人 | 依赖 |
 |----|----------|------|------|--------|------------|--------|------|
-| T001 | 任务名称 | 模块A | 功能 | P0 | 2 | - | - |
+| T001 | 用户认证模块开发 | 认证模块 | 功能 | P0 | 2 | - | - |
 
 ### 2.2 任务详情
 
 #### T001: [任务名称]
 - **模块**: [所属模块]
 - **类型**: [功能/技术债务/基础设施/测试]
-- **优先级**: [P0/P1/P2]
+- **优先级**: [P0/P1/P2/P3]
 - **估算**: [X] 人天
 - **依赖任务**: [Txxx]
 - **验收标准**:
@@ -330,19 +293,18 @@ error_log:
   - [要点1]
   - [要点2]
 
-#### T002: [任务名称]
-...
-
 ## 3. Dependencies
 
 ### 3.1 依赖图
-```
-[TODO: 绘制依赖关系图]
+```mermaid
+graph TD
+    A[T001] --> B[T002]
+    B --> C[T003]
 ```
 
 ### 3.2 关键路径
-- 路径：[T001] → [T005] → [T010] → [T015]
-- 总工期：X 天
+- **路径**: [T001] → [T005] → [T010] → [T015]
+- **总工期**: X 天
 
 ### 3.3 可并行任务
 | 组 | 任务 | 说明 |
@@ -355,7 +317,6 @@ error_log:
 | 迭代 | 时间 | 任务数 | 工时 | 目标 |
 |------|------|--------|------|------|
 | Sprint 1 | Week 1-2 | X | X | 完成基础设施 |
-| Sprint 2 | Week 3-4 | X | X | 完成核心功能 |
 
 ### 4.2 Sprint 1: [迭代名称]
 **时间**: [开始日期] - [结束日期]
@@ -366,19 +327,11 @@ error_log:
 |----|----------|------|----------|
 | T001 | 任务1 | 2天 | 标准 |
 
-**完成标准**:
-- [完成条件1]
-- [完成条件2]
-
-### 4.3 Sprint 2: [迭代名称]
-...
-
 ## 5. Milestone Plan
 
 | 里程碑 | 计划日期 | 交付物 | 状态 |
 |--------|----------|--------|------|
 | M1: 架构完成 | Week 1 | 架构设计 | 待开始 |
-| M2: 功能完成 | Week 4 | 可运行系统 | 待开始 |
 
 ## 6. Resource Allocation
 
@@ -405,25 +358,27 @@ error_log:
 | 事项1 | 中 | 负责人 | 日期 |
 ```
 
-## Output Validation
+## Output Validation (输出验证)
 
 > **重要**: 在生成最终输出前，必须完成以下验证步骤
 
-### 验证清单
+### Self-Validation Report
 
 ```markdown
-## Self-Validation Report
+# Self-Validation Report
 
 ### V-001: 完整性检查
 - [ ] 所有模块都有对应任务
 - [ ] 基础设施任务已覆盖
 - [ ] 公共模块任务已识别
 - [ ] 集成测试任务已规划
+- [ ] 文档和部署任务已包含
 
 ### V-002: 粒度检查
 - [ ] 90% 任务在 1-3 天范围内
 - [ ] 没有超过 5 天的任务（需要拆分）
 - [ ] 没有小于 0.5 天的任务（需要合并）
+- [ ] 每个任务符合INVEST原则
 
 ### V-003: 依赖检查
 - [ ] 所有依赖关系已标注
@@ -435,15 +390,18 @@ error_log:
 - [ ] 每个任务都有估算
 - [ ] 估算考虑了风险缓冲
 - [ ] 迭代容量平衡合理
+- [ ] 总工时不超过团队产能
 
 ### V-005: 可追溯性检查
 - [ ] 任务可追溯到模块设计
 - [ ] 任务可追溯到技术选型
 - [ ] 里程碑与业务目标对齐
+- [ ] 验收标准清晰可量化
 
 ### 验证结果
-- 验证通过: [是/否]
-- 未通过的检查项: [列出]
+- **验证通过**: [是/否]
+- **未通过的检查项**: [列出]
+- **修正措施**: [说明]
 ```
 
 ### 验证失败时的处理
@@ -454,122 +412,94 @@ THEN
   1. 识别未通过的验证项
   2. 修正相应内容
   3. 重新执行验证
-  4. 记录仍存在的问题
+  4. IF 仍无法通过 THEN 记录问题并标记为P2错误
+  5. 在输出中明确标注未解决的问题
 END
 ```
 
 
 
-## Quality Metrics (质量指标)
-
-### Key Performance Indicators (KPIs)
-
-| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
-|--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
-
-**综合评分计算**: 
-```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
-合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
-```
-
-### Validation Checklist (验证清单)
-
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
-
-
-
-## Handover 准备
+## Handover Context (交接上下文)
 
 在完成验证后，生成以下交接信息：
 
 ```yaml
-handoff_to_development:
-  deliverable: "任务分解清单"
-  version: "1.0"
-  status: "草稿/待评审/已评审"
-
+handover:
+  header:
+    from_stage: "task-decomposition"
+    to_stage: "feature-implementation"
+    handover_id: "HO-{{timestamp}}-{{sequence}}"
+    timestamp: "{{ISO8601}}"
+    prepared_by: "{{agent.name}}"
+    
   summary:
-    total_tasks: N           # 任务总数
-    total_effort: N           # 总工时(人天)
-    sprint_count: N           # Sprint 数量
-    critical_path_duration: N # 关键路径工期
-
-  by_priority:
-    p0: N                     # P0 任务数
-    p1: N                     # P1 任务数
-    p2: N                     # P2 任务数
-
+    status: "completed/partial/blocked"
+    completion_percentage: {{0-100}}
+    quality_score: {{0-100}}
+    total_tasks: {{total_tasks}}
+    total_effort: {{total_effort}}  # 总工时(人天)
+    sprint_count: {{sprint_count}}  # Sprint数量
+    critical_path_duration: {{duration}}  # 关键路径工期
+    
+  artifacts:
+    delivered:
+      - name: "任务清单"
+        path: "docs/task-list.md"
+        version: "1.0.0"
+      - name: "任务依赖图"
+        path: "docs/dependency-graph.png"
+        version: "1.0.0"
+      - name: "迭代计划"
+        path: "docs/iteration-plan.md"
+        version: "1.0.0"
+      
+  decisions:
+    - id: "DC-001"
+      description: "任务粒度选择"
+      decision: "采用细粒度拆分（1-3天/任务）"
+      rationale: "提高可预测性，便于并行执行和进度跟踪"
+      
   open_issues:
-    count: N
-    blocking: [列表]          # 阻塞性问题
-    non_blocking: [列表]      # 非阻塞性问题
-
+    blocking: []
+    non_blocking:
+      - id: "ISSUE-001"
+        description: "某些任务的技能匹配度需要确认"
+        
+  risks:
+    - id: "RISK-001"
+      description: "新技术学习曲线可能影响估算准确性"
+      probability: "medium"
+      impact: "medium"
+      mitigation: "安排技术预研阶段，预留20%缓冲时间"
+      
   recommendations:
-    - "建议"
+    - "建议先实现核心功能模块，再扩展辅助功能"
+    - "高风险任务安排在Sprint早期，留出应对时间"
+    - "每日站会重点关注关键路径任务的进展"
 ```
 
-## Constraints
+## Constraints (约束条件)
 
-1. **语言**：输出使用中文
-2. **粒度**：任务粒度控制在 1-3 天
-3. **完整性**：所有设计点都有对应任务
-4. **可执行**：每个任务有明确验收标准
-5. **可追溯**：任务可追溯到需求和设计
+1. **语言**: 输出使用中文
+2. **粒度**: 任务粒度控制在 1-3 天（90%任务）
+3. **完整性**: 所有设计点都有对应任务
+4. **可执行**: 每个任务有明确验收标准
+5. **可追溯**: 任务可追溯到需求和设计
+6. **INVEST原则**: 任务必须独立、可协商、有价值、可估算、小、可测试
 
-## Quality Requirements
+## Quality Requirements (质量要求)
 
-| 要求 | 说明 |
-|------|------|
-| 粒度适中 | 90% 任务在 1-3 天范围 |
-| 依赖清晰 | 所有依赖已标注 |
-| 优先级合理 | 优先级与价值匹配 |
-| 计划可行 | 在资源和时间约束内可行 |
+| 要求 | 说明 | 目标值 |
+|------|------|--------|
+| 粒度适中 | 90% 任务在 1-3 天范围 | ≥90% |
+| 依赖清晰 | 所有依赖已标注 | 100% |
+| 优先级合理 | 优先级与价值匹配 | 无争议 |
+| 计划可行 | 在资源和时间约束内可行 | 产能利用率≤90% |
+| 估算准确 | 实际工时与估算偏差 | ±20% |
 
-## Task Description
+## Related Resources (相关资源)
 
-> Describe the specific task for the decompose-task scenario execution.
-> AI must understand the context, objectives, and success criteria before proceeding.
-
-## Execution Flow
-
-> Step-by-step execution sequence for decompose-task
-
-### Phase 1: Analysis
-- Understand requirements and context
-- Identify constraints and dependencies
-
-### Phase 2: Execution
-- Perform core decompose-task activities
-- Apply best practices and standards
-
-### Phase 3: Validation
-- Verify outputs against acceptance criteria
-- Ensure completeness and quality
+- **Scenario**: [Task Decomposition Scenario](../scenarios/decompose-task/SCENARIO.md)
+- **Agent**: [Decompose Task Agent](../agents/decompose-task.agent.md)
+- **Skill**: [Task Decomposition Skill](../skills/decompose-task/SKILL.md)
+- **Standards**: [Definition of Ready](../standards/dor.md), [INVEST Principle](../standards/invest.md)
