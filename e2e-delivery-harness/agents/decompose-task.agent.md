@@ -1,19 +1,14 @@
 ---
 name: decompose-task
-role: Decompose Task Agent
-description: 负责任务分解与规划的AI角色代理，将架构设计拆解为可执行的任务清单
+description: "负责任务分解与规划的AI角色代理，将架构设计拆解为可执行的任务清单"
 type: agent
-version: 1.1.0
-applyTo: decompose-task
-tools:
-- search
-- edit
-- analyze
-- plan
-- document
-stage: development
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Task Decomposer
 
 ## Use When
@@ -95,6 +90,20 @@ stage: development
 ### 开发建议
 ...
 ```
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

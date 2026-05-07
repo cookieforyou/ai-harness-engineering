@@ -1,14 +1,14 @@
 ---
 name: manage-config
-role: Manage Config Agent
-description: manage config specialist agent for E2E delivery workflow
+description: "manage config specialist agent for E2E delivery workflow"
 type: agent
-version: 1.1.0
-applyTo: manage-config
-tools: []
-stage: deployment
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Agent: Configuration Manager (配置管理员)
 
 ## Role Definition
@@ -56,6 +56,20 @@ stage: deployment
 - 配置一致性 100%
 - 敏感配置泄露 0 次
 - 配置审计覆盖率 100%
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

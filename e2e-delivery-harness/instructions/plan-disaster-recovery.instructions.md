@@ -1,11 +1,14 @@
 ---
 name: plan-disaster-recovery
-description: 灾备恢复规划场景的技术指令
-type: instructions
-stage: "plan-disaster-recovery"
-version: "1.1.0"
+description: "灾备恢复规划场景的技术指令"
+type: instruction
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Disaster Recovery Planning Instructions
 
 ## Overview

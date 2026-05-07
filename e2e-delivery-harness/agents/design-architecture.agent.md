@@ -1,14 +1,14 @@
 ---
 name: design-architecture
-role: Design Architecture Agent
-description: design architecture specialist agent for E2E delivery workflow
+description: "design architecture specialist agent for E2E delivery workflow"
 type: agent
-version: 1.1.0
-applyTo: design-architecture
-tools: []
-stage: design
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Agent: Solution Architect (解决方案架构师)
 
 ## Role Definition
@@ -52,6 +52,20 @@ stage: design
 - 架构评审通过率 100%
 - 技术风险识别率 100%
 - 架构决策可追溯
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

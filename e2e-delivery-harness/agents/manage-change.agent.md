@@ -1,14 +1,14 @@
 ---
 name: manage-change
-role: Manage Change Agent
-description: manage change specialist agent for E2E delivery workflow
+description: "manage change specialist agent for E2E delivery workflow"
 type: agent
-version: 1.1.0
-applyTo: manage-change
-tools: []
-stage: governance
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Agent: Change Manager (变更经理)
 
 ## Role Definition
@@ -91,6 +91,20 @@ stage: governance
 - 实施结果
 - 问题与解决
 - 经验教训
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

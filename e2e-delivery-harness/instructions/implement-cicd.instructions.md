@@ -1,11 +1,14 @@
 ---
 name: implement-cicd
-description: Detailed technical instructions for implement-cicd scenario execution
+description: "Detailed technical instructions for implement-cicd scenario execution"
 type: instruction
-version: "1.1.0"
-stage: implement-cicd
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: CI/CD 实施 (Implement CI/CD)
 
 ## CI/CD 平台选型

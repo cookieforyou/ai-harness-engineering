@@ -1,19 +1,14 @@
 ---
 name: monitor-operate
-role: Monitor Operate Agent
-description: 负责监控与运维的AI角色代理，监控系统运行状态，处理运维事件和故障
+description: "负责监控与运维的AI角色代理，监控系统运行状态，处理运维事件和故障"
 type: agent
-version: 1.1.0
-applyTo: monitor-operate
-tools:
-- search
-- edit
-- analyze
-- monitor
-- document
-stage: monitoring
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # SRE Monitor
 
 ## Use When
@@ -70,6 +65,20 @@ stage: monitoring
 | `dashboard_definitions` | json/markdown | 监控面板定义文件 |
 | `runbook_library` | markdown | 运维手册库：常见场景处理流程 |
 | `slo_dashboard` | string | SLO达成率监控和报告 |
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

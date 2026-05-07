@@ -1,11 +1,14 @@
 ---
 name: review-code
-description: 代码审查技能，提供代码评审的方法论和最佳实践
+description: "代码审查技能，提供代码评审的方法论和最佳实践"
 type: skill
-version: "1.1.0"
-stage: development
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Code Review Skill
 
 ## Skill Overview

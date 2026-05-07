@@ -1,12 +1,14 @@
 ---
-
 name: deploy-release
-description: 规划和管理应用的部署发布流程，确保部署安全、可回滚
-category: release
-version: "1.1.0"
+description: "规划和管理应用的部署发布流程，确保部署安全、可回滚"
 type: skill
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Deployment Skill
 
 ## Use When
@@ -193,6 +195,18 @@ type: skill
 | 回滚能力 | 可快速回滚 | 回滚方案检查 |
 | 验证完整 | 验证覆盖全面 | 检查清单检查 |
 | 文档完整 | 文档归档完整 | 归档检查 |
+
+
+
+
+## Troubleshooting
+
+### Issue 1: 常见问题
+**Symptom**: 问题症状
+**Cause**: 根本原因
+**Resolution**: 解决步骤
+
+
 
 ## Related Assets
 

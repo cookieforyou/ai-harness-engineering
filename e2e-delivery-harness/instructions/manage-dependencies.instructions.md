@@ -1,11 +1,14 @@
 ---
 name: manage-dependencies
-description: 依赖管理场景的技术指令，详细说明依赖管理的工具和方法
-type: instructions
-stage: "manage-dependencies"
-version: "1.1.0"
+description: "依赖管理场景的技术指令，详细说明依赖管理的工具和方法"
+type: instruction
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Dependency Management Instructions
 
 ## Overview

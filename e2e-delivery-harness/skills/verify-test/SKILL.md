@@ -1,12 +1,14 @@
 ---
-
 name: verify-test
-description: 设计和执行测试用例，验证功能正确性，发现并跟踪缺陷
-category: verification
-version: "1.1.0"
+description: "设计和执行测试用例，验证功能正确性，发现并跟踪缺陷"
 type: skill
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Testing Skill
 
 ## Use When
@@ -170,6 +172,18 @@ type: skill
 | 执行准确 | 执行结果准确 | 结果核对 |
 | 缺陷管理 | 缺陷跟踪规范 | 缺陷状态检查 |
 | 报告质量 | 报告完整清晰 | 完整性检查 |
+
+
+
+
+## Troubleshooting
+
+### Issue 1: 常见问题
+**Symptom**: 问题症状
+**Cause**: 根本原因
+**Resolution**: 解决步骤
+
+
 
 ## Related Assets
 

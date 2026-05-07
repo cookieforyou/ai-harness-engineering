@@ -2,10 +2,13 @@
 name: manage-tech-debt
 description: "Domain skill for manage-tech-debt execution"
 type: skill
-version: "1.1.0"
-stage: "manage-tech-debt"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Technical Debt Management Skill
 
 ## Core Knowledge

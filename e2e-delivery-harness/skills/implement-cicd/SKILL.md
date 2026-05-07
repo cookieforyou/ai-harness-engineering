@@ -2,10 +2,13 @@
 name: implement-cicd
 description: "Domain skill for implement-cicd execution"
 type: skill
-version: "1.1.0"
-stage: "implement-cicd"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Skill: CI/CD 实施 (CI/CD Implementation)
 
 ## Overview

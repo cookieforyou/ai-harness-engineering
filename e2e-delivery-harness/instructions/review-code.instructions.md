@@ -1,11 +1,14 @@
 ---
 name: review-code
-description: 代码审查执行指南，用于执行代码评审
+description: "代码审查执行指南，用于执行代码评审"
 type: instruction
-version: "1.1.0"
-stage: development
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Code Review Instruction
 
 ## Objective

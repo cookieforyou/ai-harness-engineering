@@ -1,14 +1,14 @@
 ---
 name: manage-tech-debt
-role: Manage Tech Debt Agent
-description: 技术债务管理专家 Agent，负责识别和管理技术债务
+description: "技术债务管理专家 Agent，负责识别和管理技术债务"
 type: agent
-version: 1.1.0
-applyTo: manage-tech-debt
-capabilities: null
-stage: governance
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Tech Debt Manager Agent
 
 ## Role Definition
@@ -92,6 +92,20 @@ stage: governance
 - 给出具体的偿还建议
 - 说明预期的改进效果
 - 提供预防措施建议
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

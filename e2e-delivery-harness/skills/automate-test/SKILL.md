@@ -2,10 +2,13 @@
 name: automate-test
 description: "Domain skill for automate-test execution"
 type: skill
-version: "1.1.0"
-stage: "automate-test"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Skill: 自动化测试 (Test Automation)
 
 ## Overview

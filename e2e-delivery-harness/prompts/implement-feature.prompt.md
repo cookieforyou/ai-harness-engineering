@@ -1,16 +1,63 @@
 ---
 name: implement-feature
-description: 功能实现提示词，用于完成具体的代码开发任务
-type: development
-version: "1.1.0"
-stage: development
+description: "功能实现提示词，用于完成具体的代码开发任务"
+type: execution
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['prompt', 'ai-execution']
 ---
-
 # Implement Feature
 
 > **版本**: 1.1.0 | **适用阶段**: 开发实现 | **预计工时**: 1-3天/任务
 
 ## Input Variables
+
+## Chain of Thought (思维链)
+
+> **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
+
+```
+Step 1: [THINK] 理解任务需求和验收标准
+   ├─ 输入: task_spec, acceptance_criteria
+   ├─ 思考: 需求是否清晰？验收标准是否可测量？
+   ├─ 验证: 与需求规格对照，确认无歧义
+   └─ 输出: 任务理解备忘录
+   ↓
+Step 2: [ANALYZE] 分析技术方案和依赖关系
+   ├─ 输入: 任务理解备忘录, design_reference
+   ├─ 思考: 实现方案是否合理？是否有技术风险？
+   ├─ 验证: 符合架构设计，依赖已明确
+   └─ 输出: 技术实现方案
+   ↓
+Step 3: [DESIGN] 设计代码结构和接口
+   ├─ 输入: 技术实现方案
+   ├─ 思考: 类/函数结构如何设计？接口契约是什么？
+   ├─ 验证: 符合SOLID原则，接口清晰
+   └─ 输出: 代码结构设计
+   ↓
+Step 4: [IMPLEMENT] 编写代码和单元测试
+   ├─ 输入: 代码结构设计
+   ├─ 思考: 代码是否规范？测试是否充分？
+   ├─ 验证: 遵循编码规范，测试覆盖核心逻辑
+   └─ 输出: 源代码 + 单元测试
+   ↓
+Step 5: [VERIFY] 自检代码质量和测试覆盖
+   ├─ 输入: 源代码, 单元测试
+   ├─ 执行: 代码规范检查, 单元测试执行
+   ├─ 验证: 无规范违规，测试全部通过
+   └─ 输出: 自检报告 + 测试报告
+   ↓
+Step 6: [HANDOVER] 准备交接给测试验证阶段
+   ├─ 生成: Handover Context
+   ├─ 更新: Global Context (代码库状态)
+   └─ 通知: Verify Test Agent
+```
+
+
+
 
 | 变量名 | 类型 | 必填 | 说明 | 示例 |
 |--------|------|------|------|------|
@@ -134,6 +181,57 @@ END
 - 更新变更记录
 
 **产出**：更新后的文档
+
+
+
+## Error Handling (错误处理)
+
+> **AI 遇到以下情况时必须按指定流程处理**
+
+### 错误分类体系
+
+| 级别 | 标识 | 描述 | 处理方式 |
+|------|------|------|----------|
+| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
+| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
+| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
+| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
+
+### Error Scenario 1: 通用错误处理
+
+**识别信号**: 
+- 检测到异常情况
+- 验证失败
+
+**处理流程**:
+```
+IF 检测到错误
+THEN
+  1. 识别错误类型和严重程度
+  2. 记录错误详情
+  3. 根据错误级别采取相应措施
+  4. IF P0/P1 级别 THEN 升级到人工处理
+  5. 更新状态并继续或停止
+END
+```
+
+**降级方案**: 根据具体情况选择适当的降级策略
+
+**升级条件**: P0 或 P1 级别错误
+
+**错误日志格式**:
+```yaml
+error_log:
+  error_id: "ERR-{timestamp}-XXX"
+  timestamp: "{{ISO8601}}"
+  level: "P0/P1/P2/P3"
+  type: "{错误类型}"
+  description: "{详细描述}"
+  action_taken: "{已采取的行动}"
+  result: "resolved/blocked/degraded/escalated"
+```
+
+
 
 ## Output Format
 
@@ -281,6 +379,54 @@ THEN
   4. 如无法解决，联系团队负责人
 END
 ```
+
+
+
+## Quality Metrics (质量指标)
+
+### Key Performance Indicators (KPIs)
+
+| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
+|--------|----------|--------|----------|----------|------|
+| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
+| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
+| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
+| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+
+**综合评分计算**: 
+```
+Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
+```
+
+### Validation Checklist (验证清单)
+
+**完整性验证 (Completeness)**:
+- [ ] 所有必需内容已完成
+- [ ] 无遗漏的关键步骤
+- [ ] 交付物完整
+
+**一致性验证 (Consistency)**:
+- [ ] 术语和命名统一
+- [ ] 风格一致
+- [ ] 与其他资产协调
+
+**准确性验证 (Accuracy)**:
+- [ ] 信息准确无误
+- [ ] 数据和计算正确
+- [ ] 链接和引用有效
+
+**可执行性验证 (Executability)**:
+- [ ] 步骤清晰可执行
+- [ ] 资源和要求明确
+- [ ] 无模糊或不确定的内容
+
+**规范性验证 (Compliance)**:
+- [ ] 遵循标准和规范
+- [ ] 符合最佳实践
+- [ ] 满足合规要求
+
+
 
 ## Handover 准备
 

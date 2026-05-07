@@ -1,11 +1,14 @@
 ---
 name: manage-config
-description: Detailed technical instructions for manage-config scenario execution
+description: "Detailed technical instructions for manage-config scenario execution"
 type: instruction
-version: "1.1.0"
-stage: manage-config
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: 配置管理 (Manage Configuration)
 
 ## Configuration Center Selection

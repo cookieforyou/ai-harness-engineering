@@ -1,13 +1,14 @@
 ---
 name: review-code
-role: review-code
-description: 代码审查角色，负责执行代码评审
+description: "代码审查角色，负责执行代码评审"
 type: agent
-stage: development
-version: "1.1.0"
-applyTo: "review-code"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Code Reviewer Agent
 
 ## Role Definition
@@ -88,6 +89,20 @@ handover:
 2. 问题必须准确
 3. 建议必须可行
 4. 结论必须有依据
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

@@ -1,12 +1,14 @@
 ---
-
 name: analyze-requirement
-description: 将原始业务需求转换为结构化的需求规格说明书，包含干系人分析、业务建模和验收标准定义
-category: analysis
-version: "1.1.0"
+description: "将原始业务需求转换为结构化的需求规格说明书，包含干系人分析、业务建模和验收标准定义"
 type: skill
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Requirement Analysis Skill
 
 ## Use When

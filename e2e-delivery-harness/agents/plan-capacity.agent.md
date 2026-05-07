@@ -1,14 +1,14 @@
 ---
 name: plan-capacity
-role: Plan Capacity Agent
-description: plan capacity specialist agent for E2E delivery workflow
+description: "plan capacity specialist agent for E2E delivery workflow"
 type: agent
-version: 1.1.0
-applyTo: plan-capacity
-tools: []
-stage: operations
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Agent: Capacity Planner (容量规划工程师)
 
 ## Role Definition
@@ -21,6 +21,20 @@ stage: operations
 2. 预测未来需求
 3. 制定扩容方案
 4. 估算扩容成本
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

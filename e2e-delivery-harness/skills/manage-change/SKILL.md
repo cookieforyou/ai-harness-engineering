@@ -1,11 +1,14 @@
 ---
 name: manage-change
-description: 变更管理技能，提供变更评估和管理的方法论
+description: "变更管理技能，提供变更评估和管理的方法论"
 type: skill
-version: "1.1.0"
-stage: cross-phase
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Change Management Skill
 
 ## Skill Overview

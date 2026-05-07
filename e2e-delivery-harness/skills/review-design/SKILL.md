@@ -2,10 +2,13 @@
 name: review-design
 description: "Domain skill for review-design execution"
 type: skill
-version: "1.1.0"
-stage: "review-design"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Skill: 技术方案评审 (Technical Design Review)
 
 ## Overview

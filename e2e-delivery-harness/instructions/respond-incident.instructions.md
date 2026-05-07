@@ -1,11 +1,14 @@
 ---
 name: respond-incident
-description: 事件响应场景的技术指令
-type: instructions
-stage: "respond-incident"
-version: "1.1.0"
+description: "事件响应场景的技术指令"
+type: instruction
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Incident Response Instructions
 
 ## Overview

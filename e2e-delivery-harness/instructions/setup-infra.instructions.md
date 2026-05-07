@@ -1,11 +1,14 @@
 ---
 name: setup-infra
-description: Detailed technical instructions for setup-infra scenario execution
+description: "Detailed technical instructions for setup-infra scenario execution"
 type: instruction
-version: "1.1.0"
-stage: setup-infra
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: 基础设施搭建 (Setup Infrastructure)
 
 ## Cloud Provider Selection Standards

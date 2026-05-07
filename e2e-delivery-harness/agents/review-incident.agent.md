@@ -1,13 +1,14 @@
 ---
 name: review-incident
-role: review-incident
-description: 故障复盘角色，负责执行故障复盘分析
+description: "故障复盘角色，负责执行故障复盘分析"
 type: agent
-stage: monitoring
-version: "1.1.0"
-applyTo: "review-incident"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Incident Reviewer Agent
 
 ## Role Definition
@@ -88,6 +89,20 @@ handover:
 2. 原因必须明确
 3. 措施必须可行
 4. 跟踪必须到位
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

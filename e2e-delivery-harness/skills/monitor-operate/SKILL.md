@@ -1,12 +1,14 @@
 ---
-
 name: monitor-operate
-description: 配置监控系统，执行日常巡检，处理告警和故障，保障系统稳定运行
-category: operations
-version: "1.1.0"
+description: "配置监控系统，执行日常巡检，处理告警和故障，保障系统稳定运行"
 type: skill
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Monitoring Skill
 
 ## Use When
@@ -198,6 +200,18 @@ type: skill
 | 响应性 | 问题及时响应 | 响应时间统计 |
 | 可观测性 | 监控完善有效 | 覆盖率检查 |
 | 持续改进 | 运维持续优化 | 优化记录检查 |
+
+
+
+
+## Troubleshooting
+
+### Issue 1: 常见问题
+**Symptom**: 问题症状
+**Cause**: 根本原因
+**Resolution**: 解决步骤
+
+
 
 ## Related Assets
 

@@ -1,14 +1,14 @@
 ---
 name: respond-incident
-role: Respond Incident Agent
-description: 事件指挥官 Agent，负责协调和指挥事件响应
+description: "事件指挥官 Agent，负责协调和指挥事件响应"
 type: agent
-version: 1.1.0
-applyTo: respond-incident
-capabilities: null
-stage: monitoring
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Incident Commander Agent
 
 ## Role Definition
@@ -82,6 +82,20 @@ stage: monitoring
 - 维护完整的事件时间线
 - 确保团队协调顺畅
 - 记录所有关键决策
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

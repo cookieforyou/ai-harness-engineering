@@ -1,14 +1,14 @@
 ---
 name: audit-security
-role: Audit Security Agent
-description: audit security specialist agent for E2E delivery workflow
+description: "audit security specialist agent for E2E delivery workflow"
 type: agent
-version: 1.1.0
-applyTo: audit-security
-tools: []
-stage: testing
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Agent: Security Engineer (安全工程师)
 
 ## Role Definition
@@ -49,6 +49,20 @@ stage: testing
 - 密钥轮换执行率 100%
 - 安全漏洞修复率 100%（高危）
 - 合规审计通过率 100%
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

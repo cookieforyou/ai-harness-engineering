@@ -1,11 +1,14 @@
 ---
 name: audit-security
-description: 安全审计执行指南，用于执行安全测试
+description: "安全审计执行指南，用于执行安全测试"
 type: instruction
-version: "1.1.0"
-stage: testing
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Security Audit Instruction
 
 ## Objective

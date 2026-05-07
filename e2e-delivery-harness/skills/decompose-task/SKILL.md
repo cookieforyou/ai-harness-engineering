@@ -1,12 +1,14 @@
 ---
-
 name: decompose-task
-description: 将架构设计拆解为可执行的任务清单，制定迭代计划和里程碑
-category: planning
-version: "1.1.0"
+description: "将架构设计拆解为可执行的任务清单，制定迭代计划和里程碑"
 type: skill
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Task Decomposition Skill
 
 ## Use When
@@ -187,6 +189,18 @@ type: skill
 | 可执行性 | 任务粒度适中 | 粒度检查 |
 | 依赖清晰 | 依赖关系明确 | 依赖检查 |
 | 优先级合理 | 优先级与价值匹配 | 优先级检查 |
+
+
+
+
+## Troubleshooting
+
+### Issue 1: 常见问题
+**Symptom**: 问题症状
+**Cause**: 根本原因
+**Resolution**: 解决步骤
+
+
 
 ## Related Assets
 

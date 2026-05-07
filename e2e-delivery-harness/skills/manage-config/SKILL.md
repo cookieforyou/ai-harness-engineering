@@ -2,10 +2,13 @@
 name: manage-config
 description: "Domain skill for manage-config execution"
 type: skill
-version: "1.1.0"
-stage: "manage-config"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Skill: 配置管理 (Configuration Management)
 
 ## Overview

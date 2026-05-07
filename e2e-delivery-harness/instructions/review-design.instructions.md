@@ -1,11 +1,14 @@
 ---
 name: review-design
-description: Detailed technical instructions for review-design scenario execution
+description: "Detailed technical instructions for review-design scenario execution"
 type: instruction
-version: "1.1.0"
-stage: review-design
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instruction: 技术方案评审技术规范
 
 ## Overview

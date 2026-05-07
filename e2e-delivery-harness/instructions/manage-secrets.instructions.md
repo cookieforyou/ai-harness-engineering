@@ -1,11 +1,14 @@
 ---
 name: manage-secrets
-description: Detailed technical instructions for manage-secrets scenario execution
+description: "Detailed technical instructions for manage-secrets scenario execution"
 type: instruction
-version: "1.1.0"
-stage: manage-secrets
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: 密钥管理 (Manage Secrets)
 
 ## Secret Management Service Selection

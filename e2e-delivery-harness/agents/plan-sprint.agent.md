@@ -1,19 +1,14 @@
 ---
 name: plan-sprint
-role: Plan Sprint Agent
-description: 负责产品规划、需求管理、Sprint Planning 等工作的AI角色代理
+description: "负责产品规划、需求管理、Sprint Planning 等工作的AI角色代理"
 type: agent
-version: 1.1.0
-applyTo: plan-sprint
-tools:
-- search
-- edit
-- analyze
-- plan
-- prioritize
-stage: planning
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Product Owner (产品负责人)
 
 ## Use When
@@ -61,6 +56,20 @@ stage: planning
 | `sprint_goal` | string | false | 本次冲刺的业务目标 |
 | `previous_velocity` | number | false | 前几次冲刺的速度（完成故事点） |
 | `dependencies` | list | false | 跨团队或外部依赖项 |
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

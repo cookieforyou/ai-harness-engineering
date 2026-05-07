@@ -1,18 +1,14 @@
 ---
 name: analyze-requirement
-role: Analyze Requirement Agent
-description: 负责需求分析与规划的AI角色代理，将原始业务需求转换为结构化的需求规格说明书
+description: "负责需求分析与规划的AI角色代理，将原始业务需求转换为结构化的需求规格说明书"
 type: agent
-version: 1.1.0
-applyTo: analyze-requirement
-tools:
-- search
-- edit
-- analyze
-- document
-stage: planning
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Requirement Analyst
 
 ## Use When
@@ -98,6 +94,20 @@ stage: planning
 ### 后续建议
 ...
 ```
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

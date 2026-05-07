@@ -2,10 +2,13 @@
 name: prepare-release
 description: "Domain skill for prepare-release execution"
 type: skill
-version: "1.1.0"
-stage: "prepare-release"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Skill: 发布准备 (Release Preparation)
 
 ## Overview

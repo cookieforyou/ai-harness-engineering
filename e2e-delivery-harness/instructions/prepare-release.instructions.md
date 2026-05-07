@@ -1,11 +1,14 @@
 ---
 name: prepare-release
-description: Detailed technical instructions for prepare-release scenario execution
+description: "Detailed technical instructions for prepare-release scenario execution"
 type: instruction
-version: "1.1.0"
-stage: prepare-release
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: 发布准备 (Prepare Release)
 
 ## Release Type Standards

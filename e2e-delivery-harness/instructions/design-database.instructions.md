@@ -1,11 +1,14 @@
 ---
 name: design-database
-description: Detailed technical instructions for design-database scenario execution
+description: "Detailed technical instructions for design-database scenario execution"
 type: instruction
-version: "1.1.0"
-stage: design-database
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: 数据库设计 (Design Database)
 
 ## Database Selection Standards

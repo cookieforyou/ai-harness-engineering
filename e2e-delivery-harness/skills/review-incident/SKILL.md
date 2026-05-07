@@ -1,11 +1,14 @@
 ---
 name: review-incident
-description: 故障复盘技能，提供故障分析和改进制定的方法论
+description: "故障复盘技能，提供故障分析和改进制定的方法论"
 type: skill
-version: "1.1.0"
-stage: monitoring
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Incident Review Skill
 
 ## Skill Overview

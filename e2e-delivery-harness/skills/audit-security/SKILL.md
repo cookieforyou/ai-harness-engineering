@@ -1,11 +1,14 @@
 ---
 name: audit-security
-description: 安全审计技能，提供安全测试和漏洞评估的方法论
+description: "安全审计技能，提供安全测试和漏洞评估的方法论"
 type: skill
-version: "1.1.0"
-stage: testing
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Security Audit Skill
 
 ## Skill Overview

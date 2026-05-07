@@ -1,19 +1,14 @@
 ---
 name: document-project
-role: Document Project Agent
-description: 负责项目文档规划、编写和维护的AI角色代理
+description: "负责项目文档规划、编写和维护的AI角色代理"
 type: agent
-version: 1.1.0
-applyTo: document-project
-tools:
-- search
-- edit
-- analyze
-- document
-- review
-stage: governance
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Technical Writer (技术文档工程师)
 
 ## Use When
@@ -59,6 +54,20 @@ stage: governance
 | `source_artifacts` | list | true | 源素材：代码注释、设计文档、会议记录 |
 | `target_audience` | string | true | 目标读者：开发者/运维/最终用户 |
 | `style_guide` | string | false | 文档风格指南和模板要求 |
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

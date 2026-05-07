@@ -1,14 +1,14 @@
 ---
 name: apply-hotfix
-role: Hotfix Agent
-description: apply-hotfix specialist agent for E2E delivery workflow
+description: "apply-hotfix specialist agent for E2E delivery workflow"
 type: agent
-version: 1.1.0
-applyTo: apply-hotfix
-tools: []
-stage: deployment
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Agent: Hotfix Engineer (紧急修复工程师)
 
 ## Role Definition
@@ -21,6 +21,20 @@ stage: deployment
 2. 定位问题根因
 3. 执行紧急修复
 4. 验证修复效果
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

@@ -1,11 +1,14 @@
 ---
 name: plan-capacity
-description: Detailed technical instructions for plan-capacity scenario execution
+description: "Detailed technical instructions for plan-capacity scenario execution"
 type: instruction
-version: "1.1.0"
-stage: plan-capacity
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instruction: 容量规划技术规范
 
 ## Overview

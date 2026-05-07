@@ -1,11 +1,14 @@
 ---
 name: manage-change
-description: 变更管理执行指南，用于处理需求变更请求
+description: "变更管理执行指南，用于处理需求变更请求"
 type: instruction
-version: "1.1.0"
-stage: cross-phase
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Change Management Instruction
 
 ## Objective

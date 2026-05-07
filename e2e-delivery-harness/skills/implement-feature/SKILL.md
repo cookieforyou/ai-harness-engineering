@@ -1,12 +1,14 @@
 ---
-
 name: implement-feature
-description: 按照任务清单完成代码开发、单元测试和文档更新，确保代码质量
-category: implementation
-version: "1.1.0"
+description: "按照任务清单完成代码开发、单元测试和文档更新，确保代码质量"
 type: skill
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Development Skill
 
 ## Use When
@@ -167,6 +169,18 @@ type: skill
 | 代码质量 | 规范、可维护 | 代码审查 |
 | 测试覆盖 | 核心逻辑覆盖 | 覆盖率报告 |
 | 文档完整 | 文档同步更新 | 文档检查 |
+
+
+
+
+## Troubleshooting
+
+### Issue 1: 常见问题
+**Symptom**: 问题症状
+**Cause**: 根本原因
+**Resolution**: 解决步骤
+
+
 
 ## Related Assets
 

@@ -1,14 +1,14 @@
 ---
 name: plan-rollback
-role: Plan Rollback Agent
-description: 回滚计划工程师 Agent，负责制定和执行回滚计划
+description: "回滚计划工程师 Agent，负责制定和执行回滚计划"
 type: agent
-version: 1.1.0
-applyTo: plan-rollback
-capabilities: null
-stage: deployment
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Rollback Engineer Agent
 
 ## Role Definition
@@ -81,6 +81,20 @@ stage: deployment
 - 提供可执行的回滚脚本
 - 提供清晰的验证清单
 - 提供及时的回滚状态更新
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

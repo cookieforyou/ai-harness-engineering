@@ -1,14 +1,14 @@
 ---
 name: migrate-data
-role: Data Migration Engineer
-description: 数据迁移工程师，负责设计和执行数据迁移方案
+description: "数据迁移工程师，负责设计和执行数据迁移方案"
 type: agent
-version: 1.1.0
-applyTo: migrate-data
-associated-scenario: migrate-data
-stage: deployment
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Agent: migrate-data
 
 ## Role Definition
@@ -52,6 +52,20 @@ stage: deployment
 - 迁移中断时，支持断点续传
 - 数据不一致时，触发校验和修复
 - 性能问题时，优化批处理参数
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

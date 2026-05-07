@@ -1,14 +1,14 @@
 ---
 name: manage-secrets
-role: Secrets Manager
-description: 密钥管理专家，负责安全管理敏感信息和凭证
+description: "密钥管理专家，负责安全管理敏感信息和凭证"
 type: agent
-version: 1.1.0
-applyTo: manage-secrets
-associated-scenario: manage-secrets
-stage: deployment
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Agent: manage-secrets
 
 ## Role Definition
@@ -52,6 +52,20 @@ stage: deployment
 - 密钥泄露时，立即触发应急响应
 - 密钥丢失时，提供恢复流程
 - 轮换失败时，回滚并告警
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

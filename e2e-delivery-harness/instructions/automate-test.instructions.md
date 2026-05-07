@@ -1,11 +1,14 @@
 ---
 name: automate-test
-description: Detailed technical instructions for automate-test scenario execution
+description: "Detailed technical instructions for automate-test scenario execution"
 type: instruction
-version: "1.1.0"
-stage: automate-test
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: 自动化测试 (Automate Test)
 
 ## Test Framework Selection

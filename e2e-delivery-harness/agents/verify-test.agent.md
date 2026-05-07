@@ -1,19 +1,14 @@
 ---
 name: verify-test
-role: Verify Test Agent
-description: 负责测试验证的AI角色代理，设计和执行测试用例，验证功能正确性
+description: "负责测试验证的AI角色代理，设计和执行测试用例，验证功能正确性"
 type: agent
-version: 1.1.0
-applyTo: verify-test
-tools:
-- search
-- edit
-- analyze
-- test
-- document
-stage: testing
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # Tester
 
 ## Use When
@@ -97,6 +92,20 @@ stage: testing
 ### 验证重点
 ...
 ```
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

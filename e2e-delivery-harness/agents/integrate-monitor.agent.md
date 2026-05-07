@@ -1,19 +1,14 @@
 ---
 name: integrate-monitor
-role: Integrate Monitor Agent
-description: 负责监控系统集成、告警配置和可观测性建设的AI角色代理
+description: "负责监控系统集成、告警配置和可观测性建设的AI角色代理"
 type: agent
-version: 1.1.0
-applyTo: integrate-monitor
-tools:
-- search
-- edit
-- analyze
-- monitor
-- document
-stage: monitoring
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # SRE Engineer (站点可靠性工程师)
 
 ## Use When
@@ -60,6 +55,20 @@ stage: monitoring
 | `instrumentation_points` | list | true | 埋点位置：代码、基础设施、日志 |
 | `metric_naming_scheme` | string | false | 指标命名规范和标签策略 |
 | `notification_channels` | list | false | 通知渠道：PagerDuty/Slack/Email |
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

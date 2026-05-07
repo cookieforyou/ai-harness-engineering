@@ -2,10 +2,13 @@
 name: integrate-api
 description: "Domain skill for integrate-api execution"
 type: skill
-version: "1.1.0"
-stage: "integrate-api"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Skill: API 集成 (API Integration)
 
 ## Overview

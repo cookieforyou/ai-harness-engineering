@@ -1,18 +1,14 @@
 ---
 name: respond-incident
-description: 事件响应场景，定义生产环境事故的发现、响应、处理和恢复流程
+description: "事件响应场景，定义生产环境事故的发现、响应、处理和恢复流程"
 type: scenario
-version: 1.1.0
-trigger: 当发生生产环境事故时触发
-agent: integrate-monitor
-phase: monitor-operate
-tags: null
-input: null
-output: null
+version: "1.2.0"
 author: AI Harness Engineering Team
-stage: monitoring
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['workflow', 'process']
 ---
-
 # Incident Response Scenario
 
 ## Overview
@@ -130,6 +126,54 @@ stage: monitoring
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
 
+
+
+## Quality Metrics (质量指标)
+
+### Key Performance Indicators (KPIs)
+
+| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
+|--------|----------|--------|----------|----------|------|
+| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
+| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
+| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
+| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+
+**综合评分计算**: 
+```
+Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
+```
+
+### Validation Checklist (验证清单)
+
+**完整性验证 (Completeness)**:
+- [ ] 所有必需内容已完成
+- [ ] 无遗漏的关键步骤
+- [ ] 交付物完整
+
+**一致性验证 (Consistency)**:
+- [ ] 术语和命名统一
+- [ ] 风格一致
+- [ ] 与其他资产协调
+
+**准确性验证 (Accuracy)**:
+- [ ] 信息准确无误
+- [ ] 数据和计算正确
+- [ ] 链接和引用有效
+
+**可执行性验证 (Executability)**:
+- [ ] 步骤清晰可执行
+- [ ] 资源和要求明确
+- [ ] 无模糊或不确定的内容
+
+**规范性验证 (Compliance)**:
+- [ ] 遵循标准和规范
+- [ ] 符合最佳实践
+- [ ] 满足合规要求
+
+
+
 ## Handover Criteria
 
 - [ ] 事件已恢复
@@ -158,6 +202,50 @@ stage: monitoring
 
 ## Purpose
 
+## Chain of Thought (思维链)
+
+> **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
+
+```
+Step 1: [THINK] 理解任务目标和上下文
+   ├─ 输入: 相关输入变量
+   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
+   ├─ 验证: 确认理解准确，无遗漏
+   └─ 输出: 任务分析摘要
+   ↓
+Step 2: [ANALYZE] 分析需求和约束条件
+   ├─ 输入: 任务分析摘要
+   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
+   ├─ 验证: 分析全面，考虑了所有重要因素
+   └─ 输出: 分析报告
+   ↓
+Step 3: [DESIGN] 设计解决方案
+   ├─ 输入: 分析报告
+   ├─ 思考: 最优方案是什么？有无备选方案？
+   ├─ 验证: 方案可行且符合最佳实践
+   └─ 输出: 设计方案
+   ↓
+Step 4: [IMPLEMENT] 执行和实施
+   ├─ 输入: 设计方案
+   ├─ 思考: 如何高质量地实施？需要注意什么？
+   ├─ 验证: 实施符合设计规范
+   └─ 输出: 实施成果
+   ↓
+Step 5: [VERIFY] 验证结果和质量
+   ├─ 输入: 实施成果
+   ├─ 执行: 质量检查和验证
+   ├─ 验证: 满足所有验收标准
+   └─ 输出: 验证报告
+   ↓
+Step 6: [HANDOVER] 准备交接
+   ├─ 生成: Handover Context
+   ├─ 更新: Global Context
+   └─ 通知: 下一阶段 Agent
+```
+
+
+
+
 > Define the objectives and scope of the respond-incident scenario.
 >
 > This scenario ensures systematic execution of respond-incident activities with clear decision checkpoints and handover criteria.
@@ -179,3 +267,59 @@ stage: monitoring
 | Instructions | `instructions/respond-incident.instructions.md` | Technical instructions |
 | Agent | `agents/respond-incident.agent.md` | Responsible agent |
 | Skill | `skills/respond-incident/SKILL.md` | Domain skill |
+
+
+### Handover Context Template
+
+```yaml
+handover:
+  header:
+    from_stage: "respond-incident"
+    to_stage: "unknown"
+    handover_id: "HO-{{timestamp}}-{{sequence}}"
+    timestamp: "{{ISO8601}}"
+    prepared_by: "{{agent.name}}"
+    
+  summary:
+    status: "completed/partial/blocked"
+    completion_percentage: {{0-100}}
+    quality_score: {{0-100}}
+    
+  artifacts:
+    delivered:
+      - name: "{{artifact_name}}"
+        path: "{{file_path}}"
+        version: "{{version}}"
+        checksum: "{{SHA256}}"
+      
+  decisions:
+    - id: "DC-XXX"
+      description: "{{决策描述}}"
+      rationale: "{{决策理由}}"
+      alternatives_considered: ["选项1", "选项2"]
+      
+  open_issues:
+    blocking: []
+    non_blocking:
+      - id: "ISSUE-XXX"
+        description: "{{问题描述}}"
+        
+  risks:
+    - id: "RISK-XXX"
+      description: "{{风险描述}}"
+      probability: "low/medium/high"
+      impact: "low/medium/high"
+      mitigation: "{{缓解措施}}"
+      
+  recommendations:
+    - "{{建议1}}"
+    - "{{建议2}}"
+    
+  quality_metrics:
+    kpi_results:
+      - kpi_id: "KPI-001"
+        value: {{actual_value}}
+        target: {{target_value}}
+        status: "pass/fail"
+```
+

@@ -2,10 +2,13 @@
 name: design-database
 description: "Domain skill for design-database execution"
 type: skill
-version: "1.1.0"
-stage: "design-database"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['skill', 'knowledge']
 ---
-
 # Skill: 数据库设计 (Database Design)
 
 ## Overview

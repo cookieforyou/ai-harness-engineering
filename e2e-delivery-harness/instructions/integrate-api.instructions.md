@@ -1,11 +1,14 @@
 ---
 name: integrate-api
-description: Detailed technical instructions for integrate-api scenario execution
+description: "Detailed technical instructions for integrate-api scenario execution"
 type: instruction
-version: "1.1.0"
-stage: integrate-api
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: API 集成 (Integrate API)
 
 ## Authentication方式规范

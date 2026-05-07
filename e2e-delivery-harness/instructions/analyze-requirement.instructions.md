@@ -2,10 +2,13 @@
 name: analyze-requirement
 description: "Technical instructions for requirement analysis execution"
 type: instruction
-version: "1.1.0"
-stage: "analyze-requirement"
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Requirement Analysis Instructions
 
 ## Purpose

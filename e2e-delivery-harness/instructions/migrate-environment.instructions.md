@@ -1,11 +1,14 @@
 ---
 name: migrate-environment
-description: Detailed technical instructions for migrate-environment scenario execution
+description: "Detailed technical instructions for migrate-environment scenario execution"
 type: instruction
-version: "1.1.0"
-stage: migrate-environment
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: 环境迁移 (Migrate Environment)
 
 ## Migration Type Standards

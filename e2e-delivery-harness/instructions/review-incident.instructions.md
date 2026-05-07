@@ -1,11 +1,14 @@
 ---
 name: review-incident
-description: 故障复盘执行指南，用于执行故障复盘
+description: "故障复盘执行指南，用于执行故障复盘"
 type: instruction
-version: "1.1.0"
-stage: monitoring
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Incident Review Instruction
 
 ## Objective

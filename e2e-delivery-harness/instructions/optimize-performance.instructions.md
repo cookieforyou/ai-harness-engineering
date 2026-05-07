@@ -1,11 +1,14 @@
 ---
 name: optimize-performance
-description: Detailed technical instructions for optimize-performance scenario execution
+description: "Detailed technical instructions for optimize-performance scenario execution"
 type: instruction
-version: "1.1.0"
-stage: optimize-performance
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instructions: 性能优化 (Optimize Performance)
 
 ## Performance Optimization Layers

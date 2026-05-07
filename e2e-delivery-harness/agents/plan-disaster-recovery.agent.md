@@ -1,14 +1,14 @@
 ---
 name: plan-disaster-recovery
-role: Plan Disaster Recovery Agent
-description: 灾备恢复规划专家 Agent，负责规划和验证灾备能力
+description: "灾备恢复规划专家 Agent，负责规划和验证灾备能力"
 type: agent
-version: 1.1.0
-applyTo: plan-disaster-recovery
-capabilities: null
-stage: operations
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['agent', 'role']
 ---
-
 # DR Planner Agent
 
 ## Role Definition
@@ -81,6 +81,20 @@ stage: operations
 - 提供可执行的恢复流程
 - 提供清晰的演练方案
 - 确保灾备能力可验证
+
+
+
+
+## Quality Checklist
+
+在执行过程中，必须确保：
+
+- [ ] 所有输入参数已验证
+- [ ] 工作流程按步骤执行
+- [ ] 输出符合预期格式
+- [ ] 质量标准已满足
+- [ ] Handover Context 已生成
+
 
 ## Associated Assets
 

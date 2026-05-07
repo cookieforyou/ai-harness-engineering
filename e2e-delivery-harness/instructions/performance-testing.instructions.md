@@ -1,11 +1,14 @@
 ---
 name: performance-testing
-description: Detailed technical instructions for performance-testing scenario execution
+description: "Detailed technical instructions for performance-testing scenario execution"
 type: instruction
-version: "1.1.0"
-stage: performance-testing
+version: "1.2.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-05-07
+status: active
+tags: ['instruction', 'technical']
 ---
-
 # Instruction: 性能测试技术规范
 
 ## Overview
