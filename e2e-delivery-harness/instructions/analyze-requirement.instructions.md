@@ -7,13 +7,20 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['instruction', 'technical']
+tags: [instruction, technical, requirements]
 ---
 # Requirement Analysis Instructions
 
 ## Purpose
 
 本文档定义了需求分析阶段的标准操作流程、质量检查标准和工作产出规范。需求分析是将原始业务需求转换为结构化、可验证的需求规格说明书的系统性过程。
+
+### Business Value
+
+- **降低需求风险**: 通过系统化分析识别模糊和冲突的需求，避免后期返工
+- **提升干系人满意度**: 全面识别干系人诉求，确保关键需求不被遗漏
+- **建立清晰基线**: 形成可追溯、可验证的需求基线，为后续设计和开发提供明确输入
+- **提高交付质量**: 明确的验收标准和非功能需求定义，减少交付偏差
 
 ## Investigation Flow
 
@@ -248,58 +255,22 @@ tags: ['instruction', 'technical']
 ...
 ```
 
+## Related Assets (关联资产)
 
-## Overview
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `../scenarios/analyze-requirement/SCENARIO.md` | 需求分析场景定义 |
+| Agent | `../agents/analyze-requirement.agent.md` | 需求分析Agent角色 |
+| Prompt | `../prompts/analyze-requirement.prompt.md` | 需求分析提示词模板 |
+| Skill | `../skills/analyze-requirement/SKILL.md` | 需求分析技能包 |
 
-> High-level description of the analyze-requirement execution process.
->
-> This instruction defines the technical approach, key activities, and success criteria for the analyze-requirement scenario.
+## Related Resources (相关资源)
 
-
-## Technical Specifications
-
-> Detailed technical requirements and implementation guidelines for analyze-requirement.
-
-### Required Tools
-- [List required tools and frameworks]
-
-### Environment Requirements
-- [List environment prerequisites]
-
-### Configuration Parameters
-- [List key configuration parameters]
-
-
-## Best Practices
-
-> Industry-standard best practices for analyze-requirement execution.
-
-1. **Practice 1**: Elicit requirements through structured interviews and workshops
-2. **Practice 2**: Document functional and non-functional requirements with acceptance criteria
-3. **Practice 3**: Validate requirements with stakeholders before formal sign-off
-
-
-## Error Handling
-
-> Common error scenarios and resolution strategies for analyze-requirement.
-
-### Error Category 1
-**Symptom**: Requirements are ambiguous or conflicting
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
-
-### Error Category 2
-**Symptom**: Stakeholders provide incomplete or inconsistent input
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
-
-
-## Quality Standards
-
-> Acceptance criteria and quality gates for analyze-requirement deliverables.
-
-| Standard | Criteria | Verification Method |
-|----------|----------|---------------------|
-| Standard 1 | All requirements have unambiguous acceptance criteria | Automated check |
-| Standard 2 | Stakeholder sign-off achieved for scope baseline | Automated check |
-| Standard 3 | Traceability matrix covers all business objectives | Automated check |
+- **Standards**: 
+  - [SMART Criteria](../standards/smart-criteria.md) - 需求编写标准
+  - [User Story Format](../standards/user-story-format.md) - 用户故事格式规范
+- **Templates**: 
+  - [Requirements Specification Template](../templates/requirements-spec.template.md) - 需求规格说明书模板
+  - [Stakeholder Analysis Template](../templates/stakeholder-analysis.template.md) - 干系人分析模板
+- **Evaluations**: 
+  - [Requirement Quality Checklist](../evaluations/requirement-quality-checklist.md) - 需求质量检查清单
