@@ -1,341 +1,436 @@
 ---
 name: design-architecture
-description: "Detailed technical instructions for design-architecture scenario execution"
+description: "Technical instructions for architecture design execution"
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['instruction', 'technical']
+tags: [instruction, technical, architecture]
 ---
-# Instructions: 架构设计 (Design Architecture)
+# Architecture Design Instructions
 
-## Architecture Style Standards
+## Purpose
 
-### 主流架构风格对比
+本文档定义了架构设计阶段的标准操作流程、质量检查标准和工作产出规范。架构设计是将业务需求转换为系统高层架构设计的系统性过程。
 
-| 架构风格 | 特点 | 适用场景 | 复杂度 |
-|----------|------|----------|--------|
-| 单体架构 | 简单、部署方便 | 小团队、初创产品 | 低 |
-| 模块化单体 | 代码隔离、易测试 | 中等规模 | 中 |
-| 微服务架构 | 松耦合、独立部署 | 大型复杂系统 | 高 |
-| 事件驱动架构 | 解耦、异步通信 | 高并发系统 | 中 |
-| CQRS | 读写分离 | 大数据量 | 中 |
+### Business Value
 
-### 微服务拆分原则
+- **降低技术风险**: 通过系统化架构设计识别潜在技术风险和瓶颈
+- **提升可扩展性**: 合理的微服务拆分和技术选型确保系统能够平滑扩展
+- **优化成本效益**: 基于业务需求选择最合适的技术方案，避免过度设计
+- **加速开发效率**: 清晰的架构蓝图和接口契约减少团队沟通成本
 
-```yaml
-# 微服务拆分原则
-decomposition_principles:
-  single_responsibility:
-    description: "每个服务只负责一项业务能力"
-    example: |
-      # 好的拆分
-      user-service, order-service, payment-service
-      
-      # 坏的拆分
-      user-order-service (承担两个职责)
+## Investigation Flow
 
-  domain_driven:
-    description: "按业务领域边界拆分"
-    example: |
-      电商领域:
-      - 用户域 (用户、认证、积分)
-      - 商品域 (商品、库存、分类)
-      - 交易域 (订单、支付、物流)
-
-  team_boundary:
-    description: "服务边界与团队边界对齐"
-    rule: "2 pizza team 负责 1-2 个服务"
-
-  low_coupling:
-    description: "服务间低耦合"
-    metrics: "服务间调用依赖 < 3"
-```
-
-## Technology Selection Standards
-
-### 后端技术选型
-
-| 场景 | 推荐技术 | 备选技术 |
-|------|----------|----------|
-| Web API | Java/Spring Boot, Go | Node.js, Python |
-| 高性能 | Go, Rust | Java, C++ |
-| 实时处理 | Node.js, Go | Java |
-| AI/ML | Python | Go |
-
-### 数据库选型
-
-| 场景 | 推荐技术 | 说明 |
-|------|----------|------|
-| 事务型数据 | PostgreSQL, MySQL | ACID 事务 |
-| 文档存储 | MongoDB | 灵活 Schema |
-| 缓存 | Redis | 高性能 |
-| 搜索引擎 | Elasticsearch | 全文搜索 |
-| 时序数据 | InfluxDB, TimescaleDB | 时序优化 |
-| 图数据 | Neo4j | 图关系 |
-
-### 消息队列选型
-
-| 队列 | 特点 | 适用场景 |
-|------|------|----------|
-| Kafka | 高吞吐、低延迟 | 日志、大数据 |
-| RabbitMQ | 丰富路由 | 业务消息 |
-| RocketMQ | 事务消息 | 电商交易 |
-| Redis Stream | 轻量级 | 简单场景 |
-
-## System Topology Standards
-
-### 典型微服务架构
+### 流程概览
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        EXTERNAL CLIENTS                          │
-│                    (Web, Mobile, Third-party)                    │
-└─────────────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                           API GATEWAY                           │
-│              (Authentication, Rate Limit, Routing)               │
-└─────────────────────────────────────────────────────────────────┘
-                               │
-        ┌──────────────────────┼──────────────────────┐
-        │                      │                      │
-        ▼                      ▼                      ▼
-┌───────────────┐    ┌───────────────┐    ┌───────────────┐
-│ User Service  │    │Order Service  │    │Product Service│
-└───────┬───────┘    └───────┬───────┘    └───────┬───────┘
-        │                      │                      │
-        ▼                      ▼                      ▼
-┌───────────────┐    ┌───────────────┐    ┌───────────────┐
-│  MySQL/Redis  │    │PostgreSQL/Kafka│   │  MongoDB/Redis │
-└───────────────┘    └───────────────┘    └───────────────┘
+业务需求分析 → 架构风格选择 → 微服务拆分 → 技术选型 → 容量规划 → 可用性设计 → 文档输出
 ```
 
-### High Availability Architecture
+### 步骤 1：业务需求分析
 
-```yaml
-# 多可用区部署
-high_availability:
-  regions:
-    - "cn-north-1 (主)"
-    - "cn-east-1 (备)"
-    - "cn-south-1 (灾备)"
+**目的**: 理解业务用例、核心功能域和质量属性要求
 
-  multi_az:
-    enabled: true
-    min_azs: 2
-    max_azs: 3
+**输入**:
+- 需求规格说明书
+- 业务背景信息
+- 干系人访谈记录
 
-  failover:
-    automatic: true
-    rto: "< 5 minutes"
-    rpo: "< 1 minute"
+**操作**:
+
+1. **业务用例提取**
+   - 识别核心用户角色（至少3-5个）
+   - 梳理主要业务流程
+   - 确定关键功能需求
+
+2. **功能域划分**
+   - 按业务能力分组（如用户管理、订单处理、支付等）
+   - 识别功能域间的依赖关系
+   - 标注核心功能域和支持功能域
+
+3. **质量属性定义**
+   - 性能指标：QPS、延迟（P50/P95/P99）、吞吐量
+   - 可用性指标：SLA目标（99%/99.9%/99.99%）
+   - 安全性要求：认证、授权、数据加密
+   - 可扩展性：预期增长曲线、峰值场景
+
+4. **约束条件整理**
+   - 技术约束：必须使用的技术栈、合规要求
+   - 资源约束：预算上限、团队规模
+   - 时间约束：交付节点、里程碑
+
+**输出**: 业务需求分析摘要
+
+---
+
+### 步骤 2：架构风格选择
+
+**目的**: 根据业务规模和复杂度选择合适的架构风格
+
+**输入**:
+- 业务需求分析摘要
+- 团队规模和能力
+- 预算和时间约束
+
+**操作**:
+
+1. **评估业务规模**
+   - 当前用户量和预期增长
+   - 交易量和数据量
+   - 并发访问模式
+
+2. **评估团队能力**
+   - 开发团队人数和技能
+   - 运维能力和经验
+   - 学习新技术的能力
+
+3. **选择架构风格**
+   - **单体架构**: 小型项目、MVP、团队<5人
+   - **微服务架构**: 中大型项目、团队>10人、需要独立扩展
+   - **事件驱动架构**: 高并发异步场景、实时数据处理
+   - **Serverless架构**: 弹性需求强、流量波动大、希望降低运维成本
+
+4. **记录决策理由**
+   - 编写ADR（架构决策记录）
+   - 列出备选方案和权衡分析
+   - 说明选择理由和预期后果
+
+**输出**: 架构风格决策及ADR
+
+---
+
+### 步骤 3：微服务拆分
+
+**目的**: 基于业务能力和领域边界进行合理的服务拆分
+
+**输入**:
+- 功能域划分结果
+- 业务用例和流程
+
+**操作**:
+
+1. **业务能力映射**
+   - 将每个业务能力映射到候选服务
+   - 使用DDD方法识别限界上下文
+   - 绘制业务能力地图
+
+2. **服务粒度评估**
+   - **粗粒度**（按业务域）: 适合初期，减少服务数量
+   - **中粒度**（按子域）: 平衡复杂度和灵活性
+   - **细粒度**（按聚合根）: 高度解耦，但增加运维复杂度
+
+3. **服务依赖分析**
+   - 绘制服务依赖图
+   - 识别循环依赖并解决
+   - 计算每个服务的依赖数（目标<5）
+
+4. **服务边界验证**
+   - 检查单一职责原则
+   - 验证低耦合高内聚
+   - 确认每个服务可独立部署
+
+5. **定义服务清单**
+   - 服务名称和职责
+   - 技术栈选择
+   - 数据存储方案
+   - 对外API列表
+
+**输出**: 服务拆分方案和服务清单
+
+---
+
+### 步骤 4：技术栈选型
+
+**目的**: 为每个技术层级选择合适的技术方案
+
+**输入**:
+- 服务清单
+- 团队技能列表
+- 性能和成本要求
+
+**操作**:
+
+1. **前端技术选型**
+   - Web框架：React/Vue/Angular
+   - 移动端：React Native/Flutter/Native
+   - 状态管理：Redux/MobX/Vuex
+
+2. **后端技术选型**
+   - 编程语言：Java/Go/Node.js/Python
+   - Web框架：Spring Boot/Gin/Express/Django
+   - RPC框架：gRPC/Thrift
+
+3. **数据技术选型**
+   - 关系型数据库：MySQL/PostgreSQL
+   - NoSQL数据库：MongoDB/Cassandra
+   - 缓存：Redis/Memcached
+   - 搜索引擎：Elasticsearch
+
+4. **消息队列选型**
+   - Kafka：高吞吐、日志流
+   - RabbitMQ：复杂路由、可靠性
+   - Redis Pub/Sub：简单场景
+
+5. **基础设施选型**
+   - 容器化：Docker + Kubernetes
+   - 云服务：AWS/阿里云/华为云
+   - CI/CD：Jenkins/GitLab CI/GitHub Actions
+
+6. **评估和决策**
+   - 对比备选方案（功能、性能、成本、风险）
+   - 进行POC验证关键技术
+   - 记录技术选型理由（ADR）
+
+**输出**: 技术栈选型文档
+
+---
+
+### 步骤 5：容量规划
+
+**目的**: 估算系统容量需求，确定资源配额
+
+**输入**:
+- 性能指标要求
+- 用户增长预测
+- 历史数据（如有）
+
+**操作**:
+
+1. **QPS估算**
+   ```
+   QPS = (峰值用户数 × 每用户请求数) / 峰值持续时间(秒)
+   
+   示例：
+   - 峰值用户：10,000
+   - 每用户请求：10次/会话
+   - 峰值持续时间：60秒
+   - QPS = (10,000 × 10) / 60 = 1,667 QPS
+   ```
+
+2. **实例数估算**
+   ```
+   实例数 = (目标QPS / 单实例容量) × 冗余系数(1.5)
+   
+   示例：
+   - 目标QPS：1,667
+   - 单实例容量：500 QPS
+   - 实例数 = (1,667 / 500) × 1.5 = 5实例
+   ```
+
+3. **数据库容量估算**
+   ```
+   月增长率 = 当前数据量 × 月增长率(%)
+   年增长率 = 月增长率 × 12
+   3年容量 = (当前数据 + 年增长 × 3) × 1.5余量
+   
+   示例：
+   - 当前数据：100 GB
+   - 月增长率：5%
+   - 年增长：100 × 5% × 12 = 60 GB
+   - 3年容量：(100 + 60 × 3) × 1.5 = 420 GB
+   ```
+
+4. **存储容量估算**
+   - 应用日志：预计每天日志量 × 保留天数
+   - 备份存储：数据库大小 × 备份份数
+   - 临时文件：预估峰值使用量
+
+5. **成本估算**
+   - 计算资源成本（CPU/内存）
+   - 存储成本（数据库/对象存储）
+   - 网络成本（带宽/流量）
+   - 第三方服务成本
+
+**输出**: 容量规划报告
+
+---
+
+### 步骤 6：可用性设计
+
+**目的**: 设计高可用系统，满足SLA要求
+
+**输入**:
+- SLA目标
+- 架构设计方案
+
+**操作**:
+
+1. **SLA目标设定**
+   - 99% → 3.65天停机/年（适合内部系统）
+   - 99.9% → 8.76小时停机/年（适合一般商业系统）
+   - 99.99% → 52.6分钟停机/年（适合关键业务系统）
+   - 99.999% → 5.26分钟停机/年（适合金融级系统）
+
+2. **冗余策略设计**
+   - **多副本部署**: 每个服务至少2个实例
+   - **多可用区（AZ）**: 跨AZ部署，防止单点故障
+   - **多区域（Region）**: 跨区域部署，应对灾难场景
+
+3. **故障转移机制**
+   - 健康检查：定期检测服务状态
+   - 自动故障检测：快速发现故障（<30秒）
+   - 自动切换：无缝切换到备用实例
+   - 数据同步：确保数据一致性
+
+4. **降级策略设计**
+   - **熔断器保护**: 防止雪崩效应
+   - **优雅降级**: 非核心功能降级，保障核心功能
+   - **限流保护**: 防止过载，保护系统稳定
+
+5. **监控和告警**
+   - 定义关键指标（响应时间、错误率、吞吐量）
+   - 设置告警阈值
+   - 建立应急响应流程
+
+**输出**: 可用性设计方案
+
+---
+
+### 步骤 7：架构文档输出
+
+**目的**: 生成完整的架构设计文档
+
+**输入**:
+- 所有前期分析和设计结果
+
+**操作**:
+
+1. **架构图绘制**
+   - **系统上下文图**: 展示系统与外部系统的交互
+   - **容器图**: 展示服务列表和关系
+   - **组件图**: 展示服务内部结构
+   - **部署图**: 展示基础设施拓扑
+
+2. **接口契约定义**
+   - REST API规范（OpenAPI/Swagger）
+   - gRPC proto定义
+   - 事件模式（Event Schema）
+   - 错误码定义
+
+3. **ADR编写**
+   每个ADR包含：
+   - **Context**: 背景和問題描述
+   - **Decision**: 做出的决策
+   - **Rationale**: 决策理由
+   - **Alternatives**: 考虑的备选方案
+   - **Consequences**: 决策的后果和影响
+
+4. **风险评估**
+   - **技术风险**: 新技术不确定性、性能瓶颈
+   - **运维风险**: 复杂性增加、监控挑战
+   - **安全风险**: 数据泄露、未授权访问
+   - **缓解策略**: 针对每个风险的应对措施
+
+5. **成本估算**
+   - 基础设施成本明细
+   - 开发和维护成本
+   - 第三方服务成本
+   - 总拥有成本（TCO）
+
+**输出**: 完整的架构设计文档
+
+---
+
+## What To Check
+
+### 必检项
+
+| 检查项 | 标准 | 检查方法 | 通过条件 |
+|--------|------|----------|----------|
+| 架构完整性 | 覆盖所有业务需求 | 需求-架构映射表 | 100%需求有对应架构组件 |
+| 服务边界清晰 | 无职责重叠，低耦合 | 服务依赖图检查 | 每个服务依赖数<5 |
+| 技术选型合理 | 满足性能要求，团队可驾驭 | POC测试结果 | 所有关键技术通过POC |
+| 容量规划充分 | 支持3年增长 | 容量计算公式验证 | 有余量≥50% |
+| 可用性达标 | 满足SLA目标 | 可用性设计审查 | 无单点故障 |
+| ADR完整 | 每个重大决策有ADR | ADR清单检查 | 100%决策有ADR |
+
+### 建议检查项
+
+| 检查项 | 标准 | 检查方法 | 通过条件 |
+|--------|------|----------|----------|
+| 架构图规范 | 符合C4模型 | 架构图审查 | 使用标准符号 |
+| 接口契约完整 | 所有服务有API定义 | API清单检查 | 100%服务有契约 |
+| 成本在预算内 | 总成本≤预算 | 成本估算审查 | 成本≤预算 |
+| 风险已识别 | 全面评估各类风险 | 风险评估清单 | 覆盖率≥95% |
+
+## Quality Criteria
+
+### 质量维度
+
+| 维度 | 要求 | 权重 |
+|------|------|------|
+| 完整性 | 架构文档包含所有必需章节 | 25% |
+| 合理性 | 架构设计满足业务需求和技术约束 | 25% |
+| 可行性 | 技术方案可实施，团队有能力 | 20% |
+| 可扩展性 | 架构支持未来3-5年增长 | 15% |
+| 规范性 | 遵循架构设计最佳实践 | 15% |
+
+### 评分标准
+
+| 等级 | 分值 | 描述 |
+|------|------|------|
+| 卓越 | 5 | 架构设计优秀，完全满足所有要求，有创新 |
+| 优秀 | 4 | 架构设计良好，满足核心要求，有小改进空间 |
+| 良好 | 3 | 架构设计合格，满足基本要求，有优化空间 |
+| 合格 | 2 | 架构设计基本可用，需补充不完整项 |
+| 不合格 | 1 | 架构设计不满足基本要求 |
+
+## Output Specification
+
+### 产出清单
+
+| 产出 | 格式 | 必填 | 描述 |
+|------|------|------|------|
+| 架构设计文档 | .md | 是 | 完整的架构设计文档（12章节） |
+| 架构图集 | .md/.png | 是 | 系统上下文图、容器图、组件图、部署图 |
+| 服务清单 | .md/.yaml | 是 | 服务列表，含职责、技术栈、接口 |
+| 技术选型文档 | .md | 是 | 各层级技术选型及理由 |
+| 接口契约 | .yaml/.proto | 是 | API规范和事件模式 |
+| ADR清单 | .md | 是 | 架构决策记录集合 |
+| 容量规划报告 | .md | 是 | QPS、实例数、存储容量估算 |
+| 风险评估报告 | .md | 是 | 技术、运维、安全风险评估 |
+
+### 产出模板
+
+架构设计文档应包含以下章节：
+
+```markdown
+# Architecture Design Document
+
+## 1. Executive Summary
+## 2. Business Requirements Analysis
+## 3. Architecture Overview
+## 4. Service Decomposition
+## 5. Technology Stack
+## 6. Data Architecture
+## 7. Deployment Architecture
+## 8. Interface Contracts
+## 9. Architecture Decision Records (ADR)
+## 10. Risk Assessment
+## 11. Cost Estimation
+## 12. Validation Summary
 ```
 
-## Data Architecture Standards
+## Related Assets (关联资产)
 
-### 数据管理策略
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `../scenarios/design-architecture/SCENARIO.md` | 架构设计场景定义 |
+| Agent | `../agents/design-architecture.agent.md` | 架构设计Agent角色 |
+| Prompt | `../prompts/design-architecture.prompt.md` | 架构设计提示词模板 |
+| Skill | `../skills/design-architecture/SKILL.md` | 架构设计技能包 |
 
-```yaml
-# 分布式数据管理
-data_management:
-  database_per_service:
-    description: "每个服务拥有独立数据库"
-    benefits:
-      - "服务独立扩展"
-      - "故障隔离"
-      - "技术自由"
+## Related Resources (相关资源)
 
-  shared_database:
-    description: "多个服务共享数据库"
-    use_case: "强相关数据"
-    example: "用户和权限共享同一数据库"
-
-  saga_pattern:
-    description: "分布式事务处理"
-    implementations:
-      - "Choreography ( choreography-based saga)"
-      - "Orchestration (orchestrator-based saga)"
-
-  cqrs:
-    description: "命令查询职责分离"
-    command_side: "写入优化"
-    query_side: "读取优化"
-```
-
-### 数据同步策略
-
-```yaml
-data_sync:
-  event_sourcing:
-    description: "事件溯源"
-    storage: "Event Store"
-    replay: true
-
-  change_data_capture:
-    description: "变更数据捕获"
-    tools:
-      - "Debezium"
-      - "Maxwell"
-      - "Canal"
-
-  data_replication:
-    description: "数据复制"
-    types:
-      - "同步复制"
-      - "异步复制"
-```
-
-## Scalability Design
-
-### 扩展策略
-
-```yaml
-scaling_strategies:
-  horizontal_scaling:
-    description: "水平扩展"
-    applicable: "无状态服务"
-    metrics:
-      - "CPU > 70%"
-      - "Memory > 80%"
-
-  vertical_scaling:
-    description: "垂直扩展"
-    applicable: "数据库"
-    limitations: "有上限"
-
-  auto_scaling:
-    enabled: true
-    metrics:
-      - "HPA (Horizontal Pod Autoscaler)"
-      - "VPA (Vertical Pod Autoscaler)"
-      - "KEDA (Event-driven Scaling)"
-```
-
-### 负载均衡策略
-
-```yaml
-load_balancing:
-  algorithms:
-    - "Round Robin"
-    - "Least Connections"
-    - "IP Hash"
-    - "Weighted"
-
-  health_check:
-    types:
-      - "TCP Check"
-      - "HTTP Check"
-      - "HTTPS Check"
-    interval: "10 seconds"
-    timeout: "5 seconds"
-```
-
-## Security Design
-
-### 安全架构
-
-```yaml
-security_architecture:
-  authentication:
-    methods:
-      - "OAuth 2.0"
-      - "JWT"
-      - "API Key"
-
-  authorization:
-    models:
-      - "RBAC"
-      - "ABAC"
-      - "Zero Trust"
-
-  network_security:
-    - "VPC 隔离"
-    - "安全组"
-    - "网络 ACL"
-    - "WAF"
-
-  data_security:
-    - "传输加密 (TLS)"
-    - "存储加密 (AES-256)"
-    - "密钥管理 (KMS)"
-```
-
-## Cost Optimization
-
-### 成本评估模型
-
-```yaml
-cost_optimization:
-  infrastructure:
-    - "计算成本 (EC2/ECS)"
-    - "存储成本 (EBS/S3)"
-    - "网络成本 (数据传输)"
-    - "数据库成本 (RDS)"
-
-  optimization_strategies:
-    - "使用 Reserved Instance"
-    - "使用 Spot Instance"
-    - "自动启停"
-    - "生命周期策略"
-    - "CDN 优化"
-```
-
-
-## Overview
-
-> High-level description of the design-architecture execution process.
->
-> This instruction defines the technical approach, key activities, and success criteria for the design-architecture scenario.
-
-
-## Technical Specifications
-
-> Detailed technical requirements and implementation guidelines for design-architecture.
-
-### Required Tools
-- [List required tools and frameworks]
-
-### Environment Requirements
-- [List environment prerequisites]
-
-### Configuration Parameters
-- [List key configuration parameters]
-
-
-## Best Practices
-
-> Industry-standard best practices for design-architecture execution.
-
-1. **Practice 1**: Define architecture decision records (ADRs) for key choices
-2. **Practice 2**: Model quality attribute scenarios for critical requirements
-3. **Practice 3**: Validate architecture against organizational constraints
-
-
-## Error Handling
-
-> Common error scenarios and resolution strategies for design-architecture.
-
-### Error Category 1
-**Symptom**: Architecture does not satisfy key quality attributes
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
-
-### Error Category 2
-**Symptom**: Stakeholders reject architecture due to misalignment
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
-
-
-## Quality Standards
-
-> Acceptance criteria and quality gates for design-architecture deliverables.
-
-| Standard | Criteria | Verification Method |
-|----------|----------|---------------------|
-| Standard 1 | All quality attributes have verifiable scenarios | Automated check |
-| Standard 2 | ADRs are complete with rationale and trade-offs | Automated check |
-| Standard 3 | Architecture review achieves stakeholder consensus | Automated check |
+- **Standards**: 
+  - [ADR Template](../standards/adr-template.md) - 架构决策记录模板
+  - [C4 Model](../standards/c4-model.md) - C4架构图模型
+  - [12-Factor App](../standards/12-factor-app.md) - 云原生应用设计原则
+- **Templates**: 
+  - [Architecture Document Template](../templates/architecture-doc.template.md) - 架构文档模板
+  - [Service Boundary Definition](../templates/service-boundary.template.md) - 服务边界定义模板
+- **Evaluations**: 
+  - [Architecture Review Checklist](../evaluations/architecture-review-checklist.md) - 架构评审检查清单

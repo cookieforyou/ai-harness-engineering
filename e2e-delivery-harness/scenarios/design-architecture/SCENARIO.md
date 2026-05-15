@@ -1,180 +1,206 @@
 ---
 name: design-architecture
-description: "Design Architecture scenario for the E2E delivery lifecycle"
-type: scenario
+description: "架构设计场景，负责设计系统高层架构，包括微服务拆分、技术选型、系统拓扑和数据架构"
 version: "1.2.0"
+type: scenario
+category: design
+stage: architecture-design
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['workflow', 'process']
+tags: [design, architecture, microservices]
 ---
-# Scenario: 架构设计 (Design Architecture)
+# Design Architecture Scenario
 
-## Overview
+## Purpose
 
-本场景用于设计系统高层架构，包括微服务拆分、技术选型、系统拓扑、数据架构等。
+设计系统高层架构，包括微服务拆分、技术选型、系统拓扑、数据架构等，为后续详细设计和开发提供清晰的架构蓝图。
+
+### Business Value
+
+- **降低技术风险**: 通过系统化架构设计识别潜在技术风险和瓶颈
+- **提升可扩展性**: 合理的微服务拆分和技术选型确保系统能够平滑扩展
+- **优化成本效益**: 基于业务需求选择最合适的技术方案，避免过度设计
+- **加速开发效率**: 清晰的架构蓝图和接口契约减少团队沟通成本
 
 ## Chain of Thought
 
+### Think-Aloud Protocol (强制遵循)
+
 ```
-[THINK] 理解业务需求
-├─ 分析业务用例和用户故事
-├─ 确定核心功能域
-└─ 评估业务优先级
-
-[ANALYZE] 分析技术需求
-├─ 性能要求（QPS、延迟）
-├─ 可用性要求（SLA）
-├─ 可扩展性要求
-
-[DESIGN] 设计系统架构
-├─ 微服务拆分策略
-├─ 技术栈选型
-├─ 系统拓扑设计
-
-[EVALUATE] 评估备选方案
-├─ 技术可行性分析
-├─ 成本效益分析
-├─ 风险评估
-
-[DOCUMENT] 输出架构文档
-├─ 架构图和说明
-├─ 接口设计
-├─ 部署架构
+[THINK] Step 1: 理解业务需求和约束
+   ├─ 问：业务用例和用户故事是什么？核心功能域有哪些？
+   ├─ 验证：与需求规格说明书对照，确认理解准确
+   └─ 检查：识别所有质量属性要求（性能、可用性、安全、可扩展性）
+   ↓
+[ANALYZE] Step 2: 分析技术需求和约束
+   ├─ 问：性能指标（QPS、延迟）是多少？可用性SLA要求？团队技能如何？
+   ├─ 验证：评估现有技术栈、预算限制、时间约束
+   └─ 检查：识别外部系统依赖和第三方服务依赖
+   ↓
+[DESIGN] Step 3: 设计系统架构
+   ├─ 问：微服务拆分策略是什么？技术栈如何选型？系统拓扑如何设计？
+   ├─ 验证：架构是否符合业务需求和技术约束？
+   └─ 检查：服务边界清晰，接口契约明确，数据流合理
+   ↓
+[EVALUATE] Step 4: 评估备选方案
+   ├─ 问：有哪些备选架构方案？各方案的优缺点是什么？
+   ├─ 验证：进行技术可行性分析和成本效益分析
+   └─ 检查：风险评估完整，权衡分析客观
+   ↓
+[DOCUMENT] Step 5: 输出架构文档
+   ├─ 生成架构图（系统架构、服务交互、数据流）
+   ├─ 定义接口契约（内部接口、外部API）
+   └─ 编写架构决策记录（ADR）和技术选型理由
+   ↓
+[VALIDATE] Step 6: 评审确认并准备交接
+   ├─ 组织架构评审会议，收集反馈
+   ├─ 根据反馈修订架构设计
+   └─ 获得干系人签字确认，准备交接给详细设计阶段
 ```
 
 ## Decision Checkpoints
 
-| 检查点 | 条件 | 决策 |
-|--------|------|------|
-| DC-001 | 服务拆分粒度 | 微服务 vs 模块化单体？ |
-| DC-002 | 技术栈选型 | 选择哪些技术？ |
-| DC-003 | 数据架构 | 集中式 vs 分布式？ |
-
-## Error Handling
-
-| 错误类型 | 处理方式 |
-|----------|----------|
-| 服务边界不清晰 | 重构服务边界 |
-| 技术选型不合理 | 重新评估和调整 |
-| 性能不达标 | 优化架构设计 |
-| 成本超预算 | 调整方案 |
-
-
-
+| ID | 决策点 | 触发条件 | 决策选项 | 选择标准 | 记录位置 |
+|----|--------|----------|----------|----------|----------|
+| DC-001 | 架构风格选择 | 分析业务规模和复杂度后 | 单体/微服务/事件驱动/Serverless/CQRS | 基于团队规模、业务复杂度、扩展需求综合评估 | 架构决策记录(ADR) |
+| DC-002 | 微服务拆分粒度 | 确定采用微服务架构后 | 粗粒度(按业务域) / 中粒度(按子域) / 细粒度(按聚合根) | 遵循单一职责原则，服务间低耦合高内聚 | 服务边界定义文档 |
+| DC-003 | 技术栈选型 | 每个技术层级设计时 | 成熟稳定方案 / 新兴技术方案 | 平衡技术先进性、团队熟悉度、社区支持、长期维护成本 | 技术选型文档 |
+| DC-004 | 数据架构策略 | 设计数据存储方案时 | 集中式数据库 / 分布式数据库 / 混合架构 | 基于数据一致性要求、读写比例、扩展需求决定 | 数据架构设计文档 |
+| DC-005 | 部署架构选择 | 设计基础设施时 | 传统VM / 容器化(K8s) / Serverless / 混合云 | 基于弹性需求、运维能力、成本预算综合评估 | 部署架构文档 |
 
 ## Error Handling (错误处理)
 
 > **AI 遇到以下情况时必须按指定流程处理**
 
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
+### Error Scenario 1: 服务边界不清晰
 
 **识别信号**: 
-- 检测到异常情况
-- 验证失败
+- 服务间耦合严重，频繁跨服务调用
+- 多个服务操作同一数据表
+- 服务职责重叠或模糊
 
 **处理流程**:
 ```
-IF 检测到错误
+IF 检测到服务边界不清晰
 THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
+  1. 重新分析业务能力和领域边界
+  2. 使用DDD（领域驱动设计）方法识别限界上下文
+  3. 调整服务拆分粒度
+  4. 重构服务接口，减少跨服务依赖
+  5. 验证新边界的合理性（低耦合、高内聚）
 END
 ```
 
-**降级方案**: 根据具体情况选择适当的降级策略
+**降级方案**: 暂时接受当前边界，但标记为“待优化”，在后续迭代中重构
 
-**升级条件**: P0 或 P1 级别错误
+**升级条件**: 经过2次调整后服务间耦合仍然严重，需要架构委员会介入评审
 
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
+---
+
+### Error Scenario 2: 技术选型不合理
+
+**识别信号**: 
+- 技术无法满足性能或可用性要求
+- 团队缺乏该技术的关键技能
+- 社区支持不足或学习曲线陡峭
+- 许可证或成本问题
+
+**处理流程**:
 ```
+IF 检测到技术选型不合理
+THEN
+  1. 重新评估技术需求和约束条件
+  2. 列出备选技术方案（至少2个）
+  3. 进行POC（概念验证）测试关键指标
+  4. 对比各方案的优缺点（功能、性能、成本、风险）
+  5. 选择最优方案并更新技术选型文档
+  6. 记录架构决策理由（ADR）
+END
+```
+
+**降级方案**: 采用更成熟稳定的替代方案，即使功能稍弱但风险更低
+
+**升级条件**: 所有备选方案都无法满足核心需求，需要重新审视业务目标或增加预算
+
+---
+
+### Error Scenario 3: 性能指标不达标
+
+**识别信号**: 
+- 架构设计无法支持目标QPS或延迟要求
+- 单点瓶颈明显，无法水平扩展
+- 数据一致性机制导致性能下降过多
+
+**处理流程**:
+```
+IF 检测到性能指标不达标
+THEN
+  1. 分析性能瓶颈位置（计算、IO、网络、数据库）
+  2. 评估优化方案：缓存策略、读写分离、异步处理、分库分表
+  3. 估算优化后的性能提升幅度
+  4. IF 优化后仍不达标 THEN 考虑调整架构风格（如引入事件驱动、CQRS）
+  5. 重新进行性能基准测试
+  6. 更新架构设计文档
+END
+```
+
+**降级方案**: 降低非核心功能的性能要求，优先保障核心业务流程
+
+**升级条件**: 经过多轮优化仍无法满足SLA要求，需要业务方调整预期或增加基础设施投入
 
 
 
 ## Quality Metrics
 
-> Quality metrics for measuring scenario execution success.
-
-| KPI | Target | Description |
-|-----|--------|-------------|
-| `QAS-COVERAGE` | ≥90% | 质量属性场景覆盖率 |
-| `DECISION-RATIONALE` | 100% | 决策依据完整率：每个ADR都有 rationale |
-| `STAKEHOLDER-ALIGN` | ≥85% | 干系人一致性：评审共识度 |
-
-### Traceability
-
-- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
-- **Execution ID**: `{{execution.id}}` — 执行实例标识
-- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
-- **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
-
 ### Key Performance Indicators (KPIs)
 
 | KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
 |--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+| KPI-001 | ARCH-COVERAGE | ≥90% | (已设计架构组件数/总组件数) × 100% | 架构文档完整性检查 | 25% |
+| KPI-002 | DECISION-RATIONALE | 100% | (有明确理由的ADR数/总ADR数) × 100% | ADR文档审查 | 20% |
+| KPI-003 | STAKEHOLDER-ALIGN | ≥85% | (达成共识的决策数/总决策数) × 100% | 架构评审会议记录 | 20% |
+| KPI-004 | TECH-FEASIBILITY | 100% | (通过POC验证的技术数/总技术选型数) × 100% | POC测试报告 | 20% |
+| KPI-005 | RISK-IDENTIFICATION | ≥95% | (已识别风险数/实际风险数) × 100% | 风险评估回顾 | 15% |
 
 **综合评分计算**: 
 ```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+Quality Score = (KPI-001 × 0.25) + (KPI-002 × 0.20) + (KPI-003 × 0.20) + (KPI-004 × 0.20) + (KPI-005 × 0.15)
 合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
 ```
 
 ### Validation Checklist (验证清单)
 
 **完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
+- [ ] 所有架构视图已完成（逻辑视图、物理视图、开发视图、进程视图）
+- [ ] 每个服务都有明确的边界和职责定义
+- [ ] 接口契约完整（请求/响应格式、错误码、超时设置）
+- [ ] 部署架构包含所有环境（开发、测试、生产）
 
 **一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
+- [ ] 术语和命名在整个架构文档中保持一致
+- [ ] 架构图与文字描述一致
+- [ ] 技术选型与团队技能匹配
+- [ ] 与其他相关文档（需求规格、数据库设计）协调一致
 
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
+**可行性验证 (Feasibility)**:
+- [ ] 所有关键技术都经过POC验证
+- [ ] 性能指标可通过基准测试达到
+- [ ] 预算和时间约束可满足
+- [ ] 团队具备实施能力或可获取培训
 
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
+**可扩展性验证 (Scalability)**:
+- [ ] 架构支持水平扩展
+- [ ] 无单点故障
+- [ ] 数据分片策略合理
+- [ ] 缓存策略有效
 
 **规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
+- [ ] 遵循架构设计最佳实践（如12-Factor App）
+- [ ] 符合安全和合规要求
+- [ ] ADR文档格式规范
+- [ ] 架构图使用标准符号
 
 
 
@@ -185,135 +211,24 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [x] 接口契约已定义
 - [x] 部署架构已规划
 - [x] 技术风险已识别
+- [x] ADR文档完整
 
-## Associated Assets
-
-- **Prompt**: `prompts/design-architecture.prompt.md`
-- **Instruction**: `instructions/design-architecture.instructions.md`
-- **Agent**: `agents/design-architecture.agent.md`
-- **Skill**: `skills/design-architecture/SKILL.md`
-
-
-## Purpose
-
-## Chain of Thought (思维链)
-
-> **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
-
-```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
-   ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
-   ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
-   ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
-   ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
-   └─ 输出: 验证报告
-   ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
-```
-
-
-
-
-> Define the objectives and scope of the design-architecture scenario.
->
-> This scenario ensures systematic execution of design-architecture activities with clear decision checkpoints and handover criteria.
-
-
-## Prerequisites
-
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
-
-
-## Primary Assets
+## Related Assets (关联资产)
 
 | Asset Type | Path | Description |
 |------------|------|-------------|
-| Scenario | `scenarios/design-architecture/SCENARIO.md` | This scenario definition |
-| Prompt | `prompts/design-architecture.prompt.md` | Execution prompt |
-| Instructions | `instructions/design-architecture.instructions.md` | Technical instructions |
-| Agent | `agents/design-architecture.agent.md` | Responsible agent |
-| Skill | `skills/design-architecture/SKILL.md` | Domain skill |
+| Agent | `../../agents/design-architecture.agent.md` | 架构设计Agent角色定义 |
+| Prompt | `../../prompts/design-architecture.prompt.md` | 架构设计提示词模板 |
+| Skill | `../../skills/design-architecture/SKILL.md` | 架构设计技能包 |
+| Instruction | `../../instructions/design-architecture.instructions.md` | 架构设计技术指令 |
 
+## Related Resources (相关资源)
 
-### Handover Context Template
-
-```yaml
-handover:
-  header:
-    from_stage: "design-architecture"
-    to_stage: "unknown"
-    handover_id: "HO-{{timestamp}}-{{sequence}}"
-    timestamp: "{{ISO8601}}"
-    prepared_by: "{{agent.name}}"
-    
-  summary:
-    status: "completed/partial/blocked"
-    completion_percentage: {{0-100}}
-    quality_score: {{0-100}}
-    
-  artifacts:
-    delivered:
-      - name: "{{artifact_name}}"
-        path: "{{file_path}}"
-        version: "{{version}}"
-        checksum: "{{SHA256}}"
-      
-  decisions:
-    - id: "DC-XXX"
-      description: "{{决策描述}}"
-      rationale: "{{决策理由}}"
-      alternatives_considered: ["选项1", "选项2"]
-      
-  open_issues:
-    blocking: []
-    non_blocking:
-      - id: "ISSUE-XXX"
-        description: "{{问题描述}}"
-        
-  risks:
-    - id: "RISK-XXX"
-      description: "{{风险描述}}"
-      probability: "low/medium/high"
-      impact: "low/medium/high"
-      mitigation: "{{缓解措施}}"
-      
-  recommendations:
-    - "{{建议1}}"
-    - "{{建议2}}"
-    
-  quality_metrics:
-    kpi_results:
-      - kpi_id: "KPI-001"
-        value: {{actual_value}}
-        target: {{target_value}}
-        status: "pass/fail"
-```
-
+- **Standards**: 
+  - [ADR Template](../standards/adr-template.md) - 架构决策记录模板
+  - [12-Factor App](../standards/12-factor-app.md) - 云原生应用设计原则
+- **Templates**: 
+  - [Architecture Document Template](../templates/architecture-doc.template.md) - 架构文档模板
+  - [Service Boundary Definition](../templates/service-boundary.template.md) - 服务边界定义模板
+- **Evaluations**: 
+  - [Architecture Review Checklist](../evaluations/architecture-review-checklist.md) - 架构评审检查清单
