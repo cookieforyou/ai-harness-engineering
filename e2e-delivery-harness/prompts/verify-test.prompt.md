@@ -1,362 +1,178 @@
 ---
 name: verify-test
 description: "测试验证提示词，用于设计测试用例并执行测试验证"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['prompt', 'ai-execution']
+tags: [prompt, testing, quality]
 ---
-# Verify and Test
+# Verify Test Prompt
 
-> **版本**: 1.1.0 | **适用阶段**: 测试验证 | **预计工时**: 根据测试范围
+## Purpose
+
+本提示词指导AI执行测试验证任务，设计全面的测试用例，执行系统化的测试流程，发现并跟踪缺陷，提供客观的质量评估和发布建议，确保软件交付质量。
+
+### Key Objectives
+
+- **全面覆盖测试**: 确保所有功能需求和非功能需求都有对应的测试用例（正向、反向、边界）
+- **系统化测试执行**: 按优先级执行测试用例，记录详细结果和证据（截图、日志）
+- **缺陷管理**: 准确识别、分类和报告缺陷，确保描述清晰可复现
+- **质量评估**: 基于KPIs计算质量评分，提供客观的发布建议
+- **完整交接准备**: 生成Handover Context，便于部署或返工阶段顺利接手
 
 ## Input Variables
+
+| Variable | Type | Required | Description | Validation |
+|----------|------|----------|-------------|------------|
+| `test_scope` | string | true | 测试范围描述，明确测试边界和重点 | 非空字符串，包含功能模块列表 |
+| `requirements_spec` | markdown | true | 需求规格说明书，包含验收标准 | 必须有明确的Given-When-Then格式验收标准 |
+| `test_environment` | object | true | 测试环境配置信息 | 包含URL、账号、依赖服务状态 |
+| `design_documents` | array | false | 相关设计文档路径列表 | 用于理解实现细节和技术约束 |
+| `test_data` | object | false | 测试数据集或数据生成方案 | 结构化数据，覆盖正常/异常/边界场景 |
+| `previous_test_results` | array | false | 历史测试结果（回归测试用） | 包含用例ID、状态、缺陷ID |
+| `automation_scripts` | array | false | 可用的自动化测试脚本列表 | 脚本路径和执行说明 |
+| `coverage_target` | number | false | 代码覆盖率目标值（默认85%） | 范围：0-100，推荐≥85 |
 
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
 
 ```
-Step 1: [THINK] 理解测试范围和目标
+[THINK] Step 1: 理解测试范围和目标
    ├─ 输入: requirements_spec, test_scope
-   ├─ 思考: 需要测试哪些功能？验收标准是什么？
+   ├─ 思考: 需要测试哪些功能？验收标准是什么？测试重点在哪里？
    ├─ 验证: 与需求规格对照，确认覆盖所有验收标准
-   └─ 输出: 测试范围定义
+   └─ 输出: 测试范围定义（含核心功能、边界场景、异常处理清单）
    ↓
-Step 2: [ANALYZE] 分析测试策略和方法
+[ANALYZE] Step 2: 分析测试策略和方法
    ├─ 输入: 测试范围定义, design_documents
-   ├─ 思考: 采用什么测试方法？需要哪些测试类型？
-   ├─ 验证: 测试策略能发现主要缺陷
-   └─ 输出: 测试策略文档
+   ├─ 思考: 采用什么测试方法（黑盒/白盒/灰盒）？需要哪些测试类型？
+   ├─ 验证: 测试策略能有效发现主要缺陷，平衡覆盖率和效率
+   └─ 输出: 测试策略文档（含测试类型、方法选择、资源安排）
    ↓
-Step 3: [DESIGN] 设计测试用例和测试数据
-   ├─ 输入: 测试策略文档
-   ├─ 思考: 测试用例是否覆盖所有场景？边界条件呢？
-   ├─ 验证: 正向、反向、边界全覆盖
-   └─ 输出: 测试用例集 + 测试数据
+[DESIGN] Step 3: 设计测试用例和测试数据
+   ├─ 输入: 测试策略文档, requirements_spec
+   ├─ 思考: 测试用例是否覆盖所有场景？正向、反向、边界条件呢？
+   ├─ 验证: 每个验收标准至少有3个测试用例（正常、异常、边界）
+   └─ 输出: 测试用例集（含前置条件、步骤、预期结果、优先级）
    ↓
-Step 4: [IMPLEMENT] 准备测试环境和执行测试
-   ├─ 输入: 测试用例集, test_environment
-   ├─ 思考: 环境是否就绪？测试数据是否充分？
-   ├─ 验证: 环境配置正确，数据准备完成
-   └─ 输出: 测试执行结果
+[IMPLEMENT] Step 4: 准备测试环境和执行测试
+   ├─ 输入: 测试用例集, test_environment, test_data
+   ├─ 思考: 环境是否就绪？测试数据是否充分？自动化脚本可用吗？
+   ├─ 验证: 环境配置正确，数据准备完成，工具链正常工作
+   └─ 输出: 测试执行结果（含通过/失败/阻塞状态、截图、日志）
    ↓
-Step 5: [VERIFY] 分析测试结果和缺陷管理
+[VERIFY] Step 5: 分析测试结果和缺陷管理
    ├─ 输入: 测试执行结果
-   ├─ 执行: 缺陷识别、分类、报告
-   ├─ 验证: 缺陷描述清晰可复现
-   └─ 输出: 缺陷报告 + 测试报告
+   ├─ 执行: 缺陷识别、分类（P0-P3）、优先级评定、报告编写
+   ├─ 验证: 缺陷描述清晰可复现，包含步骤、预期、实际、截图
+   └─ 输出: 缺陷报告 + 测试执行统计（通过率、覆盖率）
    ↓
-Step 6: [HANDOVER] 准备交接给部署或返工阶段
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context (质量状态)
-   └─ 通知: Deploy Release Agent 或 Implement Feature Agent
+[HANDOVER] Step 6: 准备交接给部署或返工阶段
+   ├─ 生成: Handover Context（含测试统计、缺陷清单、质量评分、发布建议）
+   ├─ 更新: Global Context（质量状态、遗留风险、监控建议）
+   └─ 通知: Deploy Release Agent（如通过）或 Implement Feature Agent（如有阻塞缺陷）
 ```
-
-
-
-
-| 变量名 | 类型 | 必填 | 说明 | 示例 |
-|--------|------|------|------|------|
-| `features_to_test` | string[] | 是 | 待测功能列表 | ["用户登录", "订单创建"] |
-| `test_environment` | string | 是 | 测试环境 | "https://test.example.com" |
-| `test_credentials` | string | 否 | 测试账号 | (用户名/密码) |
-| `coverage_target` | string | 否 | 覆盖率目标 | "80%" |
-| `regression_scope` | string[] | 否 | 回归测试范围 | ["登录模块"] |
-
-## Chain of Thought
-
-```
-1. [THINK] 分析测试范围 → 哪些功能需要测试？
-2. [THINK] 设计测试策略 → 黑盒/白盒/灰盒？
-3. [THINK] 编写测试用例 → 覆盖正常/异常/边界？
-4. [THINK] 执行测试 → 用例是否通过？
-5. [THINK] 跟踪缺陷 → 缺陷是否已修复？
-6. [VALIDATE] 评估测试充分性 → 覆盖率是否达标？
-7. [OUTPUT] 生成测试报告
-```
-
-## Error Handling
-
-### 情况 1：测试环境不可用
-
-```
-IF 测试环境无法访问
-THEN
-  1. 检查环境状态
-  2. 联系运维人员
-  3. 记录问题
-  4. 标记为 [环境阻塞]
-END
-```
-
-### 情况 2：发现严重缺陷
-
-```
-IF 发现严重缺陷（P0/P1）
-THEN
-  1. 立即记录缺陷
-  2. 通知开发负责人
-  3. 暂停相关测试
-  4. 等待修复后重新测试
-END
-```
-
-### 情况 3：测试用例失败
-
-```
-IF 测试用例执行失败
-THEN
-  1. 确认测试环境正确
-  2. 验证测试数据正确
-  3. 确认为代码问题还是测试问题
-  4. 记录并创建缺陷
-END
-```
-
-## Task Steps
-
-### 步骤 1：测试计划
-
-**任务**：
-- 确定测试范围和重点
-- 选择测试方法
-- 规划测试资源
-- 制定测试时间表
-
-**产出**：测试计划
-
-### 步骤 2：用例设计
-
-**任务**：
-- 设计正常路径用例
-- 设计异常路径用例
-- 设计边界条件用例
-- 设计性能测试用例（如需要）
-
-**产出**：测试用例集
-
-### 步骤 3：环境准备
-
-**任务**：
-- 搭建测试环境
-- 准备测试数据
-- 配置测试工具
-- 验证环境就绪
-
-**产出**：就绪的测试环境
-
-### 步骤 4：测试执行
-
-**任务**：
-- 执行测试用例
-- 记录测试结果
-- 记录发现的缺陷
-- 更新执行状态
-
-**产出**：测试执行记录
-
-### 步骤 5：缺陷管理
-
-**任务**：
-- 提交缺陷报告
-- 跟踪缺陷状态
-- 验证缺陷修复
-- 分析缺陷分布
-
-**产出**：缺陷报告
-
-### 步骤 6：测试报告
-
-**任务**：
-- 汇总测试结果
-- 评估测试覆盖
-- 分析遗留风险
-- 给出测试结论
-
-**产出**：测试报告
-
-
 
 ## Error Handling (错误处理)
 
 > **AI 遇到以下情况时必须按指定流程处理**
 
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
+### Error Scenario 1: 测试环境问题
 
 **识别信号**: 
-- 检测到异常情况
-- 验证失败
+- 测试环境无法访问或启动失败
+- 依赖服务不可用（数据库、API、第三方服务）
+- 测试数据损坏或缺失
+- 环境配置错误导致测试无法执行
 
 **处理流程**:
 ```
-IF 检测到错误
+IF 测试环境无法正常工作
 THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
+  1. 诊断具体问题（网络连通性、服务状态、配置检查、日志分析）
+  2. 尝试重启服务或重新配置环境
+  3. 检查依赖服务状态（数据库、缓存、消息队列等）
+  4. IF 15分钟内无法解决 THEN
+       a. 联系运维团队或环境负责人
+       b. 尝试使用备用环境（如存在）
+       c. 标记受影响的测试用例为 [阻塞-环境问题]
+       d. 升级到项目负责人，说明影响范围和预计延迟
+     END
+  5. 记录环境问题的详细信息和已尝试的解决方案
+  6. 评估对测试进度的影响，调整测试计划
 END
 ```
 
-**降级方案**: 根据具体情况选择适当的降级策略
+**降级方案**: 使用Mock或Stub替代不可用的外部服务，标注测试局限性和潜在风险
 
-**升级条件**: P0 或 P1 级别错误
+**升级条件**: P0: 完全无法进行测试，超过1小时未恢复；P1: 部分功能无法测试但有替代方案
 
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
+---
+
+### Error Scenario 2: 测试数据不足
+
+**识别信号**: 
+- 缺少必要的测试数据（特定状态、边界值、异常数据）
+- 现有数据无法覆盖特定场景（如特殊用户角色、历史数据）
+- 数据质量不符合要求（脏数据、不完整、不一致）
+
+**处理流程**:
+```
+IF 缺少必要的测试数据
+THEN
+  1. 明确数据需求（字段、范围、数量、分布、特殊条件）
+  2. 请求数据准备团队或使用数据生成工具创建数据
+  3. 检查是否有可用的脱敏生产数据（需符合隐私政策）
+  4. IF 无法获取真实数据 THEN
+       a. 创建模拟数据（Mock Data），覆盖关键场景
+       b. 使用数据生成工具（如Faker、Mockaroo）生成测试数据
+       c. 标注数据限制和对测试结论的影响
+     END
+  5. 验证测试数据的完整性和一致性
+  6. 评估数据不足对测试充分性的影响，记录风险
+END
 ```
 
+**降级方案**: 使用模拟数据，明确标注测试局限性，承诺在获得真实数据后进行补充测试
 
+**升级条件**: 核心功能测试因数据问题无法进行，且无合适的模拟数据方案
 
-## Output Format
+---
 
-```markdown
-## Test Verification Deliverables
+### Error Scenario 3: 缺陷争议
 
-### Summary
-- Status: [completed | partial | blocked]
-- Completion: [percentage]
+**识别信号**: 
+- 开发人员认为不是缺陷（"按设计实现"、"需求未明确"）
+- 产品经理认为符合预期行为
+- 团队成员对验收标准理解不一致
 
-### Key Outputs
-1. **Test Execution Report**: Pass/fail statistics with evidence
-2. **Defect Reports**: Discovered issues with reproduction steps
-3. **Coverage Report**: Requirement-to-test traceability matrix
-4. **Quality Assessment**: Go/no-go recommendation with rationale
-5. **Test Log**: Detailed execution log with timestamps
-
-### Validation Checklist
-- [ ] Test pass rate is 90% or higher
-- [ ] Requirement traceability coverage is 100%
-- [ ] Defect detection rate is 95% or higher
-- [ ] All critical defects are documented and triaged
-
-### Next Steps
-- [ ] Triage defects with product owner
-- [ ] Proceed to release decision
+**处理流程**:
+```
+IF 发现缺陷存在争议
+THEN
+  1. 引用需求规格说明书和验收标准作为依据
+  2. 提供缺陷的详细复现步骤和影响分析
+  3. 组织讨论会议（测试、开发、产品三方参与）
+  4. 澄清验收标准的真实意图和业务背景
+  5. IF 仍无法达成共识 THEN
+       a. 升级到产品经理或技术负责人裁决
+       b. 记录讨论过程、各方观点和论据
+       c. 等待最终决定，期间标记为 [待确认]
+     ELSE
+       a. 根据共识更新缺陷状态（保持/关闭/调整优先级）
+       b. 如需，更新验收标准文档以消除歧义
+     END
+  6. 将争议案例加入团队知识库，避免类似问题
+END
 ```
 
+**降级方案**: 暂时标记为"待确认"，继续测试其他功能，避免阻塞整体进度
 
-## 1. 测试概要
-
-### 1.1 基本信息
-| 项目 | 内容 |
-|------|------|
-| 项目名称 | - |
-| 测试阶段 | 功能测试 |
-| 测试时间 | 日期 |
-| 测试人员 | - |
-| 测试环境 | - |
-
-### 1.2 测试范围
-- 测试功能：X 项
-- 设计用例：X 个
-- 执行用例：X 个
-- 通过用例：X 个
-
-### 1.3 测试结论
-[结论：测试通过/测试不通过]
-
-## 2. 测试结果
-
-### 2.1 测试用例执行情况
-| 功能模块 | 用例数 | 通过 | 失败 | 阻塞 | 通过率 |
-|----------|--------|------|------|------|--------|
-| 模块A | 10 | 9 | 1 | 0 | 90% |
-
-### 2.2 测试结果汇总
-| 结果 | 数量 | 占比 |
-|------|------|------|
-| 通过 | X | XX% |
-| 失败 | X | XX% |
-| 阻塞 | X | XX% |
-
-## 3. 缺陷统计
-
-### 3.1 缺陷汇总
-| 状态 | 数量 |
-|------|------|
-| 新增 | X |
-| 已修复 | X |
-| 待验证 | X |
-| 遗留 | X |
-
-### 3.2 缺陷分布
-| 严重程度 | 数量 | 已修复 | 遗留 |
-|----------|------|--------|------|
-| 致命 | X | X | X |
-| 严重 | X | X | X |
-| 中等 | X | X | X |
-| 轻微 | X | X | X |
-
-### 3.3 遗留缺陷
-| ID | 描述 | 严重程度 | 影响 | 解决方案 | 负责人 |
-|----|------|----------|------|----------|--------|
-| D001 | 描述 | 中等 | 有限 | 后续修复 | - |
-
-## 4. 测试用例详情
-
-### 4.1 功能模块A
-
-#### TC001: [用例名称]
-- **优先级**: P0
-- **前置条件**: [条件]
-- **测试步骤**:
-  1. [步骤1]
-  2. [步骤2]
-  3. [步骤3]
-- **预期结果**: [结果]
-- **执行结果**: 通过/失败
-- **实际结果**: [如有]
-- **缺陷ID**: [如有]
-
-#### TC002: [用例名称]
-...
-
-## 5. 风险评估
-
-### 5.1 遗留风险
-| 风险 | 影响 | 可能性 | 应对措施 |
-|------|------|--------|----------|
-| 风险1 | 高 | 中 | 措施 |
-
-### 5.2 测试充分性
-- 功能覆盖率：XX%
-- 代码覆盖率：XX%
-
-## 6. 测试结论与建议
-
-### 6.1 测试结论
-[基于测试结果的综合结论]
-
-### 6.2 发布建议
-- [建议1]
-- [建议2]
-
-### 6.3 后续工作
-- [工作1]
-- [工作2]
+**升级条件**: 超过1轮讨论仍无法达成共识，或缺陷影响核心功能发布
 
 ## Output Validation
 
@@ -377,7 +193,7 @@ error_log:
 - [ ] 每个用例有明确的验收标准
 - [ ] 测试步骤清晰可执行
 - [ ] 预期结果明确可验证
-- [ ] 优先级设置合理
+- [ ] 优先级设置合理（P0-P3）
 
 ### V-003: 测试环境一致性
 - [ ] 测试环境配置已记录
@@ -386,13 +202,20 @@ error_log:
 
 ### V-004: 缺陷报告规范性
 - [ ] 缺陷描述清晰可复现
-- [ ] 缺陷步骤完整
+- [ ] 缺陷步骤完整（至少3步）
 - [ ] 缺陷等级设置合理
 - [ ] 缺陷可追溯到用例
+
+### V-005: 质量指标达标
+- [ ] TEST-PASS-RATE ≥90%
+- [ ] REQ-TRACE = 100%
+- [ ] TEST-COVERAGE ≥85%
+- [ ] 质量评分 ≥70分
 
 ### 验证结果
 - 验证通过: [是/否]
 - 未通过的检查项: [列出]
+- 补救措施: [如有]
 ```
 
 ### 验证失败时的处理
@@ -407,148 +230,220 @@ THEN
 END
 ```
 
-## Appendix
+## Output Format
 
-### A. 测试环境
-- 环境：测试环境
-- 配置：[配置信息]
+```markdown
+## Test Verification Deliverables
 
-### B. 测试数据
-- 数据量：X 条
-- 数据来源：[来源]
+### Summary
+- Status: [passed/failed/partial/conditional_pass]
+- Completion: [percentage]%
+- Quality Score: [score]/100
+
+### Key Outputs
+1. **Test Execution Report**: Pass/fail statistics with evidence
+   - Total Test Cases: {number}
+   - Passed: {number} ({percentage}%)
+   - Failed: {number} ({percentage}%)
+   - Blocked: {number} ({percentage}%)
+   - Skipped: {number} ({percentage}%)
+
+2. **Defect Reports**: Discovered issues with reproduction steps
+   - Total Defects: {number}
+   - P0 (Critical): {number}
+   - P1 (Major): {number}
+   - P2 (Minor): {number}
+   - P3 (Trivial): {number}
+   - Open Defects: {number}
+   - Resolved Defects: {number}
+
+3. **Coverage Report**: Requirement-to-test traceability matrix
+   - Requirements Covered: {number}/{total} (100%)
+   - Code Coverage: {percentage}% (target: 85%)
+   - Branch Coverage: {percentage}%
+   - Function Coverage: {percentage}%
+
+4. **Quality Assessment**: Go/no-go recommendation with rationale
+   - Overall Grade: [excellent/good/fair/poor]
+   - Recommendation: [approved_for_release/approved_with_conditions/not_recommended]
+   - Conditions: [list if applicable]
+
+5. **Test Log**: Detailed execution log with timestamps
+   - Environment: {URL, version, config}
+   - Test Data: {description, source}
+   - Execution Time: {start_time} to {end_time}
+   - Tester: {agent.name}
+
+### Validation Checklist
+- [ ] Test pass rate is 90% or higher
+- [ ] Requirement traceability coverage is 100%
+- [ ] Code coverage is 85% or higher
+- [ ] All critical defects are documented and triaged
+- [ ] Handover Context is complete
+
+### Next Steps
+- [ ] Triage defects with product owner
+- [ ] Fix P0/P1 defects (if any)
+- [ ] Execute regression tests after fixes
+- [ ] Proceed to release decision
 ```
 
-## Constraints
-
-1. **语言**：输出使用中文
-2. **覆盖**：测试用例需覆盖核心功能
-3. **准确**：测试结果必须准确记录
-4. **规范**：缺陷报告必须规范完整
-5. **可追溯**：缺陷必须可跟踪
-
-## Quality Requirements
-
-| 要求 | 说明 |
-|------|------|
-| 覆盖完整 | 核心功能都有测试 |
-| 结果准确 | 测试结果准确无误 |
-| 缺陷清晰 | 缺陷描述清晰可复现 |
-| 报告完整 | 报告包含所有必要信息 |
-
-
-
-## Quality Metrics (质量指标)
-
-### Key Performance Indicators (KPIs)
-
-| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
-|--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
-
-**综合评分计算**: 
-```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
-合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
-```
-
-### Validation Checklist (验证清单)
-
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
-
-
-
-## Handover 准备
-
-在完成验证后，生成以下交接信息：
+## Handover Context Template
 
 ```yaml
-handoff_to_deployment:
-  deliverable: "测试报告"
-  version: "1.0"
-  status: "通过/有条件通过/未通过"
-
+handover:
+  header:
+    from_stage: "testing"
+    to_stage: "deployment" or "development"
+    handover_id: "HO-{{timestamp}}-{{sequence}}"
+    timestamp: "{{ISO8601}}"
+    prepared_by: "{{agent.name}}"
+    
   summary:
-    total_testcases: N           # 总测试用例数
-    passed: N                    # 通过数
-    failed: N                    # 失败数
-    blocked: N                   # 阻塞数
-    pass_rate: percentage        # 通过率
-
-  by_module:
-    module_a:
-      testcases: N
-      passed: N
-      failed: N
-      pass_rate: percentage
-
-  critical_defects:
-    count: N
-    open: N
-    resolved: N
-    blocking_deployment: boolean
-
-  coverage:
-    statement: percentage
-    branch: percentage
-    function: percentage
-
-  recommendations:
-    - "建议"
-
+    status: "passed/failed/partial/conditional_pass"
+    completion_percentage: {{0-100}}
+    quality_score: {{0-100}}
+    total_test_cases: {{number}}
+    passed: {{number}}
+    failed: {{number}}
+    blocked: {{number}}
+    skipped: {{number}}
+    pass_rate: {{percentage}}%
+    execution_rate: {{percentage}}%
+    
+  artifacts:
+    delivered:
+      - name: "Test Cases"
+        path: "docs/test-cases.xlsx"
+        version: "1.0.0"
+        checksum: "{{SHA256}}"
+        test_case_count: {{number}}
+      - name: "Test Execution Report"
+        path: "reports/test-execution-report.html"
+        version: "1.0.0"
+      - name: "Defect List"
+        path: "defects/defect-list.xlsx"
+        version: "1.0.0"
+        defect_count: {{number}}
+      - name: "Test Summary Report"
+        path: "docs/test-summary.md"
+        version: "1.0.0"
+      - name: "Coverage Report"
+        path: "reports/coverage/index.html"
+        version: "1.0.0"
+      - name: "Traceability Matrix"
+        path: "docs/traceability-matrix.xlsx"
+        version: "1.0.0"
+      
+  decisions:
+    - id: "DC-003"
+      description: "缺陷优先级判定"
+      rationale: "基于影响范围、严重程度、业务价值评定P0-P3"
+      criteria_used: "P0: 阻塞核心功能; P1: 严重影响用户体验; P2: 一般功能问题; P3: 轻微UI/文案问题"
+      
   open_issues:
-    count: N
-    blocking: [列表]              # 阻塞性问题
-    non_blocking: [列表]         # 非阻塞性问题
-
-  sign_off:
-    tester: string
-    reviewer: string
-    date: datetime
+    blocking:
+      - id: "DEFECT-001"
+        description: "核心功能X存在严重缺陷，导致系统崩溃"
+        severity: "P0"
+        status: "open"
+        impact: "阻塞发布，必须修复"
+        assigned_to: "{{developer_name}}"
+    non_blocking:
+      - id: "DEFECT-002"
+        description: "UI显示小问题，不影响功能"
+        severity: "P3"
+        status: "accepted"
+        impact: "可延期修复，不影响发布"
+        planned_fix: "下个迭代"
+        
+  risks:
+    - id: "RISK-001"
+      description: "部分边缘场景未充分测试（时间限制）"
+      probability: "low"
+      impact: "medium"
+      affected_areas: ["功能A的边缘情况", "功能B的并发场景"]
+      mitigation: "生产环境密切监控，承诺下个迭代补充测试"
+      contingency_plan: "如出现问题，立即回滚并修复"
+      
+  recommendations:
+    - "建议先修复P0和P1级别缺陷再发布"
+    - "重点关注性能测试中发现的瓶颈（API X响应时间超标）"
+    - "建议在灰度发布阶段重点监控X功能的用户反馈"
+    - "建议在下个迭代补充边缘场景测试（见RISK-001）"
+    - "建议加强自动化测试覆盖，减少手动测试工作量"
+    
+  quality_metrics:
+    kpi_results:
+      - kpi_id: "KPI-001"
+        name: "TEST-PASS-RATE"
+        value: 92
+        target: 90
+        unit: "%"
+        status: "pass"
+      - kpi_id: "KPI-002"
+        name: "DEFECT-DETECTION"
+        value: 96
+        target: 95
+        unit: "%"
+        status: "pass"
+        estimation_method: "基于历史数据和同行评审"
+      - kpi_id: "KPI-003"
+        name: "REQ-TRACE"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+      - kpi_id: "KPI-004"
+        name: "TEST-COVERAGE"
+        value: 87
+        target: 85
+        unit: "%"
+        status: "pass"
+        breakdown:
+          line_coverage: 87%
+          branch_coverage: 82%
+          function_coverage: 91%
+    overall_score: 93
+    grade: "excellent"
+    recommendation: "approved_for_release_with_conditions"
+    conditions:
+      - "修复所有P0/P1缺陷"
+      - "监控生产环境X功能的表现"
+      - "下个迭代补充边缘场景测试"
+      
+  next_steps:
+    if_passed:
+      - "准备部署包和发布说明"
+      - "执行预发布环境验证"
+      - "安排灰度发布计划"
+      - "设置生产环境监控告警"
+    if_failed:
+      - "开发团队修复P0/P1缺陷"
+      - "执行回归测试验证修复"
+      - "重新评估发布计划和时间表"
+      - "必要时调整需求范围或延期发布"
 ```
 
-## Task Description
+## Related Assets (关联资产)
 
-> Describe the specific task for the verify-test scenario execution.
-> AI must understand the context, objectives, and success criteria before proceeding.
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `../../scenarios/verify-test/SCENARIO.md` | 测试验证场景定义 |
+| Agent | `../../agents/verify-test.agent.md` | 测试验证Agent角色定义 |
+| Skill | `../../skills/verify-test/SKILL.md` | 测试验证技能包 |
+| Instruction | `../../instructions/verify-test.instructions.md` | 测试验证技术指令 |
 
-## Execution Flow
+## Related Resources (相关资源)
 
-> Step-by-step execution sequence for verify-test
-
-### Phase 1: Analysis
-- Understand requirements and context
-- Identify constraints and dependencies
-
-### Phase 2: Execution
-- Perform core verify-test activities
-- Apply best practices and standards
-
-### Phase 3: Validation
-- Verify outputs against acceptance criteria
-- Ensure completeness and quality
+- **Standards**: 
+  - [Testing Best Practices](../standards/testing-best-practices.md) - 测试最佳实践指南
+  - [Defect Classification](../standards/defect-classification.md) - 缺陷分类和优先级标准
+  - [Test Coverage Guidelines](../standards/test-coverage-guidelines.md) - 测试覆盖率指南
+- **Templates**: 
+  - [Test Case Template](../templates/test-case.template.md) - 测试用例模板
+  - [Defect Report Template](../templates/defect-report.template.md) - 缺陷报告模板
+  - [Test Report Template](../templates/test-report.template.md) - 测试报告模板
+- **Evaluations**: 
+  - [Test Quality Checklist](../evaluations/test-quality-checklist.md) - 测试质量检查清单
+  - [Coverage Analysis](../evaluations/coverage-analysis.md) - 覆盖率分析指南

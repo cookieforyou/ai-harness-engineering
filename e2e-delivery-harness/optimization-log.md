@@ -5,3 +5,5 @@
 - design-system
 - decompose-task
 - implement-feature
+- verify-test
+
