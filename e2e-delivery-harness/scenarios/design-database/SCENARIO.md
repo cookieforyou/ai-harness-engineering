@@ -1,136 +1,155 @@
 ---
 name: design-database
-description: "Design Database scenario for the E2E delivery lifecycle"
-type: scenario
+description: "数据库设计场景，负责设计数据库架构、表结构、索引策略、分库分表方案等"
 version: "1.2.0"
+type: scenario
+category: design
+stage: database-design
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['workflow', 'process']
+tags: [design, database, schema]
 ---
-# Scenario: 数据库设计 (Design Database)
+# Design Database Scenario
 
-## Overview
+## Purpose
 
-本场景用于设计数据库架构，包括概念模型、逻辑模型、物理模型，以及表结构设计、索引设计、分库分表策略等。
+设计数据库架构，包括概念模型、逻辑模型、物理模型，以及表结构设计、索引设计、分库分表策略等，为数据存储和访问提供高效、可靠的基础设施。
 
-## Chain of Thought
+### Business Value
+
+- **数据一致性保障**: 通过规范化设计和约束机制确保数据完整性和一致性
+- **查询性能优化**: 合理的索引设计和表结构优化提升查询效率
+- **可扩展性设计**: 分库分表策略支持数据量增长，避免单点瓶颈
+- **运维成本降低**: 标准化的Schema设计和文档化减少维护复杂度
+
+## Chain of Thought (思维链)
+
+### Think-Aloud Protocol (强制遵循)
 
 ```
-[THINK] 分析业务需求
-├─ 理解业务实体和关系
-├─ 分析数据访问模式
-└─ 评估数据量和增长趋势
-
-[ANALYZE] 设计概念模型
-├─ 识别核心业务实体
-├─ 定义实体属性
-├─ 建立实体间关系
-
-[DESIGN] 设计逻辑模型
-├─ 将概念模型转换为逻辑模型
-├─ 定义表结构和字段
-├─ 确定主键和外键
-
-[DESIGN] 设计物理模型
-├─ 选择数据库类型
-├─ 设计索引策略
-├─ 规划分区策略
-
-[OPTIMIZE] 优化设计方案
-├─ 分析查询性能
-├─ 优化表结构
-├─ 完善约束和触发器
+[THINK] Step 1: 理解业务需求和数据特征
+   ├─ 问：核心业务实体有哪些？数据访问模式是什么（OLTP/OLAP）？
+   ├─ 验证：与领域模型对照，确认实体边界清晰
+   └─ 检查：识别数据量级、增长趋势、读写比例
+   ↓
+[ANALYZE] Step 2: 分析数据需求和约束
+   ├─ 问：一致性要求是强一致还是最终一致？可用性SLA是多少？
+   ├─ 验证：评估数据类型选择、字符集、时区处理
+   └─ 检查：识别合规要求（GDPR、PII）、安全约束
+   ↓
+[DESIGN] Step 3: 设计概念模型和逻辑模型
+   ├─ 问：实体间关系如何建模？是否需要反范式化优化？
+   ├─ 验证：ER图完整性检查，确保无遗漏实体或关系
+   └─ 检查：达到第三范式（3NF），主键和外键定义清晰
+   ↓
+[EVALUATE] Step 4: 设计物理模型和优化策略
+   ├─ 问：索引策略是否覆盖高频查询？是否需要分区或分片？
+   ├─ 验证：执行计划分析，检查全表扫描风险
+   └─ 检查：索引数量合理（≤5个/表），避免过度索引
+   ↓
+[DOCUMENT] Step 5: 输出数据库设计文档
+   ├─ 生成ER图（概念模型、逻辑模型）
+   ├─ 编写DDL脚本（CREATE TABLE语句）
+   └─ 编写数据字典（表结构、字段说明、约束）
+   ↓
+[VALIDATE] Step 6: 评审确认并准备交接
+   ├─ 组织数据库设计评审会议，收集反馈
+   ├─ 根据反馈修订设计方案
+   └─ 获得DBA签字确认，准备交接给开发阶段
 ```
 
-## Decision Checkpoints
+## Decision Checkpoints (决策检查点)
 
-| 检查点 | 条件 | 决策 |
-|--------|------|------|
-| DC-001 | 数据库类型选择 | OLTP/OLAP/NoSQL？ |
-| DC-002 | 分库分表策略 | 是否需要分库分表？ |
-| DC-003 | 索引策略 | 索引覆盖还是回表？ |
-
-## Error Handling
-
-| 错误类型 | 处理方式 |
-|----------|----------|
-| 数据不一致 | 引入事务约束 |
-| 查询性能差 | 优化索引和 SQL |
-| 表结构冲突 | 评审和协调 |
-| 容量预估不足 | 扩容或归档策略 |
-
-
-
+| ID | 决策点 | 触发条件 | 决策选项 | 选择标准 | 记录位置 |
+|----|--------|----------|----------|----------|----------|
+| DC-001 | 数据库类型选择 | 分析数据特征后 | 关系型(MySQL/PG)/NoSQL(Mongo/Cassandra)/分布式(TiDB) | 基于数据结构化程度、事务需求、扩展性要求综合评估 | 技术选型文档 |
+| DC-002 | 主键策略 | 设计每张表时 | 自然主键/代理主键(Auto Increment)/分布式ID(Snowflake/UUID) | 基于是否分布式、是否需要全局唯一、插入性能决定 | 表结构设计文档 |
+| DC-003 | 索引策略 | 分析查询模式后 | B-Tree索引/哈希索引/全文索引/联合索引 | 基于查询条件分布、选择性、排序需求决定 | 索引设计文档 |
+| DC-004 | 分库分表策略 | 预估数据量超过阈值 | 垂直拆分(按业务域)/水平拆分(按范围/哈希)/不分 | 单表>1000万行或单库>500GB时考虑分片 | 分库分表方案 |
+| DC-005 | 一致性级别 | 设计跨表操作时 | 强一致性(事务)/最终一致性(异步补偿)/因果一致性 | 基于业务容忍度、性能要求、实现复杂度权衡 | ADR文档 |
 
 ## Error Handling (错误处理)
 
-> **AI 遇到以下情况时必须按指定流程处理**
+> **AI 在执行过程中遇到以下情况时的处理策略**
 
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
+### Error Scenario 1: 数据不一致问题
 
 **识别信号**: 
-- 检测到异常情况
-- 验证失败
+- 外键约束冲突或违反
+- 重复数据出现
+- 脏读、不可重复读、幻读现象
 
 **处理流程**:
 ```
-IF 检测到错误
+IF 检测到数据不一致
 THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
+  1. 分析不一致的根本原因（并发写入、事务隔离级别、应用层逻辑错误）
+  2. IF 并发问题 THEN 调整事务隔离级别或使用乐观锁/悲观锁
+  3. IF 应用层错误 THEN 修复业务逻辑，添加数据校验
+  4. 执行数据清洗，修复已存在的不一致数据
+  5. 添加约束和触发器，防止未来出现类似问题
+  6. 更新设计规范文档
 END
 ```
 
-**降级方案**: 根据具体情况选择适当的降级策略
+**降级方案**: 暂时接受轻微不一致，通过定时任务进行数据对账和修复
 
-**升级条件**: P0 或 P1 级别错误
+**升级条件**: 经过2次调整后仍然存在严重数据不一致，需要DBA介入进行架构级调整
 
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
+---
+
+### Error Scenario 2: 查询性能不达标
+
+**识别信号**: 
+- 慢查询日志中出现大量超时查询（>1秒）
+- EXPLAIN显示全表扫描或临时表
+- CPU或IO使用率持续高负载
+
+**处理流程**:
+```
+IF 检测到查询性能不达标
+THEN
+  1. 使用EXPLAIN分析慢查询的执行计划
+  2. 识别性能瓶颈：全表扫描、未使用索引、JOIN过多、子查询嵌套
+  3. IF 缺少索引 THEN 添加合适的索引（优先联合索引）
+  4. IF SQL复杂 THEN 重构SQL，减少JOIN或拆分为多次查询
+  5. IF 数据量大 THEN 考虑分区、分片或引入缓存层
+  6. 重新测试查询性能，验证优化效果
+  7. 更新索引设计文档
+END
 ```
 
+**降级方案**: 对非核心查询降低性能要求，或引入读写分离减轻主库压力
 
+**升级条件**: 经过多轮优化仍无法满足P99延迟目标，需要重新评估架构设计（如引入搜索引擎、列式存储）
 
-## Quality Metrics
+---
 
-> Quality metrics for measuring scenario execution success.
+### Error Scenario 3: 容量预估不足导致扩容困难
 
-| KPI | Target | Description |
-|-----|--------|-------------|
-| `NORMALIZATION` | 3NF | 规范化程度：达到第三范式 |
-| `INDEX-COVERAGE` | ≥90% | 查询索引覆盖率：高频查询有索引 |
-| `SCHEMA-DOCS` | 100% | Schema文档化率：所有表和字段有注释 |
+**识别信号**: 
+- 磁盘使用率超过80%
+- 单表行数超过1000万，性能明显下降
+- 备份时间过长影响业务
 
-### Traceability
+**处理流程**:
+```
+IF 检测到容量预警
+THEN
+  1. 评估当前数据量和增长速度
+  2. IF 单表过大 THEN 实施水平分表（按时间范围或哈希）
+  3. IF 单库过大 THEN 实施垂直分库（按业务域）或水平分库
+  4. 制定数据归档策略，将冷数据迁移到廉价存储
+  5. 执行在线迁移，确保业务不中断
+  6. 更新容量规划文档
+END
+```
 
-- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
-- **Execution ID**: `{{execution.id}}` — 执行实例标识
-- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
-- **Agent**: `{{agent.name}}` — 执行Agent标识
+**降级方案**: 临时增加存储空间，同时启动分库分表方案设计
 
-
+**升级条件**: 无法在线扩容，需要停机维护，需协调业务窗口期
 
 ## Quality Metrics (质量指标)
 
@@ -138,182 +157,66 @@ error_log:
 
 | KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
 |--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+| KPI-001 | NORMALIZATION | 3NF | 所有表达到第三范式 | Schema审查 | 20% |
+| KPI-002 | INDEX-COVERAGE | ≥90% | (有索引的高频查询数/总高频查询数) × 100% | 查询模式分析 | 25% |
+| KPI-003 | SCHEMA-DOCS | 100% | (有注释的字段数/总字段数) × 100% | 数据字典检查 | 20% |
+| KPI-004 | QUERY-PERF | P99<500ms | 99%查询响应时间<500ms | 性能基准测试 | 20% |
+| KPI-005 | CONSTRAINT-INTEGRITY | 100% | (有约束的表数/总表数) × 100% | 约束检查清单 | 15% |
 
 **综合评分计算**: 
 ```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+Quality Score = (KPI-001 × 0.20) + (KPI-002 × 0.25) + (KPI-003 × 0.20) + (KPI-004 × 0.20) + (KPI-005 × 0.15)
 合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
 ```
 
 ### Validation Checklist (验证清单)
 
 **完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
+- [ ] ER图包含所有核心实体和关系
+- [ ] DDL脚本可执行，无语法错误
+- [ ] 数据字典覆盖所有表和字段
+- [ ] 索引设计文档完整
 
 **一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
+- [ ] 命名规范统一（表名、字段名、索引名）
+- [ ] 数据类型选择一致（如时间统一用DATETIME）
+- [ ] 外键引用关系正确，无循环依赖
 
 **准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
+- [ ] 主键唯一且非空
+- [ ] 外键引用存在的表和字段
+- [ ] 默认值和约束符合业务逻辑
+- [ ] 字符集和排序规则正确
 
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
+**性能验证 (Performance)**:
+- [ ] 高频查询有索引覆盖
+- [ ] 无N+1查询问题
+- [ ] JOIN表数量合理（≤5个）
+- [ ] 大字段（TEXT/BLOB）单独存储
 
 **规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
+- [ ] 遵循数据库设计规范（如不使用保留字）
+- [ ] 敏感字段加密存储
+- [ ] 符合GDPR等合规要求
+- [ ] 审计字段齐全（created_at, updated_at, deleted_at）
 
-
-
-## Handover Criteria
-
-- [x] ER 图已完成
-- [x] 表结构设计已评审
-- [x] 索引设计已优化
-- [x] DDL 脚本已准备
-- [x] 数据字典已编写
-
-## Associated Assets
-
-- **Prompt**: `prompts/design-database.prompt.md`
-- **Instruction**: `instructions/design-database.instructions.md`
-- **Agent**: `agents/design-database.agent.md`
-- **Skill**: `skills/design-database/SKILL.md`
-
-
-## Purpose
-
-## Chain of Thought (思维链)
-
-> **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
-
-```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
-   ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
-   ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
-   ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
-   ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
-   └─ 输出: 验证报告
-   ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
-```
-
-
-
-
-> Define the objectives and scope of the design-database scenario.
->
-> This scenario ensures systematic execution of design-database activities with clear decision checkpoints and handover criteria.
-
-
-## Prerequisites
-
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
-
-
-## Primary Assets
+## Related Assets (关联资产)
 
 | Asset Type | Path | Description |
 |------------|------|-------------|
-| Scenario | `scenarios/design-database/SCENARIO.md` | This scenario definition |
-| Prompt | `prompts/design-database.prompt.md` | Execution prompt |
-| Instructions | `instructions/design-database.instructions.md` | Technical instructions |
-| Agent | `agents/design-database.agent.md` | Responsible agent |
-| Skill | `skills/design-database/SKILL.md` | Domain skill |
+| Agent | `../../agents/design-database.agent.md` | 数据库设计Agent角色定义 |
+| Prompt | `../../prompts/design-database.prompt.md` | 数据库设计提示词模板 |
+| Skill | `../../skills/design-database/SKILL.md` | 数据库设计技能包 |
+| Instruction | `../../instructions/design-database.instructions.md` | 数据库设计技术指令 |
 
+## Related Resources (相关资源)
 
-### Handover Context Template
-
-```yaml
-handover:
-  header:
-    from_stage: "design-database"
-    to_stage: "unknown"
-    handover_id: "HO-{{timestamp}}-{{sequence}}"
-    timestamp: "{{ISO8601}}"
-    prepared_by: "{{agent.name}}"
-    
-  summary:
-    status: "completed/partial/blocked"
-    completion_percentage: {{0-100}}
-    quality_score: {{0-100}}
-    
-  artifacts:
-    delivered:
-      - name: "{{artifact_name}}"
-        path: "{{file_path}}"
-        version: "{{version}}"
-        checksum: "{{SHA256}}"
-      
-  decisions:
-    - id: "DC-XXX"
-      description: "{{决策描述}}"
-      rationale: "{{决策理由}}"
-      alternatives_considered: ["选项1", "选项2"]
-      
-  open_issues:
-    blocking: []
-    non_blocking:
-      - id: "ISSUE-XXX"
-        description: "{{问题描述}}"
-        
-  risks:
-    - id: "RISK-XXX"
-      description: "{{风险描述}}"
-      probability: "low/medium/high"
-      impact: "low/medium/high"
-      mitigation: "{{缓解措施}}"
-      
-  recommendations:
-    - "{{建议1}}"
-    - "{{建议2}}"
-    
-  quality_metrics:
-    kpi_results:
-      - kpi_id: "KPI-001"
-        value: {{actual_value}}
-        target: {{target_value}}
-        status: "pass/fail"
-```
-
+- **Standards**: 
+  - [Database Naming Convention](../standards/database-naming-convention.md) - 数据库命名规范
+  - [Normalization Guidelines](../standards/normalization-guidelines.md) - 数据库规范化指南
+- **Templates**: 
+  - [ER Diagram Template](../templates/er-diagram.template.md) - ER图模板
+  - [Data Dictionary Template](../templates/data-dictionary.template.md) - 数据字典模板
+- **Evaluations**: 
+  - [Schema Review Checklist](../evaluations/schema-review-checklist.md) - Schema评审检查清单
+  - [Query Performance Benchmark](../evaluations/query-performance-benchmark.md) - 查询性能基准测试
