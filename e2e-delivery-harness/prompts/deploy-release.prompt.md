@@ -1,459 +1,185 @@
 ---
 name: deploy-release
 description: "部署发布提示词，用于规划和执行应用部署"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['prompt', 'ai-execution']
+tags: [prompt, deployment, release]
 ---
-# Deploy and Release
+# Deploy Release Prompt
 
-> **版本**: 1.1.0 | **适用阶段**: 部署发布 | **预计工时**: 1-3小时
+## Purpose
+
+本提示词指导AI执行部署发布任务，将测试通过的软件安全、可靠地部署到目标环境，执行发布流程，确保部署成功并建立完善的监控和回滚机制。
+
+### Key Objectives
+
+- **安全可靠部署**: 通过标准化流程和自动化脚本，确保部署过程可控、可追溯
+- **最小化停机时间**: 采用蓝绿/滚动/灰度等先进部署策略，实现零停机或最短停机
+- **完善回滚机制**: 准备详细的回滚方案，确保在异常情况下能快速恢复到稳定状态
+- **全面验证确认**: 执行功能、性能、集成、数据等多维度验证，确保部署质量
+- **持续监控告警**: 配置完善的监控和告警规则，及时发现和处理问题
 
 ## Input Variables
+
+| Variable | Type | Required | Description | Validation |
+|----------|------|----------|-------------|------------|
+| `release_version` | string | true | 发布版本号 | 语义化版本格式（如v1.2.3） |
+| `release_scope` | markdown | true | 发布范围说明 | 包含变更清单、新功能、Bug修复 |
+| `target_environment` | string | true | 目标环境 | prod/staging/dev，必须明确指定 |
+| `rollback_plan` | markdown | true | 回滚方案 | 包含详细步骤、预计时间、验证方法 |
+| `deployment_config` | yaml | true | 部署配置 | 有效的YAML配置，包含所有必需参数 |
+| `health_check_url` | string | false | "" | 健康检查URL | 有效的URL，返回200表示健康 |
+| `smoke_tests` | array | false | [] | 冒烟测试用例 | 测试脚本路径列表 |
+| `deployment_strategy` | string | false | "rolling" | 部署策略 | blue-green/rolling/canary/direct |
+| `maintenance_window` | object | false | {} | 维护窗口 | 开始时间、结束时间、通知对象 |
 
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
 
 ```
-Step 1: [THINK] 确认发布范围和计划
-   ├─ 输入: release_version, target_environment, release_notes
-   ├─ 思考: 发布范围是什么？是否有回滚计划？
-   ├─ 验证: 获得发布授权，回滚方案已准备
-   └─ 输出: 发布确认清单
+[THINK] Step 1: 确认发布范围和计划
+   ├─ 输入: release_version, target_environment, release_scope
+   ├─ 思考: 发布范围是什么？是否有回滚计划？是否获得发布授权？
+   ├─ 验证: 检查测试报告、审批记录、回滚方案
+   └─ 输出: 发布确认清单（含版本号、变更清单、目标环境、时间窗口）
    ↓
-Step 2: [ANALYZE] 分析部署环境和依赖
-   ├─ 输入: 发布确认清单, environment_config
-   ├─ 思考: 目标环境是否就绪？依赖服务是否正常？
-   ├─ 验证: 环境检查通过，资源配置充足
-   └─ 输出: 环境准备报告
+[ANALYZE] Step 2: 分析部署环境和依赖
+   ├─ 输入: 发布确认清单, deployment_config
+   ├─ 思考: 目标环境是否就绪？依赖服务是否正常？资源配置充足吗？
+   ├─ 验证: 环境检查、资源评估、依赖服务健康状态
+   └─ 输出: 环境准备报告（含服务器、网络、数据库、缓存等检查结果）
    ↓
-Step 3: [DESIGN] 设计部署流程和监控方案
-   ├─ 输入: 环境准备报告
-   ├─ 思考: 采用什么部署策略？如何监控？
-   ├─ 验证: 部署流程清晰，监控指标明确
-   └─ 输出: 部署执行计划
+[DESIGN] Step 3: 设计部署流程和监控方案
+   ├─ 输入: 环境准备报告, deployment_strategy
+   ├─ 思考: 采用什么部署策略（蓝绿/滚动/灰度）？如何监控？告警阈值是多少？
+   ├─ 验证: 部署流程清晰，监控指标明确，告警规则合理
+   └─ 输出: 部署执行计划（含部署步骤、验证点、回滚触发条件、监控面板）
    ↓
-Step 4: [IMPLEMENT] 执行部署操作
-   ├─ 输入: 部署执行计划
-   ├─ 思考: 按步骤执行，实时监控状态
-   ├─ 验证: 每个步骤执行成功，无异常告警
-   └─ 输出: 部署执行日志
+[IMPLEMENT] Step 4: 执行部署操作
+   ├─ 输入: 部署执行计划, release_package
+   ├─ 思考: 按步骤执行，实时监控状态，有异常吗？
+   ├─ 验证: 每个步骤执行成功，无异常告警，健康检查通过
+   └─ 输出: 部署执行日志（含每步执行结果、时间戳、状态）
    ↓
-Step 5: [VERIFY] 验证部署结果
-   ├─ 输入: 部署执行日志
-   ├─ 执行: 功能验证、性能验证、集成验证
-   ├─ 验证: 所有验证通过，监控指标正常
-   └─ 输出: 部署验证报告
+[VERIFY] Step 5: 验证部署结果
+   ├─ 输入: 部署执行日志, health_check_url, smoke_tests
+   ├─ 执行: 功能验证、性能验证、集成验证、数据验证
+   ├─ 验证: 所有验证通过，监控指标正常，用户体验良好
+   └─ 输出: 部署验证报告（含验证结果、性能指标、问题清单）
    ↓
-Step 6: [HANDOVER] 准备交接给运维监控阶段
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context (发布状态)
-   └─ 通知: Monitor Operate Agent
+[HANDOVER] Step 6: 准备交接给运维监控阶段
+   ├─ 生成: Handover Context（含部署统计、监控配置、遗留问题、建议）
+   ├─ 更新: Global Context（发布状态、监控重点、应急联系人）
+   └─ 通知: Monitor Operate Agent（开始持续监控）
 ```
-
-
-
-
-> AI 在执行前必须确认以下变量已填充
-
-| 变量名 | 类型 | 必填 | 说明 | 示例 |
-|--------|------|------|------|------|
-| `project_name` | string | 是 | 项目名称 | "电商订单系统" |
-| `version` | string | 是 | 部署版本 | "v1.0.0" |
-| `deploy_package` | string | 是 | 部署包路径 | "/builds/app.tar" |
-| `target_env` | enum | 是 | 目标环境 | DEV/STAGING/PROD |
-| `cluster_info` | object | 否 | 集群信息 | 见 ClusterInfo 结构 |
-| `test_report` | string | 是 | 测试报告路径 | "test-report.md" |
-| `rollback_version` | string | 是 | 回滚目标版本 | "v0.9.0" |
-| `deployment_window` | datetime | 是 | 部署时间窗口 | "2024-01-15 02:00" |
-| `deployment_team` | string[] | 是 | 部署团队 | ["工程师A", "工程师B"] |
-
-### ClusterInfo 结构
-
-```typescript
-interface ClusterInfo {
-  cluster_name: string;         // 集群名称
-  namespace: string;           // 命名空间
-  replicas: number;           // 副本数
-  autoscaling: boolean;       // 是否启用自动扩缩容
-}
-```
-
-## Chain of Thought
-
-```
-1. [THINK] 环境检查 → 目标环境是否就绪？
-2. [THINK] 包验证 → 部署包是否完整有效？
-3. [THINK] 策略选择 → 采用何种部署策略？
-4. [THINK] 回滚准备 → 回滚方案是否可行？
-5. [THINK] 分批规划 → 分批数量和间隔？
-6. [EXECUTE] 执行部署 → 按计划执行
-7. [VALIDATE] 验证确认 → 部署后验证
-8. [MONITOR] 持续监控 → 确保稳定
-```
-
-## Error Handling
-
-### 情况 1：部署包校验失败
-
-```
-IF 部署包 MD5 或签名校验失败
-THEN
-  1. 标记部署为失败
-  2. 停止后续操作
-  3. 建议重新构建或获取包
-  4. 升级为 CRITICAL
-END
-```
-
-### 情况 2：健康检查超时
-
-```
-IF 健康检查持续失败
-THEN
-  1. 检查服务日志
-  2. 验证配置是否正确
-  3. 检查资源是否充足
-  4. 超过阈值时触发回滚
-END
-```
-
-### 情况 3：部分批次失败
-
-```
-IF 中间批次部署失败
-THEN
-  1. 停止后续批次
-  2. 评估已部署实例状态
-  3. 决定是继续还是回滚
-  4. 记录失败原因
-END
-```
-
-### 情况 4：回滚失败
-
-```
-IF 回滚操作失败
-THEN
-  1. 立即升级为 CRITICAL
-  2. 通知值班负责人
-  3. 准备紧急响应
-  4. 准备手动回滚方案
-END
-```
-
-### 情况 5：资源不足
-
-```
-IF 部署时发现资源不足
-THEN
-  1. 评估可用资源
-  2. 调整副本数或资源配置
-  3. 重新尝试部署
-  4. 记录资源配置变更
-END
-```
-
-## Objective
-
-规划并执行应用的部署发布，确保部署安全、可回滚，并完成验证。
-
-## Context
-
-你是一名 DevOps 工程师，正在负责应用的部署发布工作。你的目标是确保部署过程安全可靠，系统平稳上线。
-
-## Input Format
-
-```markdown
-## Deployment Information
-
-### 待发布内容
-- 版本：v1.0.0
-- 部署包：[包路径]
-- 变更清单：[变更列表]
-
-### 目标环境
-- 环境：生产环境
-- 集群：[集群信息]
-- 配置：[配置信息]
-
-### 测试通过信息
-- 测试报告：[报告路径]
-- 测试结论：通过
-- 遗留问题：[问题列表]
-
-### Rollback Plan
-- 回滚版本：[版本]
-- 回滚步骤：[步骤]
-```
-
-## Task Steps
-
-### 步骤 1：部署规划
-
-**任务**：
-- 制定部署策略
-- 确定部署时间
-- 分配部署角色
-- 准备回滚方案
-
-**产出**：部署计划
-
-### 步骤 2：环境准备
-
-**任务**：
-- 验证环境可用
-- 准备环境配置
-- 执行数据备份
-- 验证备份成功
-
-**产出**：就绪的部署环境
-
-### 步骤 3：部署执行
-
-**任务**：
-- 执行部署前检查
-- 按计划执行部署
-- 记录部署过程
-- 监控部署状态
-
-**产出**：部署执行记录
-
-### 步骤 4：验证检查
-
-**任务**：
-- 功能验证
-- 健康检查
-- 数据验证
-- 性能检查
-
-**产出**：验证报告
-
-### 步骤 5：监控跟踪
-
-**任务**：
-- 持续监控状态
-- 关注告警
-- 定期报告状态
-- 处理异常
-
-**产出**：状态报告
-
-### 步骤 6：文档归档
-
-**任务**：
-- 整理部署文档
-- 归档部署记录
-- 更新配置文档
-- 总结经验教训
-
-**产出**：归档文档
-
-
 
 ## Error Handling (错误处理)
 
 > **AI 遇到以下情况时必须按指定流程处理**
 
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
+### Error Scenario 1: 部署失败 (P0)
 
 **识别信号**: 
-- 检测到异常情况
-- 验证失败
+- 部署脚本执行失败
+- 服务启动失败
+- 健康检查不通过
+- 关键依赖缺失或配置错误
 
 **处理流程**:
 ```
-IF 检测到错误
+IF 部署过程出现错误导致部署失败
 THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
+  1. 立即停止部署流程
+  2. 分析错误原因（查看日志、监控、事件记录）
+  3. IF 错误可快速修复（<5分钟） THEN
+       a. 尝试修复并重试部署
+       b. 最多重试2次
+     ELSE
+       a. 立即执行回滚操作
+       b. 恢复到上一个稳定版本
+       c. 验证回滚后系统正常
+     END
+  4. 记录详细的失败原因和处理过程
+  5. 升级到技术负责人和运维团队
+  6. 标记发布为 [失败-已回滚]
 END
 ```
 
-**降级方案**: 根据具体情况选择适当的降级策略
+**降级方案**: 回滚到上一稳定版本，保证服务可用性
 
-**升级条件**: P0 或 P1 级别错误
+**升级条件**: 部署失败且无法快速恢复，或回滚操作也失败
 
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
+---
+
+### Error Scenario 2: 部署后验证不通过 (P1)
+
+**识别信号**: 
+- 功能测试失败
+- 性能指标异常（响应时间>阈值、错误率>阈值）
+- 健康检查端点返回非200状态
+- 用户反馈问题或投诉
+
+**处理流程**:
+```
+IF 部署后功能验证失败
+THEN
+  1. 快速定位问题原因和影响范围
+  2. 评估问题的严重程度（P0/P1/P2）
+  3. IF 问题为P0级别（核心功能异常） THEN
+       a. 立即执行回滚
+       b. 通知相关干系人（产品、运营、客服）
+     ELSE IF 问题为P1级别 THEN
+       a. 评估修复时间
+       b. IF 可在15分钟内修复 THEN 尝试热修复
+       c. ELSE 执行回滚
+     ELSE
+       a. 记录问题并持续监控
+       b. 计划在下一个补丁版本修复
+     END
+  4. 更新部署状态和问题跟踪
+END
 ```
 
+**降级方案**: 根据问题严重程度决定回滚或热修复
 
+**升级条件**: 核心功能异常或SLA面临违约风险
 
-## Output Format
+---
 
-```markdown
-## Deployment & Release Deliverables
+### Error Scenario 3: 性能下降 (P1/P2)
 
-### Summary
-- Status: [completed | partial | blocked]
-- Completion: [percentage]
-- Deployment Strategy: [blue-green | canary | rolling | direct]
+**识别信号**: 
+- 响应时间显著增加（>基线30%）
+- 吞吐量下降
+- 资源利用率异常（CPU>80%、内存>90%）
+- 数据库慢查询增多
 
-### Key Outputs
-1. **Deployment Log**: Execution log with status for each step
-2. **Health Check Results**: Validation of all health endpoints
-3. **Monitoring Dashboard**: Links to real-time metrics and alerts
-4. **Incident Response Status**: Confirmation of readiness
-5. **Rollback Trigger**: Defined conditions for automatic rollback
-
-### Validation Checklist
-- [ ] Deployment success rate target is met
-- [ ] Rollback capability is verified and ready
-- [ ] Zero-downtime achieved for user-facing services
-- [ ] All health checks pass post-deployment
-
-### Next Steps
-- [ ] Monitor deployment metrics for stability period
-- [ ] Conduct post-deployment review
+**处理流程**:
+```
+IF 部署后性能指标异常
+THEN
+  1. 对比部署前后的性能基线
+  2. 识别性能瓶颈（应用层、数据库、网络、缓存等）
+  3. 评估性能下降对业务的影响
+  4. IF 性能下降严重影响业务（>30%） THEN
+       a. 考虑回滚或紧急优化
+       b. 扩容资源作为临时方案
+     ELSE
+       a. 持续监控性能趋势
+       b. 计划在后续版本优化
+     END
+  5. 记录性能数据和优化建议
+END
 ```
 
+**降级方案**: 临时扩容资源，承诺后续优化
 
-## 1. 部署信息
-
-### 1.1 基本信息
-| 项目 | 内容 |
-|------|------|
-| 项目名称 | - |
-| 版本 | v1.0.0 |
-| 部署时间 | 日期时间 |
-| 部署环境 | 生产环境 |
-| 部署方式 | 滚动更新 |
-| 部署人员 | - |
-
-### 1.2 部署内容
-| 类型 | 名称 | 版本/变更 |
-|------|------|-----------|
-| 服务 | 服务A | v1.0.0 |
-| 配置 | 配置A | 更新 |
-
-## 2. Deployment Plan
-
-### 2.1 部署策略
-- 部署方式：滚动更新
-- 批次：3 批次
-- 每批间隔：10 分钟
-
-### 2.2 部署步骤
-| 步骤 | 操作 | 验证 | 负责人 |
-|------|------|------|--------|
-| 1 | 预检查 | 状态检查 | - |
-| 2 | 执行部署 | 服务启动 | - |
-| 3 | 健康检查 | 健康端点 | - |
-| 4 | 功能验证 | 核心功能 | - |
-
-### 2.3 回滚方案
-- 回滚触发条件：
-  - 健康检查失败
-  - 核心功能异常
-  - 错误率超过阈值
-- 回滚步骤：
-  1. 停止当前版本
-  2. 启动上一版本
-  3. 验证回滚成功
-- 回滚预计时间：15 分钟
-
-## 3. Deployment Execution
-
-### 3.1 执行记录
-| 时间 | 步骤 | 操作 | 结果 | 操作人 |
-|------|------|------|------|--------|
-| 10:00 | 1 | 预检查 | 通过 | - |
-| 10:05 | 2 | 执行部署 | 成功 | - |
-| 10:08 | 3 | 健康检查 | 通过 | - |
-| 10:15 | 4 | 功能验证 | 通过 | - |
-
-### 3.2 执行日志
-```
-[关键日志记录]
-```
-
-### 3.3 异常处理
-| 时间 | 异常 | 处理 | 结果 |
-|------|------|------|------|
-| - | - | - | - |
-
-## 4. Validation Results
-
-### 4.1 部署后检查
-| 检查项 | 检查方法 | 结果 | 说明 |
-|--------|----------|------|------|
-| 服务状态 | 健康检查 | 通过 | - |
-| 核心功能 | 功能测试 | 通过 | - |
-| 日志正常 | 日志检查 | 通过 | 无异常 |
-| 监控正常 | 指标检查 | 通过 | - |
-
-### 4.2 业务验证
-| 业务 | 验证结果 | 说明 |
-|------|----------|------|
-| 业务A | 通过 | - |
-
-## 5. Monitoring Status
-
-### 5.1 关键指标
-| 指标 | 值 | 状态 |
-|------|------|------|
-| CPU使用率 | XX% | 正常 |
-| 内存使用率 | XX% | 正常 |
-| 接口响应时间 | XXms | 正常 |
-| 错误率 | X% | 正常 |
-
-### 5.2 告警情况
-- 告警数量：0
-- 状态：正常
-
-## 6. Conclusion
-
-### 6.1 部署结论
-**状态**：部署成功
-
-### 6.2 遗留事项
-| 事项 | 影响 | 负责人 | 完成时间 |
-|------|------|--------|----------|
-| - | - | - | - |
-
-### 6.3 后续监控
-- 监控时间：[持续时间]
-- 关注重点：[重点]
-- 负责人：[姓名]
-
-## 7. Appendix
-
-### 7.1 变更记录
-| 变更类型 | 变更内容 | 影响 |
-|----------|----------|------|
-| 新增 | 功能A | - |
-
-### 7.2 相关文档
-- 部署计划：[链接]
-- 测试报告：[链接]
-- 回滚脚本：[链接]
-```
+**升级条件**: 性能下降超过30%或SLA面临违约风险
 
 ## Output Validation
 
@@ -465,32 +191,36 @@ error_log:
 ## Self-Validation Report
 
 ### V-001: 部署前检查
-- [ ] 部署包校验通过
-- [ ] 目标环境就绪
-- [ ] 回滚方案可用
-- [ ] 部署团队就位
+- [ ] 部署包校验通过（MD5/SHA256签名验证）
+- [ ] 目标环境就绪（服务器、网络、依赖服务）
+- [ ] 回滚方案可用（已测试验证）
+- [ ] 部署团队就位（开发、运维、DBA）
+- [ ] 监控告警已配置
 
 ### V-002: 部署过程检查
-- [ ] 每批部署执行记录完整
-- [ ] 健康检查全部通过
-- [ ] 异常情况已记录
-- [ ] 回滚触发条件正确
+- [ ] 每步部署执行记录完整（时间戳、状态、日志）
+- [ ] 健康检查全部通过（所有端点返回200）
+- [ ] 异常情况已记录并处理
+- [ ] 回滚触发条件正确设置
 
 ### V-003: 部署后检查
-- [ ] 所有副本运行正常
-- [ ] 健康检查 100% 通过
-- [ ] 核心功能验证通过
-- [ ] 监控指标正常
+- [ ] 所有副本运行正常（实例数符合预期）
+- [ ] 健康检查100%通过
+- [ ] 核心功能验证通过（冒烟测试通过）
+- [ ] 性能指标正常（响应时间、吞吐量、错误率在基线范围内）
+- [ ] 监控告警正常工作
 
 ### V-004: 验证完成标准
 - [ ] 服务状态: Healthy
 - [ ] 错误率: < 0.1%
-- [ ] 响应时间: < SLA
+- [ ] 响应时间: < SLA要求
 - [ ] 无新增告警
+- [ ] 用户反馈正常
 
 ### 验证结果
 - 验证通过: [是/否]
 - 未通过的检查项: [列出]
+- 补救措施: [如有]
 ```
 
 ### 验证失败时的处理
@@ -502,124 +232,206 @@ THEN
   2. 评估是否可以自动恢复
   3. 超过阈值时执行回滚
   4. 记录失败原因和恢复过程
+  5. 通知相关干系人
 END
 ```
 
+## Output Format
 
+```markdown
+## Deployment & Release Deliverables
 
-## Quality Metrics (质量指标)
+### Summary
+- Status: [success/partial/failed_rolled_back]
+- Completion: [percentage]%
+- Deployment Strategy: [blue-green/rolling/canary/direct]
+- Deployment Duration: [duration]
+- Downtime: [duration_or_zero]
 
-### Key Performance Indicators (KPIs)
+### Key Outputs
+1. **Deployment Log**: Execution log with status for each step
+   - Total Steps: {number}
+   - Successful Steps: {number}
+   - Failed Steps: {number}
+   - Rollback Triggered: [true/false]
 
-| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
-|--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+2. **Health Check Results**: Validation of all health endpoints
+   - Endpoints Checked: {number}
+   - Passed: {number}
+   - Failed: {number}
+   - Details: [{endpoint_url: status_code, response_time}]
 
-**综合评分计算**: 
+3. **Verification Report**: Post-deployment validation results
+   - Functional Tests: {passed}/{total}
+   - Performance Tests: {passed}/{total}
+   - Integration Tests: {passed}/{total}
+   - Data Validation: {passed}/{total}
+
+4. **Monitoring Dashboard**: Links to real-time metrics and alerts
+   - Dashboard URL: {url}
+   - Key Metrics: [response_time, error_rate, cpu_usage, memory_usage]
+   - Alert Rules Configured: {number}
+
+5. **Rollback Status**: Confirmation of rollback readiness
+   - Rollback Plan Tested: [true/false]
+   - Estimated Rollback Time: {minutes}
+   - Last Stable Version: {version}
+
+### Validation Checklist
+- [ ] Deployment success rate target is met (≥99%)
+- [ ] Rollback capability is verified and ready (≤15min)
+- [ ] Zero-downtime achieved for user-facing services (100%)
+- [ ] All health checks pass post-deployment (100%)
+- [ ] Performance metrics within baseline (±10%)
+
+### Next Steps
+- [ ] Monitor deployment metrics for stability period (24 hours)
+- [ ] Conduct post-deployment review
+- [ ] Update deployment documentation
+- [ ] Archive deployment records
 ```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
-合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
-```
 
-### Validation Checklist (验证清单)
-
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
-
-
-
-## Handover 准备
-
-在完成验证后，生成以下交接信息：
+## Handover Context Template
 
 ```yaml
-handoff_to_monitoring:
-  deliverable: "部署报告"
-  version: "1.0"
-  status: "成功/失败/部分成功"
-
+handover:
+  header:
+    from_stage: "deployment"
+    to_stage: "monitoring-operations"
+    handover_id: "HO-{{timestamp}}-{{sequence}}"
+    timestamp: "{{ISO8601}}"
+    prepared_by: "{{agent.name}}"
+    
   summary:
-    deployment_time: datetime      # 部署完成时间
-    duration: minutes            # 总耗时
-    batches: N                    # 批次数
-    instances_total: N           # 总实例数
-
-  health_status:
-    checks_passed: boolean
-    error_rate: percentage
-    avg_response_time: ms
-
-  monitoring:
-    watch_duration: hours        # 监控观察时长
-    alert_threshold: string       # 告警阈值
-    contact: string              # 联系人
-
-  rollback_available: boolean
-  rollback_version: string
-
+    status: "success/partial/failed_rolled_back"
+    completion_percentage: {{0-100}}
+    quality_score: {{0-100}}
+    deployment_duration: "{{duration}}"
+    downtime: "{{duration_or_zero}}"
+    deployment_strategy: "blue-green/rolling/canary/direct"
+    
+  artifacts:
+    delivered:
+      - name: "Release Package"
+        path: "registry/releases/{version}"
+        version: "{release_version}"
+        checksum: "{{SHA256}}"
+      - name: "Deployment Scripts"
+        path: "deploy/scripts/"
+        version: "1.0.0"
+        checksum: "{{SHA256}}"
+      - name: "Deployment Log"
+        path: "logs/deployment-log.md"
+        version: "1.0.0"
+      - name: "Rollback Plan"
+        path: "docs/rollback-plan.md"
+        version: "1.0.0"
+      - name: "Release Report"
+        path: "docs/release-report.md"
+        version: "1.0.0"
+      - name: "Monitoring Configuration"
+        path: "monitoring/alerts.yaml"
+        version: "1.0.0"
+      - name: "Verification Report"
+        path: "reports/verification-report.md"
+        version: "1.0.0"
+      
+  decisions:
+    - id: "DC-002"
+      description: "部署策略选择"
+      rationale: "选择蓝绿部署以最小化停机时间"
+      alternatives_considered: ["滚动部署", "灰度发布"]
+      criteria_used: "业务连续性要求高，基础设施支持蓝绿部署"
+      
+  open_issues:
+    blocking: []
+    non_blocking:
+      - id: "ISSUE-001"
+        description: "非核心功能X存在小问题，计划下版本修复"
+        severity: "P3"
+        planned_fix: "v1.1.0"
+        
+  risks:
+    - id: "RISK-001"
+      description: "新版本依赖的中间件版本较新，需密切监控"
+      probability: "low"
+      impact: "medium"
+      affected_areas: ["缓存服务", "消息队列"]
+      mitigation: "已在测试环境充分验证，生产环境加强监控"
+      contingency_plan: "如出现问题，立即回滚到上一版本"
+      
   recommendations:
-    - "建议"
+    - "前24小时密切监控错误率和响应时间"
+    - "关注数据库性能，必要时优化慢查询"
+    - "准备好热修复方案应对紧急情况"
+    - "建议在下次迭代中优化启动时间（当前>30秒）"
+    - "建议增加自动化冒烟测试，减少人工验证工作量"
+    
+  quality_metrics:
+    kpi_results:
+      - kpi_id: "KPI-001"
+        name: "DEPLOY-SUCCESS-RATE"
+        value: 100
+        target: 99
+        unit: "%"
+        status: "pass"
+      - kpi_id: "KPI-002"
+        name: "ROLLBACK-TIME"
+        value: 8
+        target: 15
+        unit: "minutes"
+        status: "pass"
+        note: "回滚演练时间，实际未触发回滚"
+      - kpi_id: "KPI-003"
+        name: "ZERO-DOWNTIME"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+      - kpi_id: "KPI-004"
+        name: "POST-DEPLOY-VERIFICATION"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+    overall_score: 100
+    grade: "excellent"
+    recommendation: "approved_for_production"
+      
+  next_steps:
+    immediate:
+      - "Monitor Operate Agent开始持续监控（至少24小时）"
+      - "重点关注错误率、响应时间、资源使用率"
+      - "设置告警通知渠道（Slack、邮件、短信）"
+    short_term:
+      - "24小时后编写部署回顾报告"
+      - "收集团队反馈，优化部署流程"
+      - "更新部署文档和最佳实践"
+    long_term:
+      - "分析部署数据，识别改进机会"
+      - "探索更先进的部署策略（如GitOps、渐进式交付）"
+      - "提升自动化水平，减少人工干预"
 ```
 
-## Constraints
+## Related Assets (关联资产)
 
-1. **语言**：输出使用中文
-2. **安全**：必须可回滚
-3. **验证**：必须完整验证
-4. **记录**：必须记录完整
-5. **通知**：必须通知相关方
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Scenario | `../../scenarios/deploy-release/SCENARIO.md` | 部署发布场景定义 |
+| Agent | `../../agents/deploy-release.agent.md` | 部署发布Agent角色定义 |
+| Skill | `../../skills/deploy-release/SKILL.md` | 部署发布技能包 |
+| Instruction | `../../instructions/deploy-release.instructions.md` | 部署发布技术指令 |
 
-## Quality Requirements
+## Related Resources (相关资源)
 
-| 要求 | 说明 |
-|------|------|
-| 可回滚 | 有完整的回滚方案 |
-| 验证完整 | 核心功能都有验证 |
-| 记录完整 | 部署过程有记录 |
-| 监控就绪 | 监控系统已配置 |
-
-## Task Description
-
-> Describe the specific task for the deploy-release scenario execution.
-> AI must understand the context, objectives, and success criteria before proceeding.
-
-## Execution Flow
-
-> Step-by-step execution sequence for deploy-release
-
-### Phase 1: Analysis
-- Understand requirements and context
-- Identify constraints and dependencies
-
-### Phase 2: Execution
-- Perform core deploy-release activities
-- Apply best practices and standards
-
-### Phase 3: Validation
-- Verify outputs against acceptance criteria
-- Ensure completeness and quality
+- **Standards**: 
+  - [Deployment Best Practices](../standards/deployment-best-practices.md) - 部署最佳实践指南
+  - [Rollback Strategy](../standards/rollback-strategy.md) - 回滚策略标准
+  - [Health Check Guidelines](../standards/health-check-guidelines.md) - 健康检查指南
+- **Templates**: 
+  - [Deployment Plan Template](../templates/deployment-plan.template.md) - 部署计划模板
+  - [Rollback Plan Template](../templates/rollback-plan.template.md) - 回滚方案模板
+  - [Release Report Template](../templates/release-report.template.md) - 发布报告模板
+- **Evaluations**: 
+  - [Deployment Quality Checklist](../evaluations/deployment-quality-checklist.md) - 部署质量检查清单
+  - [Rollback Drill Report](../evaluations/rollback-drill-report.md) - 回滚演练报告
