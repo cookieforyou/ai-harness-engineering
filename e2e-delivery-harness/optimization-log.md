@@ -6,4 +6,6 @@
 - decompose-task
 - implement-feature
 - verify-test
+- deploy-release
+- monitor-operate
 
