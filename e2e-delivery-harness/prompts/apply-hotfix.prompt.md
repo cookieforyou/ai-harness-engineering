@@ -1,207 +1,186 @@
 ---
 name: apply-hotfix
-description: "apply-hotfix execution prompt for E2E delivery workflow"
+description: "紧急修复执行提示词，用于快速定位、修复和上线生产环境P0/P1级别缺陷"
 type: execution
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['prompt', 'ai-execution']
+tags: ['prompt', 'hotfix', 'emergency', 'incident']
 ---
-# Prompt: 紧急修复场景执行 Prompt
+# Apply Hotfix Prompt
 
-## Overview
-
-本 Prompt 用于指导 AI Agent 执行紧急缺陷修复工作。
+> **版本**: 1.2.0 | **适用阶段**: 紧急修复 | **预计工时**: P0≤2h, P1≤8h
 
 ## Input Variables
+
+> AI 在执行前必须确认以下变量已填充
+
+| 变量名 | 类型 | 必填 | 说明 | 示例 |
+|--------|------|------|------|------|
+| `issue_id` | string | 是 | 问题编号 | "BUG-20260507-001" |
+| `issue_title` | string | 是 | 问题标题 | "支付接口返回500错误" |
+| `severity` | enum | 是 | 严重等级 | "P0/P1/P2" |
+| `affected_services` | string[] | 是 | 影响的服务列表 | ["payment-service", "order-service"] |
+| `affected_users` | number | 是 | 影响用户数 | 5000 |
+| `business_impact` | string | 是 | 业务影响描述 | "用户无法完成支付，订单流失率增加30%" |
+| `reporter` | string | 是 | 上报人/系统 | "监控系统/用户反馈" |
+| `detection_time` | datetime | 是 | 发现时间 (ISO8601) | "2026-05-07T14:00:00Z" |
+| `first_occurrence` | datetime | 否 | 首次出现时间 | "2026-05-07T13:30:00Z" |
+| `error_logs` | string | 否 | 错误日志摘要 | "NullPointerException at PaymentService.process()" |
+| `recent_changes` | array | 否 | 最近变更列表 | [{change_id, description, timestamp}] |
+| `approval_authority` | string | 否 | 紧急发布审批人 | "CTO/技术VP" |
 
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
 
 ```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
+[ASSESS] Step 1: 评估问题严重性和影响范围
+   ├─ 问：问题的严重程度是什么？影响了多少用户？哪些核心功能受损？
+   ├─ 验证：确认问题级别（P0/P1/P2），评估业务影响
+   └─ 检查：启动相应级别的应急响应流程
    ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
+[LOCATE] Step 2: 快速定位问题根因
+   ├─ 问：问题出在哪里？最近的变更有哪些？日志显示什么异常？
+   ├─ 验证：分析日志、监控数据、最近代码变更
+   └─ 检查：使用5 Whys方法深入分析，30分钟内定位根因
    ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
+[DESIGN] Step 3: 设计最小化修复方案
+   ├─ 问：如何用最少的代码改动修复问题？有无临时止血方案？修复是否可回滚？
+   ├─ 验证：方案只修改必要部分，不影响其他功能
+   └─ 检查：准备回滚方案，评估修复风险
    ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
+[IMPLEMENT] Step 4: 执行修复和测试
+   ├─ 问：修复代码是否正确？测试是否覆盖关键场景？有无引入新问题？
+   ├─ 验证：代码审查通过，单元测试和回归测试通过
+   └─ 检查：在预发环境验证修复效果
    ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
-   └─ 输出: 验证报告
+[DEPLOY] Step 5: 部署上线和监控
+   ├─ 问：部署是否顺利？修复是否生效？系统是否稳定？
+   ├─ 验证：灰度发布或全量发布，监控系统指标
+   └─ 检查：观察30分钟以上，确认无异常后宣布修复完成
    ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
+[REPORT] Step 6: 产出修复报告和后续计划
+   ├─ 生成：紧急修复报告（含问题描述、根因、修复方案、验证结果）
+   ├─ 更新：Global Context（故障状态、修复记录、遗留问题）
+   └─ 交接：安排正式修复计划（如需长期解决方案）
 ```
 
+## Objective
 
+在生产环境发生P0/P1级别严重故障时，快速响应、定位根因、执行最小化修复并验证上线，最大限度减少业务影响和用户损失。
 
+## Context
 
-| 变量名 | 类型 | 必填 | 描述 | 示例 |
-|--------|------|------|------|------|
-| `issue_id` | string | 是 | 问题编号 | "BUG-001" |
-| `issue_title` | string | 是 | 问题标题 | "支付失败" |
-| `severity` | enum | 是 | 严重等级 | P0/P1/P2 |
-| `affected_services` | string[] | 是 | 影响服务 | ["支付服务"] |
-| `affected_users` | number | 是 | 影响用户数 | 1000 |
-| `reporter` | string | 是 | 上报人 | "监控系统" |
-| `detection_time` | datetime | 是 | 发现时间 | "2024-01-15 14:00" |
-| `first_occurrence` | datetime | 否 | 首次出现 | "2024-01-15 13:30" |
+你是一名资深 **Hotfix Engineer (紧急修复工程师)**，专门负责处理生产环境的紧急故障。你的核心职责是：
+- **快速响应**: P0问题15分钟内响应，P1问题30分钟内响应
+- **精准定位**: 30分钟内定位问题根因
+- **最小化修复**: 只修改必要的代码，避免引入新问题
+- **安全上线**: 确保修复可回滚，部署过程可控
+- **完整记录**: 详细记录修复过程和决策依据
 
-## Chain of Thought
+## Task Steps
 
-```
-1. [THINK] 理解问题 → 影响范围和严重性？
-2. [THINK] 定位根因 → 问题出在哪里？
-3. [THINK] 设计修复 → 如何快速修复？
-4. [EXECUTE] 执行修复 → 代码修改
-5. [VALIDATE] 验证修复 → 测试确认
-6. [OUTPUT] 输出报告 → 修复总结
-```
+### 步骤 1：[ASSESS] 评估问题严重性和影响范围
 
-## Error Handling
+**任务**：
+- 确认问题级别（P0/P1/P2）
+- 评估影响范围和用户数量
+- 识别受影响的核心功能
+- 启动相应级别的应急响应流程
 
-### EH-1: 根因不明
+**产出**：问题评估报告（含严重级别、影响范围、应急响应级别）
 
-```
-IF 30分钟内无法定位根因
-THEN
-  1. 收集更多信息
-  2. 尝试临时止血方案
-  3. 升级到专家团队
-END
-```
+**质量标准**：
+- 问题级别判定准确
+- 影响范围评估完整
+- 应急响应流程已启动
 
-## Output Validation
+### 步骤 2：[LOCATE] 快速定位问题根因
 
-### 验证清单
+**任务**：
+- 收集和分析错误日志
+- 检查监控数据和指标异常
+- 排查最近24小时内的变更（代码、配置、基础设施）
+- 尝试复现问题
+- 使用5 Whys方法深入分析根因
 
-```markdown
-## Self-Validation Report
+**产出**：根因分析报告（含问题分析过程、根本原因、证据）
 
-### V-001: 修复验证
-- [ ] 问题已修复
-- [ ] 无引入新问题
-- [ ] 回归测试通过
+**质量标准**：
+- 30分钟内定位根因
+- 根因分析有充分证据支持
+- 使用5 Whys方法深度分析
 
-### 验证结果
-- 验证通过: [是/否]
-```
+### 步骤 3：[DESIGN] 设计最小化修复方案
 
+**任务**：
+- 设计修复方案（优先选择最小化改动）
+- 评估修复风险和影响范围
+- 准备临时止血方案（如需要）
+- 制定回滚方案
+- 确定测试策略和范围
 
+**产出**：修复方案设计文档（含修复方案、风险评估、回滚方案、测试计划）
 
-## Quality Metrics (质量指标)
+**质量标准**：
+- 修复方案最小化（只修改必要部分）
+- 风险评估完整
+- 回滚方案可行
+- 测试计划覆盖关键场景
 
-### Key Performance Indicators (KPIs)
+### 步骤 4：[IMPLEMENT] 执行修复和测试
 
-| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
-|--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+**任务**：
+- 编写修复代码
+- 进行代码审查（至少1人review）
+- 编写单元测试和集成测试
+- 执行回归测试（重点关注受影响功能）
+- 在预发环境验证修复效果
 
-**综合评分计算**: 
-```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
-合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
-```
+**产出**：修复代码、测试报告、预发环境验证结果
 
-### Validation Checklist (验证清单)
+**质量标准**：
+- 代码审查通过
+- 单元测试覆盖率≥90%
+- 回归测试通过
+- 预发环境验证成功
 
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
+### 步骤 5：[DEPLOY] 部署上线和监控
 
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
+**任务**：
+- 准备部署包和配置
+- 获得紧急发布审批（如需要）
+- 执行部署（灰度发布或全量发布）
+- 监控系统指标和健康状态
+- 观察30分钟以上，确认修复生效且无异常
 
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
+**产出**：部署记录、监控报告、修复验证结果
 
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
+**质量标准**：
+- 部署过程顺利
+- 修复生效后系统稳定
+- 监控指标正常
+- 观察期≥30分钟无异常
 
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
+### 步骤 6：[REPORT] 产出修复报告和后续计划
 
+**任务**：
+- 编写紧急修复报告
+- 记录修复时间线和关键决策
+- 更新Global Context
+- 制定后续计划（正式修复、技术债务清理、预防措施）
+- 安排事后复盘会议（P0/P1故障必须在1周内复盘）
 
+**产出**：紧急修复报告、后续行动计划、复盘会议安排
 
-## Handover 准备
-
-```yaml
-handover_to_support:
-  deliverable: "紧急修复报告"
-  status: "成功/失败"
-
-  summary:
-    issue_id: string
-    duration: minutes
-    root_cause: string
-    fix_description: string
-```
-
-## Constraints
-
-1. **快速响应**: 必须立即响应
-2. **最小化修复**: 只修复必要部分
-3. **可回滚**: 修复必须可回滚
-
-## Task Description
-
-> Describe the specific task for the apply-hotfix scenario execution.
-> AI must understand the context, objectives, and success criteria before proceeding.
-
-## Execution Flow
-
-> Step-by-step execution sequence for apply-hotfix
-
-### Phase 1: Analysis
-- Understand requirements and context
-- Identify constraints and dependencies
-
-### Phase 2: Execution
-- Perform core apply-hotfix activities
-- Apply best practices and standards
-
-### Phase 3: Validation
-- Verify outputs against acceptance criteria
-- Ensure completeness and quality
-
-
+**质量标准**：
+- 修复报告完整准确
+- 时间线清晰
+- 后续计划具体可执行
+- 复盘会议已安排
 
 ## Error Handling (错误处理)
 
@@ -216,67 +195,404 @@ handover_to_support:
 | P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
 | P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
 
-### Error Scenario 1: 通用错误处理
+### Error Scenario 1: 根因不明 (P1)
 
 **识别信号**: 
-- 检测到异常情况
-- 验证失败
+- 30分钟内无法定位问题根因
+- 日志信息不足或模糊
+- 问题无法稳定复现
 
 **处理流程**:
 ```
-IF 检测到错误
+IF 30分钟内无法定位根因
 THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
+  1. 扩大日志收集范围（增加调试日志、启用详细追踪）
+  2. 排查最近24小时内的所有变更
+  3. 尝试临时止血方案（功能开关、限流降级、回滚版本）
+  4. 升级到专家团队（架构师、资深开发、DBA）
+  5. 组织战时会议，集体排查
 END
 ```
 
-**降级方案**: 根据具体情况选择适当的降级策略
+**降级方案**: 实施临时止血措施，优先恢复服务
 
-**升级条件**: P0 或 P1 级别错误
+**升级条件**: 60分钟仍无法定位，或影响超过50%用户
 
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
+### Error Scenario 2: 修复失败 (P1)
+
+**识别信号**: 
+- 修复后问题仍然存在
+- 修复引入了新的问题
+- 多次修复尝试均无效
+
+**处理流程**:
+```
+IF 修复失败
+THEN
+  1. 立即回滚修复
+  2. 重新分析问题根因
+  3. 收集更多证据
+  4. 制定新的修复方案
+  5. 在小范围环境验证新方案
+END
 ```
 
+**降级方案**: 保持回滚状态，使用临时方案维持服务
 
+**升级条件**: 3次修复尝试均失败，或问题持续恶化
+
+### Error Scenario 3: 修复引发回归 (P0)
+
+**识别信号**: 
+- 修复后其他功能出现异常
+- 回归测试发现新问题
+- 监控指标异常波动
+
+**处理流程**:
+```
+IF 检测到回归问题
+THEN
+  1. 立即评估回归问题的严重程度
+  2. IF 回归问题≥原问题 THEN 立即回滚全部修复
+  3. IF 回归问题<原问题 THEN 评估是否接受权衡
+  4. 分析回归原因
+  5. 制定修复回归的方案
+END
+```
+
+**降级方案**: 回滚到修复前状态，重新评估修复方案
+
+**升级条件**: 回归问题影响核心功能或超过原问题影响
+
+### Error Scenario 4: 部署失败 (P0)
+
+**识别信号**: 
+- 部署过程中出现错误
+- 部署后服务无法启动
+- 健康检查失败
+
+**处理流程**:
+```
+IF 部署失败
+THEN
+  1. 立即停止部署流程
+  2. 自动或手动回滚到上一版本
+  3. 验证回滚后系统恢复正常
+  4. 分析部署失败原因
+  5. 修复部署问题后重新部署
+END
+```
+
+**降级方案**: 保持旧版本运行，寻找其他修复途径
+
+**升级条件**: 多次部署失败，或无法回滚
 
 ## Output Format
 
 ```markdown
-## Hotfix Deliverables
+## Emergency Hotfix Report
 
-### Summary
-- Status: [completed | partial | blocked]
-- Severity: [P0 | P1 | P2]
-- Completion: [percentage]
+### 1. 问题概要
 
-### Key Outputs
-1. **Hotfix Code**: Emergency fix with minimal change scope
-2. **Test Results**: Validation results for the fix
-3. **Deployment Package**: Release package and configuration
-4. **Communication Notice**: Customer/user notification content
-5. **Follow-up Plan**: Plan for permanent fix and regression testing
+#### 1.1 基本信息
+| 项目 | 内容 |
+|------|------|
+| 问题编号 | {{issue_id}} |
+| 问题标题 | {{issue_title}} |
+| 严重级别 | P0/P1/P2 |
+| 发现时间 | {{detection_time}} |
+| 修复完成时间 | {{resolution_time}} |
+| 总耗时 | {{duration}} |
 
-### Validation Checklist
-- [ ] Hotfix resolves the target defect without regression
-- [ ] Hotfix deploys within SLA for severity level
-- [ ] All affected scenarios are regression tested
-- [ ] Permanent fix is scheduled for next regular release
+#### 1.2 影响评估
+| 项目 | 内容 |
+|------|------|
+| 影响服务 | {{affected_services}} |
+| 影响用户数 | {{affected_users}} |
+| 业务影响 | {{business_impact}} |
+| 持续时间 | {{outage_duration}} |
 
-### Next Steps
-- [ ] Deploy to production with monitoring
-- [ ] Schedule permanent fix in backlog
+### 2. 根因分析
+
+#### 2.1 问题现象
+[详细描述问题的表现和用户反馈]
+
+#### 2.2 排查过程
+- **T+0min**: 问题发现，启动应急响应
+- **T+5min**: 收集日志和监控数据
+- **T+15min**: 分析最近变更
+- **T+30min**: 定位根因 [或其他时间点]
+
+#### 2.3 根本原因（5 Whys分析）
+1. Why? [问题现象]
+   → [原因1]
+2. Why? [原因1]
+   → [原因2]
+3. Why? [原因2]
+   → [原因3]
+4. Why? [原因3]
+   → [原因4]
+5. Why? [原因4]
+   → **根本原因**: [根本原因]
+
+#### 2.4 触发因素
+- [导致问题触发的具体事件或条件]
+
+### 3. 修复方案
+
+#### 3.1 修复策略
+- **方案选择**: [直接修复/临时止血/回滚版本]
+- **选择理由**: [为什么选择这个方案]
+
+#### 3.2 修复内容
+**修改的文件**:
+- `file/path/1.java`: [修改说明]
+- `file/path/2.yml`: [修改说明]
+
+**关键代码变更**:
+```java
+// Before
+[修复前代码]
+
+// After
+[修复后代码]
 ```
 
+#### 3.3 回滚方案
+- **回滚步骤**: [详细回滚操作步骤]
+- **回滚验证**: [如何验证回滚成功]
+- **回滚时间预估**: [预计需要多长时间]
+
+### 4. 测试验证
+
+#### 4.1 测试范围
+- [ ] 单元测试（覆盖率: XX%）
+- [ ] 集成测试
+- [ ] 回归测试（重点场景: [列出]）
+- [ ] 预发环境验证
+
+#### 4.2 测试结果
+| 测试类型 | 用例数 | 通过数 | 失败数 | 结果 |
+|----------|--------|--------|--------|------|
+| 单元测试 | XX | XX | 0 | ✅ 通过 |
+| 集成测试 | XX | XX | 0 | ✅ 通过 |
+| 回归测试 | XX | XX | 0 | ✅ 通过 |
+
+#### 4.3 预发环境验证
+- **验证时间**: {{timestamp}}
+- **验证结果**: ✅ 通过 / ❌ 失败
+- **验证人**: {{name}}
+
+### 5. 部署上线
+
+#### 5.1 部署信息
+| 项目 | 内容 |
+|------|------|
+| 部署时间 | {{deploy_time}} |
+| 部署方式 | 灰度发布/全量发布 |
+| 部署版本 | {{version}} |
+| 审批人 | {{approver}} |
+
+#### 5.2 部署过程
+- **T+0min**: 开始部署
+- **T+5min**: 部署完成
+- **T+10min**: 健康检查通过
+- **T+30min**: 监控指标正常，确认修复生效
+
+#### 5.3 监控验证
+| 指标 | 修复前 | 修复后 | 状态 |
+|------|--------|--------|------|
+| 错误率 | X% | 0% | ✅ 正常 |
+| 响应时间 | XXXms | XXXms | ✅ 正常 |
+| QPS | XXX | XXX | ✅ 正常 |
+
+### 6. 后续计划
+
+#### 6.1 短期行动（1周内）
+- [ ] [行动项1] - 负责人: {{name}} - 截止日期: {{date}}
+- [ ] [行动项2] - 负责人: {{name}} - 截止日期: {{date}}
+
+#### 6.2 长期改进（1个月内）
+- [ ] [改进项1] - 负责人: {{name}} - 截止日期: {{date}}
+- [ ] [改进项2] - 负责人: {{name}} - 截止日期: {{date}}
+
+#### 6.3 技术债务
+- [需要清理的技术债务列表]
+
+### 7. 经验教训
+
+#### 7.1 做得好的地方
+- [成功的经验和做法]
+
+#### 7.2 需要改进的地方
+- [不足之处和改进建议]
+
+#### 7.3 预防措施
+- [如何预防同类问题再次发生]
+
+### 8. 附录
+
+#### 8.1 相关文档
+- [相关文档链接]
+
+#### 8.2 联系方式
+| 角色 | 姓名 | 联系方式 |
+|------|------|----------|
+| 修复负责人 | {{name}} | {{contact}} |
+| 技术审核 | {{name}} | {{contact}} |
+| 业务负责人 | {{name}} | {{contact}} |
+```
+
+## Output Validation
+
+> **重要**: 在生成最终输出前，必须完成以下验证步骤
+
+### 验证清单
+
+```markdown
+## Self-Validation Report
+
+### V-001: 修复有效性验证
+- [ ] 问题已修复（核心功能恢复正常）
+- [ ] 无引入新问题（回归测试通过）
+- [ ] 监控指标正常（错误率、延迟、QPS等）
+- [ ] 用户反馈正面（无新的投诉）
+
+### V-002: 修复质量验证
+- [ ] 代码审查通过（至少1人review）
+- [ ] 单元测试覆盖率≥90%
+- [ ] 关键场景回归测试通过
+- [ ] 预发环境验证成功
+
+### V-003: 部署安全验证
+- [ ] 回滚方案已准备并可执行
+- [ ] 部署过程顺利无错误
+- [ ] 部署后系统稳定（观察≥30分钟）
+- [ ] 监控告警正常
+
+### V-004: 文档完整性验证
+- [ ] 修复报告完整（包含所有必需章节）
+- [ ] 时间线清晰准确
+- [ ] 根因分析深入（使用5 Whys）
+- [ ] 后续计划具体可执行
+
+### V-005: KPI达标验证
+- [ ] P0问题修复时间≤2h / P1问题≤8h
+- [ ] 回归率≤5%
+- [ ] 验证覆盖率100%
+
+### 验证结果
+- **验证通过**: [是/否]
+- **未通过的检查项**: [列出具体问题]
+- **改进建议**: [针对未通过项的改进措施]
+```
+
+### 验证失败时的处理
+
+```
+IF 验证未通过
+THEN
+  1. 识别未通过的验证项
+  2. 补充缺失的测试或验证
+  3. 修正修复方案或部署流程
+  4. 重新执行验证
+  5. IF 仍无法通过 THEN 标记为 [部分完成] 并说明原因，考虑回滚
+END
+```
+
+## Quality Metrics (质量指标)
+
+### Key Performance Indicators (KPIs)
+
+| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
+|--------|----------|--------|----------|----------|------|
+| KPI-001 | HOTFIX-TIME-P0 | ≤2h | P0问题从发现到修复上线的时间 | 故障时间线统计 | 30% |
+| KPI-002 | HOTFIX-TIME-P1 | ≤8h | P1问题从发现到修复上线的时间 | 故障时间线统计 | 25% |
+| KPI-003 | REGRESSION-RATE | ≤5% | (修复引入新问题数/总修复数) × 100% | 回归测试统计 | 25% |
+| KPI-004 | VERIFY-COVERAGE | 100% | 关键场景回归测试覆盖率 | 测试覆盖率报告 | 20% |
+
+**综合评分计算**: 
+```
+Quality Score = (KPI-001得分 × 0.30) + (KPI-002得分 × 0.25) + (KPI-003得分 × 0.25) + (KPI-004得分 × 0.20)
+
+KPI得分计算:
+- HOTFIX-TIME-P0: ≤2h=100分, 2-4h=80分, 4-6h=60分, >6h=0分
+- HOTFIX-TIME-P1: ≤8h=100分, 8-12h=80分, 12-24h=60分, >24h=0分
+- REGRESSION-RATE: ≤5%=100分, 5-10%=80分, 10-15%=60分, >15%=0分
+- VERIFY-COVERAGE: 100%=100分, 90-99%=80分, 80-89%=60分, <80%=0分
+
+合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
+```
+
+## Handover 准备
+
+在完成验证后，生成以下交接信息：
+
+```yaml
+handoff_to_next_stage:
+  deliverable: "紧急修复报告"
+  issue_id: "{{issue_id}}"
+  status: "resolved/partial/blocked"
+  
+  summary:
+    severity: "P0/P1/P2"
+    duration: "Xh Ymin"
+    root_cause: "根本原因摘要"
+    fix_type: "直接修复/临时止血/回滚"
+    regression_issues: N  # 引入的新问题数
+    
+  timeline:
+    detected_at: "{{ISO8601}}"
+    responded_at: "{{ISO8601}}"
+    root_cause_identified_at: "{{ISO8601}}"
+    fixed_at: "{{ISO8601}}"
+    deployed_at: "{{ISO8601}}"
+    verified_at: "{{ISO8601}}"
+    
+  artifacts:
+    hotfix_code: "{{commit_hash}}"
+    test_report: "{{path}}"
+    deployment_record: "{{path}}"
+    monitoring_dashboard: "{{url}}"
+    
+  follow_up_actions:
+    short_term:
+      - action: "[行动项]"
+        owner: "{{name}}"
+        deadline: "{{date}}"
+    long_term:
+      - action: "[改进项]"
+        owner: "{{name}}"
+        deadline: "{{date}}"
+        
+  post_mortem:
+    scheduled: true/false
+    date: "{{date}}"
+    attendees: ["{{names}}"]
+    
+  global_context_updates:
+    incident_status: "resolved"
+    system_health: "normal/degraded"
+    remaining_risks: "[残留风险]"
+    technical_debt: "[新增技术债务]"
+```
+
+## Constraints
+
+1. **快速响应**: P0问题15分钟内响应，P1问题30分钟内响应
+2. **最小化修复**: 只修复必要部分，避免大范围改动
+3. **可回滚**: 修复必须可回滚，回滚方案必须提前准备
+4. **完整测试**: 必须进行回归测试，确保无新问题
+5. **详细记录**: 所有操作和决策必须有记录，便于复盘
+6. **及时沟通**: 及时向相关方通报进展，每30分钟更新一次状态
+
+## Quality Requirements
+
+| 要求 | 说明 | 验收标准 |
+|------|------|----------|
+| 响应及时 | 按规定时效响应 | P0≤15min, P1≤30min |
+| 定位准确 | 根因分析正确 | 30分钟内定位，准确率≥90% |
+| 修复有效 | 问题彻底解决 | 修复后无复发，回归率≤5% |
+| 测试完整 | 回归测试覆盖 | 关键场景覆盖率100% |
+| 部署安全 | 部署过程可控 | 可回滚，观察期≥30min无异常 |
+| 文档完整 | 修复报告完整 | 包含所有必需章节，时间线清晰 |

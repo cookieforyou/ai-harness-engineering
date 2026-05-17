@@ -1,187 +1,179 @@
 ---
 name: apply-hotfix
-description: "Hotfix scenario for the E2E delivery lifecycle"
-type: scenario
+description: "紧急修复场景，负责生产环境P0/P1级别缺陷的快速定位、修复和上线"
 version: "1.2.0"
+type: scenario
+category: emergency-response
+stage: incident-resolution
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
-tags: ['workflow', 'process']
+tags: [hotfix, emergency, incident, rapid-response]
 ---
 # Hotfix Scenario (紧急修复场景)
 
 ## Purpose
 
-## Chain of Thought (思维链)
+在生产环境发生P0/P1级别严重故障时，快速响应、定位根因、执行最小化修复并验证上线，最大限度减少业务影响和用户损失。
 
-> **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
+### Business Value
 
-```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
-   ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
-   ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
-   ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
-   ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
-   └─ 输出: 验证报告
-   ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
-```
-
-
-
-
-本场景用于指导 AI Agent 执行紧急缺陷修复工作，在最短时间内定位问题、修复代码、验证上线。
+- **保障业务连续性**: 通过快速应急响应，将核心服务中断时间降至最低（P0≤2h，P1≤8h）
+- **降低用户影响**: 快速恢复受影响功能，减少用户投诉和业务损失
+- **控制风险扩散**: 最小化修复范围，避免引入新问题，确保修复可回滚
+- **提升团队应急能力**: 建立标准化应急响应流程，提高团队处理突发事件的效率
+- **持续改进机制**: 通过事后复盘，识别系统性问题，预防同类故障再次发生
 
 ## Chain of Thought (思维链)
 
-### Think-Aloud Protocol
+### Think-Aloud Protocol (强制遵循)
 
 ```
-THINK: 理解问题严重性和影响范围
+[ASSESS] Step 1: 评估问题严重性和影响范围
+   ├─ 问：问题的严重程度是什么？影响了多少用户？哪些核心功能受损？
+   ├─ 验证：确认问题级别（P0/P1/P2），评估业务影响
+   └─ 检查：启动相应级别的应急响应流程
    ↓
-THINK: 快速定位问题根因
+[LOCATE] Step 2: 快速定位问题根因
+   ├─ 问：问题出在哪里？最近的变更有哪些？日志显示什么异常？
+   ├─ 验证：分析日志、监控数据、最近代码变更
+   └─ 检查：使用5 Whys方法深入分析，30分钟内定位根因
    ↓
-THINK: 设计最小化修复方案
+[DESIGN] Step 3: 设计最小化修复方案
+   ├─ 问：如何用最少的代码改动修复问题？有无临时止血方案？修复是否可回滚？
+   ├─ 验证：方案只修改必要部分，不影响其他功能
+   └─ 检查：准备回滚方案，评估修复风险
    ↓
-THINK: 执行修复和验证
+[IMPLEMENT] Step 4: 执行修复和测试
+   ├─ 问：修复代码是否正确？测试是否覆盖关键场景？有无引入新问题？
+   ├─ 验证：代码审查通过，单元测试和回归测试通过
+   └─ 检查：在预发环境验证修复效果
    ↓
-VALIDATE: 验证修复有效
+[DEPLOY] Step 5: 部署上线和监控
+   ├─ 问：部署是否顺利？修复是否生效？系统是否稳定？
+   ├─ 验证：灰度发布或全量发布，监控系统指标
+   └─ 检查：观察30分钟以上，确认无异常后宣布修复完成
    ↓
-OUTPUT: 输出修复报告
+[REPORT] Step 6: 产出修复报告和后续计划
+   ├─ 生成：紧急修复报告（含问题描述、根因、修复方案、验证结果）
+   ├─ 更新：Global Context（故障状态、修复记录、遗留问题）
+   └─ 交接：安排正式修复计划（如需长期解决方案）
 ```
-
-## Primary Assets
-
-- **Agent**: [../../agents/apply-hotfix.agent.md](../../agents/apply-hotfix.agent.md)
-- **Instruction**: [../../instructions/apply-hotfix.instructions.md](../../instructions/apply-hotfix.instructions.md)
-- **Prompt**: [../../prompts/apply-hotfix.prompt.md](../../prompts/apply-hotfix.prompt.md)
-- **Skill**: [../../skills/apply-hotfix/SKILL.md](../../skills/apply-hotfix/SKILL.md)
-
-## Error Handling (错误处理)
-
-### EH-1: 根因不明
-
-- **识别信号**：无法快速定位问题
-- **处理方式**：
-  1. 扩大日志范围
-  2. 排查最近变更
-  3. 临时止血方案
-- **升级条件**：30 分钟内无法定位
-
-### EH-2: 修复失败
-
-- **识别信号**：修复后问题仍存在
-- **处理方式**：
-  1. 回滚修复
-  2. 重新分析
-  3. 制定新方案
-- **升级条件**：多次修复失败
 
 ## Decision Checkpoints (决策检查点)
 
-| 检查点 | 触发条件 | 等待决策 | 下一步 |
-|--------|----------|----------|--------|
-| **DC-1: 问题确认** | 完成问题分析后 | 影响范围和优先级？ | 继续或升级 |
-| **DC-2: 修复方案确认** | 完成修复设计后 | 方案是否可行？ | 执行修复 |
-| **DC-3: 上线确认** | 完成验证后 | 是否接受上线？ | 部署发布 |
+| ID | 决策点 | 触发条件 | 决策选项 | 选择标准 | 记录位置 |
+|----|--------|----------|----------|----------|----------|
+| DC-001 | 问题级别判定 | 收到问题报告时 | P0(立即)/P1(15min)/P2(1h) | 影响范围、业务价值、用户数量 | 故障报告 |
+| DC-002 | 根因定位策略 | 30分钟未定位时 | 继续排查/临时止血/升级专家 | 问题复杂度、时间压力、可用资源 | 排查记录 |
+| DC-003 | 修复方案选择 | 设计修复方案时 | 直接修复/临时止血/回滚版本 | 修复难度、风险评估、时间要求 | 修复方案文档 |
+| DC-004 | 测试范围确定 | 修复完成后 | 最小测试/标准测试/完整回归 | 修复影响范围、风险等级、时间允许 | 测试计划 |
+| DC-005 | 发布策略选择 | 准备上线时 | 灰度发布/全量发布/紧急回滚 | 修复稳定性、影响范围、业务时段 | 发布计划 |
+| DC-006 | 是否需要正式修复 | 修复上线后 | 需要/不需要 | 临时方案还是永久方案、技术债务 | 后续计划 |
 
+## Error Scenarios (错误场景)
 
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
-
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
+### Error Scenario 1: 根因不明 (P1)
 
 **识别信号**: 
-- 检测到异常情况
-- 验证失败
+- 30分钟内无法定位问题根因
+- 日志信息不足或模糊
+- 问题无法稳定复现
+- 多个疑似原因但无法确认
 
 **处理流程**:
 ```
-IF 检测到错误
+IF 30分钟内无法定位根因
 THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
+  1. 扩大日志收集范围（增加调试日志、启用详细追踪）
+  2. 排查最近24小时内的所有变更（代码、配置、基础设施）
+  3. 尝试临时止血方案（功能开关、限流降级、回滚版本）
+  4. 升级到专家团队（架构师、资深开发、DBA）
+  5. 组织战时会议，集体排查
+  6. 记录所有排查步骤和假设
 END
 ```
 
-**降级方案**: 根据具体情况选择适当的降级策略
+**降级方案**: 实施临时止血措施（回滚、降级、限流），优先恢复服务
 
-**升级条件**: P0 或 P1 级别错误
+**升级条件**: 60分钟仍无法定位，或影响超过50%用户
 
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
+### Error Scenario 2: 修复失败 (P1)
+
+**识别信号**: 
+- 修复后问题仍然存在
+- 修复引入了新的问题
+- 测试通过但生产环境仍失败
+- 多次修复尝试均无效
+
+**处理流程**:
+```
+IF 修复失败
+THEN
+  1. 立即回滚修复（恢复到修复前状态）
+  2. 重新分析问题根因（是否有误判）
+  3. 收集更多证据（生产日志、用户反馈、监控数据）
+  4. 制定新的修复方案（考虑不同 approach）
+  5. 在小范围环境验证新方案
+  6. 必要时寻求外部支持（社区、供应商、专家）
+END
 ```
 
+**降级方案**: 保持回滚状态，使用临时方案维持服务
 
+**升级条件**: 3次修复尝试均失败，或问题持续恶化
 
-## Quality Metrics
+### Error Scenario 3: 修复引发回归 (P0)
 
-> Quality metrics for measuring scenario execution success.
+**识别信号**: 
+- 修复后其他功能出现异常
+- 回归测试发现新问题
+- 用户报告新的故障
+- 监控指标异常波动
 
-| KPI | Target | Description |
-|-----|--------|-------------|
-| `HOTFIX-TIME` | ≤4h | 修复时间：P0问题从发现到修复上线 |
-| `REGRESSION-RATE` | ≤5% | 回归率：热修复引入新问题比例 |
-| `VERIFY-COVERAGE` | 100% | 验证覆盖率：所有场景已回归验证 |
+**处理流程**:
+```
+IF 检测到回归问题
+THEN
+  1. 立即评估回归问题的严重程度
+  2. IF 回归问题≥原问题 THEN 立即回滚全部修复
+  3. IF 回归问题<原问题 THEN 评估是否接受权衡
+  4. 分析回归原因（依赖关系、边界条件、副作用）
+  5. 制定修复回归的方案
+  6. 扩大测试范围，确保无其他回归
+END
+```
 
-### Traceability
+**降级方案**: 回滚到修复前状态，重新评估修复方案
 
-- **Trace ID**: `{{execution.trace_id}}` — 唯一标识本次场景执行
-- **Execution ID**: `{{execution.id}}` — 执行实例标识
-- **Timestamp**: `{{execution.started_at}}` — 执行开始时间
-- **Agent**: `{{agent.name}}` — 执行Agent标识
+**升级条件**: 回归问题影响核心功能或超过原问题影响
 
+### Error Scenario 4: 部署失败 (P0)
 
+**识别信号**: 
+- 部署过程中出现错误
+- 部署后服务无法启动
+- 健康检查失败
+- 关键指标异常
+
+**处理流程**:
+```
+IF 部署失败
+THEN
+  1. 立即停止部署流程
+  2. 自动或手动回滚到上一版本
+  3. 验证回滚后系统恢复正常
+  4. 分析部署失败原因（配置错误、依赖缺失、兼容性问题）
+  5. 修复部署问题（修正配置、补充依赖）
+  6. 在预发环境重新验证部署流程
+  7. 重新执行部署
+END
+```
+
+**降级方案**: 保持旧版本运行，寻找其他修复途径
+
+**升级条件**: 多次部署失败，或无法回滚
 
 ## Quality Metrics (质量指标)
 
@@ -189,122 +181,57 @@ error_log:
 
 | KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
 |--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+| KPI-001 | HOTFIX-TIME-P0 | ≤2h | P0问题从发现到修复上线的时间 | 故障时间线统计 | 30% |
+| KPI-002 | HOTFIX-TIME-P1 | ≤8h | P1问题从发现到修复上线的时间 | 故障时间线统计 | 25% |
+| KPI-003 | REGRESSION-RATE | ≤5% | (修复引入新问题数/总修复数) × 100% | 回归测试统计 | 25% |
+| KPI-004 | VERIFY-COVERAGE | 100% | 关键场景回归测试覆盖率 | 测试覆盖率报告 | 20% |
 
 **综合评分计算**: 
 ```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+Quality Score = (KPI-001得分 × 0.30) + (KPI-002得分 × 0.25) + (KPI-003得分 × 0.25) + (KPI-004得分 × 0.20)
+
+KPI得分计算:
+- HOTFIX-TIME-P0: ≤2h=100分, 2-4h=80分, 4-6h=60分, >6h=0分
+- HOTFIX-TIME-P1: ≤8h=100分, 8-12h=80分, 12-24h=60分, >24h=0分
+- REGRESSION-RATE: ≤5%=100分, 5-10%=80分, 10-15%=60分, >15%=0分
+- VERIFY-COVERAGE: 100%=100分, 90-99%=80分, 80-89%=60分, <80%=0分
+
 合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
 ```
-
-### Validation Checklist (验证清单)
-
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
-
-
 
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
 |--------|------|------|
-| 修复代码 | ☐ | 已测试通过 |
-| 验证报告 | ☐ | 修复有效 |
-| 回滚方案 | ☐ | 已准备 |
-| 变更记录 | ☐ | 已记录 |
+| 修复代码 | ☐ | 已测试通过，代码审查完成 |
+| 验证报告 | ☐ | 修复有效，回归测试通过 |
+| 回滚方案 | ☐ | 已准备并可执行 |
+| 变更记录 | ☐ | 已记录到变更管理系统 |
+| 监控配置 | ☐ | 已配置修复后的专项监控 |
+| 后续计划 | ☐ | 正式修复计划已制定（如需要） |
 
-## Metrics
+## Related Assets (关联资产)
 
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| 修复时间 | ≤ 目标时间 | 实际修复时长 |
-| 问题复发 | 0 | 监控验证 |
-| 引入新问题 | 0 | 回归测试 |
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Agent | `../../agents/apply-hotfix.agent.md` | 紧急修复Agent角色定义 |
+| Prompt | `../../prompts/apply-hotfix.prompt.md` | 紧急修复提示词模板 |
+| Skill | `../../skills/apply-hotfix/SKILL.md` | 紧急修复技能包 |
+| Instruction | `../../instructions/apply-hotfix.instructions.md` | 紧急修复技术指令 |
 
+## Related Resources (相关资源)
 
-## Prerequisites
-
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
-
-
-### Handover Context Template
-
-```yaml
-handover:
-  header:
-    from_stage: "apply-hotfix"
-    to_stage: "unknown"
-    handover_id: "HO-{{timestamp}}-{{sequence}}"
-    timestamp: "{{ISO8601}}"
-    prepared_by: "{{agent.name}}"
-    
-  summary:
-    status: "completed/partial/blocked"
-    completion_percentage: {{0-100}}
-    quality_score: {{0-100}}
-    
-  artifacts:
-    delivered:
-      - name: "{{artifact_name}}"
-        path: "{{file_path}}"
-        version: "{{version}}"
-        checksum: "{{SHA256}}"
-      
-  decisions:
-    - id: "DC-XXX"
-      description: "{{决策描述}}"
-      rationale: "{{决策理由}}"
-      alternatives_considered: ["选项1", "选项2"]
-      
-  open_issues:
-    blocking: []
-    non_blocking:
-      - id: "ISSUE-XXX"
-        description: "{{问题描述}}"
-        
-  risks:
-    - id: "RISK-XXX"
-      description: "{{风险描述}}"
-      probability: "low/medium/high"
-      impact: "low/medium/high"
-      mitigation: "{{缓解措施}}"
-      
-  recommendations:
-    - "{{建议1}}"
-    - "{{建议2}}"
-    
-  quality_metrics:
-    kpi_results:
-      - kpi_id: "KPI-001"
-        value: {{actual_value}}
-        target: {{target_value}}
-        status: "pass/fail"
-```
-
+- **Standards**: 
+  - [Incident Management](../standards/incident-management.md) - 事件管理标准
+  - [Emergency Response](../standards/emergency-response.md) - 应急响应标准
+  - [Change Management](../standards/change-management.md) - 变更管理标准
+  - [Rollback Procedures](../standards/rollback-procedures.md) - 回滚流程标准
+- **Templates**: 
+  - [Incident Report Template](../templates/incident-report.template.md) - 故障报告模板
+  - [Hotfix Checklist](../templates/hotfix-checklist.template.md) - 热修复检查清单
+  - [Post-Mortem Template](../templates/post-mortem.template.md) - 事故复盘模板
+  - [Communication Template](../templates/communication.template.md) - 沟通通知模板
+- **Evaluations**: 
+  - [Hotfix Quality Checklist](../evaluations/hotfix-quality-checklist.md) - 热修复质量检查清单
+  - [Regression Test Suite](../evaluations/regression-test-suite.md) - 回归测试套件
+  - [Response Time Analysis](../evaluations/response-time-analysis.md) - 响应时间分析

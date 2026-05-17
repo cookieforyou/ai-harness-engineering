@@ -8,4 +8,5 @@
 - verify-test
 - deploy-release
 - monitor-operate
+- apply-hotfix
 
