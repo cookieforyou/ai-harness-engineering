@@ -1,6 +1,8 @@
 ---
 name: manage-tech-debt
 description: "技术债务管理场景的技术指令"
+applyTo: "scenarios/manage-tech-debt/**"
+phase: development
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -357,3 +359,8 @@ quality_gates:
 | Standard 1 | All known debt is registered and visible | Automated check |
 | Standard 2 | Debt paydown rate is 10% or higher per quarter | Automated check |
 | Standard 3 | Debt impact on delivery decreases 15% year-over-year | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

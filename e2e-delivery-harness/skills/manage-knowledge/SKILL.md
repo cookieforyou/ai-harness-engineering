@@ -1,6 +1,7 @@
 ---
 name: manage-knowledge
 description: "Domain skill for manage-knowledge execution"
+category: governance
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -213,6 +214,10 @@ health_indicators:
 6. **Collaborate**: Involve subject matter experts
 7. **Automate**: Use docs-as-code workflows
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

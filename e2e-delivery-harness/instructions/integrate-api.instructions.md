@@ -1,6 +1,8 @@
 ---
 name: integrate-api
 description: "Detailed technical instructions for integrate-api scenario execution"
+applyTo: "scenarios/integrate-api/**"
+phase: development
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -391,3 +393,8 @@ metrics:
 | Standard 1 | Integration test pass rate is 95% or higher | Automated check |
 | Standard 2 | All error codes have corresponding handling logic | Automated check |
 | Standard 3 | API latency P99 is within SLA thresholds | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

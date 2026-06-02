@@ -1,6 +1,7 @@
 ---
 name: design-database
 description: "数据库设计技能包，提供数据建模、索引优化、性能调优的专业知识和最佳实践"
+category: design
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -398,6 +399,10 @@ CREATE TABLE example (
 - Design partition-friendly table structures
 - Document scaling strategy
 
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
+
 ## Common Pitfalls
 
 ### Pitfall 1: Over-Indexing
@@ -454,7 +459,7 @@ CREATE TABLE example (
 
 ## Related Assets
 
-- **Scenario**: [../scenarios/design-database/SCENARIO.md](../scenarios/design-database/SCENARIO.md)
-- **Agent**: [../agents/design-database.agent.md](../agents/design-database.agent.md)
-- **Prompt**: [../prompts/design-database.prompt.md](../prompts/design-database.prompt.md)
-- **Instruction**: [../instructions/design-database.instructions.md](../instructions/design-database.instructions.md)
+- **Scenario**: [../scenarios/design-database/SCENARIO.md](../../scenarios/design-database/SCENARIO.md)
+- **Agent**: [../agents/design-database.agent.md](../../agents/design-database.agent.md)
+- **Prompt**: [../prompts/design-database.prompt.md](../../prompts/design-database.prompt.md)
+- **Instruction**: [../instructions/design-database.instructions.md](../../instructions/design-database.instructions.md)

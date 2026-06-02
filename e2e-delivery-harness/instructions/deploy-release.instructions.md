@@ -1,6 +1,8 @@
 ---
 name: deploy-release
 description: "Technical instructions for deployment and release execution"
+applyTo: "scenarios/deploy-release/**"
+phase: deployment
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

@@ -1,6 +1,8 @@
 ---
 name: optimize-performance
 description: "Detailed technical instructions for optimize-performance scenario execution"
+applyTo: "scenarios/optimize-performance/**"
+phase: operations
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -185,3 +187,8 @@ metrics:
 | Standard 1 | Target metric improves by 20% or more | Automated check |
 | Standard 2 | No regression in non-target metrics | Automated check |
 | Standard 3 | Optimization cost does not exceed resource budget | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

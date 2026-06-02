@@ -1,6 +1,7 @@
 ---
 name: decompose-task
 description: "任务拆分技能包，提供任务分解、估算、依赖分析的专业知识和最佳实践"
+category: development
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -415,6 +416,10 @@ tags: [skill, knowledge, planning]
   - Test task (unit, integration tests)
 - Define clear interfaces between layers
 
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
+
 ## Common Pitfalls
 
 ### Pitfall 1: Overly Large Tasks
@@ -472,7 +477,7 @@ tags: [skill, knowledge, planning]
 
 ## Related Assets
 
-- **Scenario**: [../scenarios/decompose-task/SCENARIO.md](../scenarios/decompose-task/SCENARIO.md)
-- **Agent**: [../agents/decompose-task.agent.md](../agents/decompose-task.agent.md)
-- **Prompt**: [../prompts/decompose-task.prompt.md](../prompts/decompose-task.prompt.md)
-- **Instruction**: [../instructions/decompose-task.instructions.md](../instructions/decompose-task.instructions.md)
+- **Scenario**: [../scenarios/decompose-task/SCENARIO.md](../../scenarios/decompose-task/SCENARIO.md)
+- **Agent**: [../agents/decompose-task.agent.md](../../agents/decompose-task.agent.md)
+- **Prompt**: [../prompts/decompose-task.prompt.md](../../prompts/decompose-task.prompt.md)
+- **Instruction**: [../instructions/decompose-task.instructions.md](../../instructions/decompose-task.instructions.md)

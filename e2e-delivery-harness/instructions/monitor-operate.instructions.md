@@ -1,6 +1,8 @@
 ---
 name: monitor-operate
 description: "监控运维技术指令，定义标准操作流程、质量检查标准和输出规范"
+applyTo: "scenarios/monitor-operate/**"
+phase: operations
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

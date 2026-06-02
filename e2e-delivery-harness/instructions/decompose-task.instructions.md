@@ -1,6 +1,8 @@
 ---
 name: decompose-task
 description: "Technical instructions for task decomposition execution"
+applyTo: "scenarios/decompose-task/**"
+phase: task-decomposition
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

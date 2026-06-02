@@ -1,6 +1,8 @@
 ---
 name: design-architecture
 description: "Technical instructions for architecture design execution"
+applyTo: "scenarios/design-architecture/**"
+phase: system-design
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

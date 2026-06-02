@@ -1,6 +1,8 @@
 ---
 name: implement-cicd
 description: "Detailed technical instructions for implement-cicd scenario execution"
+applyTo: "scenarios/implement-cicd/**"
+phase: deployment
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -422,3 +424,8 @@ spec:
 | Standard 1 | Lead time from commit to production is under 1 day | Automated check |
 | Standard 2 | Deployment frequency is at least once per day | Automated check |
 | Standard 3 | Mean time to recovery (MTTR) is under 1 hour | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

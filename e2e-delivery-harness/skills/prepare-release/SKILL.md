@@ -1,6 +1,7 @@
 ---
 name: prepare-release
 description: "Domain skill for prepare-release execution"
+category: deployment
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -297,6 +298,10 @@ no_go_criteria:
 2. **Practice 2**: [Description and rationale]
 3. **Practice 3**: [Description and rationale]
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

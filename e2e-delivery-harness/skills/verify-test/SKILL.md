@@ -1,6 +1,7 @@
 ---
 name: verify-test
 description: "设计和执行测试用例，验证功能正确性，发现并跟踪缺陷"
+category: testing
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -411,6 +412,10 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.25) + (KPI-003 × 0.25) + (KPI
   - 学习新的测试技术和工具
   - 更新测试用例库，淘汰过时用例
 
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
+
 ## Common Pitfalls
 
 ### Pitfall 1: Insufficient Test Coverage (测试覆盖不足)
@@ -465,13 +470,13 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.25) + (KPI-003 × 0.25) + (KPI
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [Testing Best Practices](../standards/testing-best-practices.md) - 测试最佳实践指南
-  - [Defect Classification](../standards/defect-classification.md) - 缺陷分类和优先级标准
-  - [Test Coverage Guidelines](../standards/test-coverage-guidelines.md) - 测试覆盖率指南
+  - [Testing Best Practices](../../standards/testing-best-practices.md) - 测试最佳实践指南
+  - [Defect Classification](../../standards/defect-classification.md) - 缺陷分类和优先级标准
+  - [Test Coverage Guidelines](../../standards/test-coverage-guidelines.md) - 测试覆盖率指南
 - **Templates**: 
-  - [Test Case Template](../templates/test-case.template.md) - 测试用例模板
-  - [Defect Report Template](../templates/defect-report.template.md) - 缺陷报告模板
-  - [Test Report Template](../templates/test-report.template.md) - 测试报告模板
+  - [Test Case Template](../../templates/test-case.template.md) - 测试用例模板
+  - [Defect Report Template](../../templates/defect-report.template.md) - 缺陷报告模板
+  - [Test Report Template](../../templates/test-report.template.md) - 测试报告模板
 - **Evaluations**: 
-  - [Test Quality Checklist](../evaluations/test-quality-checklist.md) - 测试质量检查清单
-  - [Coverage Analysis](../evaluations/coverage-analysis.md) - 覆盖率分析指南
+  - [Test Quality Checklist](../../evaluations/test-quality-checklist.md) - 测试质量检查清单
+  - [Coverage Analysis](../../evaluations/coverage-analysis.md) - 覆盖率分析指南

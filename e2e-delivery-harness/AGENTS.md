@@ -61,7 +61,7 @@
 
 审查与优化基准：[standards/harness-engineering.md](standards/harness-engineering.md)（Goal / Strategy / Tooling / Constraint / Feedback / Observability 六层映射）。
 
-维护脚本：`scripts/harness-compliance-patch.py`、`scripts/generate-deliverable-templates.py`。
+维护脚本：`scripts/harness-compliance-patch.py`、`scripts/harness-full-compliance.py`、`scripts/generate-deliverable-templates.py`。
 
 ---
 
@@ -85,9 +85,9 @@
 | Skill | **37** | `skills/*/SKILL.md` |
 | Pipeline | **2** | `workflows/*.pipeline.md` |
 | Context 模板 | **3** | `contexts/*.md` |
-| Standard | **6** | `standards/*.md` |
-| Evaluation | **4** | `evaluations/*.md` |
-| Template | **5** | `templates/` |
+| Standard | **37** | `standards/*.md` |
+| Evaluation | **28** | `evaluations/*.md` |
+| Template | **33** | `templates/`（含交付物模板与资产模板） |
 
 **对齐关系**：37 个场景 × 5 类执行资产 = **185 个一一映射的核心执行单元**（同名 `{verb}-{noun}`）。
 
@@ -721,9 +721,9 @@ e2e-delivery-harness/
 ├── instructions/             # 37 × *.instructions.md
 ├── skills/                   # 37 × SKILL.md
 │
-├── standards/                # 6 specs
-├── evaluations/              # 4 checklists
-└── templates/                # agent / instruction / prompt / skill / scenario 模板
+├── standards/                # 37 specs（含 harness-engineering 与领域标准）
+├── evaluations/              # 28 checklists
+└── templates/                # 33 交付物与资产模板
     ├── agent-template.agent.md
     ├── instruction-template.instructions.md
     ├── prompt-template.prompt.md
@@ -752,7 +752,7 @@ e2e-delivery-harness/
 
 ### 已知注意事项
 
-- 部分 Scenario 的 `Related Resources` 可能引用尚未落地的 `standards/smart-criteria.md` 等文件；以 `standards/` 目录**实际存在**的文件为准。
+- 部分历史 Scenario 曾引用尚未落地的标准文件；现已通过 `scripts/harness-full-compliance.py` 批量补齐 **standards/** 与 **evaluations/** 引用资产。
 - `scenarios/README.md` 中示例目录名（如 `requirement-analysis/`）为说明性示例，**实际目录**均为 `{verb}-{noun}/`。
 
 ---

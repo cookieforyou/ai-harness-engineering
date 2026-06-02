@@ -1,6 +1,7 @@
 ---
 name: plan-rollback
 description: "Domain skill for plan-rollback execution"
+category: deployment
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -143,6 +144,10 @@ data_integrity:
 | Partial rollback state | Design atomic deployments |
 | Can't verify rollback | Implement comprehensive checks |
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

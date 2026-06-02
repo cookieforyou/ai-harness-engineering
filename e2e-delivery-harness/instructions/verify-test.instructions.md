@@ -1,6 +1,8 @@
 ---
 name: verify-test
 description: "Technical instructions for test verification execution"
+applyTo: "scenarios/verify-test/**"
+phase: testing
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

@@ -1,6 +1,8 @@
 ---
 name: migrate-data
 description: "Detailed technical instructions for migrate-data scenario execution"
+applyTo: "scenarios/migrate-data/**"
+phase: operations
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -95,3 +97,8 @@ SELECT * FROM target ORDER BY id LIMIT 100;
 | Standard 1 | Data integrity validation passes 100% | Automated check |
 | Standard 2 | Downtime is within budget constraints | Automated check |
 | Standard 3 | Rollback capability is maintained throughout migration | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

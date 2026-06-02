@@ -1,6 +1,8 @@
 ---
 name: migrate-environment
 description: "Detailed technical instructions for migrate-environment scenario execution"
+applyTo: "scenarios/migrate-environment/**"
+phase: operations
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -123,3 +125,8 @@ rollback:
 | Standard 1 | Migration success rate is 98% or higher | Automated check |
 | Standard 2 | New environment performance is 95%+ of original | Automated check |
 | Standard 3 | Environment cost is within 110% of original budget | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

@@ -1,6 +1,8 @@
 ---
 name: plan-rollback
 description: "回滚计划场景的技术指令"
+applyTo: "scenarios/plan-rollback/**"
+phase: deployment
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -335,3 +337,8 @@ log "Rollback completed successfully"
 | Standard 1 | Rollback plan is tested for all release scenarios | Automated check |
 | Standard 2 | Recovery time objective (RTO) is 15 minutes or less | Automated check |
 | Standard 3 | Data consistency is maintained after rollback | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

@@ -1,6 +1,7 @@
 ---
 name: respond-incident
 description: "Domain skill for respond-incident execution"
+category: governance
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -170,6 +171,10 @@ alert_thresholds:
 4. 更新流程和文档
 5. 分享学习经验
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

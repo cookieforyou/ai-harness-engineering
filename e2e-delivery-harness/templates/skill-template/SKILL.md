@@ -1,9 +1,11 @@
 ---
 name: {skill-name}
 description: "Domain skill for {scenario-name} execution"
+category: {category}
 type: skill
 version: "1.1.0"
 stage: "{scenario-name}"
+status: active
 ---
 
 # {Skill Title}
@@ -32,7 +34,7 @@ stage: "{scenario-name}"
 
 ## Common Pitfalls
 
-> Frequent mistakes to avoid during {scenario-name} execution.
+> 与 **Anti-patterns (反模式)** 同义；执行时合并检查。
 
 ### Pitfall 1: [Name]
 **Risk**: [Description]

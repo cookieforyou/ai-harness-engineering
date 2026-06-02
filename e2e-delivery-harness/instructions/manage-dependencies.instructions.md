@@ -1,6 +1,8 @@
 ---
 name: manage-dependencies
 description: "依赖管理场景的技术指令，详细说明依赖管理的工具和方法"
+applyTo: "scenarios/manage-dependencies/**"
+phase: development
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -287,3 +289,8 @@ go mod download
 | Standard 1 | All known CVEs are identified and tracked | Automated check |
 | Standard 2 | License compliance is 100% with no prohibited licenses | Automated check |
 | Standard 3 | Critical patches are applied within 30 days | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

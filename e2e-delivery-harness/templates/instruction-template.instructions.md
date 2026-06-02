@@ -1,9 +1,11 @@
 ---
 name: {scenario-name}
 description: Technical instructions for {scenario-name} scenario execution
+applyTo: "scenarios/{scenario-name}/**"
+phase: {phase-id}
 type: instruction
 version: "1.1.0"
-stage: "{scenario-name}"
+status: active
 ---
 
 # {Scenario Title} Instructions

@@ -1,6 +1,8 @@
 ---
 name: manage-knowledge
 description: "知识管理场景的技术指令"
+applyTo: "scenarios/manage-knowledge/**"
+phase: governance
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -320,3 +322,8 @@ findability_factors:
 | Standard 1 | Knowledge indexing coverage is 95% or higher | Automated check |
 | Standard 2 | User search success rate is 80% or higher | Automated check |
 | Standard 3 | Content updated within last 6 months is 90% or higher | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

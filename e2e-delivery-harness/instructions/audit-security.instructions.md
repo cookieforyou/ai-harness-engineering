@@ -1,6 +1,8 @@
 ---
 name: audit-security
 description: "安全审计执行指南，用于执行安全测试"
+applyTo: "scenarios/audit-security/**"
+phase: governance
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -144,3 +146,8 @@ tags: ['instruction', 'technical']
 | Standard 1 | All critical and high findings have remediation plans | Automated check |
 | Standard 2 | Compliance coverage meets target framework requirements | Automated check |
 | Standard 3 | Audit trail is complete and tamper-evident | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

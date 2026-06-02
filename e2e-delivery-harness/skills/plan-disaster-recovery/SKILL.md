@@ -1,6 +1,7 @@
 ---
 name: plan-disaster-recovery
 description: "Domain skill for plan-disaster-recovery execution"
+category: governance
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -152,6 +153,10 @@ test_success:
 4. Document failures and improvements
 5. Update plans based on tests
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

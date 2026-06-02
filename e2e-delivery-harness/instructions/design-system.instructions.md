@@ -1,6 +1,8 @@
 ---
 name: design-system
 description: "Technical instructions for system design execution"
+applyTo: "scenarios/design-system/**"
+phase: system-design
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

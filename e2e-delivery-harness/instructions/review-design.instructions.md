@@ -1,6 +1,8 @@
 ---
 name: review-design
 description: "Detailed technical instructions for review-design scenario execution"
+applyTo: "scenarios/review-design/**"
+phase: system-design
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -82,3 +84,8 @@ This instruction establishes the comprehensive technical standards and evaluatio
 | Standard 1 | Issue detection rate is 95% or higher | Automated check |
 | Standard 2 | Review turnaround is 2 days or less | Automated check |
 | Standard 3 | Defect escape rate after review is 5% or lower | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

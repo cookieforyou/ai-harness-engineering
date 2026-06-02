@@ -1,6 +1,7 @@
 ---
 name: analyze-requirement
 description: "将原始业务需求转换为结构化的需求规格说明书，包含干系人分析、业务建模和验收标准定义"
+category: requirement
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -517,6 +518,10 @@ And 我的登录状态应保持24小时
 - 第三轮: 完整的用户故事 + 业务流程图
 - 第四轮: 验收标准 + 非功能需求 + 追溯矩阵
 
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
+
 ## Common Pitfalls
 
 ### Pitfall 1: 需求粒度过粗或过细
@@ -614,13 +619,13 @@ And 我的登录状态应保持24小时
 ## Related Resources
 
 - **Standards**: 
-  - [SMART Criteria](../standards/smart-criteria.md) - 需求编写标准
-  - [User Story Format](../standards/user-story-format.md) - 用户故事格式规范
-  - [Stakeholder Analysis Guide](../standards/stakeholder-analysis-guide.md) - 干系人分析指南
+  - [SMART Criteria](../../standards/smart-criteria.md) - 需求编写标准
+  - [User Story Format](../../standards/user-story-format.md) - 用户故事格式规范
+  - [Stakeholder Analysis Guide](../../standards/stakeholder-analysis-guide.md) - 干系人分析指南
 - **Templates**: 
-  - [Requirements Specification Template](../templates/requirements-spec.template.md) - 需求规格说明书模板
-  - [Stakeholder Analysis Template](../templates/stakeholder-analysis.template.md) - 干系人分析模板
-  - [Business Process Diagram Template](../templates/business-process-diagram.template.md) - 业务流程图模板
+  - [Requirements Specification Template](../../templates/requirements-spec.template.md) - 需求规格说明书模板
+  - [Stakeholder Analysis Template](../../templates/stakeholder-analysis.template.md) - 干系人分析模板
+  - [Business Process Diagram Template](../../templates/business-process-diagram.template.md) - 业务流程图模板
 - **Evaluations**: 
-  - [Requirement Quality Checklist](../evaluations/requirement-quality-checklist.md) - 需求质量检查清单
-  - [Acceptance Criteria Review](../evaluations/acceptance-criteria-review.md) - 验收标准审查表
+  - [Requirement Quality Checklist](../../evaluations/requirement-quality-checklist.md) - 需求质量检查清单
+  - [Acceptance Criteria Review](../../evaluations/acceptance-criteria-review.md) - 验收标准审查表

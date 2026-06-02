@@ -1,6 +1,7 @@
 ---
 name: manage-dependencies
 description: "Domain skill for manage-dependencies execution"
+category: development
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -155,6 +156,10 @@ Solution:
 - `renovate`: 依赖更新机器人
 - `dependabot`: GitHub 原生更新
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

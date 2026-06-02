@@ -1,6 +1,8 @@
 ---
 name: respond-incident
 description: "事件响应场景的技术指令"
+applyTo: "scenarios/respond-incident/**"
+phase: incident-response
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -353,3 +355,8 @@ def calculate_impact(sla_target, downtime_minutes, users_affected, total_users):
 | Standard 1 | Mean time to recovery (MTTR) is 1 hour or less | Automated check |
 | Standard 2 | Escalation accuracy is 90% or higher | Automated check |
 | Standard 3 | First communication is sent within 15 minutes | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

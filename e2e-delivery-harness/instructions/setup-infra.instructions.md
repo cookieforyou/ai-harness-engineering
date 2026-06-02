@@ -1,6 +1,8 @@
 ---
 name: setup-infra
 description: "Detailed technical instructions for setup-infra scenario execution"
+applyTo: "scenarios/setup-infra/**"
+phase: deployment
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -300,3 +302,8 @@ budget:
 | Standard 1 | IaC coverage is 95% or higher | Automated check |
 | Standard 2 | New environment provisioning is 30 minutes or less | Automated check |
 | Standard 3 | Security baseline compliance is 100% | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

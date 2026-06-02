@@ -1,6 +1,8 @@
 ---
 name: performance-testing
 description: "Detailed technical instructions for performance-testing scenario execution"
+applyTo: "scenarios/performance-testing/**"
+phase: testing
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -293,3 +295,8 @@ cache_metrics:
 | Standard 1 | SLO achievement rate is 99.5% or higher | Automated check |
 | Standard 2 | All known bottlenecks are identified and documented | Automated check |
 | Standard 3 | Test validity correlation is 95% or higher | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

@@ -1,6 +1,8 @@
 ---
 name: review-incident
 description: "故障复盘执行指南，用于执行故障复盘"
+applyTo: "scenarios/review-incident/**"
+phase: incident-resolution
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -142,3 +144,8 @@ tags: ['instruction', 'technical']
 | Standard 1 | All P0/P1 incidents have completed postmortems | Automated check |
 | Standard 2 | Action item closure rate is 90% or higher | Automated check |
 | Standard 3 | Incident recurrence rate is 5% or lower | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

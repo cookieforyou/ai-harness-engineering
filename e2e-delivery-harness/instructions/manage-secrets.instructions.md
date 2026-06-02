@@ -1,6 +1,8 @@
 ---
 name: manage-secrets
 description: "Detailed technical instructions for manage-secrets scenario execution"
+applyTo: "scenarios/manage-secrets/**"
+phase: development
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -378,3 +380,8 @@ encryption_standards:
 | Standard 1 | Secret rotation compliance is 100% | Automated check |
 | Standard 2 | All secret access is logged and auditable | Automated check |
 | Standard 3 | Secret leak detection time is under 1 hour | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

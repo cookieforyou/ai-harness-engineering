@@ -1,6 +1,8 @@
 ---
 name: analyze-requirement
 description: "Technical instructions for requirement analysis execution"
+applyTo: "scenarios/analyze-requirement/**"
+phase: requirement-analysis
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

@@ -1,6 +1,8 @@
 ---
 name: design-database
 description: "Technical instructions for database design execution"
+applyTo: "scenarios/design-database/**"
+phase: system-design
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

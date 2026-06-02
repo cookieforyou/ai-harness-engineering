@@ -1,6 +1,8 @@
 ---
 name: plan-capacity
 description: "Detailed technical instructions for plan-capacity scenario execution"
+applyTo: "scenarios/plan-capacity/**"
+phase: operations
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -88,3 +90,8 @@ This instruction defines the technical methodology and standards for capacity pl
 | Standard 1 | Forecast accuracy is within 15% of actual | Automated check |
 | Standard 2 | Headroom maintained at 20% or higher | Automated check |
 | Standard 3 | Cost prediction accuracy is within 20% of actual | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

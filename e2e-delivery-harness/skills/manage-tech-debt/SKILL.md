@@ -1,6 +1,7 @@
 ---
 name: manage-tech-debt
 description: "Domain skill for manage-tech-debt execution"
+category: governance
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -174,6 +175,10 @@ gates:
 6. **Communicate**: 与业务方沟通债务风险
 7. **Celebrate Progress**: 展示债务减少的成果
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

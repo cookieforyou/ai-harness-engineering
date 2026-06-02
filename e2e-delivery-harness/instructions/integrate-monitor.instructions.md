@@ -1,6 +1,8 @@
 ---
 name: integrate-monitor
 description: "Detailed technical instructions for integrate-monitor scenario execution"
+applyTo: "scenarios/integrate-monitor/**"
+phase: operations
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -474,3 +476,8 @@ slos:
 | Standard 1 | Metric coverage for critical components is 90% or higher | Review dashboard completeness |
 | Standard 2 | Instrumentation overhead is 5% or lower | Performance benchmark comparison |
 | Standard 3 | Dashboard utilization is 70% or higher | Access analytics review |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

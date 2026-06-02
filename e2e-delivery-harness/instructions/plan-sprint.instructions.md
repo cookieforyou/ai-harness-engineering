@@ -1,6 +1,8 @@
 ---
 name: plan-sprint
 description: "Detailed technical instructions for plan-sprint scenario execution"
+applyTo: "scenarios/plan-sprint/**"
+phase: requirement-analysis
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -372,3 +374,8 @@ def determine_commitment(capacity, strategy='conservative'):
 | Standard 1 | Sprint commitment accuracy is 80% or higher | Automated check |
 | Standard 2 | Capacity utilization is 85-95% | Automated check |
 | Standard 3 | Carryover rate is 20% or lower | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

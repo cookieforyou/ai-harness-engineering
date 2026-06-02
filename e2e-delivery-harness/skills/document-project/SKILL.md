@@ -1,6 +1,7 @@
 ---
 name: document-project
 description: "Domain skill for document-project execution"
+category: development
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -104,6 +105,10 @@ class DocumentationSkill:
 2. **Practice 2**: [Description and rationale]
 3. **Practice 3**: [Description and rationale]
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

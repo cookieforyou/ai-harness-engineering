@@ -1,6 +1,7 @@
 ---
 name: implement-feature
 description: "按照任务清单完成代码开发、单元测试和文档更新，确保代码质量"
+category: development
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -562,6 +563,10 @@ Closes #123
 - APM: New Relic, Datadog, SkyWalking
 - Database: EXPLAIN ANALYZE, slow query log
 
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
+
 ## Common Pitfalls
 
 ### Pitfall 1: 忽视测试覆盖
@@ -677,15 +682,15 @@ try {
 ## Related Resources
 
 - **Standards**: 
-  - [Coding Standards](../standards/coding-standards.md) - 团队编码规范
-  - [Testing Guidelines](../standards/testing-guidelines.md) - 测试编写指南
-  - [Git Workflow](../standards/git-workflow.md) - Git分支管理和提交规范
-  - [Code Review Checklist](../standards/code-review-checklist.md) - 代码审查检查清单
+  - [Coding Standards](../../standards/coding-standards.md) - 团队编码规范
+  - [Testing Guidelines](../../standards/testing-guidelines.md) - 测试编写指南
+  - [Git Workflow](../../standards/git-workflow.md) - Git分支管理和提交规范
+  - [Code Review Checklist](../../standards/code-review-checklist.md) - 代码审查检查清单
 - **Templates**: 
-  - [Pull Request Template](../templates/pull-request.template.md) - PR模板
-  - [Commit Message Convention](../templates/commit-message-convention.md) - Commit消息规范
-  - [API Documentation Template](../templates/api-doc.template.md) - API文档模板
+  - [Pull Request Template](../../templates/pull-request.template.md) - PR模板
+  - [Commit Message Convention](../../templates/commit-message-convention.md) - Commit消息规范
+  - [API Documentation Template](../../templates/api-doc.template.md) - API文档模板
 - **Evaluations**: 
-  - [Code Quality Checklist](../evaluations/code-quality-checklist.md) - 代码质量检查清单
-  - [Test Coverage Analysis](../evaluations/test-coverage-analysis.md) - 测试覆盖率分析
-  - [Static Code Analysis Report](../evaluations/static-code-analysis.md) - 静态代码分析报告
+  - [Code Quality Checklist](../../evaluations/code-quality-checklist.md) - 代码质量检查清单
+  - [Test Coverage Analysis](../../evaluations/test-coverage-analysis.md) - 测试覆盖率分析
+  - [Static Code Analysis Report](../../evaluations/static-code-analysis.md) - 静态代码分析报告

@@ -1,6 +1,7 @@
 ---
 name: deploy-release
 description: "规划和管理应用的部署发布流程，确保部署安全、可回滚"
+category: deployment
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -394,6 +395,10 @@ tags: [skill, knowledge, deployment]
   - 制定改进行动计划
   - 跟踪行动计划执行情况
 
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
+
 ## Common Pitfalls
 
 ### Pitfall 1: Insufficient Rollback Testing (回滚测试不足)
@@ -446,13 +451,13 @@ tags: [skill, knowledge, deployment]
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [Deployment Best Practices](../standards/deployment-best-practices.md) - 部署最佳实践指南
-  - [Rollback Strategy](../standards/rollback-strategy.md) - 回滚策略标准
-  - [Health Check Guidelines](../standards/health-check-guidelines.md) - 健康检查指南
+  - [Deployment Best Practices](../../standards/deployment-best-practices.md) - 部署最佳实践指南
+  - [Rollback Strategy](../../standards/rollback-strategy.md) - 回滚策略标准
+  - [Health Check Guidelines](../../standards/health-check-guidelines.md) - 健康检查指南
 - **Templates**: 
-  - [Deployment Plan Template](../templates/deployment-plan.template.md) - 部署计划模板
-  - [Rollback Plan Template](../templates/rollback-plan.template.md) - 回滚方案模板
-  - [Release Report Template](../templates/release-report.template.md) - 发布报告模板
+  - [Deployment Plan Template](../../templates/deployment-plan.template.md) - 部署计划模板
+  - [Rollback Plan Template](../../templates/rollback-plan.template.md) - 回滚方案模板
+  - [Release Report Template](../../templates/release-report.template.md) - 发布报告模板
 - **Evaluations**: 
-  - [Deployment Quality Checklist](../evaluations/deployment-quality-checklist.md) - 部署质量检查清单
-  - [Rollback Drill Report](../evaluations/rollback-drill-report.md) - 回滚演练报告
+  - [Deployment Quality Checklist](../../evaluations/deployment-quality-checklist.md) - 部署质量检查清单
+  - [Rollback Drill Report](../../evaluations/rollback-drill-report.md) - 回滚演练报告

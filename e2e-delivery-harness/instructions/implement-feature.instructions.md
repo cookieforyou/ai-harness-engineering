@@ -1,6 +1,8 @@
 ---
 name: implement-feature
 description: "Technical instructions for feature implementation execution"
+applyTo: "scenarios/implement-feature/**"
+phase: development
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

@@ -1,6 +1,7 @@
 ---
 name: automate-test
 description: "Domain skill for automate-test execution"
+category: testing
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -165,6 +166,10 @@ time.sleep(5)  # 不推荐
 2. **Practice 2**: [Description and rationale]
 3. **Practice 3**: [Description and rationale]
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

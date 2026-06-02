@@ -1,6 +1,8 @@
 ---
 name: apply-hotfix
 description: "紧急修复技术指令，定义标准操作流程、质量检查标准和输出规范"
+applyTo: "scenarios/apply-hotfix/**"
+phase: incident-resolution
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team

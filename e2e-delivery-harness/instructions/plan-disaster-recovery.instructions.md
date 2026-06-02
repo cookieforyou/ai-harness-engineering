@@ -1,6 +1,8 @@
 ---
 name: plan-disaster-recovery
 description: "灾备恢复规划场景的技术指令"
+applyTo: "scenarios/plan-disaster-recovery/**"
+phase: governance
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -351,3 +353,8 @@ compute_strategy:
 | Standard 1 | RTO and RPO targets are achievable and verified | Automated check |
 | Standard 2 | RPO compliance is 100% with acceptable data loss | Automated check |
 | Standard 3 | Full DR drill is conducted at least annually | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

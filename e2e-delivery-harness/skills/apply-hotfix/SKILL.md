@@ -1,6 +1,7 @@
 ---
 name: apply-hotfix
 description: "紧急修复技能包，包含快速定位、最小化修复、安全部署等核心能力"
+category: governance
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -636,6 +637,10 @@ KPI得分计算:
 3. **明确分工**: 战时明确分工，避免重复工作
 4. **集中指挥**: 指定统一指挥官，协调各方资源
 5. **记录完整**: 详细记录所有操作和决策
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

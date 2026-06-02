@@ -1,6 +1,7 @@
 ---
 name: monitor-operate
 description: "SRE监控运维技能包，包含监控配置、告警管理、故障排查、容量规划等核心能力"
+category: operations
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -698,6 +699,10 @@ KPI得分计算:
 4. **自动化故障恢复**: 对已知问题实现自动化检测和恢复（自愈系统）
 
 5. **自动化报告**: 自动生成运维报告、SLO报告、容量报告，减少手工工作
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

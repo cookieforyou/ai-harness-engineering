@@ -1,6 +1,8 @@
 ---
 name: review-code
 description: "代码审查执行指南，用于执行代码评审"
+applyTo: "scenarios/review-code/**"
+phase: testing
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -149,3 +151,8 @@ tags: ['instruction', 'technical']
 | Standard 1 | Defect detection rate is 85% or higher | Automated check |
 | Standard 2 | Review turnaround time is 24 hours or less | Automated check |
 | Standard 3 | Zero P0/P1 security vulnerabilities are missed | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

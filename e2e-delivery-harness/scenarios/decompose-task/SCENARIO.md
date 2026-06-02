@@ -194,6 +194,42 @@ Quality Score = (KPI-001 × 0.25) + (KPI-002 × 0.20) + (KPI-003 × 0.20) + (KPI
 - [ ] 任务描述清晰，无歧义
 - [ ] 优先级标注合理（P0-P3）
 
+
+## Handover Criteria
+
+```
+✅ 所有必需交付物已生成并通过 Output Validation
+✅ 质量评分达到合格标准（≥70 分）
+✅ 决策点 DC-* 已记录 rationale
+✅ 开放问题与风险已写入 Handover
+✅ Handover Context YAML 已生成
+```
+
+### Handover Context Template
+
+```yaml
+handover:
+  header:
+    from_stage: "task-decomposition"
+    to_stage: "development"
+    handover_id: "HO-{timestamp}-{sequence}"
+    timestamp: "{ISO8601}"
+    prepared_by: "decompose-task"
+  summary:
+    status: completed|partial|blocked
+    quality_score: {0-100}
+  artifacts:
+    delivered: []
+  decisions: []
+  open_issues:
+    blocking: []
+    non_blocking: []
+  risks: []
+  quality_metrics:
+    kpi_results: []
+  recommendations: []
+```
+
 ## Related Assets (关联资产)
 
 | Asset Type | Path | Description |

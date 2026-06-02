@@ -1,6 +1,8 @@
 ---
 name: document-project
 description: "Detailed technical instructions for document-project scenario execution"
+applyTo: "scenarios/document-project/**"
+phase: development
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -398,3 +400,8 @@ documentation_release:
 | Standard 1 | Documentation completeness covers all required topics | Automated check |
 | Standard 2 | Stale documentation rate is below 10% | Automated check |
 | Standard 3 | User satisfaction rating is 4.0 or higher out of 5 | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

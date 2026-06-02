@@ -1,6 +1,8 @@
 ---
 name: backup-data
 description: "Detailed technical instructions for backup-data scenario execution"
+applyTo: "scenarios/backup-data/**"
+phase: operations
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -440,3 +442,8 @@ compliance_config:
 | Standard 1 | Backup success rate is 99.5% or higher | Automated check |
 | Standard 2 | Recovery point objective (RPO) is consistently met | Automated check |
 | Standard 3 | Quarterly recovery drills pass validation checks | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

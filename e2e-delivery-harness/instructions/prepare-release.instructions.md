@@ -1,6 +1,8 @@
 ---
 name: prepare-release
 description: "Detailed technical instructions for prepare-release scenario execution"
+applyTo: "scenarios/prepare-release/**"
+phase: deployment
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -427,3 +429,8 @@ post_release_review:
 | Standard 1 | Pre-release checklist completion is 100% | Automated check |
 | Standard 2 | Release notes accuracy is 98% or higher | Automated check |
 | Standard 3 | All required approvals are obtained and documented | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

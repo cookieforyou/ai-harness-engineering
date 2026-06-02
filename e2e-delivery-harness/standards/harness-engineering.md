@@ -69,6 +69,9 @@ Harness 不是更长 Prompt，而是 **Model + Harness**：用结构化资产提
 ## 审查命令（维护者）
 
 ```bash
+# 一键全量合规（推荐）
+python3 scripts/harness-full-compliance.py
+
 # Prompt 缺 Output Validation
 for f in prompts/*.prompt.md; do grep -q "## Output Validation" "$f" || echo "$f"; done
 
@@ -77,8 +80,17 @@ for f in scenarios/*/SCENARIO.md; do grep -q "## Error Handling" "$f" || echo "$
 
 # Agent 缺 tools
 for f in agents/*.agent.md; do grep -q "^tools:" "$f" || echo "$f"; done
+
+# Scenario 缺 Handover Criteria
+for f in scenarios/*/SCENARIO.md; do grep -q "## Handover Criteria" "$f" || echo "$f"; done
+
+# Scenario DC-* 不足 3 个
+for f in scenarios/*/SCENARIO.md; do
+  c=$(grep -oE 'DC-[0-9]{3}' "$f" | sort -u | wc -l | tr -d ' ')
+  [ "$c" -lt 3 ] && echo "$f: $c DC"
+done
 ```
 
 ## 版本
 
-- **1.0.0** — 初始对齐六层模型与合规清单
+- **1.1.0** — 对齐六层模型与合规清单；新增 `harness-full-compliance.py` 审查项

@@ -1,6 +1,7 @@
 ---
 name: integrate-monitor
 description: "Domain skill for integrate-monitor execution"
+category: operations
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -90,6 +91,10 @@ class ObservabilitySkill:
 2. **Practice 2**: [Description and rationale]
 3. **Practice 3**: [Description and rationale]
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

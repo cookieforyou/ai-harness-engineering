@@ -1,6 +1,8 @@
 ---
 name: manage-change
 description: "变更管理执行指南，用于处理需求变更请求"
+applyTo: "scenarios/manage-change/**"
+phase: operations
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -145,3 +147,8 @@ tags: ['instruction', 'technical']
 | Standard 1 | Change success rate is 95% or higher | Automated check |
 | Standard 2 | Approval SLA is within 24 hours | Automated check |
 | Standard 3 | Change-correlated incident rate is below 2% | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

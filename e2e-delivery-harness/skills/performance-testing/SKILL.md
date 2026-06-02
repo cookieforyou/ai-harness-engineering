@@ -1,6 +1,7 @@
 ---
 name: performance-testing
 description: "Domain skill for performance-testing execution"
+category: testing
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -238,6 +239,10 @@ rate(http_requests_total{status=~"5.."}[5m])
 2. **Practice 2**: [Description and rationale]
 3. **Practice 3**: [Description and rationale]
 
+
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
 
 ## Common Pitfalls
 

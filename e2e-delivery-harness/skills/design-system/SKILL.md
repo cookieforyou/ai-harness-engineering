@@ -1,6 +1,7 @@
 ---
 name: design-system
 description: "系统设计技能包，提供架构设计、技术选型、模块划分的专业知识和最佳实践"
+category: design
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -496,6 +497,10 @@ tags: [skill, knowledge, design]
 - Deployment automation
 - Incident response procedures
 
+## Anti-patterns (反模式)
+
+> 与 Common Pitfalls 同义，执行时合并检查。
+
 ## Common Pitfalls
 
 ### Pitfall 1: Over-Engineering with Microservices
@@ -553,7 +558,7 @@ tags: [skill, knowledge, design]
 
 ## Related Assets
 
-- **Scenario**: [../scenarios/design-system/SCENARIO.md](../scenarios/design-system/SCENARIO.md)
-- **Agent**: [../agents/design-system.agent.md](../agents/design-system.agent.md)
-- **Prompt**: [../prompts/design-system.prompt.md](../prompts/design-system.prompt.md)
-- **Instruction**: [../instructions/design-system.instructions.md](../instructions/design-system.instructions.md)
+- **Scenario**: [../scenarios/design-system/SCENARIO.md](../../scenarios/design-system/SCENARIO.md)
+- **Agent**: [../agents/design-system.agent.md](../../agents/design-system.agent.md)
+- **Prompt**: [../prompts/design-system.prompt.md](../../prompts/design-system.prompt.md)
+- **Instruction**: [../instructions/design-system.instructions.md](../../instructions/design-system.instructions.md)

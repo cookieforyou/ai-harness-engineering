@@ -1,6 +1,8 @@
 ---
 name: manage-config
 description: "Detailed technical instructions for manage-config scenario execution"
+applyTo: "scenarios/manage-config/**"
+phase: development
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -387,3 +389,8 @@ alerts:
 | Standard 1 | All configurations pass schema validation | Automated check |
 | Standard 2 | Environment parity is 95% or higher | Automated check |
 | Standard 3 | No hardcoded secrets in codebase | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)

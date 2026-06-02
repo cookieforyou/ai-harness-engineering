@@ -1,6 +1,7 @@
 ---
 name: design-architecture
 description: "架构设计技能包，提供架构模式、微服务拆分、技术选型的专业知识和最佳实践"
+category: design
 type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -450,7 +451,7 @@ Yearly Growth = Current Size × Monthly Growth Rate × 12
 
 ## Related Assets
 
-- **Scenario**: [../scenarios/design-architecture/SCENARIO.md](../scenarios/design-architecture/SCENARIO.md)
-- **Agent**: [../agents/design-architecture.agent.md](../agents/design-architecture.agent.md)
-- **Prompt**: [../prompts/design-architecture.prompt.md](../prompts/design-architecture.prompt.md)
-- **Instruction**: [../instructions/design-architecture.instructions.md](../instructions/design-architecture.instructions.md)
+- **Scenario**: [../scenarios/design-architecture/SCENARIO.md](../../scenarios/design-architecture/SCENARIO.md)
+- **Agent**: [../agents/design-architecture.agent.md](../../agents/design-architecture.agent.md)
+- **Prompt**: [../prompts/design-architecture.prompt.md](../../prompts/design-architecture.prompt.md)
+- **Instruction**: [../instructions/design-architecture.instructions.md](../../instructions/design-architecture.instructions.md)

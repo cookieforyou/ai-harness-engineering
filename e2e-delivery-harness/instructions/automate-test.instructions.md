@@ -1,6 +1,8 @@
 ---
 name: automate-test
 description: "Detailed technical instructions for automate-test scenario execution"
+applyTo: "scenarios/automate-test/**"
+phase: testing
 type: instruction
 version: "1.2.0"
 author: AI Harness Engineering Team
@@ -237,3 +239,8 @@ jobs:
 | Standard 1 | Automated test coverage meets team-defined targets | Automated check |
 | Standard 2 | Test flakiness rate is below 5% | Automated check |
 | Standard 3 | CI pipeline integration passes consistently | Automated check |
+## References
+
+- [harness-engineering.md](../standards/harness-engineering.md)
+- [output-validation-checklist.md](../evaluations/output-validation-checklist.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)
