@@ -1,6 +1,8 @@
 ---
 name: prepare-release
 description: "prepare release specialist agent for E2E delivery workflow"
+tools: ["search", "read", "edit", "deploy"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

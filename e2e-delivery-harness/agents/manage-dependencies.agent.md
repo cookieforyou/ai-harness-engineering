@@ -1,6 +1,8 @@
 ---
 name: manage-dependencies
 description: "依赖管理工程师 Agent，负责管理和优化项目依赖"
+tools: ["search", "read", "edit", "run_terminal"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

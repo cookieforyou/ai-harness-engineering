@@ -1,6 +1,8 @@
 ---
 name: manage-tech-debt
 description: "技术债务管理专家 Agent，负责识别和管理技术债务"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

@@ -206,11 +206,11 @@ Quality Score = (KPI-001 × 0.25) + (KPI-002 × 0.25) + (KPI-003 × 0.20) + (KPI
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [ADR Template](../standards/adr-template.md) - 架构决策记录模板
-  - [API Design Guidelines](../standards/api-design-guidelines.md) - API设计规范
+  - [ADR Template](../../standards/adr-template.md) - 架构决策记录模板
+  - [API Design Guidelines](../../standards/api-design-guidelines.md) - API设计规范
 - **Templates**: 
-  - [System Design Document Template](../templates/system-design-doc.template.md) - 系统设计文档模板
-  - [Architecture Diagram Template](../templates/architecture-diagram.template.md) - 架构图模板
+  - [System Design Document Template](../../templates/system-design-doc.template.md) - 系统设计文档模板
+  - [Architecture Diagram Template](../../templates/architecture-diagram.template.md) - 架构图模板
 - **Evaluations**: 
-  - [Architecture Review Checklist](../evaluations/architecture-review-checklist.md) - 架构评审检查清单
-  - [Design Quality Assessment](../evaluations/design-quality-assessment.md) - 设计质量评估表
+  - [Architecture Review Checklist](../../evaluations/architecture-review-checklist.md) - 架构评审检查清单
+  - [Design Quality Assessment](../../evaluations/design-quality-assessment.md) - 设计质量评估表

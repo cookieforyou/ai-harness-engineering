@@ -6,6 +6,8 @@ E2E Delivery Harness 是一套面向软件交付全流程的 AI 工程化资产�
 
 ## 设计理念
 
+本资产库对齐 **Harness Engineering（驾驭工程）**：人类掌舵、Agent 执行，通过六层驾驭模型（目标、策略、工具、约束、反馈、可观测）规范 AI 输出。详见 [standards/harness-engineering.md](./standards/harness-engineering.md) 与 [AGENTS.md](./AGENTS.md)。
+
 本资产库遵循 **"角色 + 技能 + 场景"** 的模块化设计思想：
 
 - **Agent（角色）**：定义 AI 的身份定位、工作规则和可用工具

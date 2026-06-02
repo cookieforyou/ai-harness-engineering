@@ -1,7 +1,7 @@
 ---
 name: apply-hotfix
 description: "紧急修复执行提示词，用于快速定位、修复和上线生产环境P0/P1级别缺陷"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01

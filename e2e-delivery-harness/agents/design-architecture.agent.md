@@ -1,6 +1,8 @@
 ---
 name: design-architecture
 description: "架构设计专家Agent，负责设计系统高层架构、微服务拆分、技术选型和系统拓扑"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

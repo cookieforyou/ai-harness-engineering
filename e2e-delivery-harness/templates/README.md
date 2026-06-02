@@ -15,11 +15,12 @@ Templates 提供**起点**用于创建新资产，确保一致性和完整性。
 
 ```
 templates/
-├── agent-template.agent.md              # Agent 模板
+├── agent-template.agent.md              # Agent 模板（含 tools、harness_layers）
 ├── instruction-template.instructions.md  # Instruction 模板
-├── prompt-template.prompt.md            # Prompt 模板
-└── skill-template/
-    └── SKILL.md                         # Skill 模板
+├── prompt-template.prompt.md            # Prompt 模板（含 Output Validation）
+├── scenario-template/SCENARIO.md        # Scenario 模板
+├── skill-template/SKILL.md              # Skill 模板
+└── *.template.md                        # 27 个交付物文档模板（输出格式用）
 ```
 
 ## Agent 模板 (agent-template.agent.md)

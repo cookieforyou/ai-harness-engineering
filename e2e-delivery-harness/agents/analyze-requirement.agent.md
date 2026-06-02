@@ -1,6 +1,8 @@
 ---
 name: analyze-requirement
 description: "负责需求分析与规划的AI角色代理，将原始业务需求转换为结构化的需求规格说明书"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

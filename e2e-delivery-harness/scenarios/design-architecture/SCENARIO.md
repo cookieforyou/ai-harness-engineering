@@ -225,10 +225,10 @@ Quality Score = (KPI-001 × 0.25) + (KPI-002 × 0.20) + (KPI-003 × 0.20) + (KPI
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [ADR Template](../standards/adr-template.md) - 架构决策记录模板
-  - [12-Factor App](../standards/12-factor-app.md) - 云原生应用设计原则
+  - [ADR Template](../../standards/adr-template.md) - 架构决策记录模板
+  - [12-Factor App](../../standards/12-factor-app.md) - 云原生应用设计原则
 - **Templates**: 
-  - [Architecture Document Template](../templates/architecture-doc.template.md) - 架构文档模板
-  - [Service Boundary Definition](../templates/service-boundary.template.md) - 服务边界定义模板
+  - [Architecture Document Template](../../templates/architecture-doc.template.md) - 架构文档模板
+  - [Service Boundary Definition](../../templates/service-boundary.template.md) - 服务边界定义模板
 - **Evaluations**: 
-  - [Architecture Review Checklist](../evaluations/architecture-review-checklist.md) - 架构评审检查清单
+  - [Architecture Review Checklist](../../evaluations/architecture-review-checklist.md) - 架构评审检查清单

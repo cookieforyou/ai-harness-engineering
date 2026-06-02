@@ -1,718 +1,773 @@
-# E2E Delivery Harness - AGENTS.md
+# E2E Delivery Harness — AGENTS.md
 
-## 项目概览
-
-**项目名称**: E2E Delivery Harness (端到端交付全流程工作流资产库)
-
-**项目描述**: 基于 AI Harness Engineering 理念设计的模块化交付全流程资产库，覆盖从需求分析到监控运维的完整生命周期，为 AI Agent 提供标准化的执行框架。
-
-**核心目标**: 通过标准化的资产组合（Agent + Skill + Instruction + Prompt + Scenario），实现交付流程的一致性、可复用性和高质量。
+> **本文档面向 AI Agent**：在 `e2e-delivery-harness/` 内执行任何交付、运维或治理任务前，请先阅读本文件。它是本资产库的**导航图、执行协议与质量契约**。
 
 ---
 
-## 设计理念
+## 目录
 
-### 核心原则
+1. [执行摘要（Agent 必读）](#执行摘要agent-必读)
+2. [项目定位与资产统计](#项目定位与资产统计)
+3. [架构：分层模型与组合公式](#架构分层模型与组合公式)
+4. [双 Pipeline：主交付与故障响应](#双-pipeline主交付与故障响应)
+5. [资产类型深度说明](#资产类型深度说明)
+6. [标准执行协议](#标准执行协议)
+7. [上下文与阶段交接](#上下文与阶段交接)
+8. [ID、决策点与量化门禁](#id决策点与量化门禁)
+9. [场景全目录（37）](#场景全目录37)
+10. [场景选型指南](#场景选型指南)
+11. [质量评估与回归](#质量评估与回归)
+12. [目录结构与文件索引](#目录结构与文件索引)
+13. [资产维护与扩展](#资产维护与扩展)
+14. [相关文档](#相关文档)
 
-1. **AI-First**: 所有资产设计以 AI 驾驭为核心
-   - 每个 Scenario 包含 Chain of Thought 引导 AI 逐步思考
-   - 每个 Prompt 包含变量定义、错误处理和输出验证
-   - Scenario 和 Prompt 职责分离，Scenario 作为快速入口
+---
 
-2. **Pipeline 驱动**: 通过 Workflow 定义端到端流程，确保阶段间的有序衔接
+## 执行摘要（Agent 必读）
 
-3. **Context 传递**: 通过 Handover Context 实现阶段间的数据传递和上下文继承
+### 你在本仓库中的角色
 
-4. **Quality Gate**: 每个阶段都有明确的准入准出标准，确保交付质量
+本仓库**不是应用代码**，而是一套 **AI Harness 工程化资产库**：用可组合 Markdown 资产，把「需求 → 设计 → 开发 → 测试 → 部署 → 运维 → 治理」固化为可重复执行的 Agent 工作流。
 
-### Prompt 增强结构
+### 强制加载顺序（单次场景执行）
 
-每个 Prompt 必须包含以下增强结构：
+```
+1. workflows/*.pipeline.md     → 确认当前处于哪条流水线、哪一阶段
+2. contexts/global-context.md    → 读取/更新项目全局状态（若存在实例化副本）
+3. scenarios/{name}/SCENARIO.md  → 场景入口：Purpose、CoT、Error Handling、KPI
+4. agents/{name}.agent.md        → 角色身份、工作规则、输入输出契约
+5. prompts/{name}.prompt.md      → 变量、思维链、输出验证、Handover
+6. instructions/{name}.instructions.md  → 操作步骤与检查清单（按需）
+7. skills/{name}/SKILL.md        → 领域知识与反模式（按需）
+8. evaluations/*                 → 阶段准出前自检
+9. 生成交接 → contexts/handover-context.template.md 或 unified-handover-template.md
+```
 
-| 章节 | 用途 | 重要性 |
-|------|------|--------|
-| 变量定义 (Variables) | 明确输入参数 | 必填 |
-| 思维链 (Chain of Thought) | 强制逐步推理 | 必填 |
-| 错误处理 (Error Handling) | 异常情况处理 | 必填 |
-| 输出验证 (Output Validation) | 质量自我检查 | 必填 |
-| Handover 准备 | 阶段间交接 | 必填 |
+### 五条不可违反的规则
 
-详情见 [standards/asset-model.md](standards/asset-model.md)。
+| # | 规则 | 违反后果 |
+|---|------|----------|
+| R1 | **先 Scenario 后 Prompt**：Scenario 负责导航与异常；Prompt 负责逐步执行 | 跳过质量门禁与错误处理 |
+| R2 | **变量未填不执行**：`prompts/*.prompt.md` 中 `Required: true` 的变量必须确认 | 产出不可追溯、无法交接 |
+| R3 | **每步 [VALIDATE]**：思维链每步完成后自检，不通过则回退修正 | 幻觉需求/设计漂移 |
+| R4 | **准出前量化**：对照 `standards/id-generation-quantification.md` 与 Scenario KPI | 无法进入下一阶段 |
+| R5 | **必须 Handover**：阶段结束输出 YAML 交接包，更新 Global Context | 下游 Agent 上下文断裂 |
 
-### ID 生成规范
+### 命名对齐原则
 
-使用统一 ID 编号体系：
+五类执行资产共享同一 **`{verb}-{noun}`** 基名（kebab-case），例如 `analyze-requirement` 同时对应 Agent / Skill / Instruction / Prompt / Scenario 目录。禁止跨场景混用基名。
 
-| 前缀 | 用途 | 示例 |
+### Harness Engineering 合规
+
+审查与优化基准：[standards/harness-engineering.md](standards/harness-engineering.md)（Goal / Strategy / Tooling / Constraint / Feedback / Observability 六层映射）。
+
+维护脚本：`scripts/harness-compliance-patch.py`、`scripts/generate-deliverable-templates.py`。
+
+---
+
+## 项目定位与资产统计
+
+| 维度 | 说明 |
+|------|------|
+| **名称** | E2E Delivery Harness（端到端交付全流程工作流资产库） |
+| **理念** | AI Harness Engineering：用结构化资产「驾驭」大模型，而非单次即兴 Prompt |
+| **目标** | 一致性、可复用性、可审计的交付产出 |
+| **适用** | 新项目全流程、单阶段增强、团队流程标准化、Runbook/Agent 技能沉淀 |
+
+### 资产数量（截至仓库当前状态）
+
+| 类别 | 数量 | 路径 |
 |------|------|------|
-| REQ | 需求项 | REQ-001 |
-| DES | 设计项 | DES-001 |
-| TASK | 任务项 | TASK-001 |
-| TC | 测试用例 | TC-001 |
-| BUG | 缺陷 | BUG-001 |
-| DC | 决策点 | DC-001 |
-| V | 验证项 | V-001 |
+| Scenario | **37** | `scenarios/*/SCENARIO.md` |
+| Agent | **37** | `agents/*.agent.md` |
+| Prompt | **37** | `prompts/*.prompt.md` |
+| Instruction | **37** | `instructions/*.instructions.md` |
+| Skill | **37** | `skills/*/SKILL.md` |
+| Pipeline | **2** | `workflows/*.pipeline.md` |
+| Context 模板 | **3** | `contexts/*.md` |
+| Standard | **6** | `standards/*.md` |
+| Evaluation | **4** | `evaluations/*.md` |
+| Template | **5** | `templates/` |
 
-详情见 [standards/id-generation-quantification.md](standards/id-generation-quantification.md)。
-
-### 量化标准
-
-| 指标 | 标准值 | 说明 |
-|------|--------|------|
-| REQ-COVER | ≥95% | 需求覆盖率 |
-| TEST-PASS | ≥90% | 测试通过率 |
-| DEV-COVERAGE | ≥80% | 单元测试覆盖率 |
-| DEPLOY-SUCCESS | ≥99% | 部署成功率 |
-| MON-SLO | ≥99.5% | SLO 达成率 |
-
-### 资产层级
-
-```
-Workflow (工作流层)
-    ↓
-Scenario (场景层) ← AI 的快速入口
-    ├── Chain of Thought (思维链)
-    ├── Decision Checkpoints (决策检查点)
-    ├── Error Handling (错误处理)
-    └── 引用 → Agent + Skill + Prompt
-
-Prompt (执行层) ← AI 的执行脚本
-    ├── 变量定义
-    ├── 思维链
-    ├── 错误处理
-    ├── 输出验证
-    └── Handover 准备
-
-Context (上下文层)
-    ├── Global Context (全局上下文)
-    └── Handover Context (交接上下文)
-```
+**对齐关系**：37 个场景 × 5 类执行资产 = **185 个一一映射的核心执行单元**（同名 `{verb}-{noun}`）。
 
 ---
 
-## 项目结构
+## 架构：分层模型与组合公式
+
+### 分层视图
+
+```mermaid
+flowchart TB
+  subgraph orchestration [编排层]
+    WF[Workflow / Pipeline]
+  end
+  subgraph entry [入口层]
+    SC[Scenario]
+  end
+  subgraph execution [执行层]
+    AG[Agent]
+    PR[Prompt]
+    IN[Instruction]
+    SK[Skill]
+  end
+  subgraph state [状态层]
+    GC[Global Context]
+    HO[Handover Context]
+  end
+  subgraph quality [质量层]
+    ST[Standards]
+    EV[Evaluations]
+  end
+
+  WF --> SC
+  SC --> AG
+  SC --> PR
+  PR --> IN
+  PR --> SK
+  AG --> HO
+  PR --> HO
+  HO --> GC
+  ST --> PR
+  EV --> SC
+```
+
+### 组合公式
 
 ```
-e2e-delivery-harness/
-├── README.md                    # 项目总说明
-├── INTRODUCTION.zh.md           # 中文介绍
-├── USAGE.zh.md                  # 中文使用指南
-│
-├── workflows/                   # 工作流定义 (2个)
-│   ├── README.md               # 工作流说明
-│   ├── e2e-delivery.pipeline.md # E2E 交付全流程
-│   └── incident-response.pipeline.md # 故障响应流程
-│
-├── contexts/                     # 共享上下文 (3个)
-│   ├── README.md               # 上下文说明
-│   ├── global-context.md        # 全局上下文定义
-│   └── handover-context.template.md # 交接上下文模板
-│
-├── scenarios/                    # 场景定义 (37个) ← AI 主要入口
-│   ├── README.md               # 场景使用指南
-│   ├── analyze-requirement/    # 需求分析场景
-│   │   └── SCENARIO.md
-│   ├── design-system/          # 系统设计场景
-│   │   └── SCENARIO.md
-│   ├── decompose-task/         # 任务拆分场景
-│   │   └── SCENARIO.md
-│   ├── implement-feature/      # 开发实现场景
-│   │   └── SCENARIO.md
-│   ├── verify-test/            # 测试验证场景
-│   │   └── SCENARIO.md
-│   ├── deploy-release/         # 部署发布场景
-│   │   └── SCENARIO.md
-│   ├── monitor-operate/        # 监控运维场景
-│   │   └── SCENARIO.md
-│   ├── manage-change/          # 变更管理场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── review-code/            # 代码审查场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── audit-security/         # 安全审计场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── review-incident/        # 故障复盘场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── performance-testing/    # 性能测试场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── migrate-data/           # 数据迁移场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── apply-hotfix/                # 紧急修复场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── review-design/          # 技术方案评审场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── plan-capacity/         # 容量规划场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── automate-test/         # 自动化测试场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── setup-infra/           # 基础设施搭建场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── manage-config/         # 配置管理场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── prepare-release/       # 发布准备场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── backup-data/           # 数据备份场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── integrate-api/         # API 集成场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── design-database/       # 数据库设计场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── implement-cicd/        # CI/CD 实施场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── manage-secrets/        # 密钥管理场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── design-architecture/   # 架构设计场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── optimize-performance/  # 性能优化场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── migrate-environment/   # 环境迁移场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── plan-sprint/           # 冲刺规划场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── document-project/      # 项目文档场景 (扩展)
-│   │   └── SCENARIO.md
-│   └── integrate-monitor/     # 监控集成场景 (扩展)
-│       └── SCENARIO.md
-│   ├── manage-dependencies/   # 依赖管理场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── manage-tech-debt/      # 技术债务场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── plan-rollback/         # 回滚计划场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── respond-incident/      # 事件响应场景 (扩展)
-│   │   └── SCENARIO.md
-│   ├── plan-disaster-recovery/ # 灾备恢复场景 (扩展)
-│   │   └── SCENARIO.md
-│   └── manage-knowledge/       # 知识管理场景 (扩展)
-│       └── SCENARIO.md
-│
-├── agents/                       # Agent 角色定义 (37个)
-│   ├── analyze-requirement.agent.md
-│   ├── design-system.agent.md
-│   ├── decompose-task.agent.md
-│   ├── implement-feature.agent.md
-│   ├── verify-test.agent.md
-│   ├── deploy-release.agent.md
-│   ├── monitor-operate.agent.md
-│   ├── manage-change.agent.md
-│   ├── review-code.agent.md
-│   ├── audit-security.agent.md
-│   ├── review-incident.agent.md
-│   ├── performance-testing.agent.md
-│   ├── migrate-data.agent.md
-│   ├── apply-hotfix.agent.md
-│   ├── review-design.agent.md
-│   ├── plan-capacity.agent.md
-│   ├── automate-test.agent.md
-│   ├── setup-infra.agent.md
-│   ├── manage-config.agent.md
-│   ├── prepare-release.agent.md
-│   ├── backup-data.agent.md
-│   ├── integrate-api.agent.md      # (新增)
-│   ├── design-database.agent.md    # (新增)
-│   ├── implement-cicd.agent.md     # (新增)
-│   ├── manage-secrets.agent.md     # (新增)
-│   ├── design-architecture.agent.md # (新增)
-│   ├── optimize-performance.agent.md # (新增)
-│   ├── migrate-environment.agent.md # (新增)
-│   ├── plan-sprint.agent.md        # (新增)
-│   ├── document-project.agent.md   # (新增)
-│   ├── integrate-monitor.agent.md  # (新增)
-│   ├── manage-dependencies.agent.md
-│   ├── manage-tech-debt.agent.md
-│   ├── plan-rollback.agent.md
-│   ├── respond-incident.agent.md
-│   ├── plan-disaster-recovery.agent.md
-│   └── manage-knowledge.agent.md
-│
-├── skills/                       # Skill 技能模块 (37个)
-│   ├── README.md
-│   ├── analyze-requirement/
-│   │   └── SKILL.md
-│   ├── design-system/
-│   │   └── SKILL.md
-│   ├── decompose-task/
-│   │   └── SKILL.md
-│   ├── implement-feature/
-│   │   └── SKILL.md
-│   ├── verify-test/
-│   │   └── SKILL.md
-│   ├── deploy-release/
-│   │   └── SKILL.md
-│   ├── monitor-operate/
-│   │   └── SKILL.md
-│   ├── manage-change/
-│   │   └── SKILL.md
-│   ├── review-code/
-│   │   └── SKILL.md
-│   ├── audit-security/
-│   │   └── SKILL.md
-│   ├── review-incident/
-│   │   └── SKILL.md
-│   ├── performance-testing/
-│   │   └── SKILL.md
-│   ├── migrate-data/
-│   │   └── SKILL.md
-│   ├── apply-hotfix/
-│   │   └── SKILL.md
-│   ├── review-design/
-│   │   └── SKILL.md
-│   ├── plan-capacity/
-│   │   └── SKILL.md
-│   ├── automate-test/              # (扩展)
-│   │   └── SKILL.md
-│   ├── setup-infra/               # (扩展)
-│   │   └── SKILL.md
-│   ├── manage-config/              # (扩展)
-│   │   └── SKILL.md
-│   ├── prepare-release/            # (扩展)
-│   │   └── SKILL.md
-│   ├── backup-data/                # (扩展)
-│   │   └── SKILL.md
-│   ├── integrate-api/              # (扩展)
-│   │   └── SKILL.md
-│   ├── design-database/            # (扩展)
-│   │   └── SKILL.md
-│   ├── implement-cicd/             # (扩展)
-│   │   └── SKILL.md
-│   ├── manage-secrets/             # (扩展)
-│   │   └── SKILL.md
-│   ├── design-architecture/       # (扩展)
-│   │   └── SKILL.md
-│   ├── optimize-performance/        # (扩展)
-│   │   └── SKILL.md
-│   ├── migrate-environment/         # (扩展)
-│   │   └── SKILL.md
-│   ├── plan-sprint/                # (扩展)
-│   │   └── SKILL.md
-│   ├── document-project/            # (扩展)
-│   │   └── SKILL.md
-│   ├── integrate-monitor/          # (扩展)
-│   │   └── SKILL.md
-│   ├── manage-dependencies/       # (扩展)
-│   │   └── SKILL.md
-│   ├── manage-tech-debt/          # (扩展)
-│   │   └── SKILL.md
-│   ├── plan-rollback/             # (扩展)
-│   │   └── SKILL.md
-│   ├── respond-incident/          # (扩展)
-│   │   └── SKILL.md
-│   ├── plan-disaster-recovery/    # (扩展)
-│   │   └── SKILL.md
-│   └── manage-knowledge/           # (扩展)
-│       └── SKILL.md
-│
-├── instructions/                  # Instruction 指令文件 (37个)
-│   ├── README.md
-│   ├── analyze-requirement.instructions.md
-│   ├── design-system.instructions.md
-│   ├── decompose-task.instructions.md
-│   ├── implement-feature.instructions.md
-│   ├── verify-test.instructions.md
-│   ├── deploy-release.instructions.md
-│   ├── monitor-operate.instructions.md
-│   ├── manage-change.instructions.md
-│   ├── review-code.instructions.md
-│   ├── audit-security.instructions.md
-│   ├── review-incident.instructions.md
-│   ├── performance-testing.instructions.md
-│   ├── migrate-data.instructions.md
-│   ├── apply-hotfix.instructions.md
-│   ├── review-design.instructions.md
-│   ├── plan-capacity.instructions.md
-│   ├── automate-test.instructions.md
-│   ├── setup-infra.instructions.md
-│   ├── manage-config.instructions.md
-│   ├── prepare-release.instructions.md
-│   ├── backup-data.instructions.md
-│   ├── integrate-api.instructions.md    # (新增)
-│   ├── design-database.instructions.md  # (新增)
-│   ├── implement-cicd.instructions.md   # (新增)
-│   ├── manage-secrets.instructions.md  # (新增)
-│   ├── design-architecture.instructions.md # (新增)
-│   ├── optimize-performance.instructions.md  # (新增)
-│   ├── migrate-environment.instructions.md   # (新增)
-│   ├── plan-sprint.instructions.md      # (新增)
-│   ├── document-project.instructions.md # (新增)
-│   └── integrate-monitor.instructions.md # (新增)
-│   ├── manage-dependencies.instructions.md  # (新增)
-│   ├── manage-tech-debt.instructions.md     # (新增)
-│   ├── plan-rollback.instructions.md        # (新增)
-│   ├── respond-incident.instructions.md
-│   ├── plan-disaster-recovery.instructions.md
-│   └── manage-knowledge.instructions.md
-│
-├── prompts/                      # Prompt 提示词文件 (37个)
-│   ├── README.md
-│   ├── analyze-requirement.prompt.md
-│   ├── design-system.prompt.md
-│   ├── decompose-task.prompt.md
-│   ├── implement-feature.prompt.md
-│   ├── verify-test.prompt.md
-│   ├── deploy-release.prompt.md
-│   ├── monitor-operate.prompt.md
-│   ├── manage-change.prompt.md
-│   ├── review-code.prompt.md
-│   ├── audit-security.prompt.md
-│   ├── review-incident.prompt.md
-│   ├── performance-testing.prompt.md
-│   ├── migrate-data.prompt.md
-│   ├── apply-hotfix.prompt.md
-│   ├── review-design.prompt.md
-│   ├── plan-capacity.prompt.md
-│   ├── automate-test.prompt.md
-│   ├── setup-infra.prompt.md
-│   ├── manage-config.prompt.md
-│   ├── prepare-release.prompt.md
-│   ├── backup-data.prompt.md
-│   ├── integrate-api.prompt.md
-│   ├── design-database.prompt.md
-│   ├── implement-cicd.prompt.md
-│   ├── manage-secrets.prompt.md
-│   ├── design-architecture.prompt.md
-│   ├── optimize-performance.prompt.md
-│   ├── migrate-environment.prompt.md
-│   ├── plan-sprint.prompt.md
-│   ├── document-project.prompt.md
-│   ├── integrate-monitor.prompt.md
-│   ├── manage-dependencies.prompt.md
-│   ├── manage-tech-debt.prompt.md
-│   ├── plan-rollback.prompt.md
-│   ├── respond-incident.prompt.md
-│   ├── plan-disaster-recovery.prompt.md
-│   └── manage-knowledge.prompt.md
-│
-├── standards/                    # 规范文件 (5个)
-│   ├── README.md
-│   ├── asset-model.md
-│   ├── lifecycle.md
-│   ├── naming-conventions.md
-│   ├── output-quality-rubric.md
-│   └── authoring-checklist.md
-│
-├── templates/                     # 模板文件 (4个)
-│   ├── README.md
-│   ├── agent-template.agent.md
-│   ├── instruction-template.instructions.md
-│   ├── prompt-template.prompt.md
-│   └── skill-template/
-│       └── SKILL.md
-│
-└── evaluations/                  # Evaluation 评估文件 (4个)
-    ├── README.md
-    ├── regression-checklist.md
-    ├── scorecard-template.md
-    ├── output-validation-checklist.md      # (新增) 输出验证清单
-    └── common-error-patterns.md           # (新增) 常见错误模式
+Scenario = Agent + Prompt + Instruction + Skill[] + (隐式) Standards + Evaluations
+
+Pipeline   = ordered(Scenario_core[]) + supporting(Scenario_optional[])
+
+Team       = Agent[] + handoff_protocol
 ```
+
+### 职责分离（避免重复劳动）
+
+| 资产 | 职责 | Agent 何时读 |
+|------|------|----------------|
+| **Workflow** | 阶段顺序、准入准出、阶段间 handoff 字段 | 多阶段任务开始时 |
+| **Scenario** | 业务目的、CoT、决策点 DC-*、错误处理 EH-*、KPI | **首先** |
+| **Agent** | 角色人格、工作规则、输入/输出表、Handoff 契约 | 与 Scenario 同时 |
+| **Prompt** | 变量表、逐步 CoT、输出模板、Output Validation | **执行时主文档** |
+| **Instruction** | 可执行步骤、工具命令、检查清单 | 需要具体操作细节时 |
+| **Skill** | 领域方法、示例、反模式、参考标准 | 需要专业知识时 |
+| **Standard** | 命名、资产模型、量化指标 | 写作/评审/准出时 |
+| **Evaluation** | 回归清单、评分卡、输出验证 | 阶段结束前 |
+
+### AI-First 设计要点
+
+1. **Scenario / Prompt 分离**：Scenario = 轻量导航 + 异常策略；Prompt = 重执行脚本。
+2. **强制思维链**：步骤标签 `[THINK]` `[ANALYZE]` `[VALIDATE]` 等，禁止跳步汇总。
+3. **可机器读的交接**：Handover 使用 YAML，字段与 `workflows/e2e-delivery.pipeline.md` 一致。
+4. **决策点存档**：`DC-xxx` 记录分歧与 rationale，供审计与复盘。
+5. **错误可升级**：Scenario 内定义识别信号 → 处理流程 → 降级 → 升级条件。
 
 ---
 
-## 快速开始
+## 双 Pipeline：主交付与故障响应
 
-### AI Agent 执行流程
+### Pipeline A：E2E 主交付（7 个核心阶段）
+
+定义文件：[workflows/e2e-delivery.pipeline.md](workflows/e2e-delivery.pipeline.md)（v1.1.0）
+
+| 序 | Stage ID | 场景 | 准出要点 |
+|----|----------|------|----------|
+| 1 | `analyze-requirement` | 需求分析 | 需求规格评审通过；REQ-COVER ≥95% |
+| 2 | `design-system` | 系统设计 | 架构评审通过；设计可追溯需求 |
+| 3 | `decompose-task` | 任务拆分 | 迭代计划评审；TASK-COVER ≥98% |
+| 4 | `implement-feature` | 开发实现 | CR 通过；DEV-COVERAGE ≥80% |
+| 5 | `verify-test` | 测试验证 | 测试报告；TEST-PASS ≥90% |
+| 6 | `deploy-release` | 部署发布 | 部署成功；DEPLOY-SUCCESS ≥99% |
+| 7 | `monitor-operate` | 监控运维 | 监控就绪；MON-SLO ≥99.5% |
+
+**Pipeline 声明的辅助场景**（可在核心阶段内并行触发）：
+
+| 锚定阶段 | 辅助场景 |
+|----------|----------|
+| `implement-feature` | `manage-dependencies`, `manage-tech-debt` |
+| `deploy-release` | `plan-rollback` |
+| `monitor-operate` | `respond-incident`, `plan-disaster-recovery` |
+| 跨阶段 | `manage-knowledge` |
+
+### Pipeline B：故障响应（4 阶段）
+
+定义文件：[workflows/incident-response.pipeline.md](workflows/incident-response.pipeline.md)（v1.1.0）
 
 ```
-1. 选择 Scenario (场景入口)
-   │  阅读 Chain of Thought + Error Handling
-   ↓
-2. 加载 Prompt (执行脚本)
-   │  确认变量定义
-   ↓
-3. 填充变量 (Variables)
-   │  准备输入数据
-   ↓
-4. 按 Chain of Thought 逐步执行
-   │  [THINK] 思考
-   │  [VALIDATE] 验证
-   ↓
-5. 遇到异常 → 执行 Error Handling
-   │  处理不了 → 升级
-   ↓
-6. 完成执行 → 输出验证 (Output Validation)
-   │  验证不通过 → 修复
-   ↓
-7. 生成 Handover Context
-   │  准备交接数据
-   ↓
-8. 进入下一阶段
+检测与分级 → 响应与缓解 → 恢复与闭环 → 复盘与改进
 ```
 
-### 职责分离
+**推荐场景映射**：
 
-| 资产 | 职责 | AI 阅读时机 |
-|------|------|-------------|
-| **Scenario** | 快速入口 + 思维链 + 错误处理 | 首先阅读 |
-| **Prompt** | 完整执行逻辑 + 验证 + 交接 | 详细阅读 |
-| **Instruction** | 技术规范细节 | 按需参考 |
-| **Skill** | 领域知识 | 按需参考 |
-| **Agent** | 角色定义 | 首先阅读 |
+| 响应阶段 | 推荐场景 |
+|----------|----------|
+| 检测/响应/恢复 | `respond-incident` |
+| 紧急修复 | `apply-hotfix` |
+| 复盘改进 | `review-incident` |
+| 灾备能力 | `plan-disaster-recovery` |
 
-### 使用示例
+主交付 Pipeline 与故障 Pipeline **可交织**：例如生产故障时从 `monitor-operate` 跳到 `respond-incident`，恢复后回到 `review-incident` 与 `manage-knowledge`。
 
-#### 需求分析场景
+### 核心七阶段 vs 扩展三十场景
 
-```markdown
-# 1. 选择场景
-→ scenarios/analyze-requirement/SCENARIO.md
-→ 阅读 Purpose, Chain of Thought, Error Handling
+| 类型 | 数量 | 说明 |
+|------|------|------|
+| **核心（Canonical）** | 7 | 与 `e2e-delivery.pipeline.md` 的 `stages` 一一对应，代表最小完整交付链 |
+| **扩展（Extended）** | 30 | 同一 `{verb}-{noun}` 命名空间下的专项能力，可插入核心阶段前后或并行 |
 
-# 2. 加载 Prompt
-→ prompts/analyze-requirement.prompt.md
-→ 确认变量: project_name, raw_requirements, stakeholders...
-
-# 3. 填充变量
-→ 准备好项目名称和原始需求
-
-# 4. 执行
-→ 按 Chain of Thought 逐步思考
-→ 遇到模糊需求 → 执行 Error Handling
-
-# 5. 验证
-→ 完成自我验证报告
-
-# 6. 交接
-→ 生成 Handover Context
-→ 进入系统设计阶段
-```
+扩展场景**不替代**核心阶段，而是**加深**某一环节（如 `design-database` 在 `design-system` 之后；`automate-test` 在 `verify-test` 并行）。
 
 ---
 
-## E2E Delivery Phase Mapping (E2E 环节分组映射)
+## 资产类型深度说明
 
-All 37 scenarios are grouped by E2E delivery phase:
+规范总览：[standards/asset-model.md](standards/asset-model.md)
 
-### Phase 1: Requirement (需求)
-| # | Scenario | Agent | Description |
-|---|----------|-------|-------------|
-| 1 | analyze-requirement | analyze-requirement | Analyze and clarify requirements |
-| 2 | plan-sprint | plan-sprint | Sprint planning and estimation |
+### 1. Agent（`agents/*.agent.md`）
 
-### Phase 2: Design (设计)
-| # | Scenario | Agent | Description |
-|---|----------|-------|-------------|
-| 3 | design-system | design-system | System architecture design |
-| 4 | design-architecture | design-architecture | Architecture patterns design |
-| 5 | design-database | design-database | Database schema design |
-| 6 | review-design | review-design | Technical design review |
+**作用**：定义 AI 的**身份、边界、工作规则、I/O 契约**。
 
-### Phase 3: Development (开发)
-| # | Scenario | Agent | Description |
-|---|----------|-------|-------------|
-| 7 | decompose-task | decompose-task | Task decomposition and estimation |
-| 8 | implement-feature | implement-feature | Feature development |
-| 9 | integrate-api | integrate-api | API integration |
-| 10 | manage-dependencies | manage-dependencies | Dependency management |
-| 11 | manage-config | manage-config | Configuration management |
-| 12 | manage-secrets | manage-secrets | Secrets and credential management |
-| 13 | document-project | document-project | Project documentation |
+**YAML 头（必填）**：
 
-### Phase 4: Testing (测试)
-| # | Scenario | Agent | Description |
-|---|----------|-------|-------------|
-| 14 | verify-test | verify-test | Test execution and verification |
-| 15 | automate-test | automate-test | Automated test creation |
-| 16 | performance-testing | performance-testing | Performance and load testing |
-| 17 | review-code | review-code | Code review and quality gate |
-
-### Phase 5: Deployment (部署)
-| # | Scenario | Agent | Description |
-|---|----------|-------|-------------|
-| 18 | setup-infra | setup-infra | Infrastructure setup |
-| 19 | implement-cicd | implement-cicd | CI/CD pipeline implementation |
-| 20 | prepare-release | prepare-release | Release preparation |
-| 21 | deploy-release | deploy-release | Deployment and release |
-| 22 | plan-rollback | plan-rollback | Rollback planning |
-
-### Phase 6: Operations (运维)
-| # | Scenario | Agent | Description |
-|---|----------|-------|-------------|
-| 23 | backup-data | backup-data | Data backup and recovery |
-| 24 | migrate-data | migrate-data | Data migration |
-| 25 | migrate-environment | migrate-environment | Environment migration |
-| 26 | monitor-operate | monitor-operate | Monitoring and alerting |
-| 27 | integrate-monitor | integrate-monitor | Monitoring integration |
-| 28 | manage-change | manage-change | Change management |
-| 29 | optimize-performance | optimize-performance | Performance optimization |
-| 30 | plan-capacity | plan-capacity | Capacity planning |
-
-### Phase 7: Governance (治理)
-| # | Scenario | Agent | Description |
-|---|----------|-------|-------------|
-| 31 | audit-security | audit-security | Security audit and compliance |
-| 32 | manage-tech-debt | manage-tech-debt | Technical debt management |
-| 33 | manage-knowledge | manage-knowledge | Knowledge management |
-| 34 | respond-incident | respond-incident | Incident response |
-| 35 | review-incident | review-incident | Incident postmortem review |
-| 36 | plan-disaster-recovery | plan-disaster-recovery | Disaster recovery planning |
-| 37 | apply-hotfix | apply-hotfix | Emergency apply-hotfix deployment |
-
----
-
-## Complete Asset Mapping Table
-
-| Phase | Scenario | Agent | Instruction | Prompt | Skill |
-|-------|----------|-------|------------|--------|-------|
-| Requirement | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement | analyze-requirement |
-| Requirement | plan-sprint | plan-sprint | plan-sprint | plan-sprint | plan-sprint |
-| Design | design-system | design-system | design-system | design-system | design-system |
-| Design | design-architecture | design-architecture | design-architecture | design-architecture | design-architecture |
-| Design | design-database | design-database | design-database | design-database | design-database |
-| Design | review-design | review-design | review-design | review-design | review-design |
-| Development | decompose-task | decompose-task | decompose-task | decompose-task | decompose-task |
-| Development | implement-feature | implement-feature | implement-feature | implement-feature | implement-feature |
-| Development | integrate-api | integrate-api | integrate-api | integrate-api | integrate-api |
-| Development | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies | manage-dependencies |
-| Development | manage-config | manage-config | manage-config | manage-config | manage-config |
-| Development | manage-secrets | manage-secrets | manage-secrets | manage-secrets | manage-secrets |
-| Development | document-project | document-project | document-project | document-project | document-project |
-| Testing | verify-test | verify-test | verify-test | verify-test | verify-test |
-| Testing | automate-test | automate-test | automate-test | automate-test | automate-test |
-| Testing | performance-testing | performance-testing | performance-testing | performance-testing | performance-testing |
-| Testing | review-code | review-code | review-code | review-code | review-code |
-| Deployment | setup-infra | setup-infra | setup-infra | setup-infra | setup-infra |
-| Deployment | implement-cicd | implement-cicd | implement-cicd | implement-cicd | implement-cicd |
-| Deployment | prepare-release | prepare-release | prepare-release | prepare-release | prepare-release |
-| Deployment | deploy-release | deploy-release | deploy-release | deploy-release | deploy-release |
-| Deployment | plan-rollback | plan-rollback | plan-rollback | plan-rollback | plan-rollback |
-| Operations | backup-data | backup-data | backup-data | backup-data | backup-data |
-| Operations | migrate-data | migrate-data | migrate-data | migrate-data | migrate-data |
-| Operations | migrate-environment | migrate-environment | migrate-environment | migrate-environment | migrate-environment |
-| Operations | monitor-operate | monitor-operate | monitor-operate | monitor-operate | monitor-operate |
-| Operations | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor | integrate-monitor |
-| Operations | manage-change | manage-change | manage-change | manage-change | manage-change |
-| Operations | optimize-performance | optimize-performance | optimize-performance | optimize-performance | optimize-performance |
-| Operations | plan-capacity | plan-capacity | plan-capacity | plan-capacity | plan-capacity |
-| Governance | audit-security | audit-security | audit-security | audit-security | audit-security |
-| Governance | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt | manage-tech-debt |
-| Governance | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge | manage-knowledge |
-| Governance | respond-incident | respond-incident | respond-incident | respond-incident | respond-incident |
-| Governance | review-incident | review-incident | review-incident | review-incident | review-incident |
-| Governance | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery | plan-disaster-recovery |
-| Governance | apply-hotfix | apply-hotfix | apply-hotfix | apply-hotfix | apply-hotfix |
-
----
-## 端到端 Pipeline
-
-完整的 E2E 交付流程定义在 [workflows/e2e-delivery.pipeline.md](workflows/e2e-delivery.pipeline.md)
-
-```
-┌─────────────────┐
-│  1. 需求分析     │  Requirement Analysis
-└────────┬────────┘
-         ↓
-┌─────────────────┐
-│  2. 系统设计     │  System Design
-└────────┬────────┘
-         ↓
-┌─────────────────┐
-│  3. 任务拆分     │  Task Decomposition
-└────────┬────────┘
-         ↓
-┌─────────────────┐
-│  4. 开发实现     │  Development
-└────────┬────────┘
-         ↓
-┌─────────────────┐
-│  5. 测试验证     │  Testing
-└────────┬────────┘
-         ↓
-┌─────────────────┐
-│  6. 部署发布     │  Deployment
-└────────┬────────┘
-         ↓
-┌─────────────────┐
-│  7. 监控运维     │  Monitoring
-└─────────────────┘
+```yaml
+name: <verb-noun>
+description: <string>
+type: agent
+version: "<semver>"
+status: draft | active | deprecated
+tags: []
 ```
 
+**正文推荐章节**：
+
+| 章节 | 内容 |
+|------|------|
+| Role Definition | 角色能力与气质 |
+| Use When / Not Applicable | 激活与排除条件 |
+| Working Rules | 原则 + `workflow` 步骤 YAML |
+| Decision Criteria | 表格：条件 → 行动 |
+| Expected Input / Output | 字段级验证规则 |
+| Handoff | 下游阶段 YAML 模板 |
+| Quality Checklist | 执行前/中/后检查项 |
+| Related Assets | 相对路径链接 |
+
+**参考样例**：[agents/analyze-requirement.agent.md](agents/analyze-requirement.agent.md)
+
 ---
 
-## Handoff 交接规范
+### 2. Scenario（`scenarios/{name}/SCENARIO.md`）
 
-### 交接流程
+**作用**：Agent 的**快速入口**与**异常策略手册**。
 
-每个阶段完成后，必须：
+**YAML 头**：
 
-1. **验证产出**：确保所有交付物符合质量标准
-2. **生成 Handover Context**：使用 [contexts/unified-handover-template.md](contexts/unified-handover-template.md)
-3. **更新 Global Context**：记录阶段完成状态
-4. **通知下游**：告知下一阶段负责人
+```yaml
+name: <verb-noun>
+type: scenario
+stage: <phase-id>
+category: <string>
+status: active
+```
 
-### 交接内容
+**正文推荐章节**：
+
+| 章节 | 内容 |
+|------|------|
+| Purpose / Business Value | 为什么做 |
+| Chain of Thought | Think-Aloud 逐步协议 |
+| Decision Checkpoints | `DC-001`… |
+| Error Handling | 识别信号 + 流程 + 降级 + 升级 |
+| Quality Metrics | KPI-* 与加权评分 |
+| Handover Criteria | 准出勾选 + handover YAML 片段 |
+| Prerequisites | 必需前置与输入表 |
+| Related Assets | 五类资产链接 |
+
+**参考样例**：[scenarios/analyze-requirement/SCENARIO.md](scenarios/analyze-requirement/SCENARIO.md)
+
+---
+
+### 3. Prompt（`prompts/*.prompt.md`）
+
+**作用**：**可执行脚本**——变量绑定、逐步推理、输出结构、自检。
+
+**必填增强结构**：
+
+| 章节 | 用途 |
+|------|------|
+| Input Variables | 类型、Required、Validation、示例 YAML |
+| Chain of Thought | 与 Scenario 对齐但更细的执行步骤 |
+| Error Handling | 与 Scenario 呼应的执行级处理 |
+| Output Format | 章节化交付物模板 |
+| Output Validation | 自检清单 + 评分 |
+| Handover Preparation | 填充 handoff 字段 |
+
+**参考样例**：[prompts/analyze-requirement.prompt.md](prompts/analyze-requirement.prompt.md)
+
+---
+
+### 4. Instruction（`instructions/*.instructions.md`）
+
+**作用**：**操作层 Runbook**——命令、文件路径、检查清单、工具交互。
+
+**YAML 头常见字段**：
+
+```yaml
+applyTo: "<glob>"
+phase: <stage>
+order: <int>
+```
+
+用于 IDE 规则或 Copilot 按路径自动附着（见 [copilot-instructions.md](copilot-instructions.md)）。
+
+---
+
+### 5. Skill（`skills/{name}/SKILL.md`）
+
+**作用**：**领域知识包**——方法论、模板片段、反模式、行业惯例。
+
+与 Agent 的区别：Agent 管「谁来做、做到什么程度」；Skill 管「怎么做才专业」。
+
+**参考样例**：[skills/analyze-requirement/SKILL.md](skills/analyze-requirement/SKILL.md)
+
+---
+
+### 6. Workflow（`workflows/*.pipeline.md`）
+
+**作用**：多场景**编排**与**阶段间 handoff 契约**。
+
+**YAML 头**：
+
+```yaml
+name: <pipeline-name>
+type: pipeline
+version: "<semver>"
+stages: [<stage-id>, ...]
+supporting-scenarios: { ... }  # 可选
+```
+
+**正文**：Overview → Stage Flow → Stage Definitions（含 entry/exit、artifacts、handoff YAML）→ Quality Gates。
+
+---
+
+### 7. Context（`contexts/`）
+
+| 文件 | 用途 |
+|------|------|
+| [global-context.md](contexts/global-context.md) | 项目元数据、团队、时间线、技术栈、阶段状态 |
+| [handover-context.template.md](contexts/handover-context.template.md) | 阶段交接模板 |
+| [unified-handover-template.md](contexts/unified-handover-template.md) | 统一交接（推荐优先使用） |
+
+实例化时建议复制为项目侧 `project-context.yaml`，勿直接覆盖模板。
+
+---
+
+### 8. Standards & Evaluations
+
+| 标准文件 | 内容 |
+|----------|------|
+| [asset-model.md](standards/asset-model.md) | 资产类型与组合 |
+| [naming-conventions.md](standards/naming-conventions.md) | `{verb}-{noun}` 与路径 |
+| [lifecycle.md](standards/lifecycle.md) | draft → review → active → update → deprecated |
+| [id-generation-quantification.md](standards/id-generation-quantification.md) | ID 前缀与阶段 KPI |
+| [output-quality-rubric.md](standards/output-quality-rubric.md) | 输出质量 Rubric |
+| [authoring-checklist.md](standards/authoring-checklist.md) | 创作检查清单 |
+
+| 评估文件 | 内容 |
+|----------|------|
+| [regression-checklist.md](evaluations/regression-checklist.md) | 分阶段 R/D/T/C/E/P/M 检查项 |
+| [scorecard-template.md](evaluations/scorecard-template.md) | 加权 7 阶段评分 |
+| [output-validation-checklist.md](evaluations/output-validation-checklist.md) | 通用输出验证 |
+| [common-error-patterns.md](evaluations/common-error-patterns.md) | 常见错误模式库 |
+
+---
+
+## 标准执行协议
+
+### 流程图
+
+```
+选择场景 → 读 Scenario + Agent
+    → 读 Prompt，填充 Variables
+    → 按 CoT 执行（每步 VALIDATE）
+    → 异常？→ Scenario Error Handling → 仍失败则升级人工
+    → Output Validation（evaluations）
+    → 填写 Handover YAML
+    → 更新 Global Context
+    → 进入 Pipeline 下一阶段或辅助场景
+```
+
+### 升级（Escalation）通用条件
+
+当满足以下**任一**条件时，停止自主推断并请求人工决策：
+
+- 错误处理流程中定义的「升级条件」触发（如 3 轮澄清仍模糊）
+- 质量评分低于 Scenario 规定的合格线（常见为 70 分）
+- 变更影响超过阈值（如范围蔓延 >20%、关键里程碑延期）
+- 安全/合规类 `DC-*` 无明确授权
+- 交接必填字段无法从上下文推断
+
+### 与 Cursor / Copilot 的集成
+
+- 仓库根级 Agent 指南：**本文件 `AGENTS.md`**
+- Copilot 补充：[copilot-instructions.md](copilot-instructions.md)（按阶段索引资产路径）
+- 人类可读：[USAGE.zh.md](USAGE.zh.md)、[INTRODUCTION.zh.md](INTRODUCTION.zh.md)
+
+---
+
+## 上下文与阶段交接
+
+### Global Context 维护
+
+在 [contexts/global-context.md](contexts/global-context.md) 中维护：
+
+- `project.stage`：当前 Pipeline 阶段 ID
+- `timeline.milestones`：里程碑状态
+- `tech_stack`：约束下游设计/实现
+- `status.risk_level`：影响测试与发布策略
+
+**每完成一个核心阶段**，至少更新：`stage`、`updated_at`、最近 `handover_id`。
+
+### Handover 必填字段
 
 ```yaml
 handoff:
-  artifacts:           # 交付物清单
-  decisions:          # 关键决策记录
-  open_issues:        # 未解决问题
-  risks:              # 已知风险
-  context_updates:     # 上下文更新
+  header:
+    from_stage: "<source>"
+    to_stage: "<target>"
+    handover_id: "HO-<ISO8601>-<seq>"
+    timestamp: "<ISO8601>"
+  artifacts:
+    delivered: [{ name, path, version }]
+  decisions: [{ id: "DC-xxx", description, rationale }]
+  open_issues:
+    blocking: []
+    non_blocking: []
+  risks: [{ id: "RISK-xxx", probability, impact, mitigation }]
+  quality_metrics: { kpi_results: [...] }
+  recommendations: []
+```
+
+模板：[contexts/unified-handover-template.md](contexts/unified-handover-template.md)
+
+### 核心链 Handoff 路径（Pipeline A）
+
+```
+analyze-requirement → design-system → decompose-task
+  → implement-feature → verify-test → deploy-release → monitor-operate
+```
+
+各阶段 `artifacts` 与 `context` 字段详见 [workflows/e2e-delivery.pipeline.md](workflows/e2e-delivery.pipeline.md) 内嵌 YAML。
+
+---
+
+## ID、决策点与量化门禁
+
+完整定义：[standards/id-generation-quantification.md](standards/id-generation-quantification.md)
+
+### ID 前缀（常用）
+
+| 前缀 | 用途 | 示例 |
+|------|------|------|
+| REQ | 需求 | REQ-001 |
+| DES | 设计 | DES-001 |
+| TASK | 任务 | TASK-001 |
+| TC | 测试用例 | TC-001 |
+| BUG | 缺陷 | BUG-001 |
+| DC | 决策点 | DC-001 |
+| RISK | 风险 | RISK-001 |
+| INC | 故障 | INC-001 |
+| HO | 交接 | HO-20260401-001 |
+
+格式：`^{PREFIX}-\d{3}$`，同文档内唯一且不可复用已废弃 ID。
+
+### Pipeline 级质量门禁（阶段间）
+
+| 过渡 | 门禁 ID | 标准 |
+|------|---------|------|
+| 需求 → 设计 | Q-001 | REQ-COVER ≥ 95% |
+| 设计 → 任务 | Q-002 | 设计评审 100% 通过 |
+| 任务 → 开发 | Q-003 | TASK-COVER ≥ 98% |
+| 开发 → 测试 | Q-004 | DEV-COVERAGE ≥ 80% |
+| 测试 → 部署 | Q-005 | TEST-PASS ≥ 90% |
+| 部署 → 运维 | Q-006 | DEPLOY-SUCCESS ≥ 99% |
+| 运维稳态 | Q-007 | MON-SLO ≥ 99.5% |
+
+### 阶段准出（管理视图）
+
+| 阶段 | 准入 | 准出 |
+|------|------|------|
+| 需求分析 | 有明确业务诉求 | 干系人评审签字 |
+| 系统设计 | 需求基线冻结 | 技术评审通过 |
+| 任务拆分 | 设计基线可用 | 迭代计划评审 |
+| 开发实现 | 任务已分配 | 代码评审 + 单测 |
+| 测试验证 | 可测构建可用 | 测试报告签发 |
+| 部署发布 | 测试准出 | 部署验证 + 回滚预案 |
+| 监控运维 | 已上线 | 监控/告警/Runbook 就绪 |
+
+---
+
+## 场景全目录（37）
+
+基名 = 目录名 = 五类资产文件名。路径模式：`scenarios/{base}/SCENARIO.md` 等。
+
+### Phase 1：Requirement（需求）
+
+| 基名 | 中文 | 类型 | 典型触发 | 主要产出 |
+|------|------|------|----------|----------|
+| `analyze-requirement` | 需求分析 | **核心** | 新项目/需求变更/文档缺失 | 需求规格、干系人分析、用例、追溯矩阵 |
+| `plan-sprint` | 冲刺规划 | 扩展 | 迭代开始前 | Sprint 目标、容量、承诺清单 |
+
+### Phase 2：Design（设计）
+
+| 基名 | 中文 | 类型 | 典型触发 | 主要产出 |
+|------|------|------|----------|----------|
+| `design-system` | 系统设计 | **核心** | 需求基线后 | 架构说明、组件、API 概要 |
+| `design-architecture` | 架构模式 | 扩展 | 复杂非功能/多系统集成 | 架构决策 ADR、模式选型 |
+| `design-database` | 数据库设计 | 扩展 | 数据密集型功能 | ER/Schema、迁移策略 |
+| `review-design` | 方案评审 | 扩展 | 设计完成后 | 评审意见、问题清单 |
+
+### Phase 3：Development（开发）
+
+| 基名 | 中文 | 类型 | 典型触发 | 主要产出 |
+|------|------|------|----------|----------|
+| `decompose-task` | 任务拆分 | **核心** | 设计评审后 | Backlog、估算、依赖图 |
+| `implement-feature` | 功能开发 | **核心** | 任务就绪 | 代码、单测、技术说明 |
+| `integrate-api` | API 集成 | 扩展 | 第三方/内部 API | 集成代码、契约测试 |
+| `manage-dependencies` | 依赖管理 | 扩展* | 依赖冲突/升级 | 依赖报告、锁定文件策略 |
+| `manage-config` | 配置管理 | 扩展 | 多环境配置 | 配置分层、变更记录 |
+| `manage-secrets` | 密钥管理 | 扩展 | 凭证/证书轮换 | 密钥存储策略、访问审计 |
+| `document-project` | 项目文档 | 扩展 | 文档债/ onboarding | README、架构说明、API 文档 |
+
+\* `manage-dependencies` 为 Pipeline 声明的 `implement-feature` 辅助场景。
+
+### Phase 4：Testing（测试）
+
+| 基名 | 中文 | 类型 | 典型触发 | 主要产出 |
+|------|------|------|----------|----------|
+| `verify-test` | 测试验证 | **核心** | 开发准出 | 测试报告、缺陷列表 |
+| `automate-test` | 自动化测试 | 扩展 | 回归成本高 | 自动化用例、CI 测试作业 |
+| `performance-testing` | 性能测试 | 扩展 | NFR 性能项 | 压测报告、瓶颈分析 |
+| `review-code` | 代码审查 | 扩展 | PR/MR 就绪 | 审查意见、质量门禁 |
+
+### Phase 5：Deployment（部署）
+
+| 基名 | 中文 | 类型 | 典型触发 | 主要产出 |
+|------|------|------|----------|----------|
+| `setup-infra` | 基础设施 | 扩展 | 新环境/云资源 | IaC、环境拓扑 |
+| `implement-cicd` | CI/CD | 扩展 | 无流水线或需改造 | Pipeline 定义、制品策略 |
+| `prepare-release` | 发布准备 | 扩展 | 上线前检查 | 发布说明、检查清单 |
+| `deploy-release` | 部署发布 | **核心** | 测试准出 | 部署记录、发布报告 |
+| `plan-rollback` | 回滚计划 | 扩展* | 发布前/重大变更 | 回滚步骤、验证点 |
+
+\* Pipeline 声明的 `deploy-release` 辅助场景。
+
+### Phase 6：Operations（运维）
+
+| 基名 | 中文 | 类型 | 典型触发 | 主要产出 |
+|------|------|------|----------|----------|
+| `backup-data` | 数据备份 | 扩展 | 合规/灾备要求 | 备份策略、恢复演练记录 |
+| `migrate-data` | 数据迁移 | 扩展 |  schema 变更/系统合并 | 迁移脚本、对账报告 |
+| `migrate-environment` | 环境迁移 | 扩展 | 机房/云迁移 | 迁移计划、割接窗口 |
+| `monitor-operate` | 监控运维 | **核心** | 上线后 | 监控、告警、Runbook |
+| `integrate-monitor` | 监控集成 | 扩展 | 新服务/新指标 | 仪表板、告警规则 |
+| `manage-change` | 变更管理 | 扩展 | 生产变更 | 变更单、审批记录 |
+| `optimize-performance` | 性能优化 | 扩展 | SLO 逼近阈值 | 优化方案、前后对比 |
+| `plan-capacity` | 容量规划 | 扩展 | 增长预测/大促 | 容量模型、扩容计划 |
+
+### Phase 7：Governance（治理）
+
+| 基名 | 中文 | 类型 | 典型触发 | 主要产出 |
+|------|------|------|----------|----------|
+| `audit-security` | 安全审计 | 扩展 | 合规/上线前 | 审计报告、整改项 |
+| `manage-tech-debt` | 技术债务 | 扩展* | 质量下滑/重构 | 债务清单、偿还计划 |
+| `manage-knowledge` | 知识管理 | 扩展† | 项目结束/里程碑 | 复盘文档、Wiki |
+| `respond-incident` | 事件响应 | 扩展* | 告警/用户报障 | 时间线、缓解动作 |
+| `review-incident` | 故障复盘 | 扩展 | 事件关闭后 | Postmortem、改进项 |
+| `plan-disaster-recovery` | 灾备规划 | 扩展* | BCP/合规 | DR 方案、演练计划 |
+| `apply-hotfix` | 紧急修复 | 扩展 | P0 生产缺陷 | Hotfix 分支、快速发布记录 |
+
+\* Pipeline 辅助；† 跨阶段 `cross-cutting`。
+
+### 五类资产路径速查（任一场景 `{base}`）
+
+```
+agents/{base}.agent.md
+prompts/{base}.prompt.md
+instructions/{base}.instructions.md
+skills/{base}/SKILL.md
+scenarios/{base}/SCENARIO.md
 ```
 
 ---
 
-## 命名规范摘要
+## 场景选型指南
 
-> **核心原则**: 所有资产统一采用 `{verb}-{noun}` 命名模式
+### 按用户意图快速路由
 
-| 资产类型 | 命名模式 | 示例 |
-|----------|----------|------|
-| Agent | `{verb}-{noun}.agent.md` | `analyze-requirement.agent.md` |
-| Instruction | `{verb}-{noun}.instructions.md` | `analyze-requirement.instructions.md` |
-| Prompt | `{verb}-{noun}.prompt.md` | `analyze-requirement.prompt.md` |
-| Skill | `skills/{verb}-{noun}/SKILL.md` | `skills/analyze-requirement/SKILL.md` |
-| Scenario | `scenarios/{verb}-{noun}/SCENARIO.md` | `scenarios/analyze-requirement/SCENARIO.md` |
-| Pipeline | `{name}.pipeline.md` | `e2e-delivery.pipeline.md` |
-| Context | `{type}-{name}.md` | `global-context.md` |
+| 用户说… | 首选场景 | 可选并行 |
+|---------|----------|----------|
+| 分析/澄清需求 | `analyze-requirement` | `plan-sprint` |
+| 做架构/设计 | `design-system` | `design-architecture`, `design-database`, `review-design` |
+| 拆任务/排期 | `decompose-task` | `plan-sprint` |
+| 写代码/做功能 | `implement-feature` | `integrate-api`, `manage-dependencies`, `manage-tech-debt` |
+| 测试 | `verify-test` | `automate-test`, `performance-testing` |
+| 上线 | `deploy-release` | `prepare-release`, `plan-rollback`, `implement-cicd` |
+| 线上问题 | `respond-incident` | `apply-hotfix`, `review-incident` |
+| 安全/合规 | `audit-security` | `manage-secrets` |
+| 文档欠缺 | `document-project` | `manage-knowledge` |
+
+### 决策树（简化）
+
+```
+是否有生产故障？
+  是 → respond-incident → (需要代码?) apply-hotfix → review-incident
+  否 → 项目处于哪一阶段？
+        需求 → analyze-requirement
+        设计 → design-system (+ 专项设计场景)
+        开发 → implement-feature (+ manage-dependencies)
+        测试 → verify-test
+        发布 → deploy-release (+ plan-rollback)
+        运维 → monitor-operate
+```
+
+### 完整映射表（Phase × 五类资产）
+
+| Phase | `{base}` | Agent | Instruction | Prompt | Skill |
+|-------|----------|-------|-------------|--------|-------|
+| Requirement | analyze-requirement | ✓ | ✓ | ✓ | ✓ |
+| Requirement | plan-sprint | ✓ | ✓ | ✓ | ✓ |
+| Design | design-system | ✓ | ✓ | ✓ | ✓ |
+| Design | design-architecture | ✓ | ✓ | ✓ | ✓ |
+| Design | design-database | ✓ | ✓ | ✓ | ✓ |
+| Design | review-design | ✓ | ✓ | ✓ | ✓ |
+| Development | decompose-task | ✓ | ✓ | ✓ | ✓ |
+| Development | implement-feature | ✓ | ✓ | ✓ | ✓ |
+| Development | integrate-api | ✓ | ✓ | ✓ | ✓ |
+| Development | manage-dependencies | ✓ | ✓ | ✓ | ✓ |
+| Development | manage-config | ✓ | ✓ | ✓ | ✓ |
+| Development | manage-secrets | ✓ | ✓ | ✓ | ✓ |
+| Development | document-project | ✓ | ✓ | ✓ | ✓ |
+| Testing | verify-test | ✓ | ✓ | ✓ | ✓ |
+| Testing | automate-test | ✓ | ✓ | ✓ | ✓ |
+| Testing | performance-testing | ✓ | ✓ | ✓ | ✓ |
+| Testing | review-code | ✓ | ✓ | ✓ | ✓ |
+| Deployment | setup-infra | ✓ | ✓ | ✓ | ✓ |
+| Deployment | implement-cicd | ✓ | ✓ | ✓ | ✓ |
+| Deployment | prepare-release | ✓ | ✓ | ✓ | ✓ |
+| Deployment | deploy-release | ✓ | ✓ | ✓ | ✓ |
+| Deployment | plan-rollback | ✓ | ✓ | ✓ | ✓ |
+| Operations | backup-data | ✓ | ✓ | ✓ | ✓ |
+| Operations | migrate-data | ✓ | ✓ | ✓ | ✓ |
+| Operations | migrate-environment | ✓ | ✓ | ✓ | ✓ |
+| Operations | monitor-operate | ✓ | ✓ | ✓ | ✓ |
+| Operations | integrate-monitor | ✓ | ✓ | ✓ | ✓ |
+| Operations | manage-change | ✓ | ✓ | ✓ | ✓ |
+| Operations | optimize-performance | ✓ | ✓ | ✓ | ✓ |
+| Operations | plan-capacity | ✓ | ✓ | ✓ | ✓ |
+| Governance | audit-security | ✓ | ✓ | ✓ | ✓ |
+| Governance | manage-tech-debt | ✓ | ✓ | ✓ | ✓ |
+| Governance | manage-knowledge | ✓ | ✓ | ✓ | ✓ |
+| Governance | respond-incident | ✓ | ✓ | ✓ | ✓ |
+| Governance | review-incident | ✓ | ✓ | ✓ | ✓ |
+| Governance | plan-disaster-recovery | ✓ | ✓ | ✓ | ✓ |
+| Governance | apply-hotfix | ✓ | ✓ | ✓ | ✓ |
 
 ---
 
-## 质量控制
+## 质量评估与回归
 
-### 阶段质量门禁
+### 阶段完成前必做
 
-| 阶段 | 准入检查 | 准出检查 |
-|------|----------|----------|
-| 需求分析 | 有明确需求 | 干系人评审通过 |
-| 系统设计 | 需求已确认 | 技术评审通过 |
-| 任务拆分 | 设计已完成 | 计划评审通过 |
-| 开发实现 | 任务已分配 | 代码审查通过 |
-| 测试验证 | 开发已完成 | 测试报告签发 |
-| 部署发布 | 测试已通过 | 部署验证通过 |
-| 监控运维 | 应用已上线 | 监控配置完成 |
+1. 运行 [evaluations/output-validation-checklist.md](evaluations/output-validation-checklist.md) 通用项
+2. 运行 [evaluations/regression-checklist.md](evaluations/regression-checklist.md) 对应阶段章节（R/D/T/C/E/P/M）
+3. 可选：[evaluations/scorecard-template.md](evaluations/scorecard-template.md) 加权评分（发布决策）
+4. 对照 [evaluations/common-error-patterns.md](evaluations/common-error-patterns.md) 排除已知反模式
 
-### 评估工具
+### 评分等级（Scorecard）
 
-- **regression-checklist.md**: 每个阶段的详细检查清单
-- **scorecard-template.md**: 质量评分卡模板
-
----
-
-## 维护指南
-
-### 添加新资产
-
-1. 选择适当的目录
-2. 复制对应模板
-3. 遵循命名规范
-4. 包含 YAML 元数据头
-5. 按 Asset Model 填充内容
-6. 更新相关引用
-
-### 扩展新阶段
-
-1. 在 `standards/lifecycle.md` 添加阶段定义
-2. 创建目录：`agents/`, `instructions/`, `prompts/`, `skills/`, `scenarios/`
-3. 创建资产文件
-4. 在 `workflows/e2e-delivery.pipeline.md` 添加阶段
-5. 更新本 AGENTS.md
+| 分数 | 等级 | 含义 |
+|------|------|------|
+| 90–100 | A | 优秀 |
+| 80–89 | B | 良好 |
+| 70–79 | C | 合格（最低可准出参考线） |
+| 60–69 | D | 需改进 |
+| 0–59 | F | 不准出 |
 
 ---
 
-## References文档
+## 目录结构与文件索引
 
-- [Workflows](workflows/) - 端到端工作流定义
-- [Contexts](contexts/) - 共享上下文管理
-- [Scenarios](scenarios/) - 场景定义和使用指南
-- [Standards](standards/) - 资产模型和编写规范
-- [USAGE.zh.md](USAGE.zh.md) - 中文使用指南
+```
+e2e-delivery-harness/
+├── AGENTS.md                 # 本文件 — Agent 导航与协议
+├── README.md
+├── INTRODUCTION.zh.md / INTRODUCTION.en.md
+├── USAGE.zh.md
+├── copilot-instructions.md
+│
+├── workflows/                # 2 pipelines
+│   ├── e2e-delivery.pipeline.md
+│   └── incident-response.pipeline.md
+│
+├── contexts/                 # 3 context files
+│   ├── global-context.md
+│   ├── handover-context.template.md
+│   └── unified-handover-template.md
+│
+├── scenarios/                # 37 × SCENARIO.md
+├── agents/                   # 37 × *.agent.md
+├── prompts/                  # 37 × *.prompt.md
+├── instructions/             # 37 × *.instructions.md
+├── skills/                   # 37 × SKILL.md
+│
+├── standards/                # 6 specs
+├── evaluations/              # 4 checklists
+└── templates/                # agent / instruction / prompt / skill / scenario 模板
+    ├── agent-template.agent.md
+    ├── instruction-template.instructions.md
+    ├── prompt-template.prompt.md
+    ├── skill-template/SKILL.md
+    └── scenario-template/SCENARIO.md
+```
+
+---
+
+## 资产维护与扩展
+
+### 新增一个场景（须保持五类对齐）
+
+1. 在 [standards/lifecycle.md](standards/lifecycle.md) 确认阶段归属
+2. 从 [templates/](templates/) 复制五类模板，基名 `{verb}-{noun}` 一致
+3. 填写 YAML 元数据（`status: draft` → 评审 → `active`）
+4. 在 [workflows/e2e-delivery.pipeline.md](workflows/e2e-delivery.pipeline.md) 注册为核心或 `supporting-scenarios`
+5. 更新本 `AGENTS.md` 场景表
+6. 按 [standards/authoring-checklist.md](standards/authoring-checklist.md) 自检
+
+### 版本与状态
+
+- 语义化版本写在各资产 YAML `version`
+-  Breaking 变更递增 major，交接格式变更需同步所有 Prompt Handover 段
+- 废弃资产标记 `status: deprecated` 并保留至少一个版本的迁移说明
+
+### 已知注意事项
+
+- 部分 Scenario 的 `Related Resources` 可能引用尚未落地的 `standards/smart-criteria.md` 等文件；以 `standards/` 目录**实际存在**的文件为准。
+- `scenarios/README.md` 中示例目录名（如 `requirement-analysis/`）为说明性示例，**实际目录**均为 `{verb}-{noun}/`。
+
+---
+
+## 相关文档
+
+| 文档 | 用途 |
+|------|------|
+| [USAGE.zh.md](USAGE.zh.md) | 人类使用指南 |
+| [INTRODUCTION.zh.md](INTRODUCTION.zh.md) | 项目介绍 |
+| [standards/asset-model.md](standards/asset-model.md) | 资产模型规范 |
+| [workflows/e2e-delivery.pipeline.md](workflows/e2e-delivery.pipeline.md) | 主交付流水线 |
+| [workflows/incident-response.pipeline.md](workflows/incident-response.pipeline.md) | 故障响应流水线 |
+| [copilot-instructions.md](copilot-instructions.md) | Copilot 专用指引 |
+
+---
+
+*本文档由 `e2e-delivery-harness` 资产库结构分析生成，随资产增删同步维护。*

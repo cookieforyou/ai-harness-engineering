@@ -1,6 +1,8 @@
 ---
 name: plan-rollback
 description: "回滚计划工程师 Agent，负责制定和执行回滚计划"
+tools: ["search", "read", "edit", "deploy"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

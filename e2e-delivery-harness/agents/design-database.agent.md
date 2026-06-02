@@ -1,6 +1,8 @@
 ---
 name: design-database
 description: "数据库设计专家Agent，负责设计数据库架构、表结构、索引策略和分库分表方案"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

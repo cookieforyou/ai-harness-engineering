@@ -1,6 +1,8 @@
 ---
 name: design-system
 description: "系统设计专家Agent，负责将需求规格转换为技术架构设计方案"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

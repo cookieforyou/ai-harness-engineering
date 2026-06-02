@@ -1,6 +1,8 @@
 ---
 name: implement-feature
 description: "负责代码开发实现的AI角色代理，按照任务清单完成功能开发和代码实现"
+tools: ["search", "read", "edit", "run_terminal", "test"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

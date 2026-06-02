@@ -1,6 +1,8 @@
 ---
 name: plan-sprint
 description: "负责产品规划、需求管理、Sprint Planning 等工作的AI角色代理"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

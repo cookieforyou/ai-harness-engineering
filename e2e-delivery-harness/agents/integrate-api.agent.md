@@ -1,6 +1,8 @@
 ---
 name: integrate-api
 description: "integrate api specialist agent for E2E delivery workflow"
+tools: ["search", "read", "edit", "run_terminal", "test"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

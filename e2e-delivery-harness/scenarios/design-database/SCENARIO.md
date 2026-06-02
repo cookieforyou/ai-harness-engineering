@@ -212,11 +212,11 @@ Quality Score = (KPI-001 × 0.20) + (KPI-002 × 0.25) + (KPI-003 × 0.20) + (KPI
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [Database Naming Convention](../standards/database-naming-convention.md) - 数据库命名规范
-  - [Normalization Guidelines](../standards/normalization-guidelines.md) - 数据库规范化指南
+  - [Database Naming Convention](../../standards/database-naming-convention.md) - 数据库命名规范
+  - [Normalization Guidelines](../../standards/normalization-guidelines.md) - 数据库规范化指南
 - **Templates**: 
-  - [ER Diagram Template](../templates/er-diagram.template.md) - ER图模板
-  - [Data Dictionary Template](../templates/data-dictionary.template.md) - 数据字典模板
+  - [ER Diagram Template](../../templates/er-diagram.template.md) - ER图模板
+  - [Data Dictionary Template](../../templates/data-dictionary.template.md) - 数据字典模板
 - **Evaluations**: 
-  - [Schema Review Checklist](../evaluations/schema-review-checklist.md) - Schema评审检查清单
-  - [Query Performance Benchmark](../evaluations/query-performance-benchmark.md) - 查询性能基准测试
+  - [Schema Review Checklist](../../evaluations/schema-review-checklist.md) - Schema评审检查清单
+  - [Query Performance Benchmark](../../evaluations/query-performance-benchmark.md) - 查询性能基准测试

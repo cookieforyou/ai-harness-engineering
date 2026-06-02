@@ -1,59 +1,73 @@
 ---
 name: {scenario-name}
-version: "1.1.0"
-stage: "{scenario-name}"
+description: "{scenario-description}"
+type: scenario
+version: "1.2.0"
+category: "{category}"
+stage: "{stage-id}"
+status: active
+tags: [{tag1}, {tag2}]
 ---
 
-# Development Scenario: {Scenario Title}
+# {Scenario Title}
 
 ## Purpose
 
-> Define the objectives and scope of the {scenario-name} scenario.
->
-> This scenario ensures systematic execution of {scenario-name} activities with clear decision checkpoints and handover criteria.
+{场景目标与业务价值}
 
 ## Chain of Thought
 
-1. Understand the context and requirements for {scenario-name}
-2. Analyze dependencies and constraints
-3. Execute core activities systematically
-4. Validate outputs against acceptance criteria
-5. Document decisions and handover state
+### Think-Aloud Protocol (强制遵循)
+
+```
+[THINK] Step 1: ...
+[VALIDATE] ...
+```
 
 ## Decision Checkpoints
 
-| Checkpoint | Question | Decision Options |
-|------------|----------|-----------------|
-| CP_001 | [Decision question] | Option A / Option B / Option C |
+| ID | 决策点 | 触发条件 | 决策选项 | 选择标准 |
+|----|--------|----------|----------|----------|
+| DC-001 | ... | ... | ... | ... |
 
-## Error Handling
+## Error Handling (错误处理)
 
-### Error Scenario 1
-**Error**: [Description]
-**Handling**: [Resolution steps]
+### Error Scenario 1: {名称}
 
-### Error Scenario 2
-**Error**: [Description]
-**Handling**: [Resolution steps]
+**识别信号**: ...
+
+**处理流程**: ...
+
+**降级方案**: ...
+
+**升级条件**: ...
+
+## Quality Metrics
+
+| KPI ID | 指标 | 目标值 |
+|--------|------|--------|
+| KPI-001 | ... | ≥70 合格 |
 
 ## Handover Criteria
 
-- [ ] Criterion 1: [Description]
-- [ ] Criterion 2: [Description]
-- [ ] Criterion 3: [Description]
+- [ ] 准出条件 1
+
+```yaml
+handover:
+  header:
+    from_stage: "{from}"
+    to_stage: "{to}"
+```
+
+## Related Assets
+
+| Asset Type | Path |
+|------------|------|
+| Agent | `../../agents/{scenario-name}.agent.md` |
+| Prompt | `../../prompts/{scenario-name}.prompt.md` |
+| Instruction | `../../instructions/{scenario-name}.instructions.md` |
+| Skill | `../../skills/{scenario-name}/SKILL.md` |
 
 ## Prerequisites
 
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
-
-## Primary Assets
-
-| Asset Type | Path | Description |
-|------------|------|-------------|
-| Scenario | `scenarios/{scenario-name}/SCENARIO.md` | This scenario definition |
-| Prompt | `prompts/{scenario-name}.prompt.md` | Execution prompt |
-| Instructions | `instructions/{scenario-name}.instructions.md` | Technical instructions |
-| Agent | `agents/{agent-name}.agent.md` | Responsible agent |
-| Skill | `skills/{scenario-name}/SKILL.md` | Domain skill |
+- [ ] 前置条件 1

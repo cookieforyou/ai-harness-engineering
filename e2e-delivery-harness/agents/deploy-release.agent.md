@@ -1,6 +1,8 @@
 ---
 name: deploy-release
 description: "负责部署发布的AI角色代理，将软件安全部署到目标环境并完成发布"
+tools: ["search", "read", "edit", "run_terminal", "deploy"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

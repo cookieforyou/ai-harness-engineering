@@ -529,3 +529,30 @@ handover:
 - **Evaluations**: 
   - [Schema Review Checklist](../evaluations/schema-review-checklist.md) - Schema评审检查清单
   - [Query Performance Benchmark](../evaluations/query-performance-benchmark.md) - 查询性能基准测试
+
+## Handover Preparation (交接准备)
+
+使用 [contexts/unified-handover-template.md](../contexts/unified-handover-template.md)。
+
+```yaml
+handover:
+  header:
+    from_stage: "system-design"
+    to_stage: "implement-feature"
+    handover_id: "HO-{ISO8601}-{sequence}"
+    timestamp: "{ISO8601}"
+    prepared_by: "design-database"
+  summary:
+    status: completed|partial|blocked
+    quality_score: {0-100}
+  artifacts:
+    delivered: []
+  decisions: []
+  open_issues:
+    blocking: []
+    non_blocking: []
+  risks: []
+  quality_metrics:
+    kpi_results: []
+  recommendations: []
+```

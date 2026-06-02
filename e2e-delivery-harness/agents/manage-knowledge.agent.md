@@ -1,6 +1,8 @@
 ---
 name: manage-knowledge
 description: "知识管理专家 Agent，负责创建和维护团队知识库"
+tools: ["search", "read", "edit"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

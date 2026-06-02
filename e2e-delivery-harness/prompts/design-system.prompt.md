@@ -486,3 +486,30 @@ handover:
 - **Evaluations**: 
   - [Architecture Review Checklist](../evaluations/architecture-review-checklist.md) - 架构评审检查清单
   - [Design Quality Assessment](../evaluations/design-quality-assessment.md) - 设计质量评估表
+
+## Handover Preparation (交接准备)
+
+使用 [contexts/unified-handover-template.md](../contexts/unified-handover-template.md)。
+
+```yaml
+handover:
+  header:
+    from_stage: "system-design"
+    to_stage: "decompose-task"
+    handover_id: "HO-{ISO8601}-{sequence}"
+    timestamp: "{ISO8601}"
+    prepared_by: "design-system"
+  summary:
+    status: completed|partial|blocked
+    quality_score: {0-100}
+  artifacts:
+    delivered: []
+  decisions: []
+  open_issues:
+    blocking: []
+    non_blocking: []
+  risks: []
+  quality_metrics:
+    kpi_results: []
+  recommendations: []
+```

@@ -447,3 +447,30 @@ handover:
 - **Evaluations**: 
   - [Test Quality Checklist](../evaluations/test-quality-checklist.md) - 测试质量检查清单
   - [Coverage Analysis](../evaluations/coverage-analysis.md) - 覆盖率分析指南
+
+## Handover Preparation (交接准备)
+
+使用 [contexts/unified-handover-template.md](../contexts/unified-handover-template.md)。
+
+```yaml
+handover:
+  header:
+    from_stage: "testing"
+    to_stage: "deployment"
+    handover_id: "HO-{ISO8601}-{sequence}"
+    timestamp: "{ISO8601}"
+    prepared_by: "verify-test"
+  summary:
+    status: completed|partial|blocked
+    quality_score: {0-100}
+  artifacts:
+    delivered: []
+  decisions: []
+  open_issues:
+    blocking: []
+    non_blocking: []
+  risks: []
+  quality_metrics:
+    kpi_results: []
+  recommendations: []
+```

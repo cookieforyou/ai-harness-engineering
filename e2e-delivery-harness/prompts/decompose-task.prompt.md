@@ -451,3 +451,30 @@ handover:
 - **Evaluations**: 
   - [Task Quality Checklist](../evaluations/task-quality-checklist.md) - 任务质量检查清单
   - [Estimation Accuracy Review](../evaluations/estimation-accuracy-review.md) - 估算准确性回顾
+
+## Handover Preparation (交接准备)
+
+使用 [contexts/unified-handover-template.md](../contexts/unified-handover-template.md)。
+
+```yaml
+handover:
+  header:
+    from_stage: "task-decomposition"
+    to_stage: "development"
+    handover_id: "HO-{ISO8601}-{sequence}"
+    timestamp: "{ISO8601}"
+    prepared_by: "decompose-task"
+  summary:
+    status: completed|partial|blocked
+    quality_score: {0-100}
+  artifacts:
+    delivered: []
+  decisions: []
+  open_issues:
+    blocking: []
+    non_blocking: []
+  risks: []
+  quality_metrics:
+    kpi_results: []
+  recommendations: []
+```

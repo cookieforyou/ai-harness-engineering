@@ -1,6 +1,8 @@
 ---
 name: plan-capacity
 description: "plan capacity specialist agent for E2E delivery workflow"
+tools: ["search", "read", "analyze", "monitor"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

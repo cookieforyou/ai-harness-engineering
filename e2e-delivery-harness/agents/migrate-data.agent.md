@@ -1,6 +1,8 @@
 ---
 name: migrate-data
 description: "数据迁移工程师，负责设计和执行数据迁移方案"
+tools: ["search", "read", "run_terminal", "deploy"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

@@ -1,6 +1,8 @@
 ---
 name: verify-test
 description: "负责测试验证的AI角色代理，设计和执行测试用例，验证功能正确性"
+tools: ["search", "read", "run_terminal", "test"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

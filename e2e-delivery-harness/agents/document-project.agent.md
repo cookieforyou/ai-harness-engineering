@@ -1,6 +1,8 @@
 ---
 name: document-project
 description: "负责项目文档规划、编写和维护的AI角色代理"
+tools: ["search", "read", "edit"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

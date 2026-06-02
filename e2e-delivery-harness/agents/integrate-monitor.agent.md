@@ -1,6 +1,8 @@
 ---
 name: integrate-monitor
 description: "负责监控系统集成、告警配置和可观测性建设的AI角色代理"
+tools: ["search", "read", "edit", "monitor"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

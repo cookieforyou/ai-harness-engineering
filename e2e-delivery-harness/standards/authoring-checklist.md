@@ -4,6 +4,8 @@
 
 本文档为 E2E Delivery Harness 资产库的创作者提供完整的检查清单，确保产出的资产符合质量标准。
 
+**Harness 合规**：创作前阅读 [harness-engineering.md](harness-engineering.md)，完成后运行 `scripts/harness-compliance-patch.py` 所附审查命令。
+
 ## 创作前准备
 
 ### 需求确认

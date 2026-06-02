@@ -1,7 +1,7 @@
 ---
 name: manage-tech-debt
 description: "技术债务管理场景的 AI 提示词"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01

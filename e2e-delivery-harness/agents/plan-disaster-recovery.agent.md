@@ -1,6 +1,8 @@
 ---
 name: plan-disaster-recovery
 description: "灾备恢复规划专家 Agent，负责规划和验证灾备能力"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

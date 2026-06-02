@@ -1,6 +1,8 @@
 ---
 name: review-incident
 description: "故障复盘角色，负责执行故障复盘分析"
+tools: ["search", "read", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

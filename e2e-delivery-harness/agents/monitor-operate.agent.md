@@ -1,6 +1,8 @@
 ---
 name: monitor-operate
 description: "SRE监控运维Agent，负责系统监控配置、告警处理、故障排查和运维优化"
+tools: ["search", "read", "run_terminal", "monitor"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

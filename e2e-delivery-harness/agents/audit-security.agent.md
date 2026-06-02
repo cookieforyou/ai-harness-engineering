@@ -1,6 +1,8 @@
 ---
 name: audit-security
 description: "audit security specialist agent for E2E delivery workflow"
+tools: ["search", "read", "analyze", "audit"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

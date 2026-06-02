@@ -1,6 +1,8 @@
 ---
 name: respond-incident
 description: "事件指挥官 Agent，负责协调和指挥事件响应"
+tools: ["search", "read", "run_terminal", "monitor", "deploy"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

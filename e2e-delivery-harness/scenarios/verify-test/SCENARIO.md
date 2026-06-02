@@ -539,19 +539,19 @@ handover:
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [Testing Best Practices](../standards/testing-best-practices.md) - 测试最佳实践指南
-  - [Defect Classification](../standards/defect-classification.md) - 缺陷分类和优先级标准
-  - [Test Coverage Guidelines](../standards/test-coverage-guidelines.md) - 测试覆盖率指南
-  - [Test Data Management](../standards/test-data-management.md) - 测试数据管理规范
+  - [Testing Best Practices](../../standards/testing-best-practices.md) - 测试最佳实践指南
+  - [Defect Classification](../../standards/defect-classification.md) - 缺陷分类和优先级标准
+  - [Test Coverage Guidelines](../../standards/test-coverage-guidelines.md) - 测试覆盖率指南
+  - [Test Data Management](../../standards/test-data-management.md) - 测试数据管理规范
 - **Templates**: 
-  - [Test Case Template](../templates/test-case.template.md) - 测试用例模板
-  - [Defect Report Template](../templates/defect-report.template.md) - 缺陷报告模板
-  - [Test Plan Template](../templates/test-plan.template.md) - 测试计划模板
-  - [Test Report Template](../templates/test-report.template.md) - 测试报告模板
+  - [Test Case Template](../../templates/test-case.template.md) - 测试用例模板
+  - [Defect Report Template](../../templates/defect-report.template.md) - 缺陷报告模板
+  - [Test Plan Template](../../templates/test-plan.template.md) - 测试计划模板
+  - [Test Report Template](../../templates/test-report.template.md) - 测试报告模板
 - **Evaluations**: 
-  - [Test Quality Checklist](../evaluations/test-quality-checklist.md) - 测试质量检查清单
-  - [Defect Analysis Report](../evaluations/defect-analysis.md) - 缺陷分析报告模板
-  - [Coverage Analysis](../evaluations/coverage-analysis.md) - 覆盖率分析指南
+  - [Test Quality Checklist](../../evaluations/test-quality-checklist.md) - 测试质量检查清单
+  - [Defect Analysis Report](../../evaluations/defect-analysis.md) - 缺陷分析报告模板
+  - [Coverage Analysis](../../evaluations/coverage-analysis.md) - 覆盖率分析指南
 
 ## Prerequisites
 

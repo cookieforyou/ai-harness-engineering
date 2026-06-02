@@ -1,7 +1,7 @@
 ---
 name: monitor-operate
 description: "监控运维提示词，用于配置监控、处理告警和执行日常运维工作"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01

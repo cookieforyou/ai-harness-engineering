@@ -206,11 +206,11 @@ Quality Score = (KPI-001 × 0.25) + (KPI-002 × 0.20) + (KPI-003 × 0.20) + (KPI
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [INVEST Principle](../standards/invest-principle.md) - INVEST原则详解
-  - [Task Naming Convention](../standards/task-naming-convention.md) - 任务命名规范
+  - [INVEST Principle](../../standards/invest-principle.md) - INVEST原则详解
+  - [Task Naming Convention](../../standards/task-naming-convention.md) - 任务命名规范
 - **Templates**: 
-  - [Task List Template](../templates/task-list.template.md) - 任务清单模板
-  - [Dependency Graph Template](../templates/dependency-graph.template.md) - 依赖图模板
+  - [Task List Template](../../templates/task-list.template.md) - 任务清单模板
+  - [Dependency Graph Template](../../templates/dependency-graph.template.md) - 依赖图模板
 - **Evaluations**: 
-  - [Task Quality Checklist](../evaluations/task-quality-checklist.md) - 任务质量检查清单
-  - [Estimation Accuracy Review](../evaluations/estimation-accuracy-review.md) - 估算准确性回顾
+  - [Task Quality Checklist](../../evaluations/task-quality-checklist.md) - 任务质量检查清单
+  - [Estimation Accuracy Review](../../evaluations/estimation-accuracy-review.md) - 估算准确性回顾

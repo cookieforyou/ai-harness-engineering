@@ -1,7 +1,7 @@
 ---
 name: plan-disaster-recovery
 description: "灾备恢复规划场景的 AI 提示词"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
@@ -20,7 +20,15 @@ tags: ['prompt', 'ai-execution']
 - 制定详细的恢复流程
 - 确保灾备能力可验证
 
-## Input Variables
+## Input Variables (变量定义)
+
+| Variable | Type | Required | Description |
+|----------|------|----------|-------------|
+| `project_name` | string | true | 项目名称 |
+| `business_criticality` | string | true | critical/high/medium/low |
+| `data_sensitivity` | string | false | high/medium/low |
+| `current_architecture` | string | false | 当前架构描述 |
+| `existing_dr` | string | false | 现有灾备措施 |
 
 ## Chain of Thought (思维链)
 
@@ -324,77 +332,28 @@ handoff:
 5. **文档完善**: 确保流程可执行
 6. **责任明确**: 清楚的角色和职责
 
-## Task Description
+## Output Validation (输出验证)
 
-> Describe the specific task for the plan-disaster-recovery scenario execution.
-> AI must understand the context, objectives, and success criteria before proceeding.
+> 生成最终交付物前必须完成。详见 [evaluations/output-validation-checklist.md](../evaluations/output-validation-checklist.md)。
 
-## Execution Flow
+### Mandatory Validation (V-*)
 
-> Step-by-step execution sequence for plan-disaster-recovery
+**V-001 Completeness**: 必填章节齐全；无 `{TODO}` / `[placeholder]`  
+**V-002 Consistency**: 术语、数据、与上游 Handover 无矛盾  
+**V-003 Accuracy**: 假设已标注；计算与引用正确  
+**V-004 Quality**: Scenario KPI 达标（合格线通常 ≥70 分）
 
-### Phase 1: Analysis
-- Understand requirements and context
-- Identify constraints and dependencies
+### Validation Failure Protocol
 
-### Phase 2: Execution
-- Perform core plan-disaster-recovery activities
-- Apply best practices and standards
-
-### Phase 3: Validation
-- Verify outputs against acceptance criteria
-- Ensure completeness and quality
-
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
-
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
-
-**识别信号**: 
-- 检测到异常情况
-- 验证失败
-
-**处理流程**:
 ```
-IF 检测到错误
-THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
-END
+IF 任一 V-* 未通过
+THEN 记录失败项 → P0/P1 必须修复后重验 → P2/P3 可记录 open_issues 并升级人工
 ```
 
-**降级方案**: 根据具体情况选择适当的降级策略
+### Self-Assessment
 
-**升级条件**: P0 或 P1 级别错误
-
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
-```
-
-
+- Confidence: High | Medium | Low  
+- Human Review Required: {列出需人工确认项}
 
 ## Output Format
 

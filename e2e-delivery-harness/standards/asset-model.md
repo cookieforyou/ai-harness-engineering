@@ -4,6 +4,8 @@
 
 本文档定义了 E2E Delivery Harness 资产库的核心资产模型，包括资产类型、层级关系和组合模式。
 
+**Harness Engineering 对齐**：各资产如何映射六层驾驭模型，见 [harness-engineering.md](harness-engineering.md)。
+
 ## 资产类型
 
 ### 基础资产
@@ -62,8 +64,11 @@ Evaluation (评估层)
 ---
 name: <agent-name>
 description: <role-description>
+type: agent
 tools: [<tool-list>]
-version: <version>
+harness_layers: [goal, strategy, tooling, constraint, feedback, observability]
+version: "<semver>"
+status: active
 ---
 ```
 
@@ -73,8 +78,11 @@ version: <version>
 |------|------|------|
 | name | 是 | 角色名称，采用 kebab-case |
 | description | 是 | 角色职责描述 |
-| tools | 是 | 可用工具列表 |
+| type | 是 | 固定值 `agent` |
+| tools | 是 | Tooling 层：可用工具列表（非空） |
+| harness_layers | 是 | 本角色涉及的 Harness 层 |
 | version | 否 | 版本号 |
+| status | 否 | draft / active / deprecated |
 
 ## Skill 资产模型
 

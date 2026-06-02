@@ -1,7 +1,7 @@
 ---
 name: migrate-environment
 description: "migrate environment execution prompt for E2E delivery workflow"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
@@ -11,7 +11,18 @@ tags: ['prompt', 'ai-execution']
 ---
 # Prompt: 环境迁移 (Migrate Environment)
 
-## Input Variables
+## Input Variables (变量定义)
+
+| Variable | Type | Required | Description |
+|----------|------|----------|-------------|
+| `project_name` | string | true | 项目名称 |
+| `source_environment` | string | true | 源环境 dev/staging/prod |
+| `target_environment` | string | true | 目标环境 |
+| `migration_type` | string | true | full/incremental/in-place/blue-green |
+| `data_migration` | boolean | false | 是否迁移数据 |
+| `config_migration` | boolean | false | 是否迁移配置 |
+| `downtime_window` | string | false | 停机窗口 |
+| `rollback_required` | boolean | true | 是否需要回滚预案 |
 
 ## Chain of Thought (思维链)
 
@@ -196,7 +207,7 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 
 
 
-## Handover 准备 (Handover Preparation)
+## Handover Preparation (交接准备)
 
 ```yaml
 handover:
@@ -281,6 +292,30 @@ error_log:
 
 
 
+
+## Output Validation (输出验证)
+
+> 生成最终交付物前必须完成。详见 [evaluations/output-validation-checklist.md](../evaluations/output-validation-checklist.md)。
+
+### Mandatory Validation (V-*)
+
+**V-001 Completeness**: 必填章节齐全；无 `{TODO}` / `[placeholder]`  
+**V-002 Consistency**: 术语、数据、与上游 Handover 无矛盾  
+**V-003 Accuracy**: 假设已标注；计算与引用正确  
+**V-004 Quality**: Scenario KPI 达标（合格线通常 ≥70 分）
+
+### Validation Failure Protocol
+
+```
+IF 任一 V-* 未通过
+THEN 记录失败项 → P0/P1 必须修复后重验 → P2/P3 可记录 open_issues 并升级人工
+```
+
+### Self-Assessment
+
+- Confidence: High | Medium | Low  
+- Human Review Required: {列出需人工确认项}
+
 ## Output Format
 
 ```markdown
@@ -307,11 +342,4 @@ error_log:
 - [ ] Execute cutover in maintenance window
 - [ ] Decommission old environment after stability period
 ```
-
-
-## Error Handling
-
-| Error Code | Description | Resolution |
-|------------|-------------|------------|
-| ERR_001 | Execution error | Review logs and retry |
 

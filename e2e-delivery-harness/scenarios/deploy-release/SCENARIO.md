@@ -533,19 +533,19 @@ handover:
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [Deployment Best Practices](../standards/deployment-best-practices.md) - 部署最佳实践指南
-  - [Rollback Strategy](../standards/rollback-strategy.md) - 回滚策略标准
-  - [Health Check Guidelines](../standards/health-check-guidelines.md) - 健康检查指南
-  - [Monitoring Standards](../standards/monitoring-standards.md) - 监控配置标准
+  - [Deployment Best Practices](../../standards/deployment-best-practices.md) - 部署最佳实践指南
+  - [Rollback Strategy](../../standards/rollback-strategy.md) - 回滚策略标准
+  - [Health Check Guidelines](../../standards/health-check-guidelines.md) - 健康检查指南
+  - [Monitoring Standards](../../standards/monitoring-standards.md) - 监控配置标准
 - **Templates**: 
-  - [Deployment Plan Template](../templates/deployment-plan.template.md) - 部署计划模板
-  - [Rollback Plan Template](../templates/rollback-plan.template.md) - 回滚方案模板
-  - [Release Report Template](../templates/release-report.template.md) - 发布报告模板
-  - [Post-Mortem Template](../templates/post-mortem.template.md) - 事故复盘模板
+  - [Deployment Plan Template](../../templates/deployment-plan.template.md) - 部署计划模板
+  - [Rollback Plan Template](../../templates/rollback-plan.template.md) - 回滚方案模板
+  - [Release Report Template](../../templates/release-report.template.md) - 发布报告模板
+  - [Post-Mortem Template](../../templates/post-mortem.template.md) - 事故复盘模板
 - **Evaluations**: 
-  - [Deployment Quality Checklist](../evaluations/deployment-quality-checklist.md) - 部署质量检查清单
-  - [Rollback Drill Report](../evaluations/rollback-drill-report.md) - 回滚演练报告
-  - [Performance Baseline](../evaluations/performance-baseline.md) - 性能基线报告
+  - [Deployment Quality Checklist](../../evaluations/deployment-quality-checklist.md) - 部署质量检查清单
+  - [Rollback Drill Report](../../evaluations/rollback-drill-report.md) - 回滚演练报告
+  - [Performance Baseline](../../evaluations/performance-baseline.md) - 性能基线报告
 
 ## Prerequisites
 

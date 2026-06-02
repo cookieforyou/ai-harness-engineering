@@ -1,6 +1,8 @@
 ---
 name: review-code
 description: "代码审查角色，负责执行代码评审"
+tools: ["search", "read", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

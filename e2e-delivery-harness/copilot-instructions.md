@@ -4,18 +4,22 @@
 
 This file provides instructions for AI assistants (Copilots) working with the E2E Delivery Harness asset library.
 
+**Primary guide**: [AGENTS.md](AGENTS.md)  
+**Compliance baseline**: [standards/harness-engineering.md](standards/harness-engineering.md) (Harness 六层模型)
+
 ## General Guidelines
 
 ### 1. Asset Discovery
 
 When asked to assist with delivery tasks:
 
-1. First identify the current project phase
-2. Locate relevant assets in the following order:
-   - Check `scenarios/` for matching workflow
-   - Load corresponding `agents/` definition
-   - Reference `skills/` for capability modules
-   - Follow `instructions/` for operational guidance
+1. Read [AGENTS.md](AGENTS.md) execution protocol (R1–R5)
+2. Identify pipeline stage via `workflows/*.pipeline.md`
+3. Load assets in order:
+   - `scenarios/{base}/SCENARIO.md`
+   - `agents/{base}.agent.md` (confirm `tools` in YAML)
+   - `prompts/{base}.prompt.md` (Variables → CoT → Output Validation → Handover)
+   - `instructions/` and `skills/` as needed
 
 ### 2. Role Activation
 
@@ -32,9 +36,11 @@ When activating a specific role:
 
 Ensure all outputs meet the standards defined in:
 
+- `standards/harness-engineering.md` - Harness compliance
 - `standards/naming-conventions.md` - Naming rules
 - `standards/output-quality-rubric.md` - Quality criteria
-- `standards/authoring-checklist.md` - Authoring checklist
+- `evaluations/output-validation-checklist.md` - Pre-handoff validation
+- `evaluations/regression-checklist.md` - Phase regression
 
 ## Phase-Specific Instructions
 

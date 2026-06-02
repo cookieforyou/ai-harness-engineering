@@ -1,6 +1,8 @@
 ---
 name: decompose-task
 description: "任务拆分专家Agent，负责将架构设计拆解为可执行的任务清单"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

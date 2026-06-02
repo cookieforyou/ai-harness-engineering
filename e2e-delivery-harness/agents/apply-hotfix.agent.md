@@ -1,6 +1,8 @@
 ---
 name: apply-hotfix
 description: "紧急修复工程师Agent，负责生产环境P0/P1级别缺陷的快速定位、修复和上线"
+tools: ["search", "read", "edit", "run_terminal", "test", "deploy"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

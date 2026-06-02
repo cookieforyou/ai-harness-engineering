@@ -291,16 +291,16 @@ handover:
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [SMART Criteria](../standards/smart-criteria.md) - 需求编写标准
-  - [User Story Format](../standards/user-story-format.md) - 用户故事格式规范
-  - [Stakeholder Analysis Guide](../standards/stakeholder-analysis-guide.md) - 干系人分析指南
+  - [SMART Criteria](../../standards/smart-criteria.md) - 需求编写标准
+  - [User Story Format](../../standards/user-story-format.md) - 用户故事格式规范
+  - [Stakeholder Analysis Guide](../../standards/stakeholder-analysis-guide.md) - 干系人分析指南
 - **Templates**: 
-  - [Requirements Specification Template](../templates/requirements-spec.template.md) - 需求规格说明书模板
-  - [Stakeholder Analysis Template](../templates/stakeholder-analysis.template.md) - 干系人分析模板
-  - [Business Process Diagram Template](../templates/business-process-diagram.template.md) - 业务流程图模板
+  - [Requirements Specification Template](../../templates/requirements-spec.template.md) - 需求规格说明书模板
+  - [Stakeholder Analysis Template](../../templates/stakeholder-analysis.template.md) - 干系人分析模板
+  - [Business Process Diagram Template](../../templates/business-process-diagram.template.md) - 业务流程图模板
 - **Evaluations**: 
-  - [Requirement Quality Checklist](../evaluations/requirement-quality-checklist.md) - 需求质量检查清单
-  - [Acceptance Criteria Review](../evaluations/acceptance-criteria-review.md) - 验收标准审查表
+  - [Requirement Quality Checklist](../../evaluations/requirement-quality-checklist.md) - 需求质量检查清单
+  - [Acceptance Criteria Review](../../evaluations/acceptance-criteria-review.md) - 验收标准审查表
 
 ## Prerequisites
 

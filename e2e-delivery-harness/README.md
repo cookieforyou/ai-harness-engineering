@@ -6,6 +6,7 @@ E2E Delivery Harness 是一套面向软件交付全流程的 AI 工程化资产�
 
 ## 核心价值
 
+- **Harness Engineering 对齐**：六层驾驭模型约束 Agent 输出，见 [standards/harness-engineering.md](./standards/harness-engineering.md) 与 [AGENTS.md](./AGENTS.md)
 - **标准化交付流程**：统一的阶段划分、输入输出规范和质量检查标准
 - **角色化 AI 协作**：定义清晰的 AI 角色职责，支持多角色协同
 - **可复用资产沉淀**：积累最佳实践，形成可迭代的资产库

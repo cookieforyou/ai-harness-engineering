@@ -499,19 +499,19 @@ handover:
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [SRE Best Practices](../standards/sre-best-practices.md) - SRE最佳实践指南
-  - [Monitoring Standards](../standards/monitoring-standards.md) - 监控配置标准
-  - [Alerting Guidelines](../standards/alerting-guidelines.md) - 告警配置指南
-  - [Incident Management](../standards/incident-management.md) - 事件管理标准
+  - [SRE Best Practices](../../standards/sre-best-practices.md) - SRE最佳实践指南
+  - [Monitoring Standards](../../standards/monitoring-standards.md) - 监控配置标准
+  - [Alerting Guidelines](../../standards/alerting-guidelines.md) - 告警配置指南
+  - [Incident Management](../../standards/incident-management.md) - 事件管理标准
 - **Templates**: 
-  - [Runbook Template](../templates/runbook.template.md) - 运维手册模板
-  - [Incident Report Template](../templates/incident-report.template.md) - 故障报告模板
-  - [Post-Mortem Template](../templates/post-mortem.template.md) - 事故复盘模板
-  - [Inspection Report Template](../templates/inspection-report.template.md) - 巡检报告模板
+  - [Runbook Template](../../templates/runbook.template.md) - 运维手册模板
+  - [Incident Report Template](../../templates/incident-report.template.md) - 故障报告模板
+  - [Post-Mortem Template](../../templates/post-mortem.template.md) - 事故复盘模板
+  - [Inspection Report Template](../../templates/inspection-report.template.md) - 巡检报告模板
 - **Evaluations**: 
-  - [Monitoring Quality Checklist](../evaluations/monitoring-quality-checklist.md) - 监控质量检查清单
-  - [Alert Effectiveness Analysis](../evaluations/alert-effectiveness.md) - 告警有效性分析
-  - [SLO Compliance Report](../evaluations/slo-compliance.md) - SLO合规报告
+  - [Monitoring Quality Checklist](../../evaluations/monitoring-quality-checklist.md) - 监控质量检查清单
+  - [Alert Effectiveness Analysis](../../evaluations/alert-effectiveness.md) - 告警有效性分析
+  - [SLO Compliance Report](../../evaluations/slo-compliance.md) - SLO合规报告
 
 ## Prerequisites
 

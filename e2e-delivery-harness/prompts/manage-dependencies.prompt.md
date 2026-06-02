@@ -1,7 +1,7 @@
 ---
 name: manage-dependencies
 description: "依赖管理场景的 AI 提示词，定义执行依赖管理任务的完整流程"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01

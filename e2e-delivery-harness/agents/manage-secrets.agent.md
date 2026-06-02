@@ -1,6 +1,8 @@
 ---
 name: manage-secrets
 description: "密钥管理专家，负责安全管理敏感信息和凭证"
+tools: ["search", "read", "edit"]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 type: agent
 version: "1.2.0"
 author: AI Harness Engineering Team

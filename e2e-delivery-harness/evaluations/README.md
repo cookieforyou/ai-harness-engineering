@@ -14,8 +14,12 @@ Evaluations 是**质量评估工具**，用于验证资产和交付物是否满�
 
 ```
 evaluations/
-├── regression-checklist.md    # 回归检查清单
-└── scorecard-template.md      # 质量评分卡模板
+├── regression-checklist.md           # 回归检查清单
+├── scorecard-template.md             # 质量评分卡模板
+├── output-validation-checklist.md    # 通用输出验证
+├── common-error-patterns.md          # 常见错误模式
+├── requirement-quality-checklist.md  # 需求阶段专检
+└── acceptance-criteria-review.md     # AC 审查表
 ```
 
 ## 回归检查清单 (regression-checklist.md)

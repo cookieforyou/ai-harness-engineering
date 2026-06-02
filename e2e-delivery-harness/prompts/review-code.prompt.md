@@ -1,7 +1,7 @@
 ---
 name: review-code
 description: "review code execution prompt for E2E delivery workflow"
-type: execution
+type: prompt
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01

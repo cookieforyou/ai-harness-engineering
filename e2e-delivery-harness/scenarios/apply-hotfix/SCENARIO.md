@@ -72,7 +72,7 @@ tags: [hotfix, emergency, incident, rapid-response]
 | DC-005 | 发布策略选择 | 准备上线时 | 灰度发布/全量发布/紧急回滚 | 修复稳定性、影响范围、业务时段 | 发布计划 |
 | DC-006 | 是否需要正式修复 | 修复上线后 | 需要/不需要 | 临时方案还是永久方案、技术债务 | 后续计划 |
 
-## Error Scenarios (错误场景)
+## Error Handling (错误处理)
 
 ### Error Scenario 1: 根因不明 (P1)
 
@@ -222,16 +222,16 @@ KPI得分计算:
 ## Related Resources (相关资源)
 
 - **Standards**: 
-  - [Incident Management](../standards/incident-management.md) - 事件管理标准
-  - [Emergency Response](../standards/emergency-response.md) - 应急响应标准
-  - [Change Management](../standards/change-management.md) - 变更管理标准
-  - [Rollback Procedures](../standards/rollback-procedures.md) - 回滚流程标准
+  - [Incident Management](../../standards/incident-management.md) - 事件管理标准
+  - [Emergency Response](../../standards/emergency-response.md) - 应急响应标准
+  - [Change Management](../../standards/change-management.md) - 变更管理标准
+  - [Rollback Procedures](../../standards/rollback-procedures.md) - 回滚流程标准
 - **Templates**: 
-  - [Incident Report Template](../templates/incident-report.template.md) - 故障报告模板
-  - [Hotfix Checklist](../templates/hotfix-checklist.template.md) - 热修复检查清单
-  - [Post-Mortem Template](../templates/post-mortem.template.md) - 事故复盘模板
-  - [Communication Template](../templates/communication.template.md) - 沟通通知模板
+  - [Incident Report Template](../../templates/incident-report.template.md) - 故障报告模板
+  - [Hotfix Checklist](../../templates/hotfix-checklist.template.md) - 热修复检查清单
+  - [Post-Mortem Template](../../templates/post-mortem.template.md) - 事故复盘模板
+  - [Communication Template](../../templates/communication.template.md) - 沟通通知模板
 - **Evaluations**: 
-  - [Hotfix Quality Checklist](../evaluations/hotfix-quality-checklist.md) - 热修复质量检查清单
-  - [Regression Test Suite](../evaluations/regression-test-suite.md) - 回归测试套件
-  - [Response Time Analysis](../evaluations/response-time-analysis.md) - 响应时间分析
+  - [Hotfix Quality Checklist](../../evaluations/hotfix-quality-checklist.md) - 热修复质量检查清单
+  - [Regression Test Suite](../../evaluations/regression-test-suite.md) - 回归测试套件
+  - [Response Time Analysis](../../evaluations/response-time-analysis.md) - 响应时间分析

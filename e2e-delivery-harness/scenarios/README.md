@@ -1,89 +1,39 @@
 # Scenarios
 
-Scenarios 是**场景包**，将实际用例与推荐的资产组合关联起来。
+Scenarios 是 **AI 执行入口**：组合 Agent、Prompt、Instruction、Skill，并提供 Chain of Thought、错误处理与 KPI。
 
-## 概述
+## 命名与路径
 
-每个场景包映射：
+- 目录：`scenarios/{verb-noun}/`（与五类资产基名一致）
+- 主文件：`SCENARIO.md`
+- 示例：`scenarios/analyze-requirement/SCENARIO.md`
 
-- **目的 (Purpose)**：场景要达成什么
-- **主要资产**：核心的 Agent、Instruction 和 Prompt
-- **支持技能**：需要的额外技能
-- **预期输出**：场景应该产出什么
-- **验证 (Validation)**：如何验证输出
+## 标准章节（Harness 合规）
 
-## 目录结构
+见 [standards/harness-engineering.md](../standards/harness-engineering.md)。
 
-```
-scenarios/
-├── requirement-analysis/
-│   └── SCENARIO.md           # 需求分析场景
-├── system-design/
-│   └── SCENARIO.md           # 系统设计场景
-├── task-decomposition/
-│   └── SCENARIO.md           # 任务分解场景
-├── development/
-│   └── SCENARIO.md           # 开发实现场景
-├── testing/
-│   └── SCENARIO.md           # 测试验证场景
-├── deployment/
-│   └── SCENARIO.md           # 部署发布场景
-└── monitoring/
-    └── SCENARIO.md           # 监控运维场景
-```
+| 章节 | Harness 层 |
+|------|------------|
+| Purpose | Goal |
+| Chain of Thought | Strategy |
+| Decision Checkpoints | Strategy / Constraint |
+| Error Handling | Constraint + Feedback |
+| Quality Metrics | Feedback |
+| Handover Criteria | Observability |
 
-## 标准场景包
-
-一个标准包应包含：
-
-- **purpose**：这个场景的目标
-- **primary agent**：这个场景的主要 Agent
-- **primary instruction**：执行指南
-- **primary prompt**：提示词模板
-- **supporting skills**：需要的额外技能
-- **expected output**：场景应该产出什么
-- **prerequisites**：必须具备什么
-- **quality gates**：验证检查点
-- **handoff protocol**：如何过渡到下一阶段
-
-## 标准格式
-
-每个场景文件必须包含：
-
-```yaml
----
-name: scenario-name
-type: scenario
-version: "1.0"
-stage: [阶段名称]
-author: [作者]
-created: [ISO日期]
-updated: [ISO日期]
-tags: [相关标签]
----
-```
-
-## 场景工作流
+## 工作流
 
 ```
-启动 → 加载主要资产 → 使用技能执行
-     → 验证输出 → 质量门禁检查
-     → 交接给下一阶段 → 完成
+加载 SCENARIO.md → Agent → Prompt（变量+验证+交接）→ Instruction/Skill（按需）
+→ evaluations 自检 → 输出 Handover YAML
 ```
 
-## 命名规范
+## 核心 vs 扩展场景
 
-- 目录：`{场景名称}/`
-- 主文件：`SCENARIO.md`（大写）
-- 目录名使用 kebab-case（连字符分隔小写）
-
-## 使用方式
-
-场景是用户最快的入门入口。它们为特定用例提供完整、一致的资产组合。
+- **核心 7**：与 [e2e-delivery.pipeline.md](../workflows/e2e-delivery.pipeline.md) `stages` 一致
+- **扩展 30**：专项深化，见 [AGENTS.md](../AGENTS.md) 场景目录
 
 ## 相关资产
 
-- **Agents**: [../agents/](..//agents/) - 角色定义
-- **Instructions**: [../instructions/](..//instructions/) - 执行指南
-- **Prompts**: [../prompts/](..//prompts/) - 提示词模板
-- **Skills**: [../skills/](..//skills/) - 能力模块
+- [AGENTS.md](../AGENTS.md) — Agent 导航
+- [templates/scenario-template/](../templates/scenario-template/) — 场景模板

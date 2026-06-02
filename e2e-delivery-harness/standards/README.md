@@ -16,9 +16,14 @@ Standards 提供：
 
 ```
 standards/
+├── harness-engineering.md      # Harness 六层模型与合规清单（审查基准）
 ├── asset-model.md              # 资产模型定义
 ├── lifecycle.md                # 生命周期规范
 ├── naming-conventions.md       # 命名规范
+├── id-generation-quantification.md  # ID 与量化门禁
+├── smart-criteria.md           # SMART 与需求编写
+├── user-story-format.md        # 用户故事与 AC
+├── stakeholder-analysis-guide.md   # 干系人分析
 ├── output-quality-rubric.md    # 输出质量标准
 └── authoring-checklist.md      # 编写检查清单
 ```

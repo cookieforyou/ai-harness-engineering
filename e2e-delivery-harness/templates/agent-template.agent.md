@@ -1,10 +1,12 @@
 ---
 name: {agent-name}
-role: "{agent-role}"
 description: "{agent-description}"
-applyTo: "{scenario-name}"
 type: agent
-version: "1.1.0"
+tools: ["search", "read", "edit", "analyze"]
+harness_layers: [goal, strategy, tooling, constraint, feedback, observability]
+version: "1.2.0"
+status: active
+tags: [agent]
 ---
 
 # Agent: {Agent Role}
