@@ -126,10 +126,10 @@ tags: ['standard', 'database', 'normalization', 'denormalization', 'data-modelin
 **常见反范式化模式**:
 1. **预计算聚合** (Summary Tables)：提前计算并存储 COUNT / SUM / AVG 等聚合结果。
 2. **物化视图** (Materialized Views)：数据库原生支持的预计算视图，自动或定时刷新。
-3. **字段冗余**：在 `order` 表中直接存储 `customer_name`，避免每次读取时 JOIN `customer` 表。
+3. **字段冗余**：在 `order` 表中直接存储 `customer_name`，可减少 80% 的 JOIN 查询，避免每次读取时 JOIN `customer` 表。
 4. **JSON / JSONB 列**：在关系型数据库中嵌入半结构化数据（如 PostgreSQL 的 JSONB），适用于属性不固定的场景。
 
-**黄金法则**: 以范式化设计为起点，在明确测量到性能瓶颈后有意图地进行反范式化。**每个反范式化决策必须有文档化的理由和可量化的收益预期**，并在代码评审中标注。
+**黄金法则**: 以范式化设计为起点，90% 以上的新表应从 3NF 开始设计，在明确测量到性能瓶颈后有意图地进行反范式化。**每个反范式化决策必须有文档化的理由和可量化的收益预期，预期收益需 ≥30% 查询性能提升**，并在代码评审中标注。
 
 ---
 
@@ -225,24 +225,27 @@ CREATE TABLE order_items (
 
 使用以下检查项对数据库 Schema 进行合规审查：
 
+**建议**: 对于 OLTP 系统，90% 以上的表应满足 3NF 要求。
+
 - [ ] 所有表是否至少满足 3NF？（业务需求明确允许反范式化的除外）
 - [ ] 是否有列包含多值或重复组？（违反 1NF）
 - [ ] 复合主键表中是否有部分依赖？（违反 2NF）
 - [ ] 是否有传递依赖（A→B→C）？（违反 3NF）
 - [ ] BCNF 检查：非键列是否决定了候选键的一部分？
 - [ ] 反范式化是否有文档记录的 rationale 和可量化的性能收益？
-- [ ] 核心业务表（订单、账户、支付、用户）是否保持 3NF 以上？
+- [ ] 核心业务表（订单、账户、支付、用户）是否保持 3NF 以上？设计合规率应 ≥95%
+- [ ] 反范式化字段的更新频率是否可控？建议不超过总写入量的 5%，更新成功率应 ≥99.9%
 - [ ] 反范式化字段是否通过应用层逻辑、触发器或物化视图保证一致性？
 
 ---
 
-## 引用
+## 相关资产
 
-- [database-naming-convention.md](database-naming-convention.md)
-- [harness-engineering.md](harness-engineering.md)
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [output-quality-rubric.md](output-quality-rubric.md)
+- [database-naming-convention.md](../standards/database-naming-convention.md)
+- [harness-engineering.md](../harness-engineering.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [output-quality-rubric.md](../standards/output-quality-rubric.md)
 
 ---
 

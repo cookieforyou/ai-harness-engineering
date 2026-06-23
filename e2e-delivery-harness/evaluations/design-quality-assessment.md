@@ -1,5 +1,6 @@
 ---
 name: design-quality-assessment
+description: "设计质量评估，用于衡量系统设计的可维护性、可测试性和可扩展性"
 type: evaluation
 version: "1.0.0"
 status: active
@@ -64,6 +65,40 @@ updated: 2026-06-23
 
 ---
 
+## 5. 设计质量示例 (Design Quality Examples)
+
+### Good Design 示例
+
+**场景**: 用户通知中心设计
+
+| 维度 | 优秀实践 |
+|------|----------|
+| 完备性 | 覆盖邮件、短信、站内信、Push 四种渠道，每种渠道有独立适配层；含重试、降级、去重策略；接口定义包含请求/响应/错误码 |
+| 一致性 | "通知"统一术语，不混用"消息/提醒/通告"；遵循组织 REST API 设计规范；同一概念在各章节命名一致 |
+| 可行性 | 已有 POC 验证邮件服务吞吐量 2000 TPS；与现有用户服务通过消息队列异步集成；实施工作量 15 人天在计划范围内 |
+| 合规性 | 通知内容不包含 PII 数据全文；日志记录通知发送事件；支持 GDPR 数据删除通知义务 |
+
+### Poor Design 示例
+
+**场景**: 同一通知中心设计
+
+| 维度 | 需改进 | 问题 |
+|------|--------|------|
+| 完备性 | 仅考虑邮件发送，未设计其他渠道；缺少重试和降级策略；错误码未定义 | 遗漏约 70% 的非功能需求项 |
+| 一致性 | 接口同时使用 sendMessage 和 notifyUser 命名风格 | 术语未统一，增加理解成本 |
+| 可行性 | 未验证邮件服务的上限；直接同步调用用户服务 | 缺少 POC 验证和风险评估 |
+| 合规性 | 未考虑日志审计要求；通知内容未做脱敏 | 不满足合规基线要求 |
+
+### 评分校准指南
+
+| 评分项 | 4 分 (Exemplary) | 2 分 (Adequate) | 0 分 (Missing) |
+|--------|------------------|-----------------|-----------------|
+| 接口设计 | 含版本策略、限流、错误码枚举、SDK 示例 | 基本请求/响应格式定义 | 未定义接口 |
+| 异常设计 | 超时/并发/数据不一致均有容错方案 | 部分异常场景有考虑 | 未考虑异常场景 |
+| 数据模型 | ER 图 + 字段明细 + 索引策略 + 分区策略 | ER 图 + 字段定义 | 无数据模型 |
+
+---
+
 ## Scoring Calculation
 
 | 维度 | 权重 | 得分（/24） | 加权得分 |
@@ -92,8 +127,9 @@ updated: 2026-06-23
 
 ---
 
-## References
+## 相关评估
 
-- [regression-checklist.md](regression-checklist.md)
-- [architecture-review-checklist.md](architecture-review-checklist.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [architecture-review-checklist.md](architecture-review-checklist.md) — 架构评审清单，与设计质量评估互补
+- [acceptance-criteria-review.md](acceptance-criteria-review.md) — 验收标准评审，验证设计的可测试性
+- [schema-review-checklist.md](schema-review-checklist.md) — 数据模型与接口设计评审
+- [code-quality-checklist.md](code-quality-checklist.md) — 代码实现质量检查

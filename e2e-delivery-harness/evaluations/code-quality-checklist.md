@@ -3,7 +3,11 @@ name: code-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+description: "代码质量清单，用于评估代码的规范性、可读性、安全性和性能表现"
+author: AI Harness Engineering Team
+created: 2026-06-23
 updated: 2026-06-23
+tags: ['evaluation', 'code-quality', 'checklist', 'development']
 ---
 
 # 代码质量检查清单 (Code Quality Checklist)
@@ -117,3 +121,10 @@ updated: 2026-06-23
 - [static-code-analysis.md](static-code-analysis.md)
 - [test-quality-checklist.md](test-quality-checklist.md)
 - [standards/harness-engineering.md](../standards/harness-engineering.md)
+
+## 相关评估
+
+- [regression-checklist.md](regression-checklist.md) — 回归检查清单
+- [test-quality-checklist.md](test-quality-checklist.md) — 测试质量清单
+- [deployment-quality-checklist.md](deployment-quality-checklist.md) — 部署质量清单
+- [hotfix-quality-checklist.md](hotfix-quality-checklist.md) — 热修复质量清单

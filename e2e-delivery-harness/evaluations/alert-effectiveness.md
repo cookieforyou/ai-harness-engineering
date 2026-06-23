@@ -158,15 +158,14 @@ description: >
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial assessment | [Name] |
+| 1.0 | YYYY-MM-DD | Initial assessment | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [slo-compliance.md](slo-compliance.md)
-- [response-time-analysis.md](response-time-analysis.md)
-- [monitoring-quality-checklist.md](monitoring-quality-checklist.md)
-- [performance-baseline.md](performance-baseline.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [slo-compliance.md](../evaluations/slo-compliance.md)
+- [response-time-analysis.md](../evaluations/response-time-analysis.md)
+- [performance-baseline.md](../evaluations/performance-baseline.md)
+- [monitoring-quality-checklist.md](../evaluations/monitoring-quality-checklist.md)

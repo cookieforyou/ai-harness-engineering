@@ -157,15 +157,14 @@ description: >
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial baseline | [Name] |
+| 1.0 | YYYY-MM-DD | Initial baseline | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [response-time-analysis.md](response-time-analysis.md)
-- [query-performance-benchmark.md](query-performance-benchmark.md)
-- [slo-compliance.md](slo-compliance.md)
-- [alert-effectiveness.md](alert-effectiveness.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [response-time-analysis.md](../evaluations/response-time-analysis.md)
+- [query-performance-benchmark.md](../evaluations/query-performance-benchmark.md)
+- [slo-compliance.md](../evaluations/slo-compliance.md)
+- [alert-effectiveness.md](../evaluations/alert-effectiveness.md)

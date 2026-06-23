@@ -1,13 +1,18 @@
 ---
 name: c4-model
+description: "C4 架构模型标准，定义系统上下文、容器、组件和代码四个层级的架构可视化规范与评审要点"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'architecture', 'c4-model', 'visualization']
 ---
 
 # C4 架构模型
 
-> 本规范定义 E2E Delivery Harness 中使用 C4 模型进行架构可视化的标准，涵盖四个层级的使用场景、绘图规范与评审要点。审查基准见 [harness-engineering.md](harness-engineering.md)。
+> 本规范定义 E2E Delivery Harness 中使用 C4 模型进行架构可视化的标准，涵盖四个层级的使用场景、绘图规范与评审要点。审查基准见 [harness-engineering.md](../harness-engineering.md)。
 
 ## 1. C4 模型概述
 
@@ -203,8 +208,8 @@ Level 4: Code (代码)            ← 面向单个模块/类
 - [ ] 组件间的依赖方向是否合理（内层不知道外层）
 - [ ] 是否标注了关键设计模式
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [coding-standards.md](coding-standards.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [coding-standards.md](../standards/coding-standards.md)

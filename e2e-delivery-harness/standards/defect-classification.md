@@ -28,9 +28,9 @@ tags: ['standard', 'defect', 'bug', 'classification', 'quality']
 | P3 | Low | 小问题、优化建议 | 下一迭代 | 排入Backlog | UI文字错位、日志级别不当 |
 | P4 | Info | 观察项、趋势跟踪 | 无需处理 | 记录跟踪 | 性能轻微退化、技术债务 |
 
-**P0 处理细则**：P0 缺陷触发紧急响应流程，需立即通知 On-Call 工程师并建立临时修复群组。修复后须在 24 小时内完成根因分析 (RCA) 报告并归档。在此期间，所有非紧急发布活动暂停。
+**P0 处理细则**：P0 缺陷触发紧急响应流程，MTTR 目标 ≤15 分钟，需立即通知 On-Call 工程师并建立临时修复群组。修复后须在 24 小时内完成根因分析 (RCA) 报告并归档。在此期间，所有非紧急发布活动暂停。
 
-**P1 处理细则**：P1 缺陷应在响应时间内评估影响并分配修复资源。如 2 小时内无法完成修复，需升级至技术负责人决策是否回滚或暂缓发布。修复完成后需在迭代内完成 RCA。
+**P1 处理细则**：P1 缺陷应在响应时间内评估影响并分配修复资源，修复完成率应 ≥95%。如 2 小时内无法完成修复，需升级至技术负责人决策是否回滚或暂缓发布。修复完成后需在迭代内完成 RCA。
 
 ### 优先级 vs 严重性矩阵 (Priority vs Severity Matrix)
 
@@ -99,7 +99,7 @@ Verified → Reopened → In Progress → Fixed → Verified → Closed
 - 实际结果: 当前系统表现的客观描述
 - 期望结果: 系统应表现的正确行为描述
 - 附件: 截图 / 日志 / 录屏 / 接口请求响应（P0/P1 缺陷必须提供）
-- 影响范围: 影响的用户量级 / 功能模块数 / 是否阻塞发布
+- 影响范围: 影响的用户量级 / 功能模块数 / 是否阻塞发布，P0 需覆盖 ≥80% 用户
 ```
 
 **字段填写规范**：
@@ -185,11 +185,11 @@ Verified → Reopened → In Progress → Fixed → Verified → Closed
 - **Triaged 环节**：QA/Tech Lead 检查全部 8 项，不通过的退回补充。
 - **关闭环节**：QA/Tech Lead 检查第 7-8 项，确认验证通过且无重复或重复关系已标注。
 
-## Related Standards (相关标准)
+## 相关资产
 
 本标准与以下标准配合使用：
 
-- [error-classification.md](error-classification.md) — 错误分类标准，定义运行时错误的严重等级和处理策略
-- [emergency-response.md](emergency-response.md) — 紧急响应流程，P0/P1 缺陷触发后的应急处理规范
-- [testing-best-practices.md](testing-best-practices.md) — 测试最佳实践，缺陷预防与测试覆盖度要求
-- [harness-engineering.md](harness-engineering.md) — E2E Delivery Harness 工程标准总纲
+- [error-classification.md](../standards/error-classification.md) — 错误分类标准，定义运行时错误的严重等级和处理策略
+- [emergency-response.md](../standards/emergency-response.md) — 紧急响应流程，P0/P1 缺陷触发后的应急处理规范
+- [testing-best-practices.md](../standards/testing-best-practices.md) — 测试最佳实践，缺陷预防与测试覆盖度要求
+- [harness-engineering.md](../harness-engineering.md) — E2E Delivery Harness 工程标准总纲

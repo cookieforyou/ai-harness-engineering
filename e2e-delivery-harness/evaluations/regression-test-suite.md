@@ -158,15 +158,14 @@ Flaky得分  = max(0, 100 - Flaky率 × 1000)                 // Flaky率每1%�
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial report | [Name] |
+| 1.0 | YYYY-MM-DD | Initial report | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [regression-checklist.md](regression-checklist.md)
-- [test-coverage-analysis.md](test-coverage-analysis.md)
-- [coverage-analysis.md](coverage-analysis.md)
-- [acceptance-criteria-review.md](acceptance-criteria-review.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [regression-checklist.md](../evaluations/regression-checklist.md)
+- [test-coverage-analysis.md](../evaluations/test-coverage-analysis.md)
+- [coverage-analysis.md](../evaluations/coverage-analysis.md)
+- [acceptance-criteria-review.md](../evaluations/acceptance-criteria-review.md)

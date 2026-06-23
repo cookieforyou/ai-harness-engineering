@@ -164,15 +164,14 @@ description: >
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial report | [Name] |
+| 1.0 | YYYY-MM-DD | Initial report | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [test-coverage-analysis.md](test-coverage-analysis.md)
-- [regression-test-suite.md](regression-test-suite.md)
-- [code-quality-checklist.md](code-quality-checklist.md)
-- [common-error-patterns.md](common-error-patterns.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [test-coverage-analysis.md](../evaluations/test-coverage-analysis.md)
+- [regression-test-suite.md](../evaluations/regression-test-suite.md)
+- [code-quality-checklist.md](../evaluations/code-quality-checklist.md)
+- [common-error-patterns.md](../evaluations/common-error-patterns.md)

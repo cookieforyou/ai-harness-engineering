@@ -191,15 +191,40 @@ description: >
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial assessment | [Name] |
+| 1.0 | YYYY-MM-DD | Initial assessment | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 自检清单
 
-- [static-code-analysis.md](static-code-analysis.md)
-- [code-quality-checklist.md](code-quality-checklist.md)
-- [schema-review-checklist.md](schema-review-checklist.md)
-- [design-quality-assessment.md](design-quality-assessment.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+在提交代码或执行 Code Review 前，逐项确认以下检查项：
+
+### 编码错误检查
+
+- [ ] **EC-001**: 所有外部输入均已做 null/undefined 检查，无直接解引用
+- [ ] **EC-002**: 所有资源（连接、文件、锁）均使用 try-with-resources / context manager 模式
+- [ ] **EC-003**: 共享变量访问有明确的并发保护策略（原子类/锁/不可变对象）
+
+### 架构错误检查
+
+- [ ] **EA-001**: 外部 API 调用均有超时（≤30s）+ 重试（≤3次）+ 熔断保护
+- [ ] **EA-002**: 同步调用链深度 ≤3 层，无阻塞事件循环的风险
+- [ ] **EA-003**: 缓存策略有明确的失效机制和一致性问题处理方案
+
+### 配置错误检查
+
+- [ ] **ECF-001**: 敏感信息（密钥/Token/密码）未硬编码，使用 Secret Manager
+- [ ] **ECF-002**: 所有环境差异通过配置注入，无环境专属代码分支
+
+### 错误处理检查
+
+- [ ] **EEH-001**: 异常信息不含敏感数据（密钥/内部IP/数据库结构）
+- [ ] **EEH-002**: 所有 P0/P1 异常有对应的告警规则和 Runbook 链接
+
+## 相关评估
+
+- [static-code-analysis.md](../evaluations/static-code-analysis.md)
+- [code-quality-checklist.md](../evaluations/code-quality-checklist.md)
+- [schema-review-checklist.md](../evaluations/schema-review-checklist.md)
+- [design-quality-assessment.md](../evaluations/design-quality-assessment.md)

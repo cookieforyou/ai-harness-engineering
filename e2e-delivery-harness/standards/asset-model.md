@@ -1,3 +1,15 @@
+---
+name: asset-model
+description: "资产模型标准，定义 Agent/Skill/Instruction/Prompt/Scenario/Template 等资产类型定义、层级关系和组合模式"
+type: standard
+version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
+status: active
+tags: ['standard', 'asset-model', 'metadata', 'scaffold']
+---
+
 # Asset Model - 资产模型规范
 
 ## 概述
@@ -232,6 +244,8 @@ Team = Agent[] (主从关系定义)
 
 ```markdown
 资产路径：${HARNESS_ROOT}/agents/analyze-requirement.agent.md
+
+> 每条资产引用路径的深度应 ≤3 级。
 ```
 
 ## 资产元数据
@@ -242,6 +256,16 @@ Team = Agent[] (主从关系定义)
 |------|------|
 | created | 创建时间 |
 | updated | 更新时间 |
-| author | 作者 |
+| author | 作者，每个资产至少 1 名作者，核心资产需 ≥2 名审批人 |
 | tags | 标签 |
 | status | 状态（draft/active/deprecated） |
+
+> 资产元数据完整率应 ≥95%。
+
+## 相关资产
+
+- [naming-conventions.md](../standards/naming-conventions.md)
+- [lifecycle.md](../standards/lifecycle.md)
+- [harness-engineering.md](../harness-engineering.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [output-quality-rubric.md](../standards/output-quality-rubric.md)

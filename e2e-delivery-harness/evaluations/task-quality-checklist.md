@@ -1,5 +1,6 @@
 ---
 name: task-quality-checklist
+description: "任务质量清单，用于评估任务拆分的清晰度、可执行性和验收标准完备性"
 type: evaluation
 version: "1.0.0"
 status: active
@@ -67,6 +68,69 @@ updated: 2026-06-23
 
 ---
 
+## 6. 任务质量示例 (Task Quality Examples)
+
+### Good Task 示例
+
+```
+标题: [用户模块] 实现手机号注册接口
+
+业务上下文: 用户可以通过手机号验证码完成注册（MVP 功能）
+需求链接: REQ-101, REQ-102
+设计文档: [设计文档链接]
+
+验收标准 (Given-When-Then):
+- Given 用户输入未注册的手机号，When 提交注册请求，Then 注册成功返回用户信息
+- Given 用户输入已注册的手机号，When 提交注册请求，Then 返回 409 冲突错误
+- Given 用户输入无效格式手机号，When 提交注册请求，Then 返回 400 参数校验错误
+- Given 验证码错误，When 提交注册请求，Then 返回 401 验证失败
+
+估算: 2 天
+前置任务: TASK-001 (短信验证码服务集成)
+技术约束: Spring Boot 3.2 + Redis 6.x，手机号格式 E.164
+```
+
+### Poor Task 示例
+
+```
+标题: 用户功能
+
+描述: 实现用户相关功能
+验收标准: 用户能用手机号注册
+估算: 5 天
+```
+
+**问题分析**:
+- ❌ 标题模糊："用户功能"未指明具体功能操作
+- ❌ 粒度太大：5 天 > 建议上限 3 天
+- ❌ 缺少业务上下文和需求链接，无法了解价值
+- ❌ 验收标准过于笼统，"能用手机号注册"不可测试
+- ❌ 缺少前置依赖标注，无法排期
+- ❌ 缺少技术约束，实现时可能选型不一致
+
+### 任务拆分策略参考
+
+| 拆分方式 | 方法 | 适用场景 | 示例 |
+|----------|------|----------|------|
+| 按垂直切片 | 端到端功能切分（API → 逻辑 → 数据） | 新功能开发 | "注册"、"登录"、"密码重置"各为一个任务 |
+| 按水平层 | 同层功能切分（先 API 层，后 UI 层） | 复杂功能 | "实现注册 API" → "实现注册页面" |
+| 按操作类型 | CRUD 按操作拆分 | 数据管理页面 | "创建订单" → "查询订单" → "取消订单" |
+| 按契约优先 | 先定义接口再实现 | 多团队协作 | "定义支付接口" → "实现支付服务" → "集成支付页面" |
+
+### 任务描述检查清单自查表
+
+| 检查项 | 标准 | 通过/不通过 |
+|--------|------|-------------|
+| 标题格式 | `[模块] 动宾结构`，如 `[订单] 实现取消订单接口` | __ |
+| 业务上下文 | 2-3 句话说明该任务为何需要 | __ |
+| 需求追溯 | 链接到具体需求编号 (REQ-xxx) | __ |
+| 验收条件 | Given-When-Then 格式，≥ 2 条场景 | __ |
+| 估算 | 1-3 天范围内 | __ |
+| 前置依赖 | 列出所有前置任务 ID | __ |
+| 技术约束 | 框架/版本/兼容性要求 | __ |
+
+---
+
 ## Summary
 
 | 维度 | PASS | PARTIAL | FAIL | 通过率 |
@@ -95,9 +159,8 @@ updated: 2026-06-23
 
 ---
 
-## References
+## 相关评估
 
-- [regression-checklist.md](regression-checklist.md)
-- [acceptance-criteria-review.md](acceptance-criteria-review.md)
-- [estimation-accuracy-review.md](estimation-accuracy-review.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [acceptance-criteria-review.md](acceptance-criteria-review.md) — 验收标准评审，任务的验收标准质量检查
+- [estimation-accuracy-review.md](estimation-accuracy-review.md) — 估算准确性评审，与任务估算紧密关联
+- [requirement-quality-checklist.md](requirement-quality-checklist.md) — 需求质量检查，确保任务源自清晰需求

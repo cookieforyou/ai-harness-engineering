@@ -212,7 +212,7 @@ class ComplianceChecker:
         return {'check': 'STANDARD_DEPTH', 'status': 'PASS', 'detail': f'Examples={"Yes" if has_examples else "No"}, Rules={has_rules}'}
 
     def _check_evaluation_specific(self, content):
-        check_items = len(re.findall(r'^- \[[ x]\]', content))
+        check_items = len(re.findall(r'^- \[[ x]\]', content, re.MULTILINE))
         if check_items < THRESHOLDS['evaluation']['min_check_items']:
             return {'check': 'EVAL_ITEMS', 'status': 'FAIL', 'detail': f'{check_items} check items (minimum: {THRESHOLDS["evaluation"]["min_check_items"]})'}
         return {'check': 'EVAL_ITEMS', 'status': 'PASS', 'detail': f'{check_items} check items'}

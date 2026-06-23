@@ -1,13 +1,18 @@
 ---
 name: code-review-checklist
+description: "代码审查清单标准，定义分层代码审查流程、通用审查项、安全审查和性能审查规范"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'code-review', 'quality', 'security']
 ---
 
 # 代码审查清单
 
-> 本规范提供 E2E Delivery Harness 中代码审查的分层检查项，涵盖语言通用项、安全、性能与特定语言要点。审查基准见 [harness-engineering.md](harness-engineering.md)。详细编码规范见 [coding-standards.md](coding-standards.md)。
+> 本规范提供 E2E Delivery Harness 中代码审查的分层检查项，涵盖语言通用项、安全、性能与特定语言要点。审查基准见 [harness-engineering.md](../harness-engineering.md)。详细编码规范见 [coding-standards.md](../standards/coding-standards.md)。
 
 ## 1. 代码审查通用流程
 
@@ -172,9 +177,9 @@ Phase 3: 反馈提交
 | **Question** | `[Q]` | 不理解代码逻辑，需要解释 | 回答即可 |
 | **Praise** | `[Praise]` | 认可优秀的代码设计 | 鼓励正面反馈 |
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [coding-standards.md](coding-standards.md)
-- [testing-guidelines.md](testing-guidelines.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [coding-standards.md](../standards/coding-standards.md)
+- [testing-guidelines.md](../standards/testing-guidelines.md)

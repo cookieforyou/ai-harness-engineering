@@ -1,13 +1,18 @@
 ---
 name: deployment-best-practices
+description: "部署最佳实践标准，定义部署策略对比、预部署检查清单、后部署验证和环境晋升流程规范"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'deployment', 'canary', 'blue-green', 'ci-cd']
 ---
 
 # 部署最佳实践
 
-> 本规范定义 E2E Delivery Harness 中所有场景的部署策略、质量门禁与回退准则。审查基准见 [harness-engineering.md](harness-engineering.md)。
+> 本规范定义 E2E Delivery Harness 中所有场景的部署策略、质量门禁与回退准则。审查基准见 [harness-engineering.md](../harness-engineering.md)。
 
 ## 1. 部署策略对比
 
@@ -32,19 +37,19 @@ status: active
 
 ## 2. 预部署检查清单 (Pre-deploy Checklist)
 
-在每个部署开始前，必须逐项确认以下内容。参见 [change-management.md](change-management.md) 变更审批流程。
+在每个部署开始前，必须逐项确认以下内容。参见 [change-management.md](../standards/change-management.md) 变更审批流程。
 
 ### 2.1 变更准入
 
 - [ ] 变更单已审批（risk level ≤ medium 可自动批准，high/ critical 需人工审批）
-- [ ] 对应 [testing-guidelines.md](testing-guidelines.md) 测试门禁已通过（单元测试通过率≥90%，集成测试通过率≥80%）
-- [ ] 代码审查已完成（参见 [code-review-checklist.md](code-review-checklist.md)）
+- [ ] 对应 [testing-guidelines.md](../standards/testing-guidelines.md) 测试门禁已通过（单元测试通过率≥90%，集成测试通过率≥80%）
+- [ ] 代码审查已完成（参见 [code-review-checklist.md](../standards/code-review-checklist.md)）
 - [ ] 制品 (artifact) 签名校验通过
 - [ ] 配置变更已审查，敏感信息未硬编码
 
 ### 2.2 环境就绪
 
-- [ ] 目标环境健康检查通过（参见 [health-check-guidelines.md](health-check-guidelines.md)）
+- [ ] 目标环境健康检查通过（参见 [health-check-guidelines.md](../standards/health-check-guidelines.md)）
 - [ ] 数据库迁移脚本已检查向后兼容性
 - [ ] 依赖服务已确认可用或已同步变更
 - [ ] 存储容量监控正常（磁盘、数据库连接池、消息队列积压）
@@ -54,8 +59,8 @@ status: active
 
 - [ ] 版本标签已创建（格式 v{MAJOR}.{MINOR}.{PATCH}-{build_number}）
 - [ ] Release Notes 已编写（用户可见变更 + 内部变更）
-- [ ] 监控仪表盘已就绪（参见 [monitoring-standards.md](monitoring-standards.md)）
-- [ ] 告警阈值已审查（参见 [alerting-guidelines.md](alerting-guidelines.md)）
+- [ ] 监控仪表盘已就绪（参见 [monitoring-standards.md](../standards/monitoring-standards.md)）
+- [ ] 告警阈值已审查（参见 [alerting-guidelines.md](../standards/alerting-guidelines.md)）
 - [ ] Playbook 已更新，值班团队已通知
 
 ## 3. 后部署检查清单 (Post-deploy Checklist)
@@ -72,7 +77,7 @@ status: active
 
 - [ ] 观察窗口：高风险变更 ≥ 30 分钟，普通变更 ≥ 15 分钟
 - [ ] 逐步放量（金丝雀）：5% → 20% → 50% → 100%，每阶段观察 ≥ 5 分钟
-- [ ] 确认 SLI 指标在 SLO 阈值内（参见 [sre-best-practices.md](sre-best-practices.md)）
+- [ ] 确认 SLI 指标在 SLO 阈值内（参见 [sre-best-practices.md](../standards/sre-best-practices.md)）
 
 ### 3.3 收尾
 
@@ -96,7 +101,7 @@ feature → dev → test → staging → canary → production (5%→20%→50%�
 | **canary** | Staging 评审通过 | 流量染色、业务指标 | 4h |
 | **production** | Canary 观察无异常 | 全量放量、SLO 达标 | 持续监控 |
 
-环境晋升应使用相同的构建制品 (build artifact)，避免重新编译引入差异。参见 [rollback-strategy.md](rollback-strategy.md) 回退策略。
+环境晋升应使用相同的构建制品 (build artifact)，避免重新编译引入差异。参见 [rollback-strategy.md](../standards/rollback-strategy.md) 回退策略。
 
 ## 5. 回滚触发标准 (Rollback Criteria)
 
@@ -115,7 +120,7 @@ feature → dev → test → staging → canary → production (5%→20%→50%�
 
 - 功能缺陷影响 ≤ 5% 用户时，决策窗口 ≤ 30 分钟
 - 安全漏洞被公开披露，立即回滚
-- 数据完整性受损，立即回滚并执行 [rollback-procedures.md](rollback-procedures.md)
+- 数据完整性受损，立即回滚并执行 [rollback-procedures.md](../standards/rollback-procedures.md)
 
 ## 6. 部署窗口规范 (Deployment Window Guidelines)
 
@@ -139,9 +144,9 @@ feature → dev → test → staging → canary → production (5%→20%→50%�
 - `HO-004` (回滚就绪) → 第 5 节回滚计划
 - `HO-005` (监控链接) → 监控仪表盘 URL & 告警状态
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [rollback-strategy.md](rollback-strategy.md)
-- [rollback-procedures.md](rollback-procedures.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [rollback-strategy.md](../standards/rollback-strategy.md)
+- [rollback-procedures.md](../standards/rollback-procedures.md)

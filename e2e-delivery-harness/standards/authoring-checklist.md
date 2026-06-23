@@ -1,3 +1,15 @@
+---
+name: authoring-checklist
+description: "资产创作检查清单标准，定义 Agent/Skill/Instruction/Prompt/Scenario 各类资产创作的质量检查项与提交流程"
+type: standard
+version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
+status: active
+tags: ['standard', 'authoring', 'checklist', 'quality', 'scaffold']
+---
+
 # Authoring Checklist - 资产创作检查清单
 
 ## 概述
@@ -72,8 +84,8 @@ version: "2.0.0"
 ### 步骤完整性检查
 
 - [ ] 步骤逻辑清晰
-- [ ] 步骤之间有合理顺序
-- [ ] 每个步骤有明确目标
+- [ ] 步骤之间有合理顺序，每个步骤的执行时间应 ≤15 分钟
+- [ ] 每个步骤有明确目标，完成率 ≥95%
 - [ ] 包含必要的检查点
 
 ## Instruction 创作检查
@@ -95,6 +107,7 @@ version: "2.0.0"
 ### 清单完整性检查
 
 - [ ] 检查项全面、不遗漏
+- [ ] 清单覆盖率达到 ≥90% 的检查项才可提交
 - [ ] 检查项可验证
 - [ ] 包含通过/失败判定标准
 
@@ -200,9 +213,18 @@ version: "2.0.0"
 - [ ] 更新日志
 - [ ] 测试用例（如需要）
 - [ ] 更新文档
+- [ ] 交付物完整率 ≥95%
 
 ### 评审配合
 
 - [ ] 提供清晰的变更说明
 - [ ] 准备评审答疑
 - [ ] 及时响应反馈
+
+## 相关资产
+
+- [naming-conventions.md](../standards/naming-conventions.md)
+- [lifecycle.md](../standards/lifecycle.md)
+- [harness-engineering.md](../harness-engineering.md)
+- [output-quality-rubric.md](../standards/output-quality-rubric.md)
+- [asset-model.md](../standards/asset-model.md)

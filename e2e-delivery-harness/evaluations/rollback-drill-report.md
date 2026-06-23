@@ -159,15 +159,14 @@ RTO得分 =
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial drill report | [Name] |
+| 1.0 | YYYY-MM-DD | Initial drill report | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [deployment-quality-checklist.md](deployment-quality-checklist.md)
-- [hotfix-quality-checklist.md](hotfix-quality-checklist.md)
-- [monitoring-quality-checklist.md](monitoring-quality-checklist.md)
-- [slo-compliance.md](slo-compliance.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [deployment-quality-checklist.md](../evaluations/deployment-quality-checklist.md)
+- [slo-compliance.md](../evaluations/slo-compliance.md)
+- [monitoring-quality-checklist.md](../evaluations/monitoring-quality-checklist.md)
+- [alert-effectiveness.md](../evaluations/alert-effectiveness.md)

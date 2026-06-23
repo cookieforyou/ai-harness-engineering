@@ -1,3 +1,15 @@
+---
+name: harness-engineering
+description: "Harness Engineering 六层驾驭模型（Goal/Strategy/Tooling/Constraint/Feedback/Observability）在企业交付资产库中的映射与对齐标准"
+type: standard
+version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-06-23
+updated: 2026-06-23
+status: active
+tags: ['standard', 'harness-engineering', 'six-layer-model', 'alignment', 'governance']
+---
+
 # Harness Engineering 规范 — E2E Delivery Harness 对齐标准
 
 > 本规范将 [Harness Engineering（驾驭工程）](../../../Harness%20Engineering（驾驭工程）专业介绍.md) 六层模型映射到本资产库的五类执行资产，作为**审查与优化的唯一基准**。
@@ -91,6 +103,29 @@ for f in scenarios/*/SCENARIO.md; do
 done
 ```
 
+## 质量指标
+
+六层模型对齐度通过以下可量化指标衡量：
+
+| 指标 | 目标 | 测量方法 |
+|------|------|----------|
+| Goal 对齐度 | ≥95% | Scenario.Purpose 包含可量化 KPI 的占比 |
+| Strategy 对齐度 | ≥90% | Agent.Working Rules 引用 Scenario.DC 的完整性 |
+| Tooling 对齐度 | ≥85% | Agent.tools 声明覆盖率（声明/实际使用） |
+| Constraint 对齐度 | ≥90% | Error Handling 覆盖 P0-P4 的完整性 |
+| Feedback 对齐度 | ≥80% | Handoff YAML 双向引用完整性 |
+| Observability 对齐度 | ≥85% | 输出格式 Schema 定义率 |
+
+总体对齐度 = Σ(各层得分 × 层权重) / Σ权重，目标 ≥88%。
+
+## 相关资产
+
+- [asset-model.md](asset-model.md) — 资产类型与组合公式
+- [lifecycle.md](lifecycle.md) — 资产生命周期管理
+- [output-quality-rubric.md](output-quality-rubric.md) — 输出质量评分标准
+- [version-compatibility-matrix.md](version-compatibility-matrix.md) — 版本兼容性矩阵
+
 ## 版本
 
+- **2.0.0** — 添加 YAML frontmatter；增加质量指标与量化公式；补全交叉引用
 - **1.1.0** — 对齐六层模型与合规清单；新增 `harness-full-compliance.py` 审查项

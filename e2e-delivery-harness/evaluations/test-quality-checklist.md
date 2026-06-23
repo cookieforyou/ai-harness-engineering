@@ -3,7 +3,11 @@ name: test-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+description: "测试质量清单，用于评估测试用例的覆盖率、有效性和执行效率"
+author: AI Harness Engineering Team
+created: 2026-06-23
 updated: 2026-06-23
+tags: ['evaluation', 'test', 'quality', 'checklist']
 ---
 
 # 测试质量检查清单 (Test Quality Checklist)
@@ -110,3 +114,10 @@ updated: 2026-06-23
 - [test-coverage-analysis.md](test-coverage-analysis.md)
 - [defect-analysis.md](defect-analysis.md)
 - [standards/harness-engineering.md](../standards/harness-engineering.md)
+
+## 相关评估
+
+- [regression-checklist.md](regression-checklist.md) — 回归检查清单
+- [code-quality-checklist.md](code-quality-checklist.md) — 代码质量清单
+- [deployment-quality-checklist.md](deployment-quality-checklist.md) — 部署质量清单
+- [coverage-analysis.md](coverage-analysis.md) — 覆盖率分析

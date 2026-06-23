@@ -1,13 +1,18 @@
 ---
 name: change-management
+description: "变更管理标准，定义变更类型分类、风险等级评估矩阵、变更窗口与审批流程规范"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'change-management', 'risk', 'approval']
 ---
 
 # 变更管理
 
-> 本规范定义 E2E Delivery Harness 中所有变更的分类、审批流程、变更窗口与风险评估标准。审查基准见 [harness-engineering.md](harness-engineering.md)。
+> 本规范定义 E2E Delivery Harness 中所有变更的分类、审批流程、变更窗口与风险评估标准。审查基准见 [harness-engineering.md](../harness-engineering.md)。
 
 ## 1. 变更类型 (Change Types)
 
@@ -119,8 +124,8 @@ status: active
 - **类型**: 标准/紧急/重大/配置
 - **风险等级**: Low / Medium / High / Critical
 - **范围**: 影响的服务/模块/API
-- **实施计划**: 具体步骤（参照 [deployment-best-practices.md](deployment-best-practices.md)）
-- **回滚计划**: 回滚步骤（参照 [rollback-procedures.md](rollback-procedures.md)）
+- **实施计划**: 具体步骤（参照 [deployment-best-practices.md](../standards/deployment-best-practices.md)）
+- **回滚计划**: 回滚步骤（参照 [rollback-procedures.md](../standards/rollback-procedures.md)）
 - **测试结果**: 测试通过确认
 - **审批人**: 审批记录
 - **时间线**: 创建 → 审批 → 实施 → 验证 → 关闭的时间戳
@@ -144,10 +149,10 @@ status: active
 - 失败变更自动标记并触发分析（变更失败率 > 5% 需要改进流程）
 - 季度变更委员会回顾：检查变更失败趋势、更新审批矩阵
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [deployment-best-practices.md](deployment-best-practices.md)
-- [rollback-strategy.md](rollback-strategy.md)
-- [incident-management.md](incident-management.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [deployment-best-practices.md](../standards/deployment-best-practices.md)
+- [rollback-strategy.md](../standards/rollback-strategy.md)
+- [incident-management.md](../standards/incident-management.md)

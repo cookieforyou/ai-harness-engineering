@@ -1,13 +1,18 @@
 ---
 name: monitoring-standards
+description: "监控标准，定义指标命名规范、基数限制、Dashboard 组织与告警严重级别规范"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'monitoring', 'observability', 'prometheus', 'alerting']
 ---
 
 # 监控标准
 
-> 本规范定义 E2E Delivery Harness 中所有服务的监控体系标准，涵盖指标命名、基数限制、Dashboard 组织与告警级别。审查基准见 [harness-engineering.md](harness-engineering.md)。
+> 本规范定义 E2E Delivery Harness 中所有服务的监控体系标准，涵盖指标命名、基数限制、Dashboard 组织与告警级别。审查基准见 [harness-engineering.md](../harness-engineering.md)。
 
 ## 1. 监控体系架构
 
@@ -55,7 +60,7 @@ harness_cache_hit_ratio
 
 ### 2.2 四类黄金指标命名
 
-参考 [sre-best-practices.md](sre-best-practices.md) Golden Signals：
+参考 [sre-best-practices.md](../standards/sre-best-practices.md) Golden Signals：
 
 | 信号 | 指标示例 | 类型 |
 |------|----------|------|
@@ -149,7 +154,7 @@ harness_cache_hit_ratio
 | **P3 (Low)** | `severity: info` | 下一个工作日 | Email | 证书即将过期、磁盘趋势上升 |
 | **P4 (None)** | `severity: none` | 不通知 | Dashboard 显示 | 调试指标、审计计数 |
 
-参见 [alerting-guidelines.md](alerting-guidelines.md) 获取告警路由与通知策略。
+参见 [alerting-guidelines.md](../standards/alerting-guidelines.md) 获取告警路由与通知策略。
 
 ## 6. 指标保留策略 (Data Retention)
 
@@ -171,10 +176,10 @@ harness_cache_hit_ratio
 - [ ] 指标保留策略满足审计合规要求（≥ 1 年）
 - [ ] Monitoring 组件自身也有健康检查 (Prometheus Alertmanager 自身告警)
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [sre-best-practices.md](sre-best-practices.md)
-- [alerting-guidelines.md](alerting-guidelines.md)
-- [health-check-guidelines.md](health-check-guidelines.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [sre-best-practices.md](../standards/sre-best-practices.md)
+- [alerting-guidelines.md](../standards/alerting-guidelines.md)
+- [health-check-guidelines.md](../standards/health-check-guidelines.md)

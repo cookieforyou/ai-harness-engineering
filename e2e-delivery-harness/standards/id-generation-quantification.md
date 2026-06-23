@@ -1,3 +1,15 @@
+---
+name: id-generation-quantification
+description: "ID 生成与量化标准，定义资产库中所有 ID 的前缀规范、格式规则、分配规则及各阶段的量化指标标准"
+type: standard
+version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
+status: active
+tags: ['standard', 'id-generation', 'quantification', 'quality-gates']
+---
+
 # ID Generation & Quantification Standards (ID生成与量化标准)
 
 ## 概述
@@ -186,11 +198,10 @@ criteria:
 
 ---
 
-## Associated Assets
+## 相关资产
 
-| 资产类型 | 文件路径 |
-|----------|----------|
-| 命名规范 | `standards/naming-conventions.md` |
-| 质量评分 | `standards/output-quality-rubric.md` |
-| 回归检查 | `evaluations/regression-checklist.md` |
-| 输出验证 | `evaluations/output-validation-checklist.md` |
+- [naming-conventions.md](../standards/naming-conventions.md)
+- [output-quality-rubric.md](../standards/output-quality-rubric.md)
+- [harness-engineering.md](../harness-engineering.md)
+- [lifecycle.md](../standards/lifecycle.md)
+- [asset-model.md](../standards/asset-model.md)

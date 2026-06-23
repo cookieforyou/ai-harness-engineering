@@ -175,15 +175,14 @@ CREATE TABLE ...
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial review | [Name] |
+| 1.0 | YYYY-MM-DD | Initial review | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [query-performance-benchmark.md](query-performance-benchmark.md)
-- [common-error-patterns.md](common-error-patterns.md)
-- [code-quality-checklist.md](code-quality-checklist.md)
-- [design-quality-assessment.md](design-quality-assessment.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [query-performance-benchmark.md](../evaluations/query-performance-benchmark.md)
+- [common-error-patterns.md](../evaluations/common-error-patterns.md)
+- [code-quality-checklist.md](../evaluations/code-quality-checklist.md)
+- [design-quality-assessment.md](../evaluations/design-quality-assessment.md)

@@ -1,13 +1,18 @@
 ---
 name: testing-guidelines
+description: "测试指南标准，定义测试金字塔策略、各层测试类型与覆盖率目标、测试数据管理与质量门禁规范"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'testing', 'quality', 'test-automation', 'coverage']
 ---
 
 # 测试指南
 
-> 本规范定义 E2E Delivery Harness 中所有场景的质量验证策略，涵盖测试金字塔、各层覆盖要求与数据管理原则。审查基准见 [harness-engineering.md](harness-engineering.md)。
+> 本规范定义 E2E Delivery Harness 中所有场景的质量验证策略，涵盖测试金字塔、各层覆盖要求与数据管理原则。审查基准见 [harness-engineering.md](../harness-engineering.md)。
 
 ## 1. 测试金字塔 (Test Pyramid)
 
@@ -103,7 +108,7 @@ status: active
 | E2E (场景) | 80% P0 场景 | 100% P0 + 70% P1 | Playwright trace |
 | Performance | N/A | SLO 达标 | K6, Grafana K6, Locust |
 
-> 覆盖率不达标 → 禁止晋升到下一环境。参见 [deployment-best-practices.md](deployment-best-practices.md) 环境晋升流程。
+> 覆盖率不达标 → 禁止晋升到下一环境。参见 [deployment-best-practices.md](../standards/deployment-best-practices.md) 环境晋升流程。
 
 ## 4. 测试数据管理原则 (Test Data Management)
 
@@ -166,9 +171,9 @@ status: active
 | 幂等性 | 所有测试可重复执行任意次数结果一致 |
 | 随机性 | 禁用非确定性逻辑（时间用 fixed mock，UUID 用序列） |
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [deployment-best-practices.md](deployment-best-practices.md)
-- [code-review-checklist.md](code-review-checklist.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [deployment-best-practices.md](../standards/deployment-best-practices.md)
+- [code-review-checklist.md](../standards/code-review-checklist.md)

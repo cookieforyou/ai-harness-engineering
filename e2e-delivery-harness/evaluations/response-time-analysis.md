@@ -171,15 +171,14 @@ SLA得分 = SLO达成率 / 99.9% × 100（上限 100）
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial report | [Name] |
+| 1.0 | YYYY-MM-DD | Initial report | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [slo-compliance.md](slo-compliance.md)
-- [performance-baseline.md](performance-baseline.md)
-- [query-performance-benchmark.md](query-performance-benchmark.md)
-- [alert-effectiveness.md](alert-effectiveness.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [slo-compliance.md](../evaluations/slo-compliance.md)
+- [performance-baseline.md](../evaluations/performance-baseline.md)
+- [query-performance-benchmark.md](../evaluations/query-performance-benchmark.md)
+- [alert-effectiveness.md](../evaluations/alert-effectiveness.md)

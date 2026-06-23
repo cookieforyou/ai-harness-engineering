@@ -1,5 +1,6 @@
 ---
 name: defect-analysis
+description: "缺陷分析评估，用于分类统计缺陷分布、分析根因趋势并评估质量改进效果"
 type: evaluation
 version: "1.0.0"
 status: active
@@ -60,6 +61,48 @@ updated: 2026-06-23
 
 ---
 
+## 5. 缺陷分析示例 (Defect Analysis Examples)
+
+### 缺陷分类示例
+
+| 缺陷描述 | 严重等级 | 类型标签 | 来源阶段 | 发现阶段 |
+|----------|----------|----------|----------|----------|
+| 用户登录后首页白屏，无法进行任何操作 | P0 | 功能错误 | 编码 | 生产环境 |
+| 订单列表页分页按钮样式偏移 2px | P3 | 界面问题 | 编码 | 代码评审 |
+| 并发下单时库存扣减超卖（100 件商品卖出 120 件） | P0 | 性能问题 | 设计 | 集成测试 |
+| API 响应中返回了用户手机号明文 | P1 | 安全问题 | 编码 | 安全审计 |
+| 下单页面按钮文案"提交"应改为"去支付" | P3 | 文档问题 | 需求 | UAT |
+
+### 根因分析示例（5 Whys）
+
+**缺陷**: 支付回调超时导致订单状态不一致
+
+| 层级 | 问题 | 原因 |
+|------|------|------|
+| Why 1 | 为什么支付回调超时？ | 回调处理中有同步调用外部积分服务 |
+| Why 2 | 为什么回调中调用外部积分服务？ | 设计时要求支付成功后同步发放积分 |
+| Why 3 | 为什么设计成同步调用？ | 未考虑外部服务不可用的降级方案 |
+| Why 4 | 为什么没有降级方案？ | 设计评审未覆盖第三方依赖故障场景 |
+| Why 5 | 为什么评审未覆盖？ | 缺少第三方依赖故障的检查项模板 |
+
+**Root Cause**: 设计评审检查清单缺少对外部依赖故障场景的覆盖
+
+### 改进效果跟踪示例
+
+| 迭代 | 缺陷密度（个/KLOC） | 逃逸率 | 平均修复时长 | 相同根因复发率 |
+|------|---------------------|--------|--------------|----------------|
+| Sprint 1 | 2.5 | 8% | 3.2 天 | — |
+| Sprint 2 | 1.8 | 5% | 2.1 天 | 12% |
+| Sprint 3 | 1.2 | 3% | 1.5 天 | 5% |
+
+### 缺陷分析误区
+
+- **误区一**: 只关注 P0/P1 缺陷，忽视 P2/P3 的累积趋势 —— 小缺陷累积反映流程系统性问题
+- **误区二**: 根因分析停留在直接原因，未追溯到流程/规范层面 —— 修复单个缺陷而不是改进系统
+- **误区三**: 缺陷分类标签不一致，同一类型缺陷在不同迭代中被标记为不同类别 —— 需要分类标准培训和定期校准
+
+---
+
 ## Summary
 
 | 维度 | PASS | PARTIAL | FAIL | 通过率 |
@@ -97,9 +140,8 @@ updated: 2026-06-23
 
 ---
 
-## References
+## 相关评估
 
-- [regression-checklist.md](regression-checklist.md)
-- [test-quality-checklist.md](test-quality-checklist.md)
-- [common-error-patterns.md](common-error-patterns.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [regression-checklist.md](regression-checklist.md) — 回归测试完整性检查，与缺陷修复验证配合使用
+- [test-quality-checklist.md](test-quality-checklist.md) — 测试质量检查，评估缺陷检测能力
+- [code-quality-checklist.md](code-quality-checklist.md) — 代码质量检查，从编码层面预防缺陷

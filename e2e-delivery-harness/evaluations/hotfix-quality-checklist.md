@@ -3,7 +3,11 @@ name: hotfix-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+description: "热修复质量清单，用于评估紧急修复的审批流程、验证步骤和风险控制"
+author: AI Harness Engineering Team
+created: 2026-06-23
 updated: 2026-06-23
+tags: ['evaluation', 'hotfix', 'quality', 'checklist', 'emergency']
 ---
 
 # 热修复质量检查清单 (Hotfix Quality Checklist)
@@ -110,3 +114,10 @@ updated: 2026-06-23
 - [monitoring-quality-checklist.md](monitoring-quality-checklist.md)
 - [common-error-patterns.md](common-error-patterns.md)
 - [standards/harness-engineering.md](../standards/harness-engineering.md)
+
+## 相关评估
+
+- [deployment-quality-checklist.md](deployment-quality-checklist.md) — 部署质量清单
+- [regression-checklist.md](regression-checklist.md) — 回归检查清单
+- [monitoring-quality-checklist.md](monitoring-quality-checklist.md) — 监控质量清单
+- [code-quality-checklist.md](code-quality-checklist.md) — 代码质量清单

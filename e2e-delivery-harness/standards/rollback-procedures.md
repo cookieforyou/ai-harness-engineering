@@ -1,13 +1,18 @@
 ---
 name: rollback-procedures
+description: "回滚流程标准，定义数据库、应用、配置和基础设施的分步回滚操作流程与验证清单"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'rollback', 'recovery', 'database', 'disaster-recovery']
 ---
 
 # 回滚流程
 
-> 本规范提供 E2E Delivery Harness 中各组件类型的分步回滚操作流程。决策标准见 [rollback-strategy.md](rollback-strategy.md)。审查基准见 [harness-engineering.md](harness-engineering.md)。
+> 本规范提供 E2E Delivery Harness 中各组件类型的分步回滚操作流程。决策标准见 [rollback-strategy.md](../standards/rollback-strategy.md)。审查基准见 [harness-engineering.md](../harness-engineering.md)。
 
 ## 1. 通用回滚流程
 
@@ -236,10 +241,10 @@ kubectl rollout status deployment/<name>
 - [ ] 告警已恢复（Alert Fatigue 除外）
 - [ ] 回滚操作已记录到变更管理系统
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [rollback-strategy.md](rollback-strategy.md)
-- [deployment-best-practices.md](deployment-best-practices.md)
-- [health-check-guidelines.md](health-check-guidelines.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [rollback-strategy.md](../standards/rollback-strategy.md)
+- [deployment-best-practices.md](../standards/deployment-best-practices.md)
+- [health-check-guidelines.md](../standards/health-check-guidelines.md)

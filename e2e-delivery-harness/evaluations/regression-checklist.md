@@ -1,3 +1,15 @@
+---
+name: regression-checklist
+description: "回归检查清单，用于确保每个交付阶段的产出满足质量基线，防止质量缺陷向后传递"
+type: evaluation
+version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-06-23
+updated: 2026-06-23
+status: active
+tags: ['evaluation', 'regression', 'quality', 'checklist', 'delivery']
+---
+
 # E2E Delivery Regression Checklist
 
 ## Purpose
@@ -335,3 +347,10 @@
 - Quality Lead: \_\_\_\_\_\_\_\_\_\_\_\_ Date: \_\_\_\_\_\_\_\_\_\_\_\_
 - Technical Lead: \_\_\_\_\_\_\_\_\_\_\_\_ Date: \_\_\_\_\_\_\_\_\_\_\_\_
 - Product Owner: \_\_\_\_\_\_\_\_\_\_\_\_ Date: \_\_\_\_\_\_\_\_\_\_\_\_
+
+## 相关评估
+
+- [output-validation-checklist.md](output-validation-checklist.md) — 输出验证清单
+- [code-quality-checklist.md](code-quality-checklist.md) — 代码质量清单
+- [deployment-quality-checklist.md](deployment-quality-checklist.md) — 部署质量清单
+- [test-quality-checklist.md](test-quality-checklist.md) — 测试质量清单

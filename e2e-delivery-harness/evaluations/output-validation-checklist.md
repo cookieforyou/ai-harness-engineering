@@ -1,3 +1,15 @@
+---
+name: output-validation-checklist
+description: "输出验证清单，用于验证Agent输出成果的格式合规性、内容完整性和质量标准达成度"
+type: evaluation
+version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-06-23
+updated: 2026-06-23
+status: active
+tags: ['evaluation', 'output', 'validation', 'quality', 'checklist']
+---
+
 # Output Validation Checklist (输出验证检查清单)
 
 ## 概述
@@ -207,3 +219,10 @@
 | Scenario | `scenarios/*/SCENARIO.md` (各场景) |
 | Checklist | `evaluations/regression-checklist.md` (回归检查) |
 | Rubric | `standards/output-quality-rubric.md` (质量评分标准) |
+
+## 相关评估
+
+- [regression-checklist.md](regression-checklist.md) — 回归检查清单
+- [code-quality-checklist.md](code-quality-checklist.md) — 代码质量清单
+- [deployment-quality-checklist.md](deployment-quality-checklist.md) — 部署质量清单
+- [test-quality-checklist.md](test-quality-checklist.md) — 测试质量清单

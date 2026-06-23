@@ -1,5 +1,6 @@
 ---
 name: monitoring-quality-checklist
+description: "监控质量清单，用于评估监控系统的覆盖率、告警准确性和响应时效"
 type: evaluation
 version: "1.0.0"
 status: active
@@ -70,6 +71,63 @@ updated: 2026-06-23
 
 ---
 
+## 6. 监控实践示例 (Monitoring Practice Examples)
+
+### 告警规则配置示例
+
+| 指标 | 告警条件 | 级别 | 通知方式 | 响应时限 |
+|------|----------|------|----------|----------|
+| 服务可用性 | 5 分钟内健康检查失败率 > 10% | P0 | 电话 + IM | 15 分钟 |
+| API P99 延迟 | P99 延迟 > 500ms 持续 3 分钟 | P1 | IM | 30 分钟 |
+| HTTP 5xx 错误率 | 5xx 比例 > 1% 持续 5 分钟 | P1 | IM | 30 分钟 |
+| 磁盘使用率 | 磁盘 > 85% | P2 | IM | 4 小时 |
+| SSL 证书过期 | 证书 < 14 天过期 | P2 | IM | 7 天内续期 |
+
+### Runbook 模板示例
+
+```
+# Runbook: [告警名称]
+
+## 告警信息
+- 级别: P0/P1/P2
+- 触发条件: [具体触发规则]
+- 影响范围: [受影响的服务/用户数]
+
+## 排查步骤
+1. 确认告警 → 登录 [Dashboard URL] 查看指标
+2. 检查日志 → 按 trace_id 查询日志
+3. 定位根因 → [预期输出的检查命令]
+
+## 修复操作
+```bash
+# 操作描述
+$ [具体命令]
+
+## 升级联系人
+- 一线: [On-call 工程师]
+- 二线: [服务负责人]
+```
+
+### 常见监控缺口检查
+
+| 检查项 | 自查问题 | 高风险信号 |
+|--------|----------|-----------|
+| 关键业务路径 | 用户核心流程是否全部被监控？ | "未监控但有线上故障" |
+| 依赖监控 | 所有下游依赖是否有健康检查和告警？ | "下游挂了 30 分钟后才发现" |
+| 容量预警 | 是否在资源耗尽前发出预警？ | "磁盘满了才知道" |
+| 端到端拨测 | 是否有模拟用户操作的合成拨测？ | "服务 200 但页面空白" |
+
+### 告警有效性指标
+
+| 指标 | 计算公式 | 目标 | 说明 |
+|------|----------|------|------|
+| 准确率 (Precision) | 真阳性 / (真阳性 + 假阳性) | ≥ 95% | 告警准确度，避免告警疲劳 |
+| 召回率 (Recall) | 真阳性 / (真阳性 + 假阴性) | ≥ 99% | 故障覆盖度，避免漏报 |
+| MTTA | 从告警触发到响应的平均时间 | ≤ 15 分钟 (P0) | 响应时效 |
+| MTTR | 从告警触发到修复的平均时间 | ≤ 60 分钟 (P0) | 修复时效 |
+
+---
+
 ## Summary
 
 | 维度 | PASS | PARTIAL | FAIL | 通过率 |
@@ -98,9 +156,8 @@ updated: 2026-06-23
 
 ---
 
-## References
+## 相关评估
 
-- [regression-checklist.md](regression-checklist.md)
-- [alert-effectiveness.md](alert-effectiveness.md)
-- [slo-compliance.md](slo-compliance.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [alert-effectiveness.md](alert-effectiveness.md) — 告警有效性评估，与监控告警配置配套使用
+- [slo-compliance.md](slo-compliance.md) — SLO 合规评估，与 SLI/SLO 覆盖维度关联
+- [performance-baseline.md](performance-baseline.md) — 性能基线评估，为监控阈值设定提供依据

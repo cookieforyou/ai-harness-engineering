@@ -184,15 +184,14 @@ description: >
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial report | [Name] |
+| 1.0 | YYYY-MM-DD | Initial report | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [coverage-analysis.md](coverage-analysis.md)
-- [regression-test-suite.md](regression-test-suite.md)
-- [code-quality-checklist.md](code-quality-checklist.md)
-- [acceptance-criteria-review.md](acceptance-criteria-review.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [coverage-analysis.md](../evaluations/coverage-analysis.md)
+- [regression-test-suite.md](../evaluations/regression-test-suite.md)
+- [code-quality-checklist.md](../evaluations/code-quality-checklist.md)
+- [acceptance-criteria-review.md](../evaluations/acceptance-criteria-review.md)

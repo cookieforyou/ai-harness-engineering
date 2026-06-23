@@ -3,7 +3,11 @@ name: deployment-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+description: "部署质量清单，用于评估部署流程的完整性、回滚准备和发布验证"
+author: AI Harness Engineering Team
+created: 2026-06-23
 updated: 2026-06-23
+tags: ['evaluation', 'deployment', 'quality', 'checklist']
 ---
 
 # 部署质量检查清单 (Deployment Quality Checklist)
@@ -109,3 +113,10 @@ updated: 2026-06-23
 - [rollback-drill-report.md](rollback-drill-report.md)
 - [monitoring-quality-checklist.md](monitoring-quality-checklist.md)
 - [standards/harness-engineering.md](../standards/harness-engineering.md)
+
+## 相关评估
+
+- [regression-checklist.md](regression-checklist.md) — 回归检查清单
+- [hotfix-quality-checklist.md](hotfix-quality-checklist.md) — 热修复质量清单
+- [monitoring-quality-checklist.md](monitoring-quality-checklist.md) — 监控质量清单
+- [rollback-drill-report.md](rollback-drill-report.md) — 回滚演练报告

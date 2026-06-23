@@ -1,13 +1,18 @@
 ---
 name: sre-best-practices
+description: "SRE 最佳实践标准，定义 SLI/SLO/SLA、Error Budget、Golden Signals、Toil 管理与 Incident 生命周期规范"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'sre', 'reliability', 'slo', 'error-budget', 'incident']
 ---
 
 # SRE 最佳实践
 
-> 本规范定义 E2E Delivery Harness 中所有服务的可靠性工程标准，涵盖 SLI/SLO/SLA、Error Budget、Golden Signals、Toil 管理与 Incident 生命周期。审查基准见 [harness-engineering.md](harness-engineering.md)。
+> 本规范定义 E2E Delivery Harness 中所有服务的可靠性工程标准，涵盖 SLI/SLO/SLA、Error Budget、Golden Signals、Toil 管理与 Incident 生命周期。审查基准见 [harness-engineering.md](../harness-engineering.md)。
 
 ## 1. SLI / SLO / SLA 定义
 
@@ -56,7 +61,7 @@ Error Budget = (1 - SLO) × 总时间窗口。例如 99.9% SLO → 月度 Error 
 | < 50% | 正常发布 | 常规变更流程 |
 | 50% - 80% | 减速发布 | 高风险变更需特批，增加金丝雀观察时间 |
 | 80% - 100% | 冻结发布 | 仅允许紧急修复 (hotfix)，其他变更冻结 |
-| > 100% | 强制回滚 + 复盘 | 触发 [incident-management.md](incident-management.md) P0 流程 |
+| > 100% | 强制回滚 + 复盘 | 触发 [incident-management.md](../standards/incident-management.md) P0 流程 |
 
 ### 2.3 Error Budget 跟踪
 
@@ -119,11 +124,11 @@ Toil 是手动、重复、可自动化、无长期价值的运维操作。特征
 - **英雄主义**: 依赖特定个人手动处理重复操作
 - **Runbook 从未执行**: 写了文档但没有人实际跟着做
 - **半自动化**: 脚本需要人工参数调整（完全自动化 vs 不可自动化）
-- **告警疲劳**: 告警太多导致忽略重要告警（参见 [alerting-guidelines.md](alerting-guidelines.md)）
+- **告警疲劳**: 告警太多导致忽略重要告警（参见 [alerting-guidelines.md](../standards/alerting-guidelines.md)）
 
 ## 5. Incident 管理生命周期 (Incident Management Lifecycle)
 
-参见 [incident-management.md](incident-management.md) 完整流程。
+参见 [incident-management.md](../standards/incident-management.md) 完整流程。
 
 ### 5.1 生命周期阶段
 
@@ -169,10 +174,10 @@ Detection → Response → Mitigation → Resolution → Follow-up
 - `DC-SRE-003` — Golden Signals 已全部暴露与监控
 - `DC-SRE-004` — Incident 响应时间满足分级要求
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [monitoring-standards.md](monitoring-standards.md)
-- [alerting-guidelines.md](alerting-guidelines.md)
-- [incident-management.md](incident-management.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [monitoring-standards.md](../standards/monitoring-standards.md)
+- [alerting-guidelines.md](../standards/alerting-guidelines.md)
+- [incident-management.md](../standards/incident-management.md)

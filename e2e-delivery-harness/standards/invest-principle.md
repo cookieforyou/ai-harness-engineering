@@ -59,7 +59,7 @@ tags: ['standard', 'agile', 'user-story', 'invest', 'backlog']
 **Definition**: 每一个用户故事必须能够向最终用户、客户或其他干系人交付明确的价值。价值的表述应该是具体的、可感知的，而不是笼统的"改进系统"。如果故事无法回答"为什么用户/业务需要这个？"那么它可能不应该出现在当前的 Sprint 中。
 
 **Practice**:
-- 每个故事必须包含"以便..."（so that）子句，明确指出价值的接收者和价值本身。
+- 每个故事必须包含"以便..."（so that）子句，价值明确率应 ≥95%
 - 将每一个故事映射到一个业务目标（OBJ-*），确保投资有迹可循。没有业务目标映射的故事应受到质疑。
 - 区分直接价值（用户可见的功能）和间接价值（技术改进带来的稳定性/性能提升）。间接价值故事应显式标注为 Tech Story 并说明最终用户收益。
 - 使用 Impact Mapping 或 Value Stream Mapping 工具追溯故事的业务价值。
@@ -76,7 +76,7 @@ tags: ['standard', 'agile', 'user-story', 'invest', 'backlog']
 
 **Practice**:
 - 如果团队无法估算一个故事（"我们不知道该怎么做"或"这可能需要 1 天也可能需要 3 周"），意味着需要进一步拆分（split）故事，或者先安排一个 Spike 来消除不确定性。
-- 使用标准的故事点（Story Points）估算方法（Fibonacci 序列：1, 2, 3, 5, 8, 13, 21）或 T-Shirt 尺寸（XS, S, M, L, XL）。同一团队应保持估算基准的一致性。
+- 使用标准的故事点（Story Points）估算方法（Fibonacci 序列：1, 2, 3, 5, 8, 13, 21）或 T-Shirt 尺寸（XS, S, M, L, XL），估算偏差应 ≤20%。同一团队应保持估算基准的一致性。
 - 故事应附有足够的上下文（Context）和 3-5 条明确的验收条件，以及清晰的"完成定义"（Definition of Done）。
 - 可以使用 Planning Poker（计划扑克）来集体估算，减少个人偏差。
 
@@ -91,7 +91,7 @@ tags: ['standard', 'agile', 'user-story', 'invest', 'backlog']
 **Definition**: 用户故事必须足够小，能够在单个 Sprint/迭代内完成。小故事意味着风险低、可预测性高、交付频率快。Small 是 Estimable 的自然结果——通常一个故事如果可估算且估算结果合理（1-5 个 Story Points），则它自然就是 Small 的。
 
 **Practice**:
-- 每个故事应当在 2-3 天内完成（对于大多数成熟团队）。超过这个时间范围的故事应该被质疑。
+- 每个故事应当在 2-3 天内完成（对于大多数成熟团队），单 Sprint 完成率 ≥90%。超过这个时间范围的故事应该被质疑。
 - 使用"Sprint 规则"：如果一个故事的估算超过 Sprint 总容量的 50%，必须拆分。例如，2 周 Sprint（10 个工作日）中，单故事不应超过 5 个工作日的工作量。
 - 拆分后的故事应保持"每个子故事仍然有独立价值"——避免产生"必须收集所有碎片才能交付价值"的情况。
 - 故事拆分的合理粒度判断标准：完成该故事后能否触发一次发布（release）？如果不能，说明粒度仍然过大。
@@ -201,11 +201,11 @@ tags: ['standard', 'agile', 'user-story', 'invest', 'backlog']
 
 **使用建议**: 上述清单应当在 Backlog Refinement 会议中逐条审查。任何一条标记为 FAIL 的故事应当立即进行修正（拆分、重新描述或补充信息），不得未经修正而进入 Sprint 队列。
 
-## Related Standards
+## 相关资产
 
 本标准是 E2E Delivery Harness 质量管理体系的一部分。执行和审计时应结合以下相关标准：
 
-- [smart-criteria.md](smart-criteria.md) — SMART 验收条件标准，与 INVEST 的 T（Testable）紧密结合
-- [user-story-format.md](user-story-format.md) — 用户故事标准格式模板，提供 INVEST 的载体结构
-- [harness-engineering.md](harness-engineering.md) — E2E Delivery Harness 总体标准和工程规范
-- [authoring-checklist.md](authoring-checklist.md) — 故事编写检查清单，整合 INVEST 合规检查
+- [smart-criteria.md](../standards/smart-criteria.md) — SMART 验收条件标准，与 INVEST 的 T（Testable）紧密结合
+- [user-story-format.md](../standards/user-story-format.md) — 用户故事标准格式模板，提供 INVEST 的载体结构
+- [harness-engineering.md](../harness-engineering.md) — E2E Delivery Harness 总体标准和工程规范
+- [authoring-checklist.md](../standards/authoring-checklist.md) — 故事编写检查清单，整合 INVEST 合规检查

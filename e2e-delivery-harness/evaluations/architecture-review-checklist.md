@@ -1,5 +1,6 @@
 ---
 name: architecture-review-checklist
+description: "架构评审清单，用于评估系统架构设计的完整性、可扩展性和技术选型合理性"
 type: evaluation
 version: "1.0.0"
 status: active
@@ -68,6 +69,28 @@ updated: 2026-06-23
 
 ---
 
+## 6. 常见架构反模式 (Common Anti-Patterns)
+
+以下列出架构设计中常见的反模式及其改进建议，评审时应注意避免：
+
+| 反模式 | 表现 | 改进建议 |
+|--------|------|----------|
+| 大泥球 (Big Ball of Mud) | 模块间依赖混乱，无清晰边界，一处修改引发多处故障 | 按业务域划分限界上下文（Bounded Context），实施分层架构，逐步重构 |
+| 分布式单体 (Distributed Monolith) | 微服务间同步调用链过长（> 3 跳），一个故障级联影响所有依赖 | 引入异步消息解耦，同步调用链长度不超过 2 跳，设置超时和熔断 |
+| 过度设计 (Over-Engineering) | 为简单 CRUD 引入事件溯源、CQRS 等复杂模式，远超业务需要 | 遵循 YAGNI 原则，仅在有明确非功能需求驱动时引入复杂架构模式 |
+| 上帝服务 (God Service) | 某服务承担过多职责（> 5 个不相关领域），成为开发和部署瓶颈 | 按单一职责原则拆分为专一服务，每个服务负责 ≤ 2 个相关业务领域 |
+| 数据库即集成点 | 多个服务直接读写同一数据库，绕过服务边界，破坏封装 | 每个服务拥有独立数据存储，通过 API 或消息队列进行数据交换 |
+
+## Scoring Examples
+
+以下示例说明不同场景下的评分判定结果：
+
+- **PASS 示例**: 零售订单系统采用事件驱动架构，服务拆分对齐业务域，C4 模型到 Level 3，ADR 记录完整，已完成 STRIDE 威胁建模，通过率 92%
+- **PARTIAL 示例**: 采用微服务架构但服务边界划分存在争议（如"用户"与"账户"职责重叠），NFR 中灾备方案未涉及，通过率 78%
+- **FAIL 示例**: 微服务迁移方案中服务拆分仅按功能层级而非业务域，无数据一致性策略，安全方面未设计，通过率 65%
+
+---
+
 ## Summary
 
 | 维度 | PASS | PARTIAL | FAIL | 通过率 |
@@ -97,9 +120,9 @@ updated: 2026-06-23
 
 ---
 
-## References
+## 相关评估
 
-- [regression-checklist.md](regression-checklist.md)
-- [design-quality-assessment.md](design-quality-assessment.md)
-- [schema-review-checklist.md](schema-review-checklist.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [design-quality-assessment.md](design-quality-assessment.md) — 设计质量评估，与架构设计配套使用
+- [schema-review-checklist.md](schema-review-checklist.md) — 数据模型与接口设计评审
+- [code-quality-checklist.md](code-quality-checklist.md) — 评审代码实现与架构方案的一致性
+- [acceptance-criteria-review.md](acceptance-criteria-review.md) — 确保架构决策可验证

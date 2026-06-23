@@ -1,13 +1,18 @@
 ---
 name: rollback-strategy
+description: "回滚策略标准，定义回滚决策矩阵、RTO/RPO 目标、回滚策略分类与回滚就绪检查规范"
 type: standard
 version: "2.0.0"
+author: AI Harness Engineering Team
+created: 2026-04-01
+updated: 2026-06-23
 status: active
+tags: ['standard', 'rollback', 'strategy', 'rto', 'rpo']
 ---
 
 # 回滚策略
 
-> 本规范定义 E2E Delivery Harness 中所有场景的回滚决策标准、各组件回滚流程与 RTO 目标。审查基准见 [harness-engineering.md](harness-engineering.md)。具体操作步骤见 [rollback-procedures.md](rollback-procedures.md)。
+> 本规范定义 E2E Delivery Harness 中所有场景的回滚决策标准、各组件回滚流程与 RTO 目标。审查基准见 [harness-engineering.md](../harness-engineering.md)。具体操作步骤见 [rollback-procedures.md](../standards/rollback-procedures.md)。
 
 ## 1. 回滚决策矩阵 (Rollback Decision Matrix)
 
@@ -122,10 +127,10 @@ Verification ≤ 1 min
 - `HO-RB-004` — 回滚 playbook 已测试通过
 - `HO-RB-005` — LKG 制品可用
 
-## 引用
+## 相关资产
 
-- [asset-model.md](asset-model.md)
-- [authoring-checklist.md](authoring-checklist.md)
-- [rollback-procedures.md](rollback-procedures.md)
-- [deployment-best-practices.md](deployment-best-practices.md)
-- [sre-best-practices.md](sre-best-practices.md)
+- [asset-model.md](../standards/asset-model.md)
+- [authoring-checklist.md](../standards/authoring-checklist.md)
+- [rollback-procedures.md](../standards/rollback-procedures.md)
+- [deployment-best-practices.md](../standards/deployment-best-practices.md)
+- [sre-best-practices.md](../standards/sre-best-practices.md)

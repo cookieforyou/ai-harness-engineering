@@ -182,15 +182,14 @@ WHERE status = 'PENDING' AND created_at > NOW() - INTERVAL 30 DAY;
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial report | [Name] |
+| 1.0 | YYYY-MM-DD | Initial report | 评估团队 |
 ```
 
 ---
 
-## Related Evaluations
+## 相关评估
 
-- [performance-baseline.md](performance-baseline.md)
-- [response-time-analysis.md](response-time-analysis.md)
-- [schema-review-checklist.md](schema-review-checklist.md)
-- [slo-compliance.md](slo-compliance.md)
-- [standards/harness-engineering.md](../standards/harness-engineering.md)
+- [performance-baseline.md](../evaluations/performance-baseline.md)
+- [response-time-analysis.md](../evaluations/response-time-analysis.md)
+- [schema-review-checklist.md](../evaluations/schema-review-checklist.md)
+- [slo-compliance.md](../evaluations/slo-compliance.md)
