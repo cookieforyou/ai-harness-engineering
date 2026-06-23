@@ -698,6 +698,397 @@ const config = {
 module.exports = config;
 ```
 
+### Java (Javadoc + Asciidoctor Maven Plugin)
+
+```xml
+<!-- pom.xml
+  Maven configuration for automated Java API documentation generation.
+  Combines Javadoc (inline code documentation from doc comments)
+  with Asciidoctor (architectural and design documentation in AsciiDoc format).
+-->
+<project>
+  <build>
+    <plugins>
+      <!-- ================================================================ -->
+      <!-- Javadoc Plugin                                                    -->
+      <!-- Generates HTML API docs from source code javadoc comments.        -->
+      <!-- Detects broken references, missing @param/@return tags.           -->
+      <!-- ================================================================ -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>17</source>
+          <!-- Validate: fail build on broken links, missing tags (except -missing) -->
+          <doclint>all,-missing</doclint>
+          <failOnError>true</failOnError>
+          <show>protected</show>
+          <!-- Link to standard JDK docs for cross-reference -->
+          <links>
+            <link>https://docs.oracle.com/en/java/javase/17/docs/api/</link>
+          </links>
+          <!-- Custom Javadoc tags for ADR-style annotations -->
+          <tags>
+            <tag>
+              <name>apiNote</name>
+              <placement>a</placement>
+              <head>API Note:</head>
+            </tag>
+            <tag>
+              <name>implSpec</name>
+              <placement>a</placement>
+              <head>Implementation Specification:</head>
+            </tag>
+          </tags>
+          <additionalOptions>
+            <additionalOption>-html5</additionalOption>
+          </additionalOptions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals><goal>jar</goal></goals>
+            <phase>verify</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- ================================================================ -->
+      <!-- Asciidoctor Maven Plugin                                         -->
+      <!-- Converts AsciiDoc (.adoc) files to HTML/PDF for design docs.      -->
+      <!-- Supports: includes, diagrams, tables, source highlighting.        -->
+      <!-- ================================================================ -->
+      <plugin>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctor-maven-plugin</artifactId>
+        <version>2.2.6</version>
+        <configuration>
+          <!-- Source directory for .adoc files -->
+          <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+          <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
+          <backend>html5</backend>
+          <sourceHighlighter>coderay</sourceHighlighter>
+          <attributes>
+            <toc>left</toc>
+            <toclevels>3</toclevels>
+            <sectnums>true</sectnums>
+            <project-version>${project.version}</project-version>
+            <!-- Mermaid diagram integration -->
+            <mermaid-js>https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js</mermaid-js>
+          </attributes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-html-docs</id>
+            <phase>prepare-package</phase>
+            <goals><goal>process-asciidoc</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+```
+
+```bash
+# === Java Documentation Commands ===
+# Generate Javadoc API documentation
+mvn javadoc:javadoc
+# Output: target/reports/apidocs/index.html
+
+# Generate Asciidoctor documentation
+mvn asciidoctor:process-asciidoc
+# Output: target/generated-docs/index.html
+
+# Generate all documentation in a single build
+mvn clean verify -DperformDocs=true
+
+# Generate Javadoc JAR for publishing to Maven Central
+mvn javadoc:jar
+# Output: target/*-javadoc.jar
+```
+
+### Go (godoc + goldmark Custom Documentation Generator)
+
+```go
+// cmd/docgen/main.go
+//
+// Custom documentation generator for Go projects.
+// Uses goldmark (CommonMark-compliant Markdown parser) with:
+//   - Mermaid diagram rendering for architecture diagrams
+//   - Auto-generated table of contents
+//   - Template-based HTML rendering for custom branding
+//   - Static site output for deployment to documentation portal
+//
+// This script serves as a godoc supplement for project-level docs
+// that go beyond standard Go package documentation.
+//
+// Usage:
+//   go run cmd/docgen/main.go
+//   go run cmd/docgen/main.go --source docs/ --output public/
+package main
+
+import (
+	"bytes"
+	"flag"
+	"fmt"
+	"html/template"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
+	"github.com/yuin/goldmark/ast"
+	"github.com/yuin/goldmark/text"
+)
+
+// DocConfig holds documentation generation parameters
+type DocConfig struct {
+	SourceDir string // Source directory containing .md files
+	OutputDir string // Output directory for generated HTML
+	SiteName  string // Documentation site name
+}
+
+// Page represents a single documentation page for template rendering
+type Page struct {
+	Title      string
+	Content    template.HTML // Rendered HTML content
+	TOCTree    string        // Table of contents HTML
+	SourcePath string        // Relative source path for edit links
+	SiteName   string
+	NavTree    []NavItem
+}
+
+// NavItem represents an item in the navigation tree
+type NavItem struct {
+	Title string
+	Path  string
+	Children []NavItem
+}
+
+// buildNavigation scans the source directory and builds a navigation tree
+func buildNavigation(sourceDir string) ([]NavItem, error) {
+	var nav []NavItem
+	err := filepath.Walk(sourceDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil { return err }
+		if info.IsDir() || !strings.HasSuffix(path, ".md") { return nil }
+
+		relPath, _ := filepath.Rel(sourceDir, path)
+		title := strings.TrimSuffix(filepath.Base(path), ".md")
+		title = strings.ReplaceAll(title, "-", " ")
+		title = strings.ReplaceAll(title, "_", " ")
+		title = strings.Title(title) //nolint:staticcheck
+
+		nav = append(nav, NavItem{
+			Title: title,
+			Path:  strings.TrimSuffix(relPath, ".md") + ".html",
+		})
+		return nil
+	})
+	return nav, err
+}
+
+// renderToC generates an HTML table of contents from the markdown AST
+func renderToC(source []byte) string {
+	// Parse markdown and extract headings for TOC
+	reader := text.NewReader(source)
+	doc := goldmark.DefaultParser().Parse(reader)
+
+	var toc bytes.Buffer
+	toc.WriteString("<nav class='toc'><ul>")
+
+	// Walk the AST to find headings
+	ast.Walk(doc, func(n ast.Node, entering bool) (ast.WalkStatus, error) {
+		if !entering { return ast.WalkContinue, nil }
+		heading, ok := n.(*ast.Heading)
+		if !ok || heading.Level > 3 { return ast.WalkContinue, nil }
+
+		// Generate anchor ID from heading text
+		text := string(n.Text(source))
+		anchorID := strings.ToLower(strings.ReplaceAll(text, " ", "-"))
+
+		toc.WriteString(fmt.Sprintf(
+			"<li class='toc-h%d'><a href='#%s'>%s</a></li>\n",
+			heading.Level, anchorID, text))
+		return ast.WalkContinue, nil
+	})
+
+	toc.WriteString("</ul></nav>")
+	return toc.String()
+}
+
+// renderMarkdown converts Markdown content to HTML using goldmark
+func renderMarkdown(content []byte) (string, string, error) {
+	// Build goldmark with extensions
+	md := goldmark.New(
+		goldmark.WithExtensions(
+			extension.GFM,                 // GitHub Flavored Markdown (tables, strikethrough)
+			extension.Typographer,         // Smart quotes, dashes, ellipses
+			extension.Footnote,            // Footnote support
+			extension.DefinitionList,      // Definition lists
+		),
+		goldmark.WithParserOptions(
+			parser.WithAutoHeadingID(),    // Auto-generate heading IDs for anchors
+		),
+		goldmark.WithRendererOptions(
+			html.WithHardWraps(),
+			html.WithXHTML(),
+		),
+	)
+
+	var buf bytes.Buffer
+	if err := md.Convert(content, &buf); err != nil {
+		return "", "", fmt.Errorf("markdown conversion failed: %w", err)
+	}
+
+	toc := renderToC(content)
+	return buf.String(), toc, nil
+}
+
+// generateSite builds the complete documentation site
+func generateSite(cfg DocConfig) error {
+	// Ensure output directory exists
+	if err := os.MkdirAll(cfg.OutputDir, 0755); err != nil {
+		return fmt.Errorf("cannot create output dir: %w", err)
+	}
+
+	// Build navigation tree
+	nav, err := buildNavigation(cfg.SourceDir)
+	if err != nil {
+		return fmt.Errorf("navigation build failed: %w", err)
+	}
+
+	// Load HTML template
+	tmpl := template.Must(template.New("page").Parse(pageTemplate))
+
+	// Process each markdown file
+	return filepath.Walk(cfg.SourceDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil { return err }
+		if info.IsDir() || !strings.HasSuffix(path, ".md") { return nil }
+
+		// Read source
+		source, err := os.ReadFile(path)
+		if err != nil {
+			return fmt.Errorf("cannot read %s: %w", path, err)
+		}
+
+		// Extract title from first H1
+		title := strings.TrimSuffix(info.Name(), ".md")
+		lines := strings.SplitN(string(source), "\n", 3)
+		if len(lines) > 0 && strings.HasPrefix(lines[0], "# ") {
+			title = strings.TrimPrefix(lines[0], "# ")
+		}
+
+		// Render markdown to HTML
+		htmlContent, toc, err := renderMarkdown(source)
+		if err != nil {
+			return fmt.Errorf("render failed for %s: %w", path, err)
+		}
+
+		// Determine output path
+		relPath, _ := filepath.Rel(cfg.SourceDir, path)
+		outPath := filepath.Join(cfg.OutputDir,
+			strings.TrimSuffix(relPath, ".md")+".html")
+		if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
+			return err
+		}
+
+		// Render template and write
+		page := Page{
+			Title:      title,
+			Content:    template.HTML(htmlContent),
+			TOCTree:    toc,
+			SourcePath: relPath,
+			SiteName:   cfg.SiteName,
+			NavTree:    nav,
+		}
+
+		f, err := os.Create(outPath)
+		if err != nil { return err }
+		defer f.Close()
+
+		return tmpl.Execute(f, page)
+	})
+}
+
+// pageTemplate is the HTML template for rendering documentation pages
+const pageTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Title}} - {{.SiteName}}</title>
+  <link rel="stylesheet" href="/_static/style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>{{.SiteName}}</h2>
+      <nav class="nav-tree">
+        <ul>
+          {{range .NavTree}}
+          <li><a href="/{{.Path}}">{{.Title}}</a></li>
+          {{end}}
+        </ul>
+      </nav>
+    </aside>
+    <main class="content">
+      {{.TOCTree}}
+      <h1>{{.Title}}</h1>
+      {{.Content}}
+      <hr>
+      <footer>
+        <a href="/edit/{{.SourcePath}}">Edit this page</a>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>`
+
+func main() {
+	sourceDir := flag.String("source", "docs/", "Source markdown directory")
+	outputDir := flag.String("output", "public/", "Output HTML directory")
+	siteName := flag.String("name", "Project Documentation", "Site name")
+	flag.Parse()
+
+	cfg := DocConfig{
+		SourceDir: *sourceDir,
+		OutputDir: *outputDir,
+		SiteName:  *siteName,
+	}
+
+	if err := generateSite(cfg); err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		os.Exit(1)
+	}
+	fmt.Printf("Documentation generated: %s\n", cfg.OutputDir)
+}
+```
+
+```bash
+# === Go Documentation Commands ===
+# Install goldmark dependency
+go get github.com/yuin/goldmark
+go get github.com/yuin/goldmark/extension
+
+# Run custom documentation generator
+go run cmd/docgen/main.go --source docs/ --output public/
+
+# Start godoc server for standard Go package documentation
+godoc -http=:6060
+# Visit: http://localhost:6060/pkg/your-module/
+
+# Generate godoc as static HTML (non-interactive)
+go doc -all ./... > full-api-docs.txt
+
+# Combine: run custom doc generator then serve both
+go run cmd/docgen/main.go && godoc -http=:6060
+```
+
 ## Best Practices
 
 ### DO
@@ -804,6 +1195,39 @@ END
 
 **升级条件**: 翻译版本落后源语言版本超过 2 个版本，或关键文档（入门指南、API 参考）翻译滞后超过 7 天，或有用户因翻译不准确提交工单投诉。
 
+### Error Scenario 4: 文档搜索索引构建超时 (P2)
+
+**触发条件**: 文档站点构建过程中，搜索引擎（Lunr/Algolia/Meilisearch）对大规模文档集建立索引时超过预定的超时阈值（如 10 分钟），或索引构建消耗超过可用内存资源的 80%，导致文档构建流水线失败。
+
+**处理流程**:
+```
+IF 搜索索引构建超时 OR 内存使用率 > 80%
+THEN
+  1. 检查索引构建日志，定位超时原因：
+     a. 文档总量过大（> 1000 页面）
+     b. 单个页面内容过长（> 100KB 纯文本）
+     c. 页面中存在损坏的 Markdown 或 HTML 标签导致解析卡死
+     d. 索引配置不当（如分词器不支持中文导致全表扫描）
+  2. 调整索引配置：
+     a. 缩小索引范围（排除 node_modules、版本归档目录）
+     b. 启用增量索引（仅索引变更过的文件）而非全量重建
+     c. 增大超时阈值或将索引步骤移至独立构建阶段
+     d. 调优分词器参数（设置最大 token 长度、排除停用词）
+  3. 优化文档资源：
+     a. 拆分超长页面为多个子页面（推荐每页 < 2000 字）
+     b. 压缩大尺寸内嵌资源（Base64 图片 → 文件引用）
+     c. API 参考文档使用分片索引（按端点前缀分组）
+  4. 如使用第三方搜索服务（Algolia/Meilisearch Cloud）：
+     a. 调整索引调度策略，从 "提交时触发" 改为 "定时批处理"
+     b. 设置索引队列缓存，避免并发构建冲突
+     c. 检查 API 配额和速率限制是否触发
+  5. 成功构建后执行搜索功能回归测试，验证搜索结果正确性
+END
+```
+
+**降级方案**: 搜索索引构建失败时，暂时禁用全量搜索功能，回退至浏览器端轻量搜索方案（如 lunr.js 或 Fuse.js 客户端模糊搜索），在文档页脚添加 "搜索功能暂时不可用" 提示横幅并附带站点地图链接；对于多语言站点，优先保证默认语言（通常为英文）搜索索引可用，其他语言降级为简单字符匹配；将索引构建从文档发布流水线中解耦，允许文档先发布、搜索后补建。
+
+**升级条件**: 搜索索引连续构建失败超过 3 次，或搜索不可用超过 2 小时且影响关键用户路径（如故障排查手册、API 参考无法检索），升级至文档平台维护团队和 DevOps 负责人；若搜索不可用导致违反 SLA 中的文档可用性承诺，升级至技术 VP。
 
 ## Quality Standards
 
