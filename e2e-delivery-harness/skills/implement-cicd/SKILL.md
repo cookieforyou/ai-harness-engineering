@@ -6,7 +6,7 @@ type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
-updated: 2026-05-07
+updated: 2026-06-23
 status: active
 tags: ['skill', 'knowledge']
 ---
@@ -258,6 +258,345 @@ class QualityGate:
         def check(result):
             return result.test_failures == 0
         return check
+```
+
+### Pipeline Configuration Examples
+
+#### Java: GitHub Actions (Maven)
+
+```yaml
+# GitHub Actions workflow for Java/Maven project
+# File: .github/workflows/java-ci.yml
+name: Java CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [17, 21]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build & Test
+        run: mvn clean verify -B
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-java${{ matrix.java }}
+          path: target/surefire-reports/
+
+      - name: Dependency Check (OWASP)
+        run: mvn org.owasp:dependency-check-maven:check -B
+```
+
+#### Java: Jenkinsfile (Declarative Pipeline)
+
+```groovy
+// Jenkinsfile - Declarative Pipeline for Java/Gradle project
+pipeline {
+    agent any
+
+    tools {
+        jdk 'JDK21'
+        gradle '8.5'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build & Unit Test') {
+            parallel {
+                stage('Compile') {
+                    steps { sh 'gradle compileJava' }
+                }
+                stage('Unit Test') {
+                    steps { sh 'gradle test' }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                sh 'gradle sonar'
+                sh 'gradle check'
+            }
+        }
+
+        stage('Integration Test') {
+            steps {
+                sh 'gradle integrationTest'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'gradle jibDockerBuild'
+            }
+        }
+
+        stage('Deploy to Staging') {
+            when { branch 'develop' }
+            steps {
+                sh 'kubectl set image deployment/myapp app=myapp:${BUILD_NUMBER} -n staging'
+            }
+        }
+    }
+
+    post {
+        always {
+            junit 'build/reports/**/*.xml'
+            archiveArtifacts artifacts: 'build/libs/*.jar'
+        }
+        failure {
+            slackSend(color: '#FF0000', message: "Pipeline failed: ${env.BUILD_URL}")
+        }
+    }
+}
+```
+
+#### Go: GitHub Actions + Goreleaser
+
+```yaml
+# GitHub Actions workflow for Go project with Goreleaser
+# File: .github/workflows/go-ci.yml
+name: Go CI/CD
+
+on:
+  push:
+    tags: ['v*']
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: latest
+
+      - name: Test
+        run: go test -v -race -coverprofile=coverage.txt ./...
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.txt
+
+  release:
+    needs: lint-test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Run Goreleaser
+        uses: goreleaser/goreleaser-action@v5
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+```yaml
+# .goreleaser.yaml
+version: 2
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+
+dockers:
+  - image_templates:
+      - "ghcr.io/myorg/{{ .ProjectName }}:{{ .Version }}"
+      - "ghcr.io/myorg/{{ .ProjectName }}:latest"
+    use: buildx
+    build_flag_templates:
+      - "--platform=linux/amd64"
+
+checksum:
+  name_template: 'checksums.txt'
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+```
+
+#### Node.js: GitHub Actions (npm/yarn)
+
+```yaml
+# GitHub Actions workflow for Node.js project
+# File: .github/workflows/node-ci.yml
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          flags: node-v${{ matrix.node-version }}
+
+      - name: Build
+        run: npm run build
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+  docker-build:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/myorg/myapp:latest,ghcr.io/myorg/myapp:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+
+#### Docker Multi-stage Build (Node.js)
+
+```dockerfile
+# Dockerfile - Multi-stage build for Node.js application
+# Stage 1: Build
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+RUN npm run build
+
+# Stage 2: Production image
+FROM node:20-alpine
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+
+USER appuser
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+
+CMD ["node", "dist/main.js"]
 ```
 
 ## Toolchain

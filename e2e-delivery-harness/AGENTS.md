@@ -372,6 +372,10 @@ supporting-scenarios: { ... }  # 可选
 | [id-generation-quantification.md](standards/id-generation-quantification.md) | ID 前缀与阶段 KPI |
 | [output-quality-rubric.md](standards/output-quality-rubric.md) | 输出质量 Rubric |
 | [authoring-checklist.md](standards/authoring-checklist.md) | 创作检查清单 |
+| [cot-framework.md](standards/cot-framework.md) | CoT 执行框架（通用步骤标签与验证协议） |
+| [error-classification.md](standards/error-classification.md) | 错误分类与升级策略（P0-P4） |
+| [variable-schema-standard.md](standards/variable-schema-standard.md) | 变量 Schema 规范（JSON Schema） |
+| [traceability-mapping.md](standards/traceability-mapping.md) | 跨资产可追溯性映射标准 |
 
 | 评估文件 | 内容 |
 |----------|------|

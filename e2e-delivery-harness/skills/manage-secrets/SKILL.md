@@ -6,7 +6,7 @@ type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
-updated: 2026-05-07
+updated: 2026-06-23
 status: active
 tags: ['skill', 'knowledge']
 ---
@@ -219,6 +219,389 @@ class SecretRotation:
         for secret_path, policy in self.rotation_policies.items():
             if self._should_rotate(secret_path, policy):
                 self.execute_rotation(secret_path)
+```
+
+### KMS Integration Examples
+
+#### Java: AWS KMS SDK with Spring Vault
+
+```java
+// Java implementation - AWS KMS encryption and Spring Vault integration
+// Dependencies: aws-java-sdk-kms, spring-vault-core (Maven/Gradle)
+package com.example.secrets;
+
+import com.amazonaws.services.kms.AWSKMS;
+import com.amazonaws.services.kms.AWSKMSClientBuilder;
+import com.amazonaws.services.kms.model.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.vault.core.VaultKeyValueOperationsSupport;
+import org.springframework.vault.core.VaultTemplate;
+import org.springframework.vault.support.VaultResponse;
+
+import javax.annotation.PostConstruct;
+import java.nio.ByteBuffer;
+import java.util.Base64;
+
+@Component
+public class KmsService {
+    private AWSKMS kmsClient;
+
+    @Value("${aws.kms.key-id}")
+    private String kmsKeyId;
+
+    @Value("${aws.region:us-east-1}")
+    private String region;
+
+    @PostConstruct
+    public void init() {
+        this.kmsClient = AWSKMSClientBuilder.standard()
+            .withRegion(region)
+            .build();
+    }
+
+    // Encrypt a plaintext string using AWS KMS
+    public String encrypt(String plaintext) {
+        EncryptRequest request = new EncryptRequest()
+            .withKeyId(kmsKeyId)
+            .withPlaintext(ByteBuffer.wrap(plaintext.getBytes()));
+
+        EncryptResult result = kmsClient.encrypt(request);
+        return Base64.getEncoder().encodeToString(result.getCiphertextForBlob().array());
+    }
+
+    // Decrypt a ciphertext string using AWS KMS
+    public String decrypt(String ciphertext) {
+        byte[] decoded = Base64.getDecoder().decode(ciphertext);
+
+        DecryptRequest request = new DecryptRequest()
+            .withCiphertextBlob(ByteBuffer.wrap(decoded));
+
+        DecryptResult result = kmsClient.decrypt(request);
+        return new String(result.getPlaintext().array());
+    }
+
+    // Generate a new data key for envelope encryption
+    public GenerateDataKeyResult generateDataKey(String keySpec) {
+        GenerateDataKeyRequest request = new GenerateDataKeyRequest()
+            .withKeyId(kmsKeyId)
+            .withKeySpec(keySpec); // "AES_256" or "AES_128"
+
+        return kmsClient.generateDataKey(request);
+    }
+}
+
+// Spring Vault integration for dynamic secrets
+@Component
+class VaultSecretManager {
+    private final VaultTemplate vaultTemplate;
+
+    public VaultSecretManager(VaultTemplate vaultTemplate) {
+        this.vaultTemplate = vaultTemplate;
+    }
+
+    public String getSecret(String path, String key) {
+        VaultResponse response = vaultTemplate.opsForKeyValue("secret",
+            VaultKeyValueOperationsSupport.KeyValueBackend.KV_2).get(path);
+
+        if (response != null && response.getData() != null) {
+            return (String) response.getData().get(key);
+        }
+        throw new RuntimeException("Secret not found: " + path);
+    }
+
+    public void setSecret(String path, String key, String value) {
+        java.util.Map<String, Object> data = new java.util.HashMap<>();
+        data.put(key, value);
+        vaultTemplate.opsForKeyValue("secret",
+            VaultKeyValueOperationsSupport.KeyValueBackend.KV_2).put(path, data);
+    }
+}
+```
+
+#### Go: AWS KMS (aws-sdk-go-v2) + HashiCorp Vault
+
+```go
+// Go implementation - AWS KMS envelope encryption and Vault integration
+// Dependencies: github.com/aws/aws-sdk-go-v2/service/kms, github.com/hashicorp/vault/api
+package secrets
+
+import (
+    "context"
+    "encoding/base64"
+    "fmt"
+    "log"
+
+    "github.com/aws/aws-sdk-go-v2/aws"
+    "github.com/aws/aws-sdk-go-v2/config"
+    "github.com/aws/aws-sdk-go-v2/service/kms"
+    "github.com/hashicorp/vault/api"
+)
+
+// KMSClient wraps AWS KMS for encryption operations
+type KMSClient struct {
+    client *kms.Client
+    keyID  string
+}
+
+func NewKMSClient(ctx context.Context, keyID string) (*KMSClient, error) {
+    cfg, err := config.LoadDefaultConfig(ctx)
+    if err != nil {
+        return nil, fmt.Errorf("load AWS config: %w", err)
+    }
+    return &KMSClient{
+        client: kms.NewFromConfig(cfg),
+        keyID:  keyID,
+    }, nil
+}
+
+// Encrypt encrypts plaintext using AWS KMS
+func (k *KMSClient) Encrypt(ctx context.Context, plaintext []byte) (string, error) {
+    result, err := k.client.Encrypt(ctx, &kms.EncryptInput{
+        KeyId:     aws.String(k.keyID),
+        Plaintext: plaintext,
+    })
+    if err != nil {
+        return "", fmt.Errorf("kms encrypt: %w", err)
+    }
+    return base64.StdEncoding.EncodeToString(result.CiphertextBlob), nil
+}
+
+// Decrypt decrypts ciphertext using AWS KMS
+func (k *KMSClient) Decrypt(ctx context.Context, ciphertext string) ([]byte, error) {
+    decoded, err := base64.StdEncoding.DecodeString(ciphertext)
+    if err != nil {
+        return nil, fmt.Errorf("decode base64: %w", err)
+    }
+
+    result, err := k.client.Decrypt(ctx, &kms.DecryptInput{
+        CiphertextBlob: decoded,
+    })
+    if err != nil {
+        return nil, fmt.Errorf("kms decrypt: %w", err)
+    }
+    return result.Plaintext, nil
+}
+
+// GenerateDataKey creates a new data key for envelope encryption
+func (k *KMSClient) GenerateDataKey(ctx context.Context) (plaintext []byte, ciphertext []byte, err error) {
+    result, err := k.client.GenerateDataKey(ctx, &kms.GenerateDataKeyInput{
+        KeyId:   aws.String(k.keyID),
+        KeySpec: "AES_256",
+    })
+    if err != nil {
+        return nil, nil, fmt.Errorf("generate data key: %w", err)
+    }
+    return result.Plaintext, result.CiphertextBlob, nil
+}
+
+// VaultClient wraps HashiCorp Vault for secret storage
+type VaultClient struct {
+    client *api.Client
+}
+
+func NewVaultClient(address, token string) (*VaultClient, error) {
+    config := &api.Config{
+        Address: address,
+    }
+    client, err := api.NewClient(config)
+    if err != nil {
+        return nil, fmt.Errorf("create vault client: %w", err)
+    }
+    client.SetToken(token)
+    return &VaultClient{client: client}, nil
+}
+
+// LoginWithAppRole authenticates using AppRole auth method
+func (v *VaultClient) LoginWithAppRole(ctx context.Context, roleID, secretID string) error {
+    data := map[string]interface{}{
+        "role_id":   roleID,
+        "secret_id": secretID,
+    }
+    secret, err := v.client.Logical().WriteWithContext(ctx, "auth/approle/login", data)
+    if err != nil {
+        return fmt.Errorf("vault approle login: %w", err)
+    }
+    v.client.SetToken(secret.Auth.ClientToken)
+    log.Println("vault authentication successful")
+    return nil
+}
+
+// GetSecret retrieves a secret from Vault KV store
+func (v *VaultClient) GetSecret(ctx context.Context, path string) (map[string]interface{}, error) {
+    secret, err := v.client.KVv2("secret").Get(ctx, path)
+    if err != nil {
+        return nil, fmt.Errorf("vault get secret: %w", err)
+    }
+    return secret.Data, nil
+}
+
+// SetSecret stores a secret in Vault KV store
+func (v *VaultClient) SetSecret(ctx context.Context, path string, data map[string]interface{}) error {
+    _, err := v.client.KVv2("secret").Put(ctx, path, data)
+    if err != nil {
+        return fmt.Errorf("vault set secret: %w", err)
+    }
+    return nil
+}
+```
+
+#### Node.js: AWS SDK v3 KMS + node-vault
+
+```javascript
+// Node.js implementation - AWS KMS client (v3 SDK) and Vault integration
+// Dependencies: @aws-sdk/client-kms, node-vault (npm install @aws-sdk/client-kms node-vault)
+const { KMSClient, EncryptCommand, DecryptCommand, GenerateDataKeyCommand } = require('@aws-sdk/client-kms');
+
+class KmsService {
+    constructor(options = {}) {
+        this.client = new KMSClient({
+            region: options.region || process.env.AWS_REGION || 'us-east-1',
+            ...(options.credentials && {
+                credentials: options.credentials,
+            }),
+        });
+        this.keyId = options.keyId || process.env.AWS_KMS_KEY_ID;
+    }
+
+    // Encrypt a plaintext string
+    async encrypt(plaintext) {
+        const command = new EncryptCommand({
+            KeyId: this.keyId,
+            Plaintext: Buffer.from(plaintext, 'utf-8'),
+        });
+        const response = await this.client.send(command);
+        return response.CiphertextBlob.toString('base64');
+    }
+
+    // Decrypt a base64-encoded ciphertext
+    async decrypt(ciphertext) {
+        const command = new DecryptCommand({
+            CiphertextBlob: Buffer.from(ciphertext, 'base64'),
+        });
+        const response = await this.client.send(command);
+        return Buffer.from(response.Plaintext).toString('utf-8');
+    }
+
+    // Generate a data key for envelope encryption
+    async generateDataKey(keySpec = 'AES_256') {
+        const command = new GenerateDataKeyCommand({
+            KeyId: this.keyId,
+            KeySpec: keySpec,
+        });
+        const response = await this.client.send(command);
+        return {
+            plaintext: Buffer.from(response.Plaintext).toString('base64'),
+            ciphertext: Buffer.from(response.CiphertextBlob).toString('base64'),
+        };
+    }
+
+    // Envelope encrypt: generate data key, encrypt data locally, return wrapped key
+    async envelopeEncrypt(plaintext) {
+        const { createCipheriv } = require('crypto');
+        const dataKey = await this.generateDataKey('AES_256');
+        const plaintextKey = Buffer.from(dataKey.plaintext, 'base64');
+
+        const iv = require('crypto').randomBytes(12);
+        const cipher = createCipheriv('aes-256-gcm', plaintextKey, iv);
+
+        const encrypted = Buffer.concat([
+            cipher.update(plaintext, 'utf-8'),
+            cipher.final(),
+        ]);
+        const authTag = cipher.getAuthTag();
+
+        return {
+            encryptedData: encrypted.toString('base64'),
+            iv: iv.toString('base64'),
+            authTag: authTag.toString('base64'),
+            wrappedKey: dataKey.ciphertext,
+        };
+    }
+
+    // Envelope decrypt: unwrap data key with KMS, then decrypt locally
+    async envelopeDecrypt(envelope) {
+        const { createDecipheriv } = require('crypto');
+        const { plaintext: plaintextKey } = await this.decrypt(envelope.wrappedKey);
+
+        const iv = Buffer.from(envelope.iv, 'base64');
+        const authTag = Buffer.from(envelope.authTag, 'base64');
+        const encryptedData = Buffer.from(envelope.encryptedData, 'base64');
+
+        const decipher = createDecipheriv('aes-256-gcm', Buffer.from(plaintextKey), iv);
+        decipher.setAuthTag(authTag);
+
+        return decipher.update(encryptedData, null, 'utf-8') + decipher.final('utf-8');
+    }
+}
+
+// Vault integration using node-vault
+const vault = require('node-vault')({
+    apiVersion: 'v1',
+    endpoint: process.env.VAULT_ADDR || 'http://127.0.0.1:8200',
+    token: process.env.VAULT_TOKEN,
+});
+
+class VaultSecretManager {
+    constructor(vaultClient) {
+        this.vault = vaultClient;
+    }
+
+    // Authenticate using AppRole
+    async loginWithAppRole(roleId, secretId) {
+        const result = await this.vault.approleLogin({
+            role_id: roleId,
+            secret_id: secretId,
+        });
+        this.vault.token = result.auth.client_token;
+        console.log('Vault authentication successful');
+    }
+
+    // Read a secret from KV v2 store
+    async getSecret(path) {
+        const result = await this.vault.read(`secret/data/${path}`);
+        return result.data.data;
+    }
+
+    // Write a secret to KV v2 store
+    async setSecret(path, data) {
+        await this.vault.write(`secret/data/${path}`, { data });
+    }
+
+    // Delete a secret
+    async deleteSecret(path) {
+        await this.vault.delete(`secret/data/${path}`);
+    }
+
+    // Generate dynamic database credentials
+    async generateDatabaseCredentials(roleName) {
+        const result = await this.vault.read(`database/creds/${roleName}`);
+        return {
+            username: result.data.username,
+            password: result.data.password,
+            leaseId: result.lease_id,
+            leaseDuration: result.lease_duration,
+        };
+    }
+}
+
+// Usage
+async function main() {
+    const kms = new KmsService({ keyId: 'arn:aws:kms:us-east-1:123456789012:key/abc-123' });
+    const encrypted = await kms.encrypt('sensitive-data');
+    const decrypted = await kms.decrypt(encrypted);
+    console.log('Decrypted:', decrypted);
+
+    const vault = new VaultSecretManager();
+    await vault.setSecret('myapp/db', {
+        host: 'prod-db.example.com',
+        password: 's3cr3t',
+    });
+    const secret = await vault.getSecret('myapp/db');
+    console.log('DB password:', secret.password);
+}
+
+main().catch(console.error);
 ```
 
 ## Best Practices

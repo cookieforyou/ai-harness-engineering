@@ -6,7 +6,7 @@ type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
-updated: 2026-05-07
+updated: 2026-06-23
 status: active
 tags: [skill, knowledge, database]
 ---
@@ -304,6 +304,383 @@ erDiagram
 | Strong | All nodes see same data immediately | Financial transactions |
 | Eventual | All nodes converge eventually | Social feeds, recommendations |
 | Causal | Cause-effect relationships preserved | Comment threads, chat |
+
+### SQL Query Patterns
+
+#### Java (JDBC PreparedStatement)
+
+```java
+// Java implementation - JDBC PreparedStatement with connection pooling
+// Dependencies: mysql-connector-java, HikariCP (Maven/Gradle)
+public class UserRepository {
+    private final DataSource dataSource;
+
+    public UserRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    // Query with parameterized SQL to prevent injection
+    public List<Order> findOrdersByUserAndStatus(Long userId, String status) throws SQLException {
+        String sql = "SELECT * FROM orders WHERE user_id = ? AND status = ? ORDER BY created_at DESC LIMIT 100";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, userId);
+            stmt.setString(2, status);
+            try (ResultSet rs = stmt.executeQuery()) {
+                List<Order> orders = new ArrayList<>();
+                while (rs.next()) {
+                    orders.add(mapRowToOrder(rs));
+                }
+                return orders;
+            }
+        }
+    }
+
+    // Batch insert for performance
+    public void batchInsertOrders(List<Order> orders) throws SQLException {
+        String sql = "INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, ?)";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            for (Order order : orders) {
+                stmt.setLong(1, order.getUserId());
+                stmt.setBigDecimal(2, order.getTotalAmount());
+                stmt.setString(3, order.getStatus());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        }
+    }
+
+    private Order mapRowToOrder(ResultSet rs) throws SQLException {
+        Order order = new Order();
+        order.setId(rs.getLong("id"));
+        order.setUserId(rs.getLong("user_id"));
+        order.setTotalAmount(rs.getBigDecimal("total_amount"));
+        order.setStatus(rs.getString("status"));
+        order.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+        return order;
+    }
+}
+```
+
+#### Go (database/sql)
+
+```go
+// Go implementation - database/sql with context support
+// Dependencies: go-sql-driver/mysql (import _ "github.com/go-sql-driver/mysql")
+package repository
+
+import (
+    "context"
+    "database/sql"
+    "fmt"
+    "time"
+)
+
+type Order struct {
+    ID          int64
+    UserID      int64
+    TotalAmount float64
+    Status      string
+    CreatedAt   time.Time
+}
+
+type UserRepository struct {
+    db *sql.DB
+}
+
+func NewUserRepository(db *sql.DB) *UserRepository {
+    return &UserRepository{db: db}
+}
+
+// Query with context timeout and prepared statement
+func (r *UserRepository) FindOrdersByUserAndStatus(ctx context.Context, userID int64, status string) ([]Order, error) {
+    ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+    defer cancel()
+
+    query := "SELECT id, user_id, total_amount, status, created_at FROM orders WHERE user_id = ? AND status = ? ORDER BY created_at DESC LIMIT 100"
+    stmt, err := r.db.PrepareContext(ctx, query)
+    if err != nil {
+        return nil, fmt.Errorf("prepare query: %w", err)
+    }
+    defer stmt.Close()
+
+    rows, err := stmt.QueryContext(ctx, userID, status)
+    if err != nil {
+        return nil, fmt.Errorf("execute query: %w", err)
+    }
+    defer rows.Close()
+
+    var orders []Order
+    for rows.Next() {
+        var o Order
+        if err := rows.Scan(&o.ID, &o.UserID, &o.TotalAmount, &o.Status, &o.CreatedAt); err != nil {
+            return nil, fmt.Errorf("scan row: %w", err)
+        }
+        orders = append(orders, o)
+    }
+    return orders, rows.Err()
+}
+
+// Batch insert with transaction
+func (r *UserRepository) BatchInsertOrders(ctx context.Context, orders []Order) error {
+    tx, err := r.db.BeginTx(ctx, nil)
+    if err != nil {
+        return fmt.Errorf("begin tx: %w", err)
+    }
+    defer tx.Rollback() // no-op if committed
+
+    stmt, err := tx.PrepareContext(ctx, "INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, ?)")
+    if err != nil {
+        return fmt.Errorf("prepare insert: %w", err)
+    }
+    defer stmt.Close()
+
+    for _, o := range orders {
+        if _, err := stmt.ExecContext(ctx, o.UserID, o.TotalAmount, o.Status); err != nil {
+            return fmt.Errorf("exec insert: %w", err)
+        }
+    }
+    return tx.Commit()
+}
+```
+
+#### Node.js (mysql2/pg)
+
+```javascript
+// Node.js implementation - mysql2 with async/await and prepared statements
+// Dependencies: mysql2 (npm install mysql2)
+const mysql = require('mysql2/promise');
+
+class OrderRepository {
+    constructor(pool) {
+        this.pool = pool;
+    }
+
+    // Query with parameterized SQL
+    async findByUserAndStatus(userId, status) {
+        const sql = 'SELECT * FROM orders WHERE user_id = ? AND status = ? ORDER BY created_at DESC LIMIT 100';
+        const [rows] = await this.pool.execute(sql, [userId, status]);
+        return rows;
+    }
+
+    // Batch insert with transaction
+    async batchInsert(orders) {
+        const connection = await this.pool.getConnection();
+        try {
+            await connection.beginTransaction();
+            const sql = 'INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, ?)';
+            for (const order of orders) {
+                await connection.execute(sql, [order.userId, order.totalAmount, order.status]);
+            }
+            await connection.commit();
+        } catch (err) {
+            await connection.rollback();
+            throw err;
+        } finally {
+            connection.release();
+        }
+    }
+
+    // Streaming query for large result sets
+    async streamOrders(userId, callback) {
+        const sql = 'SELECT * FROM orders WHERE user_id = ? ORDER BY created_at';
+        const stream = this.pool.query(sql, [userId]).stream();
+        stream.on('data', (row) => callback(row));
+        return new Promise((resolve, reject) => {
+            stream.on('end', resolve);
+            stream.on('error', reject);
+        });
+    }
+}
+
+// Usage
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'app',
+    database: 'ecommerce',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+const repo = new OrderRepository(pool);
+const orders = await repo.findByUserAndStatus(123, 'pending');
+```
+
+### Schema Migration
+
+#### Java (Flyway)
+
+```java
+// Java implementation - Flyway schema migration
+// Dependencies: flyway-core, flyway-mysql (Maven/Gradle)
+// File: src/main/resources/db/migration/V1__create_users_table.sql
+/*
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+*/
+
+// Programmatic Flyway configuration
+import org.flywaydb.core.Flyway;
+
+public class DatabaseMigration {
+    public void migrate(String jdbcUrl, String user, String password) {
+        Flyway flyway = Flyway.configure()
+            .dataSource(jdbcUrl, user, password)
+            .locations("classpath:db/migration")
+            .baselineOnMigrate(true)
+            .validateOnMigrate(true)
+            .outOfOrder(false)
+            .load();
+
+        // Run migrations
+        flyway.migrate();
+    }
+
+    public void repairAndMigrate(String jdbcUrl, String user, String password) {
+        Flyway flyway = Flyway.configure()
+            .dataSource(jdbcUrl, user, password)
+            .load();
+
+        // Repair checksums if needed, then migrate
+        flyway.repair();
+        flyway.migrate();
+    }
+}
+
+// Spring Boot auto-configuration (application.yml)
+/*
+spring:
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+*/
+```
+
+#### Go (golang-migrate)
+
+```go
+// Go implementation - golang-migrate for schema migrations
+// Dependencies: github.com/golang-migrate/migrate/v4
+// Install CLI: brew install golang-migrate
+package migration
+
+import (
+    "fmt"
+    "log"
+
+    "github.com/golang-migrate/migrate/v4"
+    _ "github.com/golang-migrate/migrate/v4/database/mysql"
+    _ "github.com/golang-migrate/migrate/v4/source/file"
+)
+
+// RunMigrations applies all pending migrations from the given directory
+func RunMigrations(dbURL, migrationsPath string) error {
+    m, err := migrate.New(
+        fmt.Sprintf("file://%s", migrationsPath),
+        dbURL,
+    )
+    if err != nil {
+        return fmt.Errorf("create migrator: %w", err)
+    }
+    defer m.Close()
+
+    if err := m.Up(); err != nil && err != migrate.ErrNoChange {
+        return fmt.Errorf("run migrations: %w", err)
+    }
+    log.Println("migrations applied successfully")
+    return nil
+}
+
+// RollbackLast reverses the most recent migration
+func RollbackLast(dbURL, migrationsPath string) error {
+    m, err := migrate.New(
+        fmt.Sprintf("file://%s", migrationsPath),
+        dbURL,
+    )
+    if err != nil {
+        return fmt.Errorf("create migrator: %w", err)
+    }
+    defer m.Close()
+
+    if err := m.Steps(-1); err != nil {
+        return fmt.Errorf("rollback migration: %w", err)
+    }
+    log.Println("last migration rolled back successfully")
+    return nil
+}
+
+// Migration files go in: migrations/000001_create_users_table.up.sql
+// and: migrations/000001_create_users_table.down.sql
+/*
+-- 000001_create_users_table.up.sql
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 000001_create_users_table.down.sql
+DROP TABLE IF EXISTS users;
+*/
+```
+
+#### Node.js (db-migrate)
+
+```javascript
+// Node.js implementation - db-migrate for schema migrations
+// Dependencies: db-migrate, db-migrate-mysql (npm install db-migrate db-migrate-mysql)
+// Configuration file: database.json
+/*
+{
+  "dev": {
+    "driver": "mysql",
+    "host": "localhost",
+    "user": "app",
+    "password": "password",
+    "database": "ecommerce"
+  },
+  "prod": {
+    "driver": "mysql",
+    "host": { "env": "DB_HOST" },
+    "user": { "env": "DB_USER" },
+    "password": { "env": "DB_PASSWORD" },
+    "database": { "env": "DB_NAME" }
+  }
+}
+*/
+
+// Migration file: migrations/20260401000001-create-users-table.js
+'use strict';
+
+exports.up = function(db, callback) {
+    db.runSql(`
+        CREATE TABLE users (
+            id BIGINT PRIMARY KEY AUTO_INCREMENT,
+            username VARCHAR(50) NOT NULL UNIQUE,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            deleted_at DATETIME DEFAULT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `, callback);
+};
+
+exports.down = function(db, callback) {
+    db.dropTable('users', callback);
+};
+```
 
 ## Best Practices
 

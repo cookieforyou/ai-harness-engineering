@@ -18,7 +18,77 @@ status: active
 
 ## 正文
 
-<!-- 按场景 Prompt 的 Output Format 章节结构填写 -->
+## 测试用例概览
+
+- **所属模块**: {module_name}
+- **关联需求**: FR-{number}
+- **测试类型**: {功能测试 / 集成测试 / 性能测试 / 安全测试}
+- **测试版本**: {version}
+
+## 测试用例列表
+
+### TC-001: {测试用例标题}
+
+**基本信息**:
+
+| 字段 | 值 |
+|------|----|
+| 用例ID | TC-001 |
+| 测试标题 | {test_title} |
+| 测试优先级 | P0 / P1 / P2 / P3 |
+| 所属模块 | {module_name} |
+| 关联需求 | FR-{number} |
+| 前置条件 | {preconditions} |
+| 测试数据 | {test_data} |
+| 自动化状态 | {已自动化 / 待自动化 / 手动} |
+
+**测试步骤**:
+
+| 步骤 | 操作描述 | 预期结果 | 实际结果 | 状态 |
+|------|----------|----------|----------|------|
+| 1 | {action_description} | {expected_result} | {actual_result} | PASS/FAIL/BLOCKED |
+| 2 | {action_description} | {expected_result} | {actual_result} | PASS/FAIL/BLOCKED |
+| 3 | {action_description} | {expected_result} | {actual_result} | PASS/FAIL/BLOCKED |
+
+**后置条件**: {post_conditions}
+
+---
+
+### TC-002: {测试用例标题}
+
+**基本信息**:
+
+| 字段 | 值 |
+|------|----|
+| 用例ID | TC-002 |
+| 测试标题 | {test_title} |
+| 测试优先级 | P0 / P1 / P2 / P3 |
+| 所属模块 | {module_name} |
+| 关联需求 | FR-{number} |
+| 前置条件 | {preconditions} |
+| 测试数据 | {test_data} |
+| 自动化状态 | {已自动化 / 待自动化 / 手动} |
+
+**测试步骤**:
+
+| 步骤 | 操作描述 | 预期结果 | 实际结果 | 状态 |
+|------|----------|----------|----------|------|
+| 1 | {action_description} | {expected_result} | {actual_result} | PASS/FAIL/BLOCKED |
+| 2 | {action_description} | {expected_result} | {actual_result} | PASS/FAIL/BLOCKED |
+| 3 | {action_description} | {expected_result} | {actual_result} | PASS/FAIL/BLOCKED |
+
+## 需求-用例追溯矩阵
+
+| 需求ID | 需求描述 | 覆盖用例 | 覆盖状态 |
+|--------|----------|----------|----------|
+| FR-001 | {description} | TC-001, TC-002 | 已覆盖 / 部分覆盖 / 未覆盖 |
+| FR-002 | {description} | TC-003 | 已覆盖 / 部分覆盖 / 未覆盖 |
+
+## 测试数据字典
+
+| 数据项 | 类型 | 示例值 | 说明 |
+|--------|------|--------|------|
+| {data_field} | {type} | {example} | {description} |
 
 ## 验证
 

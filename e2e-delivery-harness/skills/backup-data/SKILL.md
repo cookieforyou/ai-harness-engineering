@@ -6,7 +6,7 @@ type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
-updated: 2026-05-07
+updated: 2026-06-23
 status: active
 tags: ['skill', 'knowledge']
 ---
@@ -255,6 +255,375 @@ class BackupRestoreTest:
             "actual_rto_minutes": actual_rto / 60,
             "target_rto_minutes": self.target_rto
         }
+```
+
+### Backup Implementation Examples
+
+#### Java: Spring Boot Backup Scheduler
+
+```java
+// Java implementation - Spring Boot scheduled database backup
+// Dependencies: spring-boot-starter, spring-boot-starter-jdbc
+package com.example.backup;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.nio.file.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+@Component
+@EnableScheduling
+public class DatabaseBackupScheduler {
+    private static final Logger log = LoggerFactory.getLogger(DatabaseBackupScheduler.class);
+
+    @Value("${backup.db.host}")
+    private String dbHost;
+
+    @Value("${backup.db.name}")
+    private String dbName;
+
+    @Value("${backup.db.user}")
+    private String dbUser;
+
+    @Value("${backup.db.password}")
+    private String dbPassword;
+
+    @Value("${backup.output.dir:/data/backups}")
+    private String outputDir;
+
+    @Value("${backup.retention.days:30}")
+    private int retentionDays;
+
+    @PostConstruct
+    public void init() throws IOException {
+        Files.createDirectories(Paths.get(outputDir));
+    }
+
+    // Full backup every Sunday at 2:00 AM
+    @Scheduled(cron = "0 0 2 * * SUN")
+    public void fullBackup() throws Exception {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("%s/full_%s_%s.sql.gz", outputDir, dbName, timestamp);
+
+        ProcessBuilder pb = new ProcessBuilder(
+            "mysqldump",
+            "--host=" + dbHost,
+            "--user=" + dbUser,
+            "--password=" + dbPassword,
+            "--single-transaction",
+            "--routines",
+            "--triggers",
+            "--events",
+            dbName
+        );
+
+        // Pipe through gzip for compression
+        pb.redirectOutput(ProcessBuilder.Redirect.to(new java.io.File(filename)));
+        Process process = pb.start();
+
+        int exitCode = process.waitFor();
+        if (exitCode != 0) {
+            throw new RuntimeException("Backup failed with exit code: " + exitCode);
+        }
+
+        log.info("Full backup completed: {}", filename);
+        cleanupOldBackups();
+    }
+
+    private void cleanupOldBackups() throws IOException {
+        Path backupDir = Paths.get(outputDir);
+        LocalDateTime cutoff = LocalDateTime.now().minusDays(retentionDays);
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(backupDir, "*.sql.gz")) {
+            for (Path entry : stream) {
+                FileTime creationTime = (FileTime) Files.getAttribute(entry, "creationTime");
+                LocalDateTime fileTime = creationTime.toInstant()
+                    .atZone(java.time.ZoneId.systemDefault()).toLocalDateTime();
+                if (fileTime.isBefore(cutoff)) {
+                    Files.delete(entry);
+                    log.info("Deleted expired backup: {}", entry.getFileName());
+                }
+            }
+        }
+    }
+}
+```
+
+#### Go: Cron Backup Service
+
+```go
+// Go implementation - Cron-backed database backup service
+// Dependencies: github.com/robfig/cron/v3
+package main
+
+import (
+    "compress/gzip"
+    "fmt"
+    "io"
+    "log"
+    "os"
+    "os/exec"
+    "path/filepath"
+    "time"
+
+    "github.com/robfig/cron/v3"
+)
+
+type BackupConfig struct {
+    DBHost        string
+    DBPort        string
+    DBUser        string
+    DBPassword    string
+    DBName        string
+    OutputDir     string
+    RetentionDays int
+}
+
+type BackupService struct {
+    config BackupConfig
+}
+
+func NewBackupService(config BackupConfig) *BackupService {
+    if err := os.MkdirAll(config.OutputDir, 0755); err != nil {
+        log.Fatalf("create backup dir: %v", err)
+    }
+    return &BackupService{config: config}
+}
+
+// RunFullBackup executes a full database backup with compression
+func (s *BackupService) RunFullBackup() error {
+    timestamp := time.Now().Format("20060102_150405")
+    filename := fmt.Sprintf("full_%s_%s.sql.gz", s.config.DBName, timestamp)
+    filepath := filepath.Join(s.config.OutputDir, filename)
+
+    // Create gzipped output file
+    f, err := os.Create(filepath)
+    if err != nil {
+        return fmt.Errorf("create file: %w", err)
+    }
+    defer f.Close()
+
+    gzWriter := gzip.NewWriter(f)
+    defer gzWriter.Close()
+
+    // Execute mysqldump
+    cmd := exec.Command("mysqldump",
+        "--host="+s.config.DBHost,
+        "--port="+s.config.DBPort,
+        "--user="+s.config.DBUser,
+        "--password="+s.config.DBPassword,
+        "--single-transaction",
+        "--routines",
+        "--triggers",
+        "--events",
+        s.config.DBName,
+    )
+
+    stdout, err := cmd.StdoutPipe()
+    if err != nil {
+        return fmt.Errorf("create stdout pipe: %w", err)
+    }
+
+    if err := cmd.Start(); err != nil {
+        return fmt.Errorf("start mysqldump: %w", err)
+    }
+
+    written, err := io.Copy(gzWriter, stdout)
+    if err != nil {
+        return fmt.Errorf("compress backup: %w", err)
+    }
+
+    if err := cmd.Wait(); err != nil {
+        return fmt.Errorf("mysqldump failed: %w", err)
+    }
+
+    log.Printf("full backup completed: %s (%d bytes)", filepath, written)
+    s.cleanupOldBackups()
+    return nil
+}
+
+// cleanupOldBackups removes backups older than retention period
+func (s *BackupService) cleanupOldBackups() {
+    cutoff := time.Now().AddDate(0, 0, -s.config.RetentionDays)
+
+    filepath.Walk(s.config.OutputDir, func(path string, info os.FileInfo, err error) error {
+        if err != nil || info.IsDir() {
+            return err
+        }
+        if info.ModTime().Before(cutoff) && filepath.Ext(path) == ".gz" {
+            if err := os.Remove(path); err != nil {
+                log.Printf("failed to remove %s: %v", path, err)
+            } else {
+                log.Printf("removed expired backup: %s", path)
+            }
+        }
+        return nil
+    })
+}
+
+func main() {
+    config := BackupConfig{
+        DBHost:        getEnv("DB_HOST", "localhost"),
+        DBPort:        getEnv("DB_PORT", "3306"),
+        DBUser:        getEnv("DB_USER", "root"),
+        DBPassword:    getEnv("DB_PASSWORD", ""),
+        DBName:        getEnv("DB_NAME", "mydb"),
+        OutputDir:     getEnv("BACKUP_DIR", "/data/backups"),
+        RetentionDays: 30,
+    }
+
+    service := NewBackupService(config)
+
+    c := cron.New()
+    // Daily backup at 1:00 AM
+    c.AddFunc("0 1 * * *", func() {
+        if err := service.RunFullBackup(); err != nil {
+            log.Printf("backup failed: %v", err)
+        }
+    })
+    c.Start()
+
+    log.Println("backup service started")
+    select {} // block forever
+}
+
+func getEnv(key, fallback string) string {
+    if val := os.Getenv(key); val != "" {
+        return val
+    }
+    return fallback
+}
+```
+
+#### Node.js: node-cron Backup Script
+
+```javascript
+// Node.js implementation - node-cron scheduled backup script
+// Dependencies: node-cron, mysql2, archiver (npm install node-cron mysql2 archiver)
+const cron = require('node-cron');
+const mysql = require('mysql2/promise');
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
+const { createGzip } = require('zlib');
+const { createReadStream, createWriteStream } = require('fs');
+const { pipeline } = require('stream/promises');
+
+class BackupService {
+    constructor(config) {
+        this.config = config;
+        this.ensureDir(config.outputDir);
+    }
+
+    ensureDir(dir) {
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+    }
+
+    async runFullBackup() {
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const filename = `full_${this.config.dbName}_${timestamp}.sql.gz`;
+        const filepath = path.join(this.config.outputDir, filename);
+
+        const dumpArgs = [
+            `--host=${this.config.dbHost}`,
+            `--port=${this.config.dbPort}`,
+            `--user=${this.config.dbUser}`,
+            `--password=${this.config.dbPassword}`,
+            '--single-transaction',
+            '--routines',
+            '--triggers',
+            '--events',
+            this.config.dbName,
+        ];
+
+        try {
+            const startTime = Date.now();
+
+            // Execute mysqldump and pipe through gzip
+            const { spawn } = require('child_process');
+            const dump = spawn('mysqldump', dumpArgs);
+            const gzip = createGzip();
+            const output = createWriteStream(filepath);
+
+            await pipeline(dump.stdout, gzip, output);
+
+            const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+            const stats = fs.statSync(filepath);
+            const sizeMB = (stats.size / 1024 / 1024).toFixed(2);
+
+            console.log(`[Backup] Completed: ${filename} (${sizeMB}MB in ${duration}s)`);
+            await this.cleanupOldBackups();
+            return { filename, sizeMB, duration };
+        } catch (err) {
+            console.error(`[Backup] Failed: ${err.message}`);
+            throw err;
+        }
+    }
+
+    async backupToCloud(s3Client, bucket) {
+        // Upload to S3-compatible storage after local backup
+        const result = await this.runFullBackup();
+        const filepath = path.join(this.config.outputDir, result.filename);
+
+        const fileStream = createReadStream(filepath);
+        await s3Client.putObject({
+            Bucket: bucket,
+            Key: `backups/${result.filename}`,
+            Body: fileStream,
+        });
+        console.log(`[Backup] Uploaded to S3: ${result.filename}`);
+    }
+
+    async cleanupOldBackups() {
+        const cutoff = Date.now() - (this.config.retentionDays * 24 * 60 * 60 * 1000);
+        const files = fs.readdirSync(this.config.outputDir);
+
+        for (const file of files) {
+            if (!file.endsWith('.gz')) continue;
+            const filepath = path.join(this.config.outputDir, file);
+            const stat = fs.statSync(filepath);
+            if (stat.mtimeMs < cutoff) {
+                fs.unlinkSync(filepath);
+                console.log(`[Backup] Removed expired: ${file}`);
+            }
+        }
+    }
+
+    start() {
+        // Schedule: daily at 2:00 AM
+        const expression = this.config.cronExpression || '0 2 * * *';
+        cron.schedule(expression, () => {
+            this.runFullBackup().catch(err => {
+                console.error(`[Backup] Scheduled backup error: ${err.message}`);
+            });
+        });
+        console.log(`[Backup] Service started, schedule: ${expression}`);
+    }
+}
+
+// Usage
+const backupService = new BackupService({
+    dbHost: process.env.DB_HOST || 'localhost',
+    dbPort: process.env.DB_PORT || '3306',
+    dbUser: process.env.DB_USER || 'root',
+    dbPassword: process.env.DB_PASSWORD,
+    dbName: process.env.DB_NAME || 'mydb',
+    outputDir: process.env.BACKUP_DIR || '/data/backups',
+    retentionDays: parseInt(process.env.RETENTION_DAYS || '30', 10),
+    cronExpression: '0 2 * * *',
+});
+
+backupService.start();
 ```
 
 ## Best Practices

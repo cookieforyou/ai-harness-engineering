@@ -6,7 +6,7 @@ type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
-updated: 2026-05-07
+updated: 2026-06-23
 status: active
 tags: ['skill', 'knowledge']
 ---
@@ -192,6 +192,374 @@ class MultiLevelCache:
     async def set(self, key, value, ttl=None):
         self.l1_cache.set(key, value)
         await self.l2_cache.set(key, value, ttl)
+```
+
+### HTTP Client Patterns
+
+#### Java: OkHttp with Retry + Circuit Breaker
+
+```java
+// Java implementation - OkHttp client with retry and circuit breaker
+// Dependencies: okhttp, resilience4j (Maven/Gradle)
+import okhttp3.*;
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.retry.Retry;
+import io.github.resilience4j.retry.RetryConfig;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
+
+public class ResilientApiClient {
+    private final OkHttpClient httpClient;
+    private final CircuitBreaker circuitBreaker;
+    private final Retry retry;
+    private final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+
+    public ResilientApiClient(String baseUrl) {
+        // HTTP client with timeouts
+        this.httpClient = new OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .addInterceptor(new RetryInterceptor(3))
+            .build();
+
+        // Circuit breaker: 50% failure rate opens circuit
+        CircuitBreakerConfig cbConfig = CircuitBreakerConfig.custom()
+            .failureRateThreshold(50)
+            .waitDurationInOpenState(Duration.ofSeconds(30))
+            .permittedNumberOfCallsInHalfOpenState(3)
+            .slidingWindowSize(10)
+            .build();
+        this.circuitBreaker = CircuitBreaker.of("api-cb", cbConfig);
+
+        // Retry: max 3 attempts, exponential backoff
+        RetryConfig retryConfig = RetryConfig.custom()
+            .maxAttempts(3)
+            .waitDuration(Duration.ofMillis(500))
+            .retryExceptions(IOException.class, SocketTimeoutException.class)
+            .build();
+        this.retry = Retry.of("api-retry", retryConfig);
+    }
+
+    public String get(String path) {
+        Request request = new Request.Builder()
+            .url(path)
+            .header("Accept", "application/json")
+            .build();
+
+        // Decorate with circuit breaker and retry
+        Supplier<String> decorated = Decorators.ofSupplier(() -> executeRequest(request))
+            .withCircuitBreaker(circuitBreaker)
+            .withRetry(retry)
+            .decorate();
+
+        return decorated.get();
+    }
+
+    public String post(String path, String jsonBody) {
+        RequestBody body = RequestBody.create(jsonBody, JSON);
+        Request request = new Request.Builder()
+            .url(path)
+            .post(body)
+            .header("Content-Type", "application/json")
+            .build();
+
+        Supplier<String> decorated = Decorators.ofSupplier(() -> executeRequest(request))
+            .withCircuitBreaker(circuitBreaker)
+            .withRetry(retry)
+            .decorate();
+
+        return decorated.get();
+    }
+
+    private String executeRequest(Request request) {
+        try (Response response = httpClient.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response.code());
+            }
+            return response.body().string();
+        } catch (IOException e) {
+            throw new RuntimeException("API call failed", e);
+        }
+    }
+}
+```
+
+#### Go: net/http with Context Timeout
+
+```go
+// Go implementation - net/http client with context timeout and retry
+package client
+
+import (
+    "bytes"
+    "context"
+    "encoding/json"
+    "fmt"
+    "io"
+    "math"
+    "net/http"
+    "time"
+    "math/rand"
+)
+
+// Client wraps http.Client with retry and circuit breaker
+type Client struct {
+    baseURL    string
+    httpClient *http.Client
+    maxRetries int
+}
+
+type ClientOption func(*Client)
+
+func WithTimeout(timeout time.Duration) ClientOption {
+    return func(c *Client) {
+        c.httpClient.Timeout = timeout
+    }
+}
+
+func WithMaxRetries(n int) ClientOption {
+    return func(c *Client) {
+        c.maxRetries = n
+    }
+}
+
+func NewClient(baseURL string, opts ...ClientOption) *Client {
+    c := &Client{
+        baseURL: baseURL,
+        httpClient: &http.Client{
+            Timeout: 30 * time.Second,
+            Transport: &http.Transport{
+                MaxIdleConns:        100,
+                IdleConnTimeout:     90 * time.Second,
+                DisableCompression:  false,
+            },
+        },
+        maxRetries: 3,
+    }
+    for _, opt := range opts {
+        opt(c)
+    }
+    return c
+}
+
+// Get performs a GET request with retry and context timeout
+func (c *Client) Get(ctx context.Context, path string, result interface{}) error {
+    url := c.baseURL + path
+    return c.doWithRetry(ctx, func() (*http.Response, error) {
+        req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+        if err != nil {
+            return nil, err
+        }
+        req.Header.Set("Accept", "application/json")
+        return c.httpClient.Do(req)
+    }, result)
+}
+
+// Post performs a POST request with retry and context timeout
+func (c *Client) Post(ctx context.Context, path string, body, result interface{}) error {
+    url := c.baseURL + path
+    jsonBody, err := json.Marshal(body)
+    if err != nil {
+        return fmt.Errorf("marshal body: %w", err)
+    }
+
+    return c.doWithRetry(ctx, func() (*http.Response, error) {
+        req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(jsonBody))
+        if err != nil {
+            return nil, err
+        }
+        req.Header.Set("Content-Type", "application/json")
+        req.Header.Set("Accept", "application/json")
+        return c.httpClient.Do(req)
+    }, result)
+}
+
+// doWithRetry executes an HTTP request with exponential backoff retry
+func (c *Client) doWithRetry(ctx context.Context, do func() (*http.Response, error), result interface{}) error {
+    var lastErr error
+
+    for attempt := 0; attempt <= c.maxRetries; attempt++ {
+        resp, err := do()
+        if err != nil {
+            lastErr = fmt.Errorf("request failed: %w", err)
+            if !c.isRetryable(err) {
+                return lastErr
+            }
+            c.backoff(attempt)
+            continue
+        }
+        defer resp.Body.Close()
+
+        // Non-retryable status codes
+        if resp.StatusCode == http.StatusBadRequest ||
+            resp.StatusCode == http.StatusUnauthorized ||
+            resp.StatusCode == http.StatusForbidden ||
+            resp.StatusCode == http.StatusNotFound {
+            body, _ := io.ReadAll(resp.Body)
+            return fmt.Errorf("api error [%d]: %s", resp.StatusCode, string(body))
+        }
+
+        // Retryable server errors
+        if resp.StatusCode >= 500 || resp.StatusCode == http.StatusTooManyRequests {
+            lastErr = fmt.Errorf("server error: %d", resp.StatusCode)
+            c.backoff(attempt)
+            continue
+        }
+
+        // Success
+        if result != nil {
+            if err := json.NewDecoder(resp.Body).Decode(result); err != nil {
+                return fmt.Errorf("decode response: %w", err)
+            }
+        }
+        return nil
+    }
+    return fmt.Errorf("max retries exceeded: %w", lastErr)
+}
+
+func (c *Client) isRetryable(err error) bool {
+    // Context canceled or deadline exceeded are not retryable
+    if err == context.Canceled || err == context.DeadlineExceeded {
+        return false
+    }
+    return true
+}
+
+func (c *Client) backoff(attempt int) {
+    // Exponential backoff with jitter: 500ms, 1s, 2s
+    wait := time.Duration(math.Pow(2, float64(attempt))) * 500 * time.Millisecond
+    jitter := time.Duration(rand.Int63n(int64(wait) / 2))
+    time.Sleep(wait + jitter)
+}
+```
+
+#### Node.js: Axios with Retry Interceptor
+
+```javascript
+// Node.js implementation - Axios HTTP client with retry interceptor
+// Dependencies: axios, axios-retry (npm install axios axios-retry)
+const axios = require('axios');
+const axiosRetry = require('axios-retry').default;
+
+class ApiClient {
+    constructor(baseURL, options = {}) {
+        this.client = axios.create({
+            baseURL,
+            timeout: options.timeout || 30000,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            // Connection pooling via http.Agent
+            ...(options.maxSockets && {
+                httpAgent: new (require('http').Agent)({
+                    keepAlive: true,
+                    maxSockets: options.maxSockets || 50,
+                }),
+                httpsAgent: new (require('https').Agent)({
+                    keepAlive: true,
+                    maxSockets: options.maxSockets || 50,
+                }),
+            }),
+        });
+
+        // Configure retry with exponential backoff
+        axiosRetry(this.client, {
+            retries: options.retries || 3,
+            retryDelay: (retryCount) => {
+                return axiosRetry.exponentialDelay(retryCount);
+            },
+            retryCondition: (error) => {
+                // Retry on network errors and 5xx status codes
+                return axiosRetry.isNetworkOrIdempotentRequestError(error)
+                    || error.response?.status >= 500
+                    || error.response?.status === 429;
+            },
+            onRetry: (retryCount, error, requestConfig) => {
+                console.warn(`[API] Retry ${retryCount}/${options.retries} for ${requestConfig.url}: ${error.message}`);
+            },
+        });
+
+        // Request interceptor: add correlation ID
+        this.client.interceptors.request.use((config) => {
+            config.headers['X-Correlation-Id'] = require('crypto').randomUUID();
+            return config;
+        });
+
+        // Response interceptor: unified error handling
+        this.client.interceptors.response.use(
+            (response) => response,
+            (error) => {
+                if (error.response) {
+                    const { status, data } = error.response;
+                    const apiError = new Error(data?.message || `HTTP ${status}`);
+                    apiError.status = status;
+                    apiError.code = data?.code;
+                    apiError.details = data;
+                    return Promise.reject(apiError);
+                }
+                return Promise.reject(error);
+            }
+        );
+    }
+
+    async get(path, params = {}) {
+        const response = await this.client.get(path, { params });
+        return response.data;
+    }
+
+    async post(path, data = {}) {
+        const response = await this.client.post(path, data);
+        return response.data;
+    }
+
+    async put(path, data = {}) {
+        const response = await this.client.put(path, data);
+        return response.data;
+    }
+
+    async delete(path) {
+        const response = await this.client.delete(path);
+        return response.data;
+    }
+
+    // Circuit breaker wrapper
+    withCircuitBreaker(options = {}) {
+        const CircuitBreaker = require('opossum');
+        const breaker = new CircuitBreaker(async (method, ...args) => {
+            return this[method](...args);
+        }, {
+            timeout: options.timeout || 10000,
+            errorThresholdPercentage: options.errorThreshold || 50,
+            resetTimeout: options.resetTimeout || 30000,
+            name: options.name || 'api-cb',
+        });
+
+        breaker.fallback(() => {
+            console.warn('[CircuitBreaker] Fallback triggered, using cached/default response');
+            return options.fallbackResponse || null;
+        });
+
+        breaker.on('open', () => console.warn('[CircuitBreaker] Circuit opened'));
+        breaker.on('halfOpen', () => console.warn('[CircuitBreaker] Circuit half-open'));
+        breaker.on('close', () => console.warn('[CircuitBreaker] Circuit closed'));
+
+        return breaker;
+    }
+}
+
+// Usage
+const client = new ApiClient('https://api.example.com', {
+    timeout: 15000,
+    retries: 3,
+    maxSockets: 50,
+});
+
+const data = await client.get('/users/123');
+console.log(data);
 ```
 
 ## Best Practices
