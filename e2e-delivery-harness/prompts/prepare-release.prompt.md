@@ -9,230 +9,352 @@ updated: 2026-05-07
 status: active
 tags: ['prompt', 'ai-execution']
 ---
-# Prompt: 发布准备 (Prepare Release)
+# Release Preparation Prompt
 
-## Input Variables
+## Purpose
+
+本提示词指导AI执行发布准备任务，作为Release Manager协调版本发布的完整准备工作，确保发布包、文档、审批和回滚方案全部就绪，保障发布过程安全可控。
+
+### Key Objectives
+
+- **完整发布清单**: 确保发布检查清单100%完成，无遗漏项
+- **准确文档同步**: 确保发布说明、变更记录和部署文档100%准确
+- **严格审批合规**: 确保所有必需的审批和评审已100%完成
+- **高成功率保障**: 确保发布成功率≥95%，通过充分的准备工作降低风险
+- **回滚就绪确认**: 验证回滚方案已经过测试，可在紧急情况下立即执行
+
+## Input Variables (变量定义)
+
+> **AI 在执行前必须确认以下变量已填充**，如未填充则请求用户提供
+
+| Variable | Type | Required | Default | Description | Validation |
+|----------|------|----------|---------|-------------|------------|
+| `release_version` | string | true | - | 发布版本号 | 非空字符串，格式：vX.Y.Z |
+| `release_notes` | markdown | true | - | 发布说明文档 | 包含功能列表、Bug修复、已知问题 |
+| `deployment_plan` | object | true | - | 部署计划（步骤、环境、时间窗口） | 包含部署步骤和回滚步骤 |
+| `rollback_plan` | object | true | - | 回滚方案引用 | 有效的回滚计划路径或内容 |
+| `approval_list` | array | true | - | 审批人列表 | 至少包含Tech Lead和Release Manager |
+| `communication_template` | string | false | "" | 沟通通知模板 | 包含发布前/中/后的通知内容模板 |
+| `go_nogo_criteria` | array | true | - | Go/No-Go决策标准列表 | 至少3个可量化的决策标准 |
+
+### 示例: 变量的正确格式
+
+```yaml
+# 示例: 完整的发布准备输入
+release_version: "v3.0.0"
+
+release_notes: |
+  # Release v3.0.0
+  
+  ## New Features
+  - 用户画像2.0: 新增行为分析和标签系统
+  - 推荐算法优化: 引入深度学习模型，推荐准确率提升15%
+  
+  ## Bug Fixes
+  - BUG-123: 修复登录超时问题
+  - BUG-456: 修复支付并发扣款问题
+  
+  ## Known Issues
+  - 旧版API将在下个版本弃用
+
+deployment_plan:
+  environments: ["staging", "production"]
+  time_window: { date: "2024-06-15", start: "22:00", end: "02:00", tz: "CST" }
+  strategy: "rolling-update"
+  steps: ["DB迁移", "后端部署", "前端部署", "功能验证"]
+  validation: ["健康检查", "冒烟测试", "回归测试"]
+
+rollback_plan:
+  reference: "docs/rollback-plan-v3.0.0.md"
+  tested: true
+  last_drill: "2024-06-10"
+
+approval_list:
+  - { role: "Tech Lead", name: "张三", required: true }
+  - { role: "QA Lead", name: "李四", required: true }
+  - { role: "Release Manager", name: "王五", required: true }
+
+communication_template:
+  pre: "【预通知】版本 {version} 将于 {time} 部署"
+  during: "【进行中】版本 {version} 进度: {progress}%"
+  post: "【完成】版本 {version} 已部署到 {environment}"
+
+go_nogo_criteria:
+  - criterion: "P0/P1 Bug已修复" | check: Bug系统 | pass: P0=0,P1=0
+  - criterion: "测试通过率≥95%" | check: 测试报告 | pass: ≥95%
+  - criterion: "代码评审完成" | check: PR状态 | pass: 全部approved
+  - criterion: "回滚方案已验证" | check: 演练报告 | pass: RTO≤15min
+```
 
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
 
 ```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
+[THINK] Step 1: 理解发布需求和范围
+   ├─ 输入: release_version, release_notes, deployment_plan
+   ├─ 思考: 本次发布包含哪些功能和修复？目标环境是什么？发布时间窗口和策略？
+   ├─ 验证: 发布范围清晰，版本号与Release Notes一致，部署策略合适
+   └─ 输出: 发布任务分析摘要（含发布范围、时间计划、策略选择）
    ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
+[ANALYZE] Step 2: 分析发布依赖和风险
+   ├─ 输入: 任务分析摘要, deployment_plan, rollback_plan
+   ├─ 分析: 依赖服务是否就绪？数据库变更是否兼容？是否有并行发布冲突？
+   ├─ 验证: 外部依赖已确认，数据迁移兼容前后版本，无发布窗口冲突
+   └─ 输出: 发布依赖和风险评估报告（含依赖清单、冲突检测、风险矩阵）
    ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
+[PLAN] Step 3: 制定详细发布计划
+   ├─ 输入: 依赖和风险评估报告, go_nogo_criteria, approval_list
+   ├─ 规划: 制定分阶段发布步骤、检查点设置、Go/No-Go决策时刻、通讯计划
+   ├─ 验证: 步骤完整覆盖部署/验证/回滚，检查点设置合理，沟通路径清晰
+   └─ 输出: 详细发布计划（含阶段划分、任务分配、时间线、检查点）
    ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
+[PREPARE] Step 4: 准备发布包和文档
+   ├─ 输入: 发布计划, release_notes, communication_template
+   ├─ 准备: 构建发布包、编写/审核Release Notes、准备部署脚本、准备沟通模板
+   ├─ 验证: 发布包完整性校验通过，文档100%准确，脚本语法正确
+   └─ 输出: 发布交付物（含发布包、Release Notes、部署脚本、沟通通知）
    ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
-   └─ 输出: 验证报告
+[VERIFY] Step 5: 验证发布就绪状态
+   ├─ 输入: 发布交付物, go_nogo_criteria, approval_list
+   ├─ 验证: 逐项检查Go/No-Go标准、确认审批完成、验证回滚方案就绪
+   ├─ 验证: CHECKLIST-COMPLETE=100%, DOC-ACCURACY=100%, APPROVAL-COMPLY=100%
+   └─ 输出: 发布就绪验证报告（含Go/No-Go检查表、审批状态、风险审查）
    ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
+[APPROVE] Step 6: 获取最终发布批准
+   ├─ 输入: 发布就绪验证报告
+   ├─ 执行: 召开Go/No-Go会议、记录决策、通知所有干系人
+   ├─ 验证: 所有审批人已签署，Go条件全部满足，无阻止性障碍
+   └─ 输出: 发布批准确认（含Go/No-Go决策记录、审批签名、最终确认）
 ```
 
+## Error Handling (错误处理)
 
+> **AI 在执行过程中遇到以下情况时的处理策略**
 
+### Error Scenario 1: 发布包构建失败
 
-```yaml
-inputs:
-  project_name: string           # 项目名称
-  release_version: string         # 发布版本：v1.0.0
-  release_type: string            # 发布类型：major|minor|patch|apply-hotfix
-  release_scope: string           # 发布范围描述
-  release_criteria: object        # 发布标准
-    test_pass_rate: number        # 测试通过率 ≥ 95%
-    coverage_rate: number         # 覆盖率 ≥ 80%
-    no_critical_bugs: boolean     # 无严重 bug
-  environments: string[]          # 目标环境：staging|prod
-  release_window: object          # 发布时间窗口
-    date: string                  # 日期
-    start_time: string            # 开始时间
-    duration: string             # 预计时长
-  dependencies: string[]          # 关联系统列表
-  stakeholders: string[]          # 干系人列表
-  change_requests: string[]       # 变更单列表
+**识别信号**: 编译错误 / 镜像构建失败 / 依赖冲突 / 签名校验失败
+
+**处理流程**:
+```
+IF 发布包构建失败
+THEN 收集日志 → 分析原因（代码/依赖/环境）
+  → 代码问题：通知开发团队修复
+  → 依赖问题：检查版本和仓库
+  → 环境问题：检查构建环境配置
+  → 修复后重新构建，连续3次失败升级到Tech Lead
+END
 ```
 
-## Task Description
+**降级方案**: 使用上个成功构建版本为基础，应用增量变更
 
-你是 **Release Manager (发布经理)**，负责规划和管理版本发布。
+**升级条件**: 核心发布包连续3次构建失败
 
-## Chain of Thought
+---
 
-### 1. 分析发布需求
+### Error Scenario 2: Go/No-Go条件不满足
 
+**识别信号**: 测试通过率<95% / 存在未修复P0/P1 Bug / 回滚未验证 / 审批未完成
+
+**处理流程**:
 ```
-步骤 1.1: 确认发布内容
-- 列出本次发布的功能
-- 列出本次修复的 bug
-- 列出基础设施变更
-
-步骤 1.2: 评估影响范围
-- 识别关联系统
-- 评估数据迁移需求
-- 评估配置变更
-
-步骤 1.3: 确定发布时间
-- 选择合适的发布窗口
-- 评估风险时间
-- 协调资源
+IF Go条件不满足
+THEN 列出未满足条件 → 评估影响
+  → 可快速修复（<1h）：分配责任人修复并重验
+  → 无法在窗口前修复：建议推迟发布，记录原因
+  → 必须按计划（紧急修复）：记录风险接受，获例外批准，标记[有条件发布]
+END
 ```
 
-### 2. 制定发布计划
+**降级方案**: 推迟发布，或通过风险接受流程有条件下发
 
+**升级条件**: P0/P1 Go条件不满足且无法快速修复
+
+---
+
+### Error Scenario 3: 关键审批人不可用
+
+**识别信号**: 审批人未响应 / 无法联系 / 权限变更
+
+**处理流程**:
 ```
-步骤 2.1: 制定时间表
-- 里程碑规划
-- 任务分配
-- 资源协调
-
-步骤 2.2: 定义发布步骤
-- 准备阶段
-- 执行阶段
-- 验证阶段
-- 完成阶段
-
-步骤 2.3: 准备回滚方案
-- 回滚触发条件
-- 回滚步骤
-- 回滚验证
-```
-
-### 3. 设计发布流程
-
-```
-步骤 3.1: 定义检查点
-- Pre-check: 发布前检查
-- Go/No-Go: 发布决策
-- Post-check: 发布后验证
-
-步骤 3.2: 配置监控
-- 定义关键指标
-- 设置告警阈值
-- 配置通知
-
-步骤 3.3: 制定沟通计划
-- 通知干系人
-- 准备沟通模板
-- 建立应急通道
+IF 关键审批人不可用
+THEN 尝试备用联系方式 → 15分钟无法联系则升级替补审批人
+  → 无可用审批人：升级更高级别管理者，请求临时授权
+  → 记录异常情况，事后完善审批流程
+END
 ```
 
-### 4. 准备发布资源
+**降级方案**: 请求临时授权或升级到更高级别管理者审批
 
+**升级条件**: 所有审批人路径均不可用且无临时授权机制
+
+---
+
+### Error Scenario 4: 环境就绪检查失败
+
+**识别信号**: 环境资源不足 / 依赖服务异常 / 网络不通 / 安全策略错误
+
+**处理流程**:
 ```
-步骤 4.1: 准备发布包
-- 代码编译打包
-- 镜像构建推送
-- 配置打包
-
-步骤 4.2: 准备数据库变更
-- DDL 脚本
-- 数据迁移脚本
-- 回滚脚本
-
-步骤 4.3: 准备文档
-- 发布说明
-- 变更记录
-- 回滚手册
-```
-
-### 5. 验证发布就绪
-
-```
-步骤 5.1: 验证环境
-- 环境可用性
-- 资源就绪
-- 依赖服务
-
-步骤 5.2: 验证发布包
-- 完整性检查
-- 签名验证
-- 版本确认
-
-步骤 5.3: 演练回滚
-- 回滚步骤演练
-- 回滚时间测量
-- 回滚验证确认
+IF 目标环境就绪检查失败
+THEN 确认失败环境和资源 → 评估修复时间
+  → 资源不足：协调扩容或检查备用环境
+  → 依赖异常：通知负责人，评估降级部署
+  → 无法在窗口前修复：使用备用环境或推迟发布
+END
 ```
 
-## Error Handling
+**降级方案**: 使用备用环境部署，或调整部署顺序跳过不可用依赖
 
-```yaml
-error_scenarios:
-  - name: 发布包不完整
-    detection: MD5/SHA256 校验失败
-    recovery: |
-      1. 重新构建发布包
-      2. 重新校验
-      3. 验证版本一致性
+**升级条件**: 生产环境核心资源不可用，或无法在发布窗口前修复
 
-  - name: 依赖服务不可用
-    detection: HealthCheck 失败
-    recovery: |
-      1. 确认依赖服务状态
-      2. 评估影响范围
-      3. 决定是否延迟发布
+## Output Format (输出格式)
 
-  - name: 回滚方案不可行
-    detection: 回滚演练失败
-    recovery: |
-      1. 修复回滚方案
-      2. 重新演练验证
-      3. 或取消本次发布
+> AI必须按照以下结构生成发布准备交付物
 
-  - name: 验证检查失败
-    detection: Post-check 不通过
-    recovery: |
-      1. 分析失败原因
-      2. 执行回滚
-      3. 修复后重新发布
+```markdown
+# Release Preparation Deliverables
+
+## 1. Task Information
+- **Release Version**: {release_version}
+- **Release Manager**: {agent_name}
+- **Completion Date**: {current_date}
+- **Status**: Completed / Partial / Blocked
+
+## 2. Release Summary
+
+### 2.1 Release Scope
+| Category | Count | Details |
+|----------|-------|---------|
+| New Features | {N} | {feature list} |
+| Bug Fixes | {N} | {bug list} |
+| Infrastructure Changes | {N} | {change list} |
+| Data Migrations | {N} | {migration list} |
+
+### 2.2 Deployment Plan
+- **Environment**: staging → production
+- **Strategy**: Rolling Update / Blue-Green / Canary
+- **Time Window**: {date} {start_time} - {end_time} ({timezone})
+- **Estimated Duration**: {N} hours
+
+## 3. Release Artifacts
+
+### 3.1 Build Artifacts
+| Artifact | Version | Build Status | Checksum | Size |
+|----------|---------|-------------|----------|------|
+| {service}-{version}.jar | {version} | ✅/❌ | {sha256} | {N}MB |
+
+### 3.2 Documentation
+| Document | Status | Reviewer | Last Updated |
+|----------|--------|----------|-------------|
+| Release Notes | ✅ Complete / ⚠️ Pending | {reviewer} | {date} |
+| Deployment Guide | ✅ Complete / ⚠️ Pending | {reviewer} | {date} |
+| Rollback Guide | ✅ Complete / ⚠️ Pending | {reviewer} | {date} |
+
+## 4. Go/No-Go Decision
+
+### 4.1 Criteria Status
+| Criterion | Verification Method | Status | Notes |
+|-----------|-------------------|--------|-------|
+| {criterion} | {method} | ✅ Pass / ❌ Fail | {notes} |
+| {criterion} | {method} | ✅ Pass / ❌ Fail | {notes} |
+
+### 4.2 Decision
+- **Decision**: Go / No-Go / Conditional Go
+- **Decision Time**: {timestamp}
+- **Approved By**: {approver_name}
+- **Conditions (if any)**: {conditions}
+
+## 5. Approvals
+
+| Role | Approver | Status | Time | Notes |
+|------|---------|--------|------|-------|
+| Tech Lead | {name} | ✅/⏳/❌ | {timestamp} | |
+| QA Lead | {name} | ✅/⏳/❌ | {timestamp} | |
+| Release Manager | {name} | ✅/⏳/❌ | {timestamp} | |
+
+## 6. Rollback Readiness
+
+| Item | Status | Details |
+|------|--------|---------|
+| Rollback Plan | ✅ Ready / ❌ Not Ready | version {N} |
+| Rollback Tested | ✅ Yes / ❌ No | last drill: {date} |
+| Rollback RTO | {N}min | target: ≤15min |
+| Auto-Rollback | ✅ Enabled / ❌ Manual | trigger: {condition} |
+
+## 7. Communication Status
+
+| Stakeholder Group | Notified | Acknowledged | Channel |
+|------------------|----------|-------------|---------|
+| Development Team | ✅/❌ | ✅/❌ | Slack |
+| QA Team | ✅/❌ | ✅/❌ | Slack |
+| Operations Team | ✅/❌ | ✅/❌ | Slack |
+| Product Team | ✅/❌ | ✅/❌ | Email |
+
+## 8. Quality Score
+
+- **Overall Score**: {score}/100
+- **Grade**: Excellent (≥95) / Good (≥85) / Satisfactory (≥70) / Needs Improvement (<70)
+- **KPI Breakdown**:
+  - CHECKLIST-COMPLETE: {value}% (target: 100%) - {pass/fail} (weight: 30%)
+  - DOC-ACCURACY: {value}% (target: 100%) - {pass/fail} (weight: 25%)
+  - APPROVAL-COMPLY: {value}% (target: 100%) - {pass/fail} (weight: 25%)
+  - RELEASE-SUCCESS: {value}% (target: ≥95%) - {pass/fail} (weight: 20%)
 ```
 
-## Output Validation
+## Output Validation (输出验证)
 
-```yaml
-validation:
-  - 检查项: 发布计划完整性
-    标准: 包含时间表、任务、资源
+> **重要**: 在提交发布准备报告前，必须完成以下验证步骤
 
-  - 检查项: 发布评审通过
-    标准: 所有评审项通过
+### Validation Checklist
 
-  - 检查项: 回滚方案就绪
-    标准: 回滚演练成功
+**V-001: Release Readiness Validation (发布就绪验证)**
+- [ ] 所有Go/No-Go标准已检查，满足Go条件
+- [ ] 发布包完整性校验通过
+- [ ] 部署环境就绪（资源、网络、依赖服务）
+- [ ] 发布时间窗口已确认，无冲突
 
-  - 检查项: 监控配置正确
-    标准: 关键指标已配置告警
+**V-002: Documentation Accuracy Validation (文档准确性验证)**
+- [ ] Release Notes与实际变更一致
+- [ ] 部署文档中的步骤和命令正确
+- [ ] 回滚方案版本匹配
+- [ ] 文档中无占位符和TODO标记
+- [ ] 已知问题已明确标注
 
-  - 检查项: 沟通计划完成
-    标准: 干系人已通知
+**V-003: Approval Compliance Validation (审批合规验证)**
+- [ ] 所有强制审批人已完成审批
+- [ ] Go/No-Go决策有正式记录
+- [ ] 审批超时和升级有处理记录
+- [ ] 风险接受有书面确认
+
+**V-004: Rollback Readiness Validation (回滚就绪验证)**
+- [ ] 回滚方案已通过演练验证
+- [ ] 回滚脚本在目标环境可用
+- [ ] 回滚RTO满足≤15分钟
+- [ ] 回滚触发条件已配置到监控系统
+
+**V-005: Communication Validation (沟通验证)**
+- [ ] 所有干系人已收到发布通知
+- [ ] 沟通模板已准备完毕
+- [ ] 升级路径和联系方式已确认
+- [ ] 发布状态更新机制已建立
+
+### Validation Failure Handling
+
 ```
-
-
+IF any validation check fails
+THEN
+  1. Identify specific failed items and severity
+  2. Attempt to fix based on available information
+  3. IF cannot fix THEN mark as [NEEDS REVIEW] with detailed explanation
+  4. Generate validation report with pass/fail status for each check
+  5. Highlight critical issues requiring immediate attention
+  6. Provide recommendations for improvement
+  7. IF critical issues exist THEN do not proceed to handover
+END
+```
 
 ## Quality Metrics (质量指标)
 
@@ -240,247 +362,149 @@ validation:
 
 | KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
 |--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+| KPI-001 | CHECKLIST-COMPLETE | =100% | (已完成检查项/总检查项) × 100% | 逐项检查发布清单 | 30% |
+| KPI-002 | DOC-ACCURACY | =100% | (通过审核的文档数/总文档数) × 100% | 干系人评审确认 | 25% |
+| KPI-003 | APPROVAL-COMPLY | =100% | (已完成审批/总必需审批) × 100% | 检查审批系统记录 | 25% |
+| KPI-004 | RELEASE-SUCCESS | ≥95% | (成功发布次数/总发布次数) × 100% | 历史发布成功率统计 | 20% |
 
-**综合评分计算**: 
+**综合评分计算**:
 ```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+Quality Score = CHECKLIST-COMPLETEScore × 30% + DOC-ACCURACYScore × 25% + APPROVAL-COMPLYScore × 25% + RELEASE-SUCCESSScore × 20%
+
+各指标得分 = (实际值 / 目标值) × 100, 最高100分
 合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
 ```
 
-### Validation Checklist (验证清单)
+## Handover Context (交接上下文)
 
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
-
-
-
-## Handover 准备 (Handover Preparation)
+> 完成发布准备后，生成以下交接信息给部署发布阶段
 
 ```yaml
 handover:
+  header:
+    from_stage: "release_preparation"
+    to_stage: "deploy_release"
+    handover_id: "HO-{{timestamp}}-{{sequence}}"
+    timestamp: "{{ISO8601}}"
+    prepared_by: "{{agent.name}}"
+
+  summary:
+    status: "completed/partial/blocked"
+    release_version: "{{release_version}}"
+    go_nogo_decision: "go/no-go/conditional"
+    deployment_strategy: "{{deployment_strategy}}"
+    release_window: "{{date}} {{start}}-{{end}}"
+
   artifacts:
-    - name: 发布计划
-      path: docs/release-plan.md
-      description: 详细发布计划文档
+    delivered:
+      - name: "Release Package"
+        path: "artifacts/release-{{version}}/"
+        version: "{{version}}"
+        checksum: "{{SHA256}}"
+      - name: "Release Notes"
+        path: "docs/release-notes-v{{version}}.md"
+        version: "{{version}}"
+      - name: "Deployment Plan"
+        path: "docs/deployment-plan-v{{version}}.md"
+        version: "{{version}}"
+      - name: "Rollback Plan"
+        path: "docs/rollback-plan-v{{version}}.md"
+        version: "{{version}}"
 
-    - name: 发布清单
-      path: docs/release-checklist.md
-      description: 发布执行检查清单
+  metrics:
+    checklist_complete: {{percentage}}%
+    doc_accuracy: {{percentage}}%
+    approval_comply: {{percentage}}%
+    release_success: {{percentage}}%
+    overall_score: {{score}}/100
 
-    - name: 回滚手册
-      path: docs/rollback-guide.md
-      description: 回滚操作手册
+  approvals:
+    - role: "Tech Lead"
+      name: "{{name}}"
+      status: "approved/pending"
+      timestamp: "{{ISO8601}}"
+    - role: "QA Lead"
+      name: "{{name}}"
+      status: "approved/pending"
+      timestamp: "{{ISO8601}}"
+    - role: "Release Manager"
+      name: "{{name}}"
+      status: "approved/pending"
+      timestamp: "{{ISO8601}}"
 
-    - name: 发布通知
-      path: docs/announcement.md
-      description: 发布通知模板
+  open_issues:
+    blocking: []
+    non_blocking:
+      - id: "ISSUE-001"
+        description: "Performance test shows 5% degradation on report generation"
+        risk_level: "low"
+        decision: "Accept for this release, optimize in next iteration"
+        owner: "Performance Team"
 
-  release_readiness:
-    code_freeze: true
-    test_passed: true
-    review_approved: true
-    rollback_tested: true
-    stakeholders_notified: true
+  risks:
+    - id: "RISK-001"
+      description: "Database migration may cause brief read-only window"
+      probability: "medium"
+      impact: "medium"
+      mitigation: "Schedule migration during lowest traffic period"
+      contingency_plan: "Fail over to read replica during migration"
 
-  next_phase:
-    phase: deploy-release
-    entry_criteria: 发布准备完成
-    handover_data: 发布计划、回滚方案
-```
+  recommendations:
+    - "Monitor error rates closely for first 30 minutes post-deployment"
+    - "Keep rollback team on standby during deployment window"
+    - "Schedule post-release review within 48 hours"
+    - "Document lessons learned for process improvement"
 
-## Example Output Structure
+  next_steps_for_deployment:
+    - "Execute deployment per plan at scheduled time window"
+    - "Monitor deployment progress and system health"
+    - "Execute post-deployment validation"
+    - "Confirm rollback readiness before leaving deployment window"
 
-```yaml
-prepare_release_result:
-  release_info:
-    version: "v2.1.0"
-    type: "minor"
-    date: "2024-01-20"
-    time_window: "22:00-02:00"
-    estimated_duration: "4h"
+  quality_metrics:
+    kpi_results:
+      - kpi_id: "KPI-001"
+        name: "CHECKLIST-COMPLETE"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+        weight: 30
+      - kpi_id: "KPI-002"
+        name: "DOC-ACCURACY"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+        weight: 25
+      - kpi_id: "KPI-003"
+        name: "APPROVAL-COMPLY"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+        weight: 25
+      - kpi_id: "KPI-004"
+        name: "RELEASE-SUCCESS"
+        value: 97
+        target: 95
+        unit: "%"
+        status: "pass"
+        weight: 20
+    overall_score: 95
+    grade: "excellent"
 
-  scope:
-    features:
-      - "用户画像功能"
-      - "推荐算法优化"
-    bug_fixes:
-      - "BUG-123: 登录超时"
-      - "BUG-456: 支付失败"
-    infra_changes:
-      - "Redis 集群升级"
+## Related Assets (关联资产)
 
-  release_plan:
-    milestones:
-      - name: "Code Freeze"
-        time: "2024-01-18 18:00"
-        status: "completed"
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Agent | `../agents/prepare-release.agent.md` | 发布准备Agent角色 |
+| Instruction | `../instructions/prepare-release.instructions.md` | 发布准备技术指令 |
 
-      - name: "Staging Deploy"
-        time: "2024-01-19 22:00"
-        status: "completed"
+## Related Resources (相关资源)
 
-      - name: "Production Deploy"
-        time: "2024-01-20 22:00"
-        status: "pending"
-
-  checklist:
-    pre_release:
-      - item: "测试用例全部通过"
-        status: "done"
-      - item: "代码评审完成"
-        status: "done"
-      - item: "发布评审通过"
-        status: "done"
-
-    release:
-      - item: "发布包构建"
-        status: "pending"
-      - item: "数据库迁移"
-        status: "pending"
-
-    post_release:
-      - item: "功能验证"
-        status: "pending"
-      - item: "监控检查"
-        status: "pending"
-
-  rollback_plan:
-    trigger: "P0/P1 bug 或核心功能不可用"
-    steps:
-      - "停止新版本流量"
-      - "执行数据库回滚"
-      - "回退应用版本"
-      - "验证回滚成功"
-    estimated_time: "30 minutes"
-
-  stakeholders:
-    notified:
-      - "产品团队"
-      - "运维团队"
-      - "客服团队"
-    participants:
-      - "研发负责人"
-      - "运维负责人"
-      - "测试负责人"
-```
-
-## Execution Flow
-
-> Step-by-step execution sequence for prepare-release
-
-### Phase 1: Analysis
-- Understand requirements and context
-- Identify constraints and dependencies
-
-### Phase 2: Execution
-- Perform core prepare-release activities
-- Apply best practices and standards
-
-### Phase 3: Validation
-- Verify outputs against acceptance criteria
-- Ensure completeness and quality
-
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
-
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
-
-**识别信号**: 
-- 检测到异常情况
-- 验证失败
-
-**处理流程**:
-```
-IF 检测到错误
-THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
-END
-```
-
-**降级方案**: 根据具体情况选择适当的降级策略
-
-**升级条件**: P0 或 P1 级别错误
-
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
-```
-
-
-
-## Output Format
-
-```markdown
-## Release Preparation Deliverables
-
-### Summary
-- Status: [completed | partial | blocked]
-- Completion: [percentage]
-
-### Key Outputs
-1. **Release Package**: Build artifacts, configurations, and deployment scripts
-2. **Release Notes**: User-facing and operations-facing change documentation
-3. **Deployment Checklist**: Pre-deployment verification items
-4. **Rollback Plan**: Tested rollback procedure and validation steps
-5. **Communication Plan**: Notification schedule and audience targeting
-
-### Validation Checklist
-- [ ] Pre-release checklist completion is 100%
-- [ ] Release notes accuracy is 98% or higher
-- [ ] All required approvals are obtained and documented
-- [ ] Rollback plan is tested and ready
-
-### Next Steps
-- [ ] Schedule deployment window
-- [ ] Notify stakeholders of release timeline
-```
-
+- **Standards**: 
+  - [Release Management Standards](../standards/release-management-standards.md) - 发布管理标准
+  - [Change Management Guidelines](../standards/change-management-guidelines.md) - 变更管理指南
+- **Evaluations**: 
+  - [Release Readiness Review](../evaluations/release-readiness-review.md) - 发布就绪评审

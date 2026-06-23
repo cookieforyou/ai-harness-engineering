@@ -11,268 +11,386 @@ tags: ['prompt', 'ai-execution']
 ---
 # Incident Response Prompt
 
-## Role Definition
+## Purpose
 
-你是一名 SRE 工程师和事件响应专家，负责快速响应和处理生产环境事故。你的职责是：
+本提示词指导AI执行事件响应任务，作为Incident Commander（事件指挥官）快速响应和处理生产环境事故，协调团队诊断根因、执行修复、恢复服务，并推动事后改进。
 
-- 快速评估和定级事件
-- 组建和协调响应团队
-- 诊断问题根本原因
-- 执行修复和恢复
-- 确保服务稳定性
+### Key Objectives
 
-## Input Variables
+- **快速响应恢复**: P0事件MTTR≤30分钟，P1事件MTTR≤2小时
+- **准确事件定级**: 确保定级准确率≥95%，避免过度或不足响应
+- **及时透明沟通**: 确保首次通告在15分钟内发出，全程保持信息同步
+- **完整闭环改进**: 事件关闭率≥98%，完成事后复盘和改进跟踪
+- **降低复发风险**: 通过根因分析和预防措施，系统性降低同类事件发生率
+
+## Input Variables (变量定义)
+
+> **AI 在执行前必须确认以下变量已填充**，如未填充则请求用户提供
+
+| Variable | Type | Required | Default | Description | Validation |
+|----------|------|----------|---------|-------------|------------|
+| `incident_alert` | object | true | - | 事件告警信息（来源、时间、内容） | 包含source、timestamp和message |
+| `affected_systems` | array | true | - | 受影响系统列表 | 至少1个系统，含名称和影响描述 |
+| `severity_level` | string | true | - | 事件严重级别（P0/P1/P2/P3） | 有效枚举值之一 |
+| `on_call_team` | object | true | - | 值班团队信息（成员、角色、联系方式） | 至少包含primary和escalation联系人 |
+| `runbooks` | array | false | [] | 相关应急手册引用列表 | 有效的手册路径或URL |
+| `communication_channels` | object | false | {} | 沟通渠道配置（Slack/电话/邮件） | 至少1个主要沟通渠道 |
+| `escalation_path` | array | false | [] | 升级路径（按级别的升级联系人） | 至少包含P0和P1的升级路径 |
+
+### 示例: 变量的正确格式
+
+```yaml
+# 示例: 完整的事件响应输入
+incident_alert:
+  source: "Prometheus AlertManager"
+  timestamp: "2024-06-15T14:30:00+08:00"
+  alert_name: "HighErrorRate"
+  message: "API网关错误率在5分钟内从0.5%上升到8.2%，超过阈值5%"
+  severity: "P0"
+
+affected_systems:
+  - name: "api-gateway"
+    impact: "所有API请求错误率8.2%，部分请求超时"
+    degraded_since: "2024-06-15T14:25:00+08:00"
+  - name: "order-service"
+    impact: "下单成功率下降至60%"
+    degraded_since: "2024-06-15T14:27:00+08:00"
+
+severity_level: "P0"
+
+on_call_team:
+  primary:
+    sre: { name: "张三", phone: "138xxxx", slack: "@zhangsan" }
+    backend: { name: "李四", phone: "139xxxx", slack: "@lisi" }
+  escalation:
+    tech_lead: { name: "王五", phone: "137xxxx", slack: "@wangwu" }
+    manager: { name: "赵六", phone: "136xxxx", slack: "@zhaoliu" }
+
+runbooks:
+  - "runbooks/api-gateway-high-error-rate.md"
+  - "runbooks/database-failover.md"
+
+communication_channels:
+  primary: { type: "slack", channel: "#incident-war-room" }
+  backup: { type: "phone", conference_bridge: "400-xxx-xxxx" }
+  status_page: "status.company.com"
+
+escalation_path:
+  - level: "P0"
+    contacts:
+      - { role: "SRE Lead", name: "张三", timeout_minutes: 5 }
+      - { role: "Engineering VP", name: "钱七", timeout_minutes: 10 }
+  - level: "P1"
+    contacts:
+      - { role: "Tech Lead", name: "王五", timeout_minutes: 10 }
+      - { role: "Engineering Director", name: "孙八", timeout_minutes: 20 }
+```
 
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
 
 ```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
+[ASSESS] Step 1: 评估事件和初始定级
+   ├─ 输入: incident_alert, affected_systems, severity_level, runbooks
+   ├─ 评估: 确认事件是否真实、影响范围多大、严重级别是否合理、是否有对应应急手册
+   ├─ 验证: 告警信息真实，影响评估基于数据，定级符合SLA定义
+   └─ 输出: 事件评估摘要（含确认结果、影响范围、初步定级、参考runbook）
    ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
+[COORDINATE] Step 2: 组建响应团队和分配任务
+   ├─ 输入: 事件评估摘要, on_call_team, escalation_path
+   ├─ 协调: 激活值班团队、启动事件频道、分配调查角色、确定是否需要升级
+   ├─ 验证: 所有必要角色已到位，沟通渠道已建立，升级路径已明确
+   └─ 输出: 响应团队组建确认（含成员清单、角色分配、沟通频道、升级计划）
    ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
+[COMMUNICATE] Step 3: 发出事件通告和持续更新
+   ├─ 输入: 事件评估摘要, 团队组建确认, communication_channels
+   ├─ 沟通: 发送初始事件通告（15min内）、定期状态更新（P0每30min/P1每60min）
+   ├─ 验证: 初始通告已发出，干系人已通知，状态更新机制已建立
+   └─ 输出: 事件沟通记录（含初始通告、状态更新时间线、升级记录）
    ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
+[RESOLVE] Step 4: 诊断根因和执行修复
+   ├─ 输入: 事件评估摘要, runbooks, affected_systems
+   ├─ 诊断: 收集日志/指标/追踪，分析根因，制定修复方案（临时/根本）
+   ├─ 执行: 获取授权后执行修复，验证服务恢复，确认监控正常
+   ├─ 验证: 服务指标恢复正常，告警解除，用户影响已消除
+   └─ 输出: 事件解决报告（含根因分析、修复措施、恢复验证、时间线）
    ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
-   └─ 输出: 验证报告
+[REVIEW] Step 5: 回顾事件响应过程
+   ├─ 输入: 事件解决报告, 沟通记录, 团队反馈
+   ├─ 回顾: 时间线复盘、响应效率评估、沟通及时性检查、工具和流程评估
+   ├─ 验证: MTTR达标、升级准确性达标、沟通及时性达标
+   └─ 输出: 事件处理评审报告（含SLA达标评估、改进项、经验教训）
    ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
+[IMPROVE] Step 6: 制定改进措施和跟踪
+   ├─ 输入: 事件处理评审报告
+   ├─ 改进: 确定根因修复措施、监控告警优化、流程改进、知识库更新
+   ├─ 验证: 改进项有责任人、有截止日期、可跟踪、可衡量
+   └─ 输出: 事后改进计划（含行动项、责任人、时间表、跟踪机制）
 ```
 
+## Error Handling (错误处理)
 
+> **AI 在执行过程中遇到以下情况时的处理策略**
 
+### Error Scenario 1: 事件诊断困难
 
-| Variable | Type | Required | Description |
-|----------|------|----------|-------------|
-| incident_id | string | Yes | 事件 ID |
-| incident_severity | string | Yes | 严重程度 P0/P1/P2/P3 |
-| affected_services | string[] | Yes | 受影响服务列表 |
-| initial_symptoms | string[] | Yes | 初始症状 |
-| reporter | string | No | 报告人 |
-| detection_time | datetime | No | 发现时间 |
+**识别信号**: 
+- 15分钟内无法定位根因
+- 多个系统同时异常，难以确定根因系统
+- 日志和监控数据不一致或相互矛盾
+- 缺乏关键指标或日志
 
-## Chain of Thought
-
-### Phase 1: 初始响应 (0-5 分钟)
-
-1. **确认事件**
-   ```
-   - 验证事件真实性
-   - 收集初步信息
-   - 确认监控系统告警
-   ```
-
-2. **初步评估**
-   ```
-   - 检查影响范围
-   - 评估严重程度
-   - 识别受影响用户
-   ```
-
-3. **快速响应**
-   ```
-   - 创建事件记录
-   - 通知相关团队
-   - 启动事件频道
-   ```
-
-### Phase 2: 评估与升级 (5-15 分钟)
-
-4. **深度评估**
-   ```
-   - 分析错误日志
-   - 检查监控系统
-   - 评估持续时间
-   - 评估业务影响
-   ```
-
-5. **定级决策**
-   ```
-   P0: 核心服务不可用
-   P1: 核心功能受损
-   P2: 非核心功能异常
-   P3: 小范围问题
-   ```
-
-6. **团队组建**
-   ```
-   - P0: 全员响应
-   - P1: On-call + 经理
-   - P2: On-call 工程师
-   - P3: 正常工作时间
-   ```
-
-### Phase 3: 诊断分析 (15-60 分钟)
-
-7. **信息收集**
-   ```
-   - 收集日志
-   - 收集指标
-   - 收集追踪
-   - 收集配置
-   ```
-
-8. **根因分析**
-   ```
-   - 识别变化
-   - 假设验证
-   - 排除法
-   - 时间线分析
-   ```
-
-9. **影响分析**
-   ```
-   - 用户影响
-   - 业务影响
-   - 财务影响
-   - 声誉影响
-   ```
-
-### Phase 4: 修复执行 (30-240 分钟)
-
-10. **方案制定**
-    ```
-    - 临时修复: 快速恢复服务
-    - 根本修复: 解决根因
-    - 回滚方案: 恢复到稳定版本
-    ```
-
-11. **执行修复**
-    ```
-    - 获得授权
-    - 执行修复
-    - 监控验证
-    - 确认效果
-    ```
-
-12. **恢复确认**
-    ```
-    - 健康检查通过
-    - 功能验证通过
-    - 监控正常
-    - 告警解除
-    ```
-
-### Phase 5: 复盘改进
-
-13. **事后记录**
-    ```
-    - 完成时间线
-    - 记录修复步骤
-    - 评估响应效率
-    - 识别改进点
-    ```
-
-14. **复盘会议**
-    ```
-    - 分析根本原因
-    - 评估响应流程
-    - 制定改进措施
-    - 分配行动项
-    ```
-
-15. **预防改进**
-    ```
-    - 加强监控
-    - 完善文档
-    - 改进流程
-    - 自动化预防
-    ```
-
-## Error Handling
-
-### Scenario 1: 诊断困难
-
+**处理流程**:
 ```
-当难以定位问题时：
-1. 请求更多专家支持
-2. 扩大日志收集范围
-3. 检查最近的变更
-4. 使用排除法
-5. 考虑回滚到上一稳定版本
+IF 诊断困难且15分钟内无法定位根因
+THEN
+  1. 扩大调查范围（邀请更多专家加入事件频道）
+  2. 检查最近变更记录（代码发布/配置变更/基础设施变更）
+  3. 考虑回滚到上一稳定版本作为快速恢复手段
+  4. 启用详细日志级别或临时监控以获取更多数据
+  5. 使用排除法缩小可能原因范围
+  6. IF 30分钟仍无法诊断 THEN
+       a. 升级事件级别（如适用）
+       b. 请求跨团队专家会诊
+       c. 考虑更激进的恢复措施（全量回滚/故障转移）
+     END
+  7. 记录诊断过程和所有排除的假设
+END
 ```
 
-### Scenario 2: 修复引入新问题
+**降级方案**: 优先恢复服务（回滚/限流/降级），并行进行根因分析
+
+**升级条件**: P0事件30分钟无法定位根因，或影响范围持续扩大
+
+---
+
+### Error Scenario 2: 修复措施引入新问题
+
+**识别信号**: 
+- 修复后出现新的错误类型
+- 相关系统出现异常
+- 性能指标进一步恶化
+- 部分用户功能在修复后失效
+
+**处理流程**:
+```
+IF 修复措施引入新问题
+THEN
+  1. 立即评估新问题的严重程度和影响范围
+  2. IF 新问题比原问题更严重 THEN
+       a. 立即回滚修复措施
+       b. 恢复到修复前的状态
+       c. 重新评估修复方案
+     END
+  3. IF 新问题可接受（影响小于原问题）THEN
+       a. 记录新问题
+       b. 继续监控，制定后续修复计划
+     END
+  4. 更新事件时间线，记录修复引入的问题
+  5. 通知干系人最新情况
+  6. 重新制定更安全的修复方案并在测试环境验证
+END
+```
+
+**降级方案**: 回滚修复措施，恢复到之前状态，寻找替代修复方案
+
+**升级条件**: 新问题导致P0/P1级别影响
+
+---
+
+### Error Scenario 3: 事件影响范围扩大
+
+**识别信号**: 
+- 受影响的系统数量增加
+- 错误率持续上升
+- 用户反馈投诉增加
+- 依赖的上下游系统开始出现连锁故障
+
+**处理流程**:
+```
+IF 事件影响范围扩大
+THEN
+  1. 立即重新评估事件级别（考虑升级到P0）
+  2. 扩大响应团队（激活更多on-call和后备人员）
+  3. 实施限流和降级措施，防止影响进一步扩散
+  4. 考虑隔离故障系统，保护其他系统稳定性
+  5. 准备全量回滚或故障转移方案
+  6. IF 升级到P0 THEN
+       a. 通知管理层和所有干系人
+       b. 激活全公司应急响应流程
+       c. 启动危机沟通计划
+     END
+  7. 持续监控影响范围变化
+END
+```
+
+**降级方案**: 启动故障隔离，优先保障核心服务，牺牲非核心功能
+
+**升级条件**: 影响范围扩大至核心服务或关键用户群体
+
+---
+
+### Error Scenario 4: 沟通渠道中断
+
+**识别信号**: 
+- 事件Slack频道无法访问
+- 电话会议桥接失败
+- 主要联系人无法到达
+- 状态更新无法发布
+
+**处理流程**:
+```
+IF 主要沟通渠道中断
+THEN
+  1. 立即切换到备用沟通渠道
+  2. 通知团队成员使用备用联系方式
+  3. 指定信息汇总人（single point of contact）
+  4. 建立临时沟通机制（电话会议/临时群组）
+  5. 保持状态更新的频率和一致性
+  6. IF 所有渠道均中断 THEN
+       a. 指定现场协调人（物理集中）
+       b. 使用广播式通知（邮件群发+SMS）
+       c. 记录所有沟通尝试和时间
+     END
+  7. 事件解决后复盘沟通渠道中断原因并改进
+END
+```
+
+**降级方案**: 使用备用通信工具，指定专人负责信息汇总和分发
+
+**升级条件**: 所有沟通渠道中断超过15分钟
+
+## Output Format (输出格式)
+
+> AI必须按照以下结构生成事件响应交付物
+
+```markdown
+# Incident Response Deliverables
+
+## 1. Incident Information
+- **Incident ID**: {incident_id}
+- **Severity**: P0 / P1 / P2 / P3
+- **Status**: Active / Resolved / Closed
+- **Incident Commander**: {agent_name}
+- **Detection Time**: {timestamp}
+- **Duration**: {N} minutes
+
+## 2. Incident Timeline
+
+| Time (CST) | Duration | Event | Action | Owner |
+|-----------|----------|-------|--------|-------|
+| {time} | T+0 | 告警触发 | {action} | {owner} |
+| {time} | T+{N} | 事件确认 | {action} | {owner} |
+| {time} | T+{N} | 根因定位 | {action} | {owner} |
+| {time} | T+{N} | 修复执行 | {action} | {owner} |
+| {time} | T+{N} | 服务恢复 | {action} | {owner} |
+
+## 3. Impact Assessment
+
+### 3.1 Affected Systems
+| System | Impact | Users Affected | Duration | Status |
+|--------|--------|---------------|----------|--------|
+| {system} | {impact} | {N} | {N}min | Restored/Degraded/Down |
+
+### 3.2 Business Impact
+- **Revenue Impact**: ${N}
+- **SLA Breach**: Yes/No
+- **Customer Complaints**: {N}
+- **Data Loss**: Yes/No ({details})
+
+## 4. Root Cause Analysis
+
+### 4.1 Root Cause
+- **Category**: Code Bug / Configuration / Infrastructure / External / Unknown
+- **Description**: {detailed description}
+- **Trigger**: {trigger event}
+- **Contributing Factors**: {factors}
+
+### 4.2 Resolution
+- **Fix Type**: Rollback / Hotfix / Configuration Change / Scale-up / Other
+- **Fix Description**: {description}
+- **Verification Method**: {method}
+- **Resolution Time**: {N} minutes from detection
+
+## 5. Communication Log
+
+| Time | Channel | Audience | Message Type | Status |
+|------|---------|----------|-------------|--------|
+| {time} | Slack | On-call team | Initial alert | ✅ Sent |
+| {time} | Email | All hands | Status update | ✅ Sent |
+| {time} | Status page | External | Incident notice | ✅ Published |
+
+## 6. Quality Score
+
+- **Overall Score**: {score}/100
+- **Grade**: Excellent (≥95) / Good (≥85) / Satisfactory (≥70) / Needs Improvement (<70)
+- **KPI Breakdown**:
+  - MTTR: {value}min (target: ≤30min P0 / ≤2h P1) - {pass/fail} (weight: 30%)
+  - ESCALATION-ACCURACY: {value}% (target: ≥95%) - {pass/fail} (weight: 25%)
+  - COMM-TIMELINESS: {value}% (target: 100%) - {pass/fail} (weight: 25%)
+  - INCIDENT-CLOSURE: {value}% (target: ≥98%) - {pass/fail} (weight: 20%)
+
+## 7. Follow-up Actions
+
+| ID | Action Item | Owner | Due Date | Priority | Status |
+|----|------------|-------|---------|----------|--------|
+| ACT-001 | {action} | {owner} | {date} | P0/P1/P2 | Open/In Progress/Closed |
+| ACT-002 | {action} | {owner} | {date} | P0/P1/P2 | Open/In Progress/Closed |
+```
+
+## Output Validation (输出验证)
+
+> **重要**: 在提交事件响应报告前，必须完成以下验证步骤
+
+### Validation Checklist
+
+**V-001: Response Timeliness Validation (响应及时性验证)**
+- [ ] 初始通告在15分钟内发出
+- [ ] P0事件MTTR≤30分钟
+- [ ] P1事件MTTR≤2小时
+- [ ] 状态更新频率符合要求（P0每30min/P1每60min）
+- [ ] 升级决策及时（P0升级≤5min）
+
+**V-002: Severity Assessment Validation (定级准确性验证)**
+- [ ] 事件级别符合SLA定义标准
+- [ ] 影响范围评估基于实际数据
+- [ ] 升级/降级决策有合理依据
+- [ ] 定级得到团队共识
+
+**V-003: Communication Completeness Validation (沟通完整性验证)**
+- [ ] 所有干系人已收到通知
+- [ ] 沟通模板中使用准确信息
+- [ ] 事件时间线完整准确
+- [ ] 外部状态页面已更新（如需要）
+- [ ] 沟通记录已存档
+
+**V-004: Resolution Completeness Validation (解决完整性验证)**
+- [ ] 服务已完全恢复（指标正常）
+- [ ] 根因已确定并有记录
+- [ ] 临时措施已转为永久修复计划
+- [ ] 监控和告警已恢复正常
+
+**V-005: Post-Incident Validation (事后验证)**
+- [ ] 事后复盘会议已安排
+- [ ] 改进行动项已分配负责人
+- [ ] 知识库已更新
+- [ ] 事件已正式关闭（关闭率≥98%）
+
+### Validation Failure Handling
 
 ```
-当修复后出现新问题时：
-1. 立即停止修复
-2. 评估影响
-3. 回滚到修复前
-4. 分析原因
-5. 重新制定方案
+IF any validation check fails
+THEN
+  1. Identify specific failed items and severity
+  2. Attempt to fix based on available information
+  3. IF cannot fix THEN mark as [NEEDS REVIEW] with detailed explanation
+  4. Generate validation report with pass/fail status for each check
+  5. Highlight critical issues requiring immediate attention
+  6. Provide recommendations for improvement
+  7. IF critical issues exist THEN do not proceed to handover
+END
 ```
-
-### Scenario 3: 影响扩大
-
-```
-当影响范围扩大时：
-1. 立即升级事件级别
-2. 扩大响应团队
-3. 简化沟通渠道
-4. 优先恢复服务
-5. 事后详细分析
-```
-
-### Scenario 4: 沟通中断
-
-```
-当沟通渠道中断时：
-1. 使用备用通信方式
-2. 现场集中
-3. 指定信息汇总人
-4. 保持状态更新
-```
-
-## Output Validation
-
-### 事件时间线验证
-
-- [ ] 时间点准确
-- [ ] 行动描述清晰
-- [ ] 负责人明确
-- [ ] 无遗漏关键事件
-
-### 影响报告验证
-
-- [ ] 数据准确
-- [ ] 评估合理
-- [ ] 范围清晰
-- [ ] 证据充分
-
-### 后续行动验证
-
-- [ ] 行动项具体
-- [ ] 责任人明确
-- [ ] 截止日期合理
-- [ ] 可执行性强
-
-
 
 ## Quality Metrics (质量指标)
 
@@ -280,184 +398,145 @@ Step 6: [HANDOVER] 准备交接
 
 | KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
 |--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+| KPI-001 | MTTR | P0≤30min/P1≤2h | 从检测到恢复的总时间 | 事件管理系统计时 | 30% |
+| KPI-002 | ESCALATION-ACCURACY | ≥95% | (正确升级次数/总升级次数) × 100% | 事后评审升级决策 | 25% |
+| KPI-003 | COMM-TIMELINESS | =100% | (按时发出的通告数/总通告数) × 100% | 检查通告时间戳 | 25% |
+| KPI-004 | INCIDENT-CLOSURE | ≥98% | (按时关闭事件数/总事件数) × 100% | 检查事件关闭记录 | 20% |
 
-**综合评分计算**: 
+**综合评分计算**:
 ```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+Quality Score = MTTRScore × 30% + ESCALATION-ACCURACYScore × 25% + COMM-TIMELINESSScore × 25% + INCIDENT-CLOSUREScore × 20%
+
+MTTR得分: P0≤30min=100分; P0>30min=max(0, 100-(超时分钟×2)); P1≤2h=100分; P1>2h=max(0, 100-(超时分钟×1))
+ESCALATION-ACCURACY得分 = 准确率 × 100
+COMM-TIMELINESS得分 = 及时率 × 100
+INCIDENT-CLOSURE得分 = 关闭率 × 100
 合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
 ```
 
-### Validation Checklist (验证清单)
+## Handover Context (交接上下文)
 
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
-
-
-
-## Handover Preparation
-
-### 交付物检查清单
-
-- [ ] incident-timeline.md - 事件时间线
-- [ ] resolution-steps.md - 解决步骤
-- [ ] impact-report.md - 影响报告
-- [ ] follow-up-actions.md - 后续行动
-
-### 交接信息
+> 完成事件响应后，生成以下交接信息给事后复盘和长期跟踪阶段
 
 ```yaml
-handoff:
-  incident_summary:
-    id: <事件ID>
-    severity: <严重程度>
-    duration: <持续时间>
-    impact: <影响范围>
-  root_cause:
-    summary: <根本原因摘要>
-    details: <详细分析>
-  resolution:
-    approach: <解决方式>
-    status: <完成状态>
-  follow_up:
-    actions: <行动项列表>
-    deadline: <截止日期>
-  lessons_learned:
-    - <经验教训1>
-    - <经验教训2>
-```
+handover:
+  header:
+    from_stage: "incident_response"
+    to_stage: "post_incident_review"
+    handover_id: "HO-{{timestamp}}-{{sequence}}"
+    timestamp: "{{ISO8601}}"
+    prepared_by: "{{agent.name}}"
 
-## Best Practices
+  summary:
+    status: "resolved/closed"
+    incident_id: "{{incident_id}}"
+    severity: "P0/P1/P2/P3"
+    duration_minutes: {{number}}
+    services_affected: {{number}}
+    root_cause_category: "code/config/infrastructure/external/unknown"
 
-1. **快速响应**: 第一时间确认和评估
-2. **准确沟通**: 信息及时、透明、一致
-3. **专注解决**: 优先恢复服务
-4. **数据驱动**: 用数据支持决策
-5. **团队协作**: 充分利用团队能力
-6. **持续改进**: 每次事件都是学习机会
+  artifacts:
+    delivered:
+      - name: "Incident Timeline"
+        path: "docs/incident-timeline-{{incident_id}}.md"
+        version: "1.0.0"
+      - name: "Incident Report"
+        path: "docs/incident-report-{{incident_id}}.md"
+        version: "1.0.0"
+      - name: "Root Cause Analysis"
+        path: "docs/rca-{{incident_id}}.md"
+        version: "1.0.0"
+      - name: "Communication Log"
+        path: "docs/communication-log-{{incident_id}}.md"
+        version: "1.0.0"
 
-## Task Description
+  metrics:
+    mttr_minutes: {{number}}
+    escalation_accuracy: {{percentage}}%
+    comm_timeliness: {{percentage}}%
+    incident_closure: {{percentage}}%
+    overall_score: {{score}}/100
 
-> Describe the specific task for the respond-incident scenario execution.
-> AI must understand the context, objectives, and success criteria before proceeding.
+  decisions:
+    - id: "DC-001"
+      description: "Rollback vs hotfix decision"
+      rationale: "Chose rollback because root cause analysis would take longer than RTO"
+      alternatives_considered: ["Hotfix deployment", "Feature toggle disable"]
+      impact: "Reverted feature X, will be re-deployed after fix"
 
-## Execution Flow
+  open_issues:
+    blocking: []
+    non_blocking:
+      - id: "ISSUE-001"
+        description: "Permanent fix for root cause not yet implemented"
+        risk_level: "high"
+        planned_resolution: "Implement circuit breaker pattern in next sprint"
+        owner: "Backend Team"
 
-> Step-by-step execution sequence for respond-incident
+  risks:
+    - id: "RISK-001"
+      description: "Same issue may recur if monitoring threshold not adjusted"
+      probability: "medium"
+      impact: "high"
+      mitigation: "Enhanced monitoring and alerting for early detection"
+      contingency_plan: "Automated rollback trigger on error rate spike"
 
-### Phase 1: Analysis
-- Understand requirements and context
-- Identify constraints and dependencies
+  recommendations:
+    - "Add load testing for peak traffic scenarios to catch performance issues early"
+    - "Implement gradual rollout with auto-rollback for all deployments"
+    - "Enhance error rate monitoring with service-level granularity"
+    - "Create runbook for this incident type and share with on-call team"
 
-### Phase 2: Execution
-- Perform core respond-incident activities
-- Apply best practices and standards
+  next_steps_for_review:
+    - "Schedule post-incident review within 5 business days"
+    - "Complete root cause analysis document"
+    - "Assign and track all follow-up action items"
+    - "Update runbooks and knowledge base"
 
-### Phase 3: Validation
-- Verify outputs against acceptance criteria
-- Ensure completeness and quality
+  quality_metrics:
+    kpi_results:
+      - kpi_id: "KPI-001"
+        name: "MTTR"
+        value: 22
+        target: 30
+        unit: "min"
+        status: "pass"
+        weight: 30
+      - kpi_id: "KPI-002"
+        name: "ESCALATION-ACCURACY"
+        value: 100
+        target: 95
+        unit: "%"
+        status: "pass"
+        weight: 25
+      - kpi_id: "KPI-003"
+        name: "COMM-TIMELINESS"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+        weight: 25
+      - kpi_id: "KPI-004"
+        name: "INCIDENT-CLOSURE"
+        value: 100
+        target: 98
+        unit: "%"
+        status: "pass"
+        weight: 20
+    overall_score: 96
+    grade: "excellent"
 
+## Related Assets (关联资产)
 
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Agent | `../agents/respond-incident.agent.md` | 事件响应Agent角色 |
+| Instruction | `../instructions/respond-incident.instructions.md` | 事件响应技术指令 |
 
-## Error Handling (错误处理)
+## Related Resources (相关资源)
 
-> **AI 遇到以下情况时必须按指定流程处理**
-
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
-
-**识别信号**: 
-- 检测到异常情况
-- 验证失败
-
-**处理流程**:
-```
-IF 检测到错误
-THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
-END
-```
-
-**降级方案**: 根据具体情况选择适当的降级策略
-
-**升级条件**: P0 或 P1 级别错误
-
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
-```
-
-
-
-## Output Format
-
-```markdown
-## Incident Response Deliverables
-
-### Summary
-- Status: [completed | partial | blocked]
-- Severity: [P0 | P1 | P2 | P3]
-- Completion: [percentage]
-
-### Key Outputs
-1. **Incident Timeline**: Chronological record of events and actions
-2. **Impact Assessment**: User, business, and SLA impact analysis
-3. **Mitigation Actions**: List of executed containment and recovery steps
-4. **Communication Updates**: Stakeholder notification history
-5. **Resolution Summary**: Root cause hypothesis and resolution details
-
-### Validation Checklist
-- [ ] MTTR is within SLA for severity level
-- [ ] Escalation accuracy is 90% or higher
-- [ ] First communication is sent within 15 minutes
-- [ ] Timeline is complete and accurate
-
-### Next Steps
-- [ ] Schedule post-incident review
-- [ ] Create follow-up action items
-```
-
+- **Standards**: 
+  - [Incident Response Standards](../standards/incident-response-standards.md) - 事件响应标准
+  - [SLA Definition Guidelines](../standards/sla-definition-guidelines.md) - SLA定义指南
+- **Evaluations**: 
+  - [Incident Response Review](../evaluations/incident-response-review.md) - 事件响应评审

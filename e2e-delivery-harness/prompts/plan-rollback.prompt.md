@@ -11,259 +11,359 @@ tags: ['prompt', 'ai-execution']
 ---
 # Rollback Planning Prompt
 
-## Role Definition
+## Purpose
 
-你是一名专业的发布工程师和 DevOps 专家，负责制定详细的回滚计划，确保部署的安全性。你的职责是：
+本提示词指导AI执行回滚规划任务，基于发布版本和变更内容制定详细、可执行的回滚方案，确保在部署出现问题时能够快速、安全地恢复到稳定状态，最小化业务影响。
 
-- 评估部署变更的风险
-- 设计合理的回滚策略
-- 准备可靠的回滚脚本
-- 确保回滚流程的可执行性
+### Key Objectives
 
-## Input Variables
+- **全面评估风险**: 分析变更影响范围，识别高风险组件和依赖关系
+- **制定回滚策略**: 选择最佳回滚方式（Blue-Green/Canary/Feature Toggle/DB Migration）
+- **准备自动化脚本**: 编写经过验证的回滚脚本，确保幂等性和可靠性
+- **保障数据一致**: 设计数据回滚方案，确保数据完整性和一致性
+- **优化恢复速度**: 确保RTO≤15分钟，最大限度减少停机时间
+
+## Input Variables (变量定义)
+
+> **AI 在执行前必须确认以下变量已填充**，如未填充则请求用户提供
+
+| Variable | Type | Required | Default | Description | Validation |
+|----------|------|----------|---------|-------------|------------|
+| `release_version` | string | true | - | 发布版本号 | 非空字符串，格式：vX.Y.Z |
+| `rollback_triggers` | array | true | - | 回滚触发条件列表 | 至少1个条件，包含指标和阈值 |
+| `affected_services` | array | true | - | 受影响的服务列表 | 至少1个服务，含名称和版本 |
+| `rollback_steps` | array | true | - | 回滚步骤列表 | 至少1个步骤，含操作和负责人 |
+| `data_migration_plan` | object | false | {} | 数据迁移/回滚方案 | 包含forward和rollback脚本路径 |
+| `approval_chain` | array | false | [] | 审批链（角色列表） | 至少1个审批角色 |
+| `communication_plan` | object | false | {} | 沟通计划模板 | 包含通知模板和升级路径 |
+
+### 示例: 变量的正确格式
+
+```yaml
+# 示例: 完整的回滚规划输入
+release_version: "v2.1.0"
+rollback_to_version: "v2.0.0"
+
+rollback_triggers:
+  - metric: "error_rate"
+    threshold: 5
+    unit: "%"
+    duration_minutes: 5
+    auto_rollback: true
+  - metric: "response_time_p99"
+    threshold: 2000
+    unit: "ms"
+    duration_minutes: 10
+    auto_rollback: false
+
+affected_services:
+  - name: "api-gateway"
+    version: "v2.1.0"
+    rollback_version: "v2.0.0"
+    strategy: "blue-green"
+  - name: "user-service"
+    version: "v2.1.0"
+    rollback_version: "v2.0.0"
+    strategy: "rolling-update"
+
+rollback_steps:
+  - step 1: "停止新版本流量" | owner: SRE | 2min
+  - step 2: "执行数据库回滚" | owner: DBA | 5min
+  - step 3: "回退应用到v2.0.0" | owner: SRE | 3min
+  - step 4: "验证服务健康状态" | owner: QA | 5min
+
+data_migration_plan:
+  has_migration: true
+  forward_script: "scripts/migrate-v2.1.0.sql"
+  rollback_script: "scripts/rollback-v2.1.0.sql"
+  estimated_time_minutes: 10
+
+approval_chain:
+  - role: "Tech Lead" | required: true | escalation_timeout: 5min
+  - role: "Release Manager" | required: true | escalation_timeout: 3min
+
+communication_plan:
+  slack: "#release-war-room"
+  templates:
+    rollback_started: "【回滚通知】版本 {version} 回滚已启动，原因：{reason}"
+    rollback_completed: "【回滚完成】版本 {version} 已成功回滚到 {target_version}"
+    rollback_failed: "【回滚失败】版本 {version} 回滚失败，需人工介入"
+```
 
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
 
 ```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
+[THINK] Step 1: 理解回滚需求和应用上下文
+   ├─ 输入: release_version, affected_services, rollback_triggers
+   ├─ 思考: 本次回滚的触发条件是什么？受影响的服务有哪些？目标版本是什么？
+   ├─ 验证: 版本号正确，回滚目标明确，触发条件量化可衡量
+   └─ 输出: 回滚任务分析摘要（含版本信息、触发条件、影响范围概览）
    ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
+[ANALYZE] Step 2: 分析变更影响和回滚风险
+   ├─ 输入: 任务分析摘要, data_migration_plan, affected_services
+   ├─ 分析: 代码/配置/数据变更的影响范围，回滚的依赖关系和风险点
+   ├─ 验证: 影响分析全面，考虑了数据、配置、依赖服务的回滚影响
+   └─ 输出: 影响分析报告（含变更清单、依赖图谱、风险评估矩阵）
    ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
+[PLAN] Step 3: 制定回滚策略和步骤
+   ├─ 输入: 影响分析报告, rollback_steps, data_migration_plan
+   ├─ 规划: 选择回滚策略（Blue-Green/Canary/Feature Toggle/DB Rollback），编排步骤顺序
+   ├─ 验证: 策略选择合理，步骤覆盖所有受影响组件，总时间≤15min
+   └─ 输出: 回滚策略方案（含策略选择、步骤编排、时间估算、资源清单）
    ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
+[PREPARE] Step 4: 准备回滚脚本和验证工具
+   ├─ 输入: 回滚策略方案, data_migration_plan
+   ├─ 准备: 编写自动化回滚脚本、数据回滚脚本、验证脚本，配置监控告警
+   ├─ 验证: 脚本语法正确，幂等性验证通过，回滚时间满足RTO要求
+   └─ 输出: 回滚脚本集（含部署回滚、配置回滚、数据库回滚、验证脚本）
    ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
-   └─ 输出: 验证报告
+[EXECUTE] Step 5: 执行回滚验证和演练
+   ├─ 输入: 回滚脚本集, approval_chain, communication_plan
+   ├─ 执行: 在测试环境演练回滚流程，验证每一步的时间和结果
+   ├─ 验证: 回滚后系统功能正常、数据完整、监控恢复，RTO≤15min
+   └─ 输出: 回滚演练报告（含演练结果、时间记录、问题清单、优化建议）
    ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
+[VERIFY] Step 6: 验证回滚方案完整性和KPI达标
+   ├─ 输入: 所有上述输出
+   ├─ 验证: ROLLBACK-TESTED=100%, RECOVERY-RTO≤15min, DATA-CONSISTENCY=100%, AUTOMATION-LEVEL≥80%
+   ├─ 确认: 审批链完整，沟通计划就绪，回滚方案可用于生产
+   └─ 输出: 回滚规划最终报告（含KPI评分、审批状态、就绪确认）
 ```
 
+## Error Handling (错误处理)
 
+> **AI 在执行过程中遇到以下情况时的处理策略**
 
+### Error Scenario 1: 回滚脚本执行超时
 
-| Variable | Type | Required | Description |
-|----------|------|----------|-------------|
-| project_name | string | Yes | 项目名称 |
-| release_version | string | Yes | 发布版本 |
-| deployment_scope | string[] | Yes | 部署范围 |
-| change_type | string | Yes | 变更类型（code/config/data） |
-| risk_level | string | No | 风险级别（high/medium/low） |
-| deployment_strategy | string | No | 部署策略 |
+**识别信号**: 单步超时预估150% / 数据库回滚超时 / 健康检查超时
 
-## Chain of Thought
-
-### Phase 1: 风险评估
-
-1. **变更分析**
-   ```
-   - 分析本次变更内容
-   - 识别高风险组件
-   - 评估影响范围
-   - 确定依赖关系
-   ```
-
-2. **风险识别**
-   ```
-   - 功能失败风险
-   - 性能下降风险
-   - 数据一致性问题
-   - 配置错误风险
-   - 依赖服务中断
-   ```
-
-3. **影响评估**
-   ```
-   - 用户影响范围
-   - 业务影响程度
-   - 数据影响风险
-   - 声誉影响评估
-   ```
-
-4. **回滚必要性评估**
-   ```
-   - 是否需要回滚能力？
-   - 回滚的紧迫性？
-   - 回滚的复杂度？
-   - 回滚的时间窗口？
-   ```
-
-### Phase 2: 策略设计
-
-5. **选择回滚策略**
-   ```
-   - Blue-Green: 适合关键系统，高可用要求
-   - Canary: 适合新功能，风险可控
-   - Feature Toggle: 适合特性切换，秒级回滚
-   - Database Migration: 适合数据变更
-   ```
-
-6. **设计回滚路径**
-   ```
-   - 确定回滚起点
-   - 定义回滚目标版本
-   - 规划回滚步骤
-   - 考虑数据回滚
-   ```
-
-7. **定义触发条件**
-   ```
-   - 自动触发: 错误率 > X%，响应时间 > Y ms
-   - 手动触发: 业务指标异常
-   - 决策触发: P0 会议决策
-   ```
-
-8. **时间估算**
-   ```
-   - 风险检测时间
-   - 决策时间
-   - 执行时间
-   - 验证时间
-   - 总回滚窗口
-   ```
-
-### Phase 3: 准备就绪
-
-9. **准备回滚脚本**
-   ```
-   - 部署回滚脚本
-   - 配置回滚脚本
-   - 数据库回滚脚本
-   - 数据修复脚本
-   ```
-
-10. **准备验证脚本**
-    ```
-    - 健康检查脚本
-    - 功能验证脚本
-    - 性能验证脚本
-    - 数据验证脚本
-    ```
-
-11. **配置监控告警**
-    ```
-    - 部署前基线
-    - 回滚触发条件
-    - 告警阈值设置
-    - 告警接收人
-    ```
-
-12. **权限和人员**
-    ```
-    - 回滚执行权限
-    - 回滚负责人
-    - 备用人员
-    - 联系方式
-    ```
-
-### Phase 4: 验证和演练
-
-13. **回滚演练**
-    ```
-    - 在测试环境演练
-    - 验证回滚脚本
-    - 测量回滚时间
-    - 记录演练结果
-    ```
-
-14. **准备验证**
-    ```
-    - 执行健康检查
-    - 验证功能正常
-    - 验证数据完整
-    - 验证监控正常
-    ```
-
-15. **沟通准备**
-    ```
-    - 通知相关团队
-    - 准备公告模板
-    - 建立沟通渠道
-    - 准备状态更新
-    ```
-
-## Error Handling
-
-### Scenario 1: 回滚超时
-
+**处理流程**:
 ```
-当回滚执行超时时：
-1. 停止回滚进程
-2. 评估当前状态
-3. 如果部分回滚：
-   - 评估是否可接受
-   - 决定是否继续
-4. 如果完全失败：
-   - 升级为 P0 事故
-   - 启动应急响应
-   - 通知管理层
+IF 回滚脚本执行超时
+THEN 停止回滚 → 评估系统状态（部分/未回滚/不一致）
+  → 部分回滚：检查已回滚组件状态，决定继续或回退
+  → 完全未回滚：分析原因（资源/脚本/依赖），修复后重试
+  → 无法恢复：升级为P0事故，启动应急响应
+END
 ```
 
-### Scenario 2: 回滚后问题未解决
+**降级方案**: 手动执行关键步骤，跳过非关键步骤，优先恢复核心服务
 
-```
-当回滚后发现问题仍存在时：
-1. 确认回滚完成
-2. 收集更多信息
-3. 分析根本原因
-4. 制定新修复方案
-5. 重新部署（如必要）
-```
+**升级条件**: 核心服务回滚超时>30分钟或数据状态不一致
 
-### Scenario 3: 数据库回滚失败
+---
 
+### Error Scenario 2: 回滚后服务仍然异常
+
+**识别信号**: 健康检查失败 / 错误率未恢复 / 功能验证不通过
+
+**处理流程**:
 ```
-当数据库回滚失败时：
-1. 停止回滚进程
-2. 评估数据状态
-3. 准备数据修复脚本
-4. 执行数据修复
-5. 验证数据完整性
+IF 回滚后服务仍然异常
+THEN 确认回滚完整性（版本/配置）→ 分析异常原因（上下游/数据/环境）
+  → 检查依赖服务和数据版本匹配
+  → 回滚完整但问题依旧：上一版本可能也有该问题，重新制定方案
+  → 无法快速解决：升级到技术负责人
+END
 ```
 
-## Output Validation
+**降级方案**: 回滚到更早的稳定版本，或启用维护页面
 
-### 回滚计划验证
+**升级条件**: 核心服务回滚后15分钟内仍无法恢复
 
-- [ ] 覆盖所有变更组件
-- [ ] 回滚步骤清晰可执行
-- [ ] 时间估算合理
-- [ ] 触发条件明确
-- [ ] 验证清单完整
+---
 
-### 回滚脚本验证
+### Error Scenario 3: 数据库回滚失败
 
-- [ ] 脚本语法正确
-- [ ] 权限配置正确
-- [ ] 幂等性验证
-- [ ] 错误处理完善
-- [ ] 回滚时间测试
+**识别信号**: SQL错误 / 外键约束冲突 / 数据量超时
 
+**处理流程**:
+```
+IF 数据库回滚失败
+THEN 停止操作 → 评估数据状态（部分/未回滚/损坏）
+  → 脚本错误：修复并在测试环境验证后重试
+  → 数据量过大或约束冲突：评估备份恢复方案
+  → 无法恢复：升级到DBA团队和数据架构师
+END
+```
 
+**降级方案**: 从最近可用备份全量恢复，接受有限数据丢失
+
+**升级条件**: 核心业务表数据损坏，或恢复时间超过RTO
+
+---
+
+### Error Scenario 4: 回滚审批延迟
+
+**识别信号**: 审批人超时未响应 / 审批链无法联系 / 权限不足
+
+**处理流程**:
+```
+IF 回滚审批延迟
+THEN 按审批链升级 → 使用备用联系方式
+  → 超过紧急阈值（P0:3min/P1:5min）：自动升级更高权限人
+  → 按紧急授权规则执行回滚，记录异常情况
+  → 事后复盘改进审批流程
+END
+```
+
+**降级方案**: 按照紧急授权规则执行回滚，事后补办审批手续
+
+**升级条件**: P0超过3分钟、P1超过5分钟无审批响应
+
+## Output Format (输出格式)
+
+> AI必须按照以下结构生成回滚规划交付物
+
+```markdown
+# Rollback Planning Deliverables
+
+## 1. Task Information
+- **Release Version**: {release_version}
+- **Rollback Target**: {rollback_target_version}
+- **Planner**: {agent_name}
+- **Completion Date**: {current_date}
+- **Status**: Completed / Partial / Blocked
+
+## 2. Change Analysis
+
+### 2.1 Change Scope
+| Change Type | Description | Risk Level | Rollback Complexity |
+|-------------|-------------|------------|-------------------|
+| Code | {description} | H/M/L | H/M/L |
+| Configuration | {description} | H/M/L | H/M/L |
+| Data Migration | {description} | H/M/L | H/M/L |
+
+### 2.2 Dependency Mapping
+| Service | Depends On | Affected By Rollback | Rollback Order |
+|---------|-----------|---------------------|----------------|
+| {service} | {deps} | Yes/No | {N} |
+
+### 2.3 Risk Assessment
+| Risk ID | Description | Probability | Impact | Mitigation |
+|---------|-------------|-------------|--------|------------|
+| R-001 | {description} | L/M/H | L/M/H | {mitigation} |
+
+## 3. Rollback Strategy
+
+### 3.1 Strategy Selection
+| Service | Strategy | Rationale | Estimated RTO |
+|---------|---------|-----------|---------------|
+| {service} | Blue-Green/Canary/Feature-Toggle/DB-Rollback | {rationale} | {N}min |
+
+### 3.2 Rollback Steps
+| Step | Action | Owner | Duration | Auto/Manual | Verification |
+|------|--------|-------|----------|-------------|--------------|
+| 1 | {action} | {role} | {N}min | Auto/Manual | {check} |
+| 2 | {action} | {role} | {N}min | Auto/Manual | {check} |
+| **Total** | | | **{N}min** | | |
+
+## 4. Rollback Scripts
+
+### 4.1 Script Inventory
+| Script Name | Purpose | Language | Tested | Idempotent |
+|------------|---------|----------|--------|------------|
+| rollback-app.sh | 应用版本回滚 | bash | ✅/❌ | ✅/❌ |
+| rollback-db.sql | 数据库回滚 | SQL | ✅/❌ | ✅/❌ |
+| verify-health.sh | 健康检查验证 | bash | ✅/❌ | ✅/❌ |
+
+### 4.2 Automation Level
+- **Automated Steps**: {N}/{Total} ({percentage}%)
+- **Manual Steps**: {N}/{Total} ({percentage}%)
+- **Target Automation**: ≥80%
+
+## 5. Rollback Drill Results
+
+### 5.1 Test Environment Validation
+| Test Scenario | Result | Actual RTO | Issues Found |
+|--------------|--------|-----------|--------------|
+| Full rollback | Pass/Fail | {N}min | {issues} |
+| Data rollback | Pass/Fail | {N}min | {issues} |
+| Partial rollback | Pass/Fail | {N}min | {issues} |
+
+### 5.2 Data Consistency Verification
+- **Pre-rollback Data Snapshot**: ✅/❌
+- **Post-rollback Data Integrity**: ✅/❌
+- **Data Loss Assessment**: {N} records / None
+- **Consistency Rate**: {percentage}%
+
+## 6. Communication & Approval
+
+### 6.1 Approval Chain
+| Order | Role | Required | Status |
+|-------|------|----------|--------|
+| 1 | {role} | Yes/No | Approved/Pending/Escalated |
+| 2 | {role} | Yes/No | Approved/Pending/Escalated |
+
+### 6.2 Communication Templates
+- **Rollback Start**: {template}
+- **Rollback Complete**: {template}
+- **Rollback Failed**: {template}
+
+## 7. Quality Score
+
+- **Overall Score**: {score}/100
+- **Grade**: Excellent (≥95) / Good (≥85) / Satisfactory (≥70) / Needs Improvement (<70)
+- **KPI Breakdown**:
+  - ROLLBACK-TESTED: {value}% (target: 100%) - {pass/fail} (weight: 30%)
+  - RECOVERY-RTO: {value}min (target: ≤15min) - {pass/fail} (weight: 30%)
+  - DATA-CONSISTENCY: {value}% (target: 100%) - {pass/fail} (weight: 25%)
+  - AUTOMATION-LEVEL: {value}% (target: ≥80%) - {pass/fail} (weight: 15%)
+```
+
+## Output Validation (输出验证)
+
+> **重要**: 在提交回滚规划报告前，必须完成以下验证步骤
+
+### Validation Checklist
+
+**V-001: Rollback Completeness Validation (回滚完整性验证)**
+- [ ] 所有受影响的服务都有明确的回滚步骤
+- [ ] 代码、配置、数据回滚均已被覆盖
+- [ ] 回滚步骤覆盖了所有环境（staging/production）
+- [ ] 依赖服务的回滚顺序正确
+
+**V-002: RTO Compliance Validation (恢复时间验证)**
+- [ ] 总回滚时间（含决策和验证）≤15分钟
+- [ ] 每步的时间估算合理且有依据
+- [ ] 并行步骤已识别并优化
+- [ ] 验证时间已纳入RTO计算
+
+**V-003: Data Consistency Validation (数据一致性验证)**
+- [ ] 数据库回滚脚本已验证
+- [ ] 回滚后数据完整性检查方案已定义
+- [ ] 数据迁移的逆向操作已测试
+- [ ] 回滚后缓存/索引重建已考虑
+
+**V-004: Automation Validation (自动化验证)**
+- [ ] ≥80%的回滚步骤已自动化
+- [ ] 自动化脚本已在测试环境验证通过
+- [ ] 脚本具备幂等性（可重复执行）
+- [ ] 错误处理和回退机制已实现
+
+**V-005: Communication Validation (沟通验证)**
+- [ ] 审批链完整且联系方式就绪
+- [ ] 通知模板已准备
+- [ ] 升级路径已定义
+- [ ] 干系人列表已更新
+
+### Validation Failure Handling
+
+```
+IF any validation check fails
+THEN
+  1. Identify specific failed items and severity
+  2. Attempt to fix based on available information
+  3. IF cannot fix THEN mark as [NEEDS REVIEW] with detailed explanation
+  4. Generate validation report with pass/fail status for each check
+  5. Highlight critical issues requiring immediate attention
+  6. Provide recommendations for improvement
+  7. IF critical issues exist THEN do not proceed to handover
+END
+```
 
 ## Quality Metrics (质量指标)
 
@@ -271,181 +371,145 @@ Step 6: [HANDOVER] 准备交接
 
 | KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
 |--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
+| KPI-001 | ROLLBACK-TESTED | =100% | (已验证的组件数/总组件数) × 100% | 检查回滚演练覆盖范围 | 30% |
+| KPI-002 | RECOVERY-RTO | ≤15min | 从回滚开始到服务恢复的总时间 | 在测试环境演练计时 | 30% |
+| KPI-003 | DATA-CONSISTENCY | =100% | (一致性校验通过项/总校验项) × 100% | 回滚后数据完整性检查 | 25% |
+| KPI-004 | AUTOMATION-LEVEL | ≥80% | (自动化步骤数/总步骤数) × 100% | 统计脚本自动化覆盖比例 | 15% |
 
-**综合评分计算**: 
+**综合评分计算**:
 ```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+Quality Score = ROLLBACK-TESTEDScore × 30% + RECOVERY-RTOScore × 30% + DATA-CONSISTENCYScore × 25% + AUTOMATION-LEVELScore × 15%
+
+ROLLBACK-TESTED得分 = 覆盖率 × 100
+RECOVERY-RTO得分 = IF RTO≤15min THEN 100 ELSE max(0, 100 - (实际RTO-15)×5)
+DATA-CONSISTENCY得分 = 一致率 × 100
+AUTOMATION-LEVEL得分 = 自动化率 × 100
 合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
 ```
 
-### Validation Checklist (验证清单)
+## Handover Context (交接上下文)
 
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
-
-
-
-## Handover Preparation
-
-### 交付物检查清单
-
-- [ ] rollback-plan.md - 完整回滚计划
-- [ ] rollback-scripts/ - 回滚脚本目录
-- [ ] verification-checklist.md - 验证清单
-- [ ] communication-plan.md - 沟通计划
-
-### 交接信息
+> 完成回滚规划后，生成以下交接信息给部署发布阶段
 
 ```yaml
-handoff:
-  release_info:
-    version: "<版本号>"
-    scope: <部署范围>
-    risk_level: <风险级别>
-  rollback_info:
-    strategy: <回滚策略>
-    estimated_time: <回滚时间>
-    trigger_conditions: <触发条件>
-  contacts:
-    primary: <主要负责人>
-    backup: <备用人员>
-  next_steps:
-    - 审批回滚计划
-    - 测试回滚脚本
-    - 通知相关团队
-```
+handover:
+  header:
+    from_stage: "rollback_planning"
+    to_stage: "deploy_release"
+    handover_id: "HO-{{timestamp}}-{{sequence}}"
+    timestamp: "{{ISO8601}}"
+    prepared_by: "{{agent.name}}"
 
-## Best Practices
+  summary:
+    status: "completed/partial/blocked"
+    release_version: "{{release_version}}"
+    rollback_target: "{{rollback_target}}"
+    estimated_rto: {{number}}min
+    automation_level: {{percentage}}%
+    services_covered: {{number}}
 
-1. **提前准备**: 部署前必须准备好回滚计划
-2. **自动化优先**: 优先使用自动化回滚
-3. **小步部署**: 降低回滚范围和复杂度
-4. **监控先行**: 回滚前确保监控就绪
-5. **沟通透明**: 及时同步回滚状态
-6. **记录复盘**: 回滚后必须复盘总结
+  artifacts:
+    delivered:
+      - name: "Rollback Plan"
+        path: "docs/rollback-plan.md"
+        version: "1.0.0"
+      - name: "Rollback Scripts"
+        path: "scripts/rollback/"
+        version: "1.0.0"
+      - name: "Rollback Drill Report"
+        path: "docs/drill-report.md"
+        version: "1.0.0"
+      - name: "Communication Templates"
+        path: "docs/communication-templates.md"
+        version: "1.0.0"
 
-## Task Description
+  metrics:
+    rollback_tested: {{percentage}}%
+    recovery_rto: {{number}}min
+    data_consistency: {{percentage}}%
+    automation_level: {{percentage}}%
+    overall_score: {{score}}/100
 
-> Describe the specific task for the plan-rollback scenario execution.
-> AI must understand the context, objectives, and success criteria before proceeding.
+  decisions:
+    - id: "DC-001"
+      description: "Rollback strategy per service"
+      rationale: "Selected Blue-Green for api-gateway to minimize downtime"
+      alternatives_considered: ["Rolling update", "Recreate"]
+      impact: "Affects rollback speed and resource requirements"
 
-## Execution Flow
+  open_issues:
+    blocking: []
+    non_blocking:
+      - id: "ISSUE-001"
+        description: "Database rollback script needs performance optimization"
+        risk_level: "low"
+        planned_resolution: "Optimize SQL and add indexing in next sprint"
+        owner: "DBA Team"
 
-> Step-by-step execution sequence for plan-rollback
+  risks:
+    - id: "RISK-001"
+      description: "Database rollback may exceed RTO for large datasets"
+      probability: "low"
+      impact: "medium"
+      mitigation: "Pre-warmed database snapshots for fast recovery"
+      contingency_plan: "Fail over to read replica and rebuild"
 
-### Phase 1: Analysis
-- Understand requirements and context
-- Identify constraints and dependencies
+  recommendations:
+    - "Automate remaining manual rollback steps to improve RTO"
+    - "Perform rollback drill before each production deployment"
+    - "Monitor rollback triggers in real-time during deployment"
+    - "Keep rollback plan updated with each release"
 
-### Phase 2: Execution
-- Perform core plan-rollback activities
-- Apply best practices and standards
+  next_steps_for_deployment:
+    - "Integrate rollback triggers into CI/CD pipeline"
+    - "Verify rollback scripts are accessible in deployment environment"
+    - "Brief on-call team on rollback procedures"
+    - "Confirm approval chain availability during deployment window"
 
-### Phase 3: Validation
-- Verify outputs against acceptance criteria
-- Ensure completeness and quality
+  quality_metrics:
+    kpi_results:
+      - kpi_id: "KPI-001"
+        name: "ROLLBACK-TESTED"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+        weight: 30
+      - kpi_id: "KPI-002"
+        name: "RECOVERY-RTO"
+        value: 12
+        target: 15
+        unit: "min"
+        status: "pass"
+        weight: 30
+      - kpi_id: "KPI-003"
+        name: "DATA-CONSISTENCY"
+        value: 100
+        target: 100
+        unit: "%"
+        status: "pass"
+        weight: 25
+      - kpi_id: "KPI-004"
+        name: "AUTOMATION-LEVEL"
+        value: 85
+        target: 80
+        unit: "%"
+        status: "pass"
+        weight: 15
+    overall_score: 93
+    grade: "excellent"
 
+## Related Assets (关联资产)
 
+| Asset Type | Path | Description |
+|------------|------|-------------|
+| Agent | `../agents/plan-rollback.agent.md` | 回滚规划Agent角色 |
+| Instruction | `../instructions/plan-rollback.instructions.md` | 回滚规划技术指令 |
 
-## Error Handling (错误处理)
+## Related Resources (相关资源)
 
-> **AI 遇到以下情况时必须按指定流程处理**
-
-### 错误分类体系
-
-| 级别 | 标识 | 描述 | 处理方式 |
-|------|------|------|----------|
-| P0 - Critical | ERR-CRITICAL | 阻塞性错误，无法继续 | 立即停止，升级人工处理 |
-| P1 - Major | ERR-MAJOR | 严重错误，影响核心功能 | 尝试修复，失败则升级 |
-| P2 - Minor | ERR-MINOR | 一般错误，可降级处理 | 记录并继续，后续修复 |
-| P3 - Warning | ERR-WARNING | 警告信息，不影响执行 | 记录并继续 |
-
-### Error Scenario 1: 通用错误处理
-
-**识别信号**: 
-- 检测到异常情况
-- 验证失败
-
-**处理流程**:
-```
-IF 检测到错误
-THEN
-  1. 识别错误类型和严重程度
-  2. 记录错误详情
-  3. 根据错误级别采取相应措施
-  4. IF P0/P1 级别 THEN 升级到人工处理
-  5. 更新状态并继续或停止
-END
-```
-
-**降级方案**: 根据具体情况选择适当的降级策略
-
-**升级条件**: P0 或 P1 级别错误
-
-**错误日志格式**:
-```yaml
-error_log:
-  error_id: "ERR-{timestamp}-XXX"
-  timestamp: "{{ISO8601}}"
-  level: "P0/P1/P2/P3"
-  type: "{错误类型}"
-  description: "{详细描述}"
-  action_taken: "{已采取的行动}"
-  result: "resolved/blocked/degraded/escalated"
-```
-
-
-
-## Output Format
-
-```markdown
-## Rollback Planning Deliverables
-
-### Summary
-- Status: [completed | partial | blocked]
-- Completion: [percentage]
-
-### Key Outputs
-1. **Rollback Procedures**: Detailed step-by-step rollback instructions
-2. **Pre-Rollback Checklist**: Validation before initiating rollback
-3. **Post-Rollback Validation**: Verification steps after rollback
-4. **Data Rollback Plan**: Strategy for data consistency during rollback
-5. **Communication Template**: Stakeholder notification templates
-
-### Validation Checklist
-- [ ] Rollback plan is tested for all release scenarios
-- [ ] Recovery time objective (RTO) is 15 minutes or less
-- [ ] Data consistency is maintained after rollback
-- [ ] Rollback triggers are clearly defined
-
-### Next Steps
-- [ ] Test rollback procedure in staging
-- [ ] Integrate rollback triggers into deployment pipeline
-```
-
+- **Standards**: 
+  - [Rollback Planning Standards](../standards/rollback-planning-standards.md) - 回滚规划标准
+  - [Release Management Guidelines](../standards/release-management-guidelines.md) - 发布管理指南
+- **Evaluations**: 
+  - [Rollback Plan Review](../evaluations/rollback-plan-review.md) - 回滚计划评审
