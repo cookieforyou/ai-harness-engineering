@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: CI/CD 实施 (Implement CI/CD)
@@ -382,13 +383,25 @@ spec:
 > Detailed technical requirements and implementation guidelines for implement-cicd.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **GitHub Actions / GitLab CI / Jenkins**: CI/CD 流水线引擎
+- **Docker / BuildKit / Kaniko**: 容器镜像构建
+- **Helm / Kustomize**: Kubernetes 部署编排
+- **ArgoCD / Flux**: GitOps 持续交付
+- **SonarQube / CodeClimate**: 代码质量门禁
+- **Trivy / Grype / Snyk**: 容器镜像安全扫描
 
 ### Environment Requirements
-- [List environment prerequisites]
+- CI Runner 可访问源代码仓库（GitHub / GitLab / Bitbucket）
+- 镜像仓库已配置且可推送（Docker Hub / Harbor / ECR / ACR）
+- 目标 Kubernetes 集群可达（kubectl context 已配置）
+- Secrets 已注入 CI 环境（不要硬编码，使用 GitHub Secrets / Vault）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `CI_TRIGGER`: 触发条件（push to main → deploy-staging, tag v* → deploy-prod）
+- `BUILD_TIMEOUT`: 构建超时时间（默认 30min，大型 Monorepo 可延长至 60min）
+- `PARALLEL_JOBS`: 并行 Job 数量上限（≤ Runner 资源限制）
+- `ARTIFACT_RETENTION`: 构建产物保留天数（≥30 天）
+- `ENVIRONMENT_PROTECTION`: 生产环境部署是否需要人工审批（must be true）
 
 
 ## Multi-Language Code Examples

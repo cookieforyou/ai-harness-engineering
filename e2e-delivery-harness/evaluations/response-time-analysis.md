@@ -3,6 +3,7 @@ name: response-time-analysis
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   响应时间分析评估，基于Apdex评分标准(满意≤T/容忍≤4T/失望>4T)、

@@ -3,6 +3,7 @@ name: dependency-graph
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 依赖关系图 模板

@@ -3,6 +3,7 @@ name: static-code-analysis
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   静态代码分析评估，覆盖工具配置标准(SonarQube/ESLint/golangci-lint/Checkstyle)、

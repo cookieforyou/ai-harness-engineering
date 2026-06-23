@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Incident Response Instructions
@@ -313,13 +314,25 @@ def calculate_impact(sla_target, downtime_minutes, users_affected, total_users):
 > Detailed technical requirements and implementation guidelines for respond-incident.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **PagerDuty / Opsgenie / VictorOps**: 事件告警与值班管理
+- **kubectl / AWS CLI / gcloud**: 基础设施快速诊断与应急操作
+- **Grafana / Datadog / Kibana**: 实时监控面板与日志查询
+- **tcpdump / Wireshark / strace / perf**: 网络/系统底层诊断工具
+- **Slack / Teams / Jira Service Management**: 事件沟通与协作
+- **Runbook 自动化脚本**: 预定义的应急操作脚本（重启、扩容、流量切换）
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 值班排班表已更新且On-Call人员可达（≥2人备份，Escalation Path ≤3级）
+- 事件指挥中心已建立（War Room 物理/虚拟会议室）
+- 应急访问权限提前授权（Break-glass 账号，使用后强制审计）
+- 状态页已就绪（用于外部用户通告，如 status.example.com）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `P0_RESPONSE_TIME`: P0 事故首次响应 SLA（≤5 分钟）
+- `INCIDENT_COMMANDER`: 事件指挥官指定规则（第一个到达的 SRE / 自动轮换）
+- `ESCALATION_TIMEOUT`: 升级超时时间（P0：15min 无响应 → 升级至经理，30min → 升级至总监）
+- `STATUS_UPDATE_INTERVAL`: 状态更新频率（P0 事故每 30min 发布一次更新）
+- `POST_MORTEM_REQUIRED`: 是否需要事后复盘（P0/P1 必须，P2 可选）
 
 
 ## Best Practices

@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['agent', 'role']
 ---
 # Agent: manage-secrets
@@ -44,10 +45,12 @@ tags: ['agent', 'role']
 
 ## Quality Standards
 
-- 密钥绝不硬编码
-- 密钥必须加密存储
-- 必须记录密钥使用日志
-- 必须实现最小权限原则
+- 密钥绝不硬编码，**硬编码检测覆盖率 = 100%**
+- 密钥必须加密存储，**加密强度 ≥ AES-256**
+- 必须记录密钥使用日志，**审计日志完整率 ≥ 99.9%**
+- 必须实现最小权限原则，**权限违规事件 ≤ 0 (零容忍)**
+- **密钥轮换周期 ≤ 90天**，高敏感密钥 ≤ 30天
+- **安全漏洞修复 SLA ≤ 24h (P0)**，P1 ≤ 72h
 
 ## Error Handling
 
@@ -62,19 +65,15 @@ tags: ['agent', 'role']
 
 在执行过程中，必须确保：
 
-- [ ] 所有输入参数已验证
-- [ ] 工作流程按步骤执行
-- [ ] 输出符合预期格式
-- [ ] 质量标准已满足
+- [ ] 所有输入参数已验证，密钥清单完整率 ≥ 95%
+- [ ] 密钥分类准确，高敏感度密钥标识覆盖率 = 100%
+- [ ] 密钥加密强度符合标准（≥ AES-256），未加密密钥数量 = 0
+- [ ] 访问控制遵循最小权限原则，权限配置审计通过率 ≥ 99%
+- [ ] 密钥轮换策略已配置，**自动轮换覆盖率 ≥ 90%**
+- [ ] 审计日志已启用，日志留存周期 ≥ 180天
+- [ ] 应急响应预案已就绪，泄露检测响应时间 ≤ 15min
 - [ ] Handover Context 已生成
-
-
-## Associated Assets
-
-- SCENARIO: `scenarios/manage-secrets/SCENARIO.md`
-- PROMPT: `prompts/manage-secrets.prompt.md`
-- INSTRUCTIONS: `instructions/manage-secrets.instructions.md`
-- SKILL: `skills/manage-secrets/SKILL.md`
+- [ ] 质量评分达到合格标准（≥ 80分）
 
 
 ## Use When
@@ -272,3 +271,15 @@ handover_to_verify_test:
 - 安全等级和合规要求
 - 现有密钥管理状态（如有）
 - 集成架构图和应用列表
+
+## 相关资产
+
+### 标准文档
+- [harness-engineering.md](../standards/harness-engineering.md) — 六层驾驭模型对齐标准
+- [id-generation-quantification.md](../standards/id-generation-quantification.md) — KPI量化体系
+- [asset-model.md](../standards/asset-model.md) — 资产类型与组合公式
+
+### 评估清单
+- [安全审计清单](../evaluations/static-code-analysis.md) — 静态代码分析检查清单
+- [部署质量清单](../evaluations/deployment-quality-checklist.md) — 部署质量检查清单
+- [输出验证清单](../evaluations/output-validation-checklist.md) — 输出质量验证标准

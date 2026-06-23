@@ -4,6 +4,7 @@ description: "估算准确性评审，用于评估工作量估算的偏差率、
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 ---
 

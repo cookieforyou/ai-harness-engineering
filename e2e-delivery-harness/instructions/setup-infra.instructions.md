@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: 基础设施搭建 (Setup Infrastructure)
@@ -260,13 +261,26 @@ budget:
 > Detailed technical requirements and implementation guidelines for setup-infra.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **Terraform / OpenTofu**: 基础设施即代码（IaC）编排
+- **Ansible / Chef / Puppet**: 配置管理与自动化
+- **AWS CLI / gcloud / az CLI**: 云平台命令行工具
+- **kubectl / Helm**: Kubernetes 集群管理
+- **Packer**: 机器镜像构建
+- **Terragrunt**: Terraform 工作空间管理（多环境/多区域）
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 云平台账号已创建且有足够配额（VPC ≥1, Subnet ≥3, EIP ≥1 per AZ）
+- IaC State 文件存储后端已配置（S3 + DynamoDB / Terraform Cloud / GCS）
+- 必要的 IAM / RBAC 权限已授权（最小权限原则）
+- 网络规划已完成（CIDR 分配、VPC Peering、DNS 域名解析）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `ENVIRONMENT`: 环境标识（dev / staging / prod，决定资源规格和冗余度）
+- `REGION`: 主要部署区域（AWS us-east-1 / GCP asia-east1 / Azure eastasia）
+- `INSTANCE_TYPE`: 默认实例类型（prod 最低 t3.medium / n2-standard-2）
+- `MIN_REPLICAS / MAX_REPLICAS`: Pod/实例副本数范围（prod ≥3 replicas）
+- `ENABLE_AUTOSCALING`: 是否启用自动扩缩容（prod 必须 true）
+- `BACKUP_ENABLED`: 是否启用自动备份（数据库/RDS 必须 true）
 
 
 ## Best Practices

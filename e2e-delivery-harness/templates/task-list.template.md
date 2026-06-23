@@ -3,6 +3,7 @@ name: task-list
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 任务清单 模板

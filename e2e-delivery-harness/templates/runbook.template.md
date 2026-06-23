@@ -3,6 +3,7 @@ name: runbook
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 运维 Runbook 模板

@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: 数据备份 (Backup Data)
@@ -400,13 +401,24 @@ compliance_config:
 > Detailed technical requirements and implementation guidelines for backup-data.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **mysqldump / pg_dump / mongodump**: 原生数据库备份工具（全量+增量）
+- **Velero**: Kubernetes 集群资源和持久卷备份
+- **restic / BorgBackup**: 去重加密备份客户端，支持 S3/SFTP/本地存储
+- **AWS S3 CLI / gsutil / azcopy**: 云存储上传与管理
+- **WAL-G**: PostgreSQL 增量备份与 PITR 时间点恢复
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 备份存储目标可达（S3 Bucket / NFS / Azure Blob，网络延迟 ≤50ms）
+- 数据库备份用户权限已配置（SELECT, RELOAD, LOCK TABLES, REPLICATION CLIENT）
+- 备份客户端版本与数据库版本兼容（版本差 ≤1 Minor）
+- 加密密钥已生成并安全存储（AES-256，密钥轮换周期 ≤90 天）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `BACKUP_RETENTION_DAYS`: 备份保留天数（≥30 天，合规场景 ≥365 天）
+- `BACKUP_SCHEDULE`: Cron 表达式（全量每日 02:00，增量每 6 小时）
+- `COMPRESSION_ALGORITHM`: 压缩算法（lz4/zstd/gzip，平衡速度与压缩率）
+- `ENCRYPTION_KEY_PATH`: 加密密钥路径（KMS ARN 或本地 PGP 公钥路径）
+- `VERIFY_AFTER_BACKUP`: 备份后是否立即校验（生产环境必须为 true）
 
 
 ## Multi-Language Code Examples

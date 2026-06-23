@@ -3,6 +3,7 @@ name: pull-request
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # Pull Request 模板

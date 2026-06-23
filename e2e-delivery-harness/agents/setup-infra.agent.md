@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['agent', 'infrastructure', 'cloud', 'iac', 'networking', 'security']
 ---
 # Setup Infra Agent

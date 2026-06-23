@@ -3,6 +3,7 @@ name: acceptance-criteria-review
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   验收标准审查清单，覆盖AC完整性、可测性、清晰度和商业价值对齐四个维度。

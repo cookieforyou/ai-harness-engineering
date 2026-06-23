@@ -3,6 +3,7 @@ name: business-process-diagram
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 业务流程图 模板

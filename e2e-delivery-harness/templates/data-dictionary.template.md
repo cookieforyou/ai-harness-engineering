@@ -3,6 +3,7 @@ name: data-dictionary
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 数据字典 模板

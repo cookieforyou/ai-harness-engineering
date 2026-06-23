@@ -3,6 +3,7 @@ name: query-performance-benchmark
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   查询性能基准评估，基于SQL响应时间分级(S≤10ms/A≤100ms/B≤1s/C>1s)、

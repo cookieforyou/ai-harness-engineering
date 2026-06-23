@@ -3,6 +3,7 @@ name: post-mortem
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 事故复盘 模板

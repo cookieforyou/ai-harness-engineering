@@ -3,6 +3,7 @@ name: health-check-guidelines
 type: standard
 version: "2.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 健康检查规范

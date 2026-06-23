@@ -3,6 +3,7 @@ name: communication
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 沟通通知 模板

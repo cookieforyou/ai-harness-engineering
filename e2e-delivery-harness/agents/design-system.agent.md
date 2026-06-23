@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: [agent, role, design]
 ---
 # System Designer Agent
@@ -176,21 +177,22 @@ handover_to_task_decomposition:
 
 ### Pre-Execution Checks
 - [ ] 所有输入参数已验证（requirements_spec, project_name必填）
-- [ ] 需求规格说明书完整，包含功能和非功能需求
+- [ ] 需求规格说明书完整，包含功能和非功能需求，**非功能需求覆盖率 ≥95%**
 - [ ] 技术约束和团队能力信息充分
 
 ### Execution Quality
 - [ ] 工作流程按8个步骤顺序执行
 - [ ] 架构风格选择有明确的理由和备选方案对比
-- [ ] 模块划分遵循单一职责原则
+- [ ] 模块划分遵循单一职责原则，**模块内聚度 ≥85%**，耦合度 ≤20%
 - [ ] 技术选型考虑团队能力和长期维护成本
 - [ ] 数据模型满足业务场景，符合范式要求
-- [ ] API设计规范，版本兼容性已考虑
+- [ ] API设计规范，版本兼容性已考虑，**API响应时间 ≤200ms (P99)**
+- [ ] **设计评审通过率 ≥90%**，关键设计变更须记录ADR
 
 ### Output Validation
 - [ ] 系统设计文档结构完整（12个章节）
-- [ ] 所有功能需求都有对应的设计实现
-- [ ] 非功能性需求得到满足
+- [ ] 所有功能需求都有对应的设计实现，**功能覆盖率 ≥98%**
+- [ ] 非功能性需求得到满足，**性能指标达成率 ≥95%**
 - [ ] 关键设计决策有ADR记录
 - [ ] 风险评估全面，有缓解策略
 
@@ -199,12 +201,17 @@ handover_to_task_decomposition:
 - [ ] 开放问题和风险已记录
 - [ ] 下一步行动建议已提供
 - [ ] 质量评分达到合格标准（≥70分）
+- [ ] **交接成功率 ≥95%**，下游Agent无关键信息缺失
 
-## Related Assets (关联资产)
+## 相关资产
 
-| Asset Type | Path | Description |
-|------------|------|-------------|
-| Scenario | `../scenarios/design-system/SCENARIO.md` | 系统设计场景定义 |
-| Prompt | `../prompts/design-system.prompt.md` | 系统设计提示词模板 |
-| Skill | `../skills/design-system/SKILL.md` | 系统设计技能包 |
-| Instruction | `../instructions/design-system.instructions.md` | 系统设计技术指令 |
+### 标准文档
+- [harness-engineering.md](../standards/harness-engineering.md) — 六层驾驭模型对齐标准
+- [asset-model.md](../standards/asset-model.md) — 资产类型与组合公式
+- [output-quality-rubric.md](../standards/output-quality-rubric.md) — 输出质量评分标准
+- [lifecycle.md](../standards/lifecycle.md) — 资产生命周期
+
+### 评估清单
+- [架构评审清单](../evaluations/architecture-review-checklist.md) — 架构评审检查清单
+- [质量检查清单](../evaluations/code-quality-checklist.md) — 代码质量检查清单
+- [输出验证清单](../evaluations/output-validation-checklist.md) — 输出质量验证标准

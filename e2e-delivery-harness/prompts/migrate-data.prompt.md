@@ -7,6 +7,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['prompt', 'ai-execution']
 ---
 # Prompt: 数据迁移场景执行 Prompt
@@ -410,3 +411,9 @@ handover_to_monitor:
 3. **可追溯**: 迁移过程必须完整记录日志，支持审计
 4. **时间窗口**: 迁移必须在预定时间窗口内完成
 5. **幂等性**: 迁移脚本必须支持重复执行
+
+## 相关资产
+
+- [harness-engineering.md](../standards/harness-engineering.md) — 六层驾驭模型对齐标准
+- [id-generation-quantification.md](../standards/id-generation-quantification.md) — KPI量化体系与指标定义
+- [output-quality-rubric.md](../standards/output-quality-rubric.md) — 输出质量评分与验证标准

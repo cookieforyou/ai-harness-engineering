@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: 监控集成 (Integrate Monitor)
@@ -910,13 +911,25 @@ app.get('/health', (req, res) => {
 > Detailed technical requirements and implementation guidelines for integrate-monitor.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **Prometheus + Thanos / VictoriaMetrics**: 指标采集与长期存储
+- **Grafana**: 仪表盘可视化与告警规则管理
+- **OpenTelemetry SDK / Collector**: 分布式追踪与 Metrics/Logs/Traces 统一采集
+- **Jaeger / Tempo**: 分布式追踪后端
+- **ELK (Elasticsearch + Logstash + Kibana) / Loki**: 日志聚合与分析
+- **Alertmanager / Grafana Alerting**: 告警路由与去重
 
 ### Environment Requirements
-- [List environment prerequisites]
+- Prometheus Server 已部署且目标可抓取（ServiceMonitor / PodMonitor 已配置）
+- OpenTelemetry Collector 作为 DaemonSet / Sidecar 部署
+- 日志采集 Agent (Fluentd/Fluent Bit/Vector) 已部署至所有节点
+- 告警通知通道已配置（PagerDuty / Slack / 企业微信 / Email）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `SCRAPE_INTERVAL`: 指标采集间隔（生产 15s，预发布 30s，开发 60s）
+- `RETENTION_PERIOD`: 指标保留期（原始数据 7d，聚合数据 365d）
+- `TRACE_SAMPLING_RATE`: 追踪采样率（生产 10% + 100% 错误，开发 100%）
+- `ALERT_EVALUATION_INTERVAL`: 告警规则评估间隔（默认 1m）
+- `LOG_RETENTION_DAYS`: 日志保留天数（按合规要求，≥30d）
 
 
 ## Error Handling

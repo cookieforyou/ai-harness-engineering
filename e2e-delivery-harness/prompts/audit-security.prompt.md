@@ -7,6 +7,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['prompt', 'ai-execution']
 ---
 # Prompt: 安全审计场景执行 Prompt

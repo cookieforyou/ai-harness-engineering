@@ -3,6 +3,7 @@ name: rollback-drill-report
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   回滚演练报告评估，覆盖演练场景覆盖度(代码/DB/配置/流量)、

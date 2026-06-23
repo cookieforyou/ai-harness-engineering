@@ -3,6 +3,7 @@ name: architecture-diagram
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 架构图 模板

@@ -3,6 +3,7 @@ name: code-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 description: "代码质量清单，用于评估代码的规范性、可读性、安全性和性能表现"
 author: AI Harness Engineering Team
 created: 2026-06-23

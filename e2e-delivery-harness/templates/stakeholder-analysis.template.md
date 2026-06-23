@@ -3,6 +3,7 @@ name: stakeholder-analysis
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 干系人分析 模板

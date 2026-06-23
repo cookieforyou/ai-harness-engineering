@@ -3,6 +3,7 @@ name: hotfix-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 description: "热修复质量清单，用于评估紧急修复的审批流程、验证步骤和风险控制"
 author: AI Harness Engineering Team
 created: 2026-06-23

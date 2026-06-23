@@ -7,6 +7,7 @@ author: AI Harness Engineering Team
 created: 2026-06-23
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['standard', 'traceability', 'mapping', 'cross-asset']
 ---
 
@@ -131,6 +132,14 @@ variable_to_input_mapping:
 - Prompt 变量是否与 Scenario 输入要求一致
 - Required=true 的变量是否有对应的 Handoff 传递路径
 - CoT 步骤是否关联了正确的 DC-*
+
+## 关键指标
+
+| 指标 | 目标值 | 说明 |
+|------|--------|------|
+| CoT-DC 关联覆盖率 | 100% | 每个 CoT 步骤必须关联至少 1 个 DC（决策检查点） |
+| 变量映射完整性 | 100% | 标记为 required=true 的 Prompt 变量必须有对应的 Handoff 传递路径 |
+| 场景映射表完成率 | 100% | 每个场景的 SCENARIO.md 末尾必须包含 Traceability Matrix 映射表 |
 
 ## 相关资产
 

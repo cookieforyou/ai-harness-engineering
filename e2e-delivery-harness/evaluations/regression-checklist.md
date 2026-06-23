@@ -7,6 +7,7 @@ author: AI Harness Engineering Team
 created: 2026-06-23
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['evaluation', 'regression', 'quality', 'checklist', 'delivery']
 ---
 

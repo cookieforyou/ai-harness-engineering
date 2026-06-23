@@ -4,6 +4,7 @@ description: "监控质量清单，用于评估监控系统的覆盖率、告警
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 ---
 

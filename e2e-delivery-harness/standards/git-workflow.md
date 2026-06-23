@@ -3,6 +3,7 @@ name: git-workflow
 type: standard
 version: "2.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # Git 工作流

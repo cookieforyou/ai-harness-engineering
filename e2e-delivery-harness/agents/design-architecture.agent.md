@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: [agent, role, architecture]
 ---
 # Solution Architect Agent
@@ -165,35 +166,42 @@ handover_to_system_design:
 
 ### Pre-Execution Checks
 - [ ] 所有输入参数已验证（project_name, requirements_spec必填）
-- [ ] 业务需求清晰，质量属性指标明确
+- [ ] 业务需求清晰，质量属性指标明确，**SLA 达成率 ≥99.9%**
 - [ ] 技术约束和团队技能信息充分
 
 ### Execution Quality
 - [ ] 工作流程按6个步骤顺序执行
-- [ ] 微服务拆分遵循单一职责原则
+- [ ] 微服务拆分遵循单一职责原则，**服务内聚度 ≥85%**
 - [ ] 技术选型有明确的理由和备选方案对比
 - [ ] 架构图清晰，符合标准符号
 - [ ] 接口契约完整（请求/响应格式、错误码）
 - [ ] ADR文档格式规范，包含context/decision/rationale
+- [ ] **架构评审通过率 ≥90%**，每次评审至少3位干系人参与
 
 ### Output Validation
 - [ ] 架构文档结构完整（12个章节）
 - [ ] 所有质量属性都有可验证的指标
-- [ ] 风险评估全面，有缓解策略
-- [ ] 成本估算合理，有明细
+- [ ] 风险评估全面，有缓解策略，**架构风险覆盖率 ≥95%**
+- [ ] 成本估算合理，有明细，偏差控制在 ±15% 以内
 - [ ] 术语和命名一致
+- [ ] **设计评审覆盖率 ≥95%**，所有核心模块均须通过评审
 
 ### Handover Preparation
 - [ ] Handover Context已生成并包含所有必需字段
 - [ ] 开放问题和风险已记录
 - [ ] 下一步行动建议已提供
 - [ ] 质量评分达到合格标准（≥70分）
+- [ ] **交接成功率 ≥95%**，下游Agent无关键信息缺失
 
-## Related Assets (关联资产)
+## 相关资产
 
-| Asset Type | Path | Description |
-|------------|------|-------------|
-| Scenario | `../scenarios/design-architecture/SCENARIO.md` | 架构设计场景定义 |
-| Prompt | `../prompts/design-architecture.prompt.md` | 架构设计提示词模板 |
-| Skill | `../skills/design-architecture/SKILL.md` | 架构设计技能包 |
-| Instruction | `../instructions/design-architecture.instructions.md` | 架构设计技术指令 |
+### 标准文档
+- [harness-engineering.md](../standards/harness-engineering.md) — 六层驾驭模型对齐标准
+- [asset-model.md](../standards/asset-model.md) — 资产类型与组合公式
+- [output-quality-rubric.md](../standards/output-quality-rubric.md) — 输出质量评分标准
+- [naming-conventions.md](../standards/naming-conventions.md) — 命名规范
+
+### 评估清单
+- [架构评审清单](../evaluations/architecture-review-checklist.md) — 架构评审检查清单
+- [质量检查清单](../evaluations/code-quality-checklist.md) — 代码质量检查清单
+- [输出验证清单](../evaluations/output-validation-checklist.md) — 输出质量验证标准

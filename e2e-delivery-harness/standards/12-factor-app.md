@@ -7,6 +7,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['standard', '12-factor', 'cloud-native', 'architecture']
 ---
 
@@ -226,6 +227,14 @@ handler.setFormatter(logging.Formatter('{"time":"%(asctime)s","level":"%(levelna
 - [ ] **环境等价**：开发、预发布、生产是否使用同类型后端服务？
 - [ ] **日志**：日志是否通过 stdout/stderr 输出，由执行环境统一收集？
 - [ ] **管理进程**：管理任务是否作为一次性进程在同等环境中运行？
+
+## Key Metrics (关键指标)
+
+| 指标 | 目标值 | 测量方法 |
+|------|--------|----------|
+| 构建产物版本号唯一率 | 100% | 每次构建生成唯一 SHA+序号标识，无重复版本号 |
+| 环境变量配置覆盖率 | 100% | 代码中零硬编码配置项，所有环境相关值通过 `os.getenv` 注入 |
+| Release 不可变率 | 100% | 发布后配置修改必须创建新 Release，禁止原地修改已发布 Release |
 
 ## Related Standards (相关标准)
 

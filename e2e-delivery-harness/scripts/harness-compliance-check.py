@@ -52,8 +52,12 @@ class ComplianceChecker:
 
         # 2. Content quality checks
         checks.append(self._check_no_placeholders(content))
-        checks.append(self._check_quantifiable_metrics(content))
-        checks.append(self._check_cross_references(content, filepath))
+        if asset_type == 'template':
+            checks.append(self._check_template_field_coverage(content))
+            checks.append(self._check_template_cross_references(content, filepath))
+        else:
+            checks.append(self._check_quantifiable_metrics(content))
+            checks.append(self._check_cross_references(content, filepath))
 
         # 3. Asset-specific checks
         if asset_type == 'scenario':
@@ -82,7 +86,7 @@ class ComplianceChecker:
         required_fields = ['name', 'description', 'version', 'type', 'status']
         found = {f: False for f in required_fields}
 
-        for i, line in enumerate(lines[1:20], 1):
+        for i, line in enumerate(lines[1:30], 1):
             if line.strip() == '---':
                 has_closing = True
                 break
@@ -140,8 +144,8 @@ class ComplianceChecker:
         return {'check': 'QUANTIFIABLE', 'status': 'PASS', 'detail': f'{metrics} metric references'}
 
     def _check_cross_references(self, content, filepath):
-        """Check for cross-references to related assets."""
-        refs = len(re.findall(r'\[.*?\]\(\.\./.*?\.md\)', content))
+        """Check for cross-references to related assets (supports both same-dir and ../ paths)."""
+        refs = len(re.findall(r'\[.*?\]\((?:\.\./|[^)]+\.md\))', content))
         if refs < 2:
             return {'check': 'CROSS_REFS', 'status': 'WARN', 'detail': f'Only {refs} cross-references'}
         return {'check': 'CROSS_REFS', 'status': 'PASS', 'detail': f'{refs} cross-references'}
@@ -223,6 +227,20 @@ class ComplianceChecker:
         if not has_placeholders:
             return {'check': 'TEMPLATE_DEPTH', 'status': 'WARN', 'detail': 'No field placeholders'}
         return {'check': 'TEMPLATE_DEPTH', 'status': 'PASS', 'detail': f'Structure={has_structure}'}
+
+    def _check_template_field_coverage(self, content):
+        """Template-specific: check for sufficient fillable field placeholders instead of quantifiable metrics."""
+        field_count = len(re.findall(r'\{[\w_]+\}', content))
+        if field_count < 3:
+            return {'check': 'FIELD_COVERAGE', 'status': 'WARN', 'detail': f'Only {field_count} template fields (target: ≥3)'}
+        return {'check': 'FIELD_COVERAGE', 'status': 'PASS', 'detail': f'{field_count} template fields'}
+
+    def _check_template_cross_references(self, content, filepath):
+        """Template-specific: lower cross-reference threshold (templates only need 1 ref to standard)."""
+        refs = len(re.findall(r'\[.*?\]\((?:\.\./|[^)]+\.md\))', content))
+        if refs < 1:
+            return {'check': 'CROSS_REFS', 'status': 'WARN', 'detail': f'Only {refs} cross-references (target: ≥1)'}
+        return {'check': 'CROSS_REFS', 'status': 'PASS', 'detail': f'{refs} cross-references'}
 
     def _summarize(self, checks):
         pass_count = sum(1 for c in checks if c['status'] == 'PASS')

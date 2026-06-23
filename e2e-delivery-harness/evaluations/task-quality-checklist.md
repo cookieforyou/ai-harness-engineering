@@ -4,6 +4,7 @@ description: "任务质量清单，用于评估任务拆分的清晰度、可执
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 ---
 

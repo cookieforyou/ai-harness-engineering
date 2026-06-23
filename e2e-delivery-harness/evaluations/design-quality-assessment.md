@@ -4,6 +4,7 @@ description: "设计质量评估，用于衡量系统设计的可维护性、可
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 ---
 

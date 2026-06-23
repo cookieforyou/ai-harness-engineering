@@ -3,6 +3,7 @@ name: test-coverage-analysis
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   测试覆盖率分析评估，四维覆盖率评估(行/分支/函数/变更)、

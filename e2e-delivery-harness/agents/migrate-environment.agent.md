@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['agent', 'migration', 'environment', 'infrastructure']
 ---
 # Agent: Environment Migration Engineer (环境迁移工程师)

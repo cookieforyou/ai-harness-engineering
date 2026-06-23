@@ -3,6 +3,7 @@ name: deployment-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 description: "部署质量清单，用于评估部署流程的完整性、回滚准备和发布验证"
 author: AI Harness Engineering Team
 created: 2026-06-23

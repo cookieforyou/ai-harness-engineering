@@ -3,6 +3,7 @@ name: api-design-guidelines
 type: standard
 version: "2.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # API 设计规范

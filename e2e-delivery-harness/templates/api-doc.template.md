@@ -3,6 +3,7 @@ name: api-doc
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # API 文档 模板

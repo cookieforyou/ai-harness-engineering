@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Security Audit Instruction
@@ -104,13 +105,25 @@ tags: ['instruction', 'technical']
 > Detailed technical requirements and implementation guidelines for audit-security.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **OWASP ZAP / Burp Suite**: Web 应用动态安全扫描（DAST）
+- **Trivy / Snyk / Dependabot**: 依赖项漏洞扫描（SCA）
+- **SonarQube / Semgrep / CodeQL**: 静态应用安全测试（SAST）
+- **Nmap / Masscan**: 网络端口扫描与服务发现
+- **Lynis / CIS-CAT**: 系统基线合规扫描（CIS Benchmark）
+- **Vault / AWS Secrets Manager**: 密钥检测与泄露扫描
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 安全扫描工具版本保持最新（≤30 天延迟更新）
+- 扫描目标环境有授权书（渗透测试授权、安全评估授权）
+- 扫描结果存储加密（使用 KMS 加密的 S3/数据库）
+- 隔离扫描网络（安全扫描流量不影响生产业务）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `SCAN_SCHEDULE`: 扫描频率（SAST 每次 Push，DAST 每周，PenTest 每季度）
+- `CRITICAL_VULN_SLA`: 严重漏洞修复 SLA（CVSS ≥9.0 → 24h，7.0-8.9 → 72h）
+- `COMPLIANCE_FRAMEWORK`: 合规框架（SOC2 / ISO27001 / PCI-DSS / HIPAA）
+- `SCAN_SCOPE`: 扫描范围（代码仓库、容器镜像、运行环境、网络拓扑）
+- `ALERT_CHANNEL`: 漏洞告警通道（Critical → PagerDuty, High → Slack #security）
 
 
 ## Best Practices

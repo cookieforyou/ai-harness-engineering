@@ -3,6 +3,7 @@ name: test-plan
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 测试计划 模板

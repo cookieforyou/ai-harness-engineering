@@ -3,6 +3,7 @@ name: deployment-plan
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 部署计划 模板

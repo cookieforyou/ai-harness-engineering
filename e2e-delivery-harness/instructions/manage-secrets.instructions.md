@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: 密钥管理 (Manage Secrets)
@@ -338,13 +339,24 @@ encryption_standards:
 > Detailed technical requirements and implementation guidelines for manage-secrets.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **HashiCorp Vault**: 密钥管理平台（动态密钥、PKI、SSH OTP）
+- **AWS Secrets Manager / GCP Secret Manager / Azure Key Vault**: 云原生密钥管理
+- **SOPS / Sealed Secrets**: GitOps 友好密钥加密工具
+- **cert-manager**: Kubernetes TLS 证书自动管理
+- **GitLeaks / TruffleHog / GitGuardian**: 代码仓库密钥泄露扫描
 
 ### Environment Requirements
-- [List environment prerequisites]
+- Vault 集群已部署且高可用（≥3 节点，Raft Storage Backend）
+- 密钥访问审计日志已开启（记录所有 Read/Write/Delete 操作）
+- 密钥轮换策略已配置（数据库密码 30 天，TLS 证书 90 天，API Key 180 天）
+- 开发者本地开发环境使用临时密钥（Vault Agent / AWS STS，有效期 ≤8h）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `VAULT_ADDR`: Vault 服务地址（内部网络可达）
+- `SECRET_TTL`: 动态密钥默认 TTL（数据库凭证 1h，云平台 STS 8h）
+- `MAX_LEASE_TTL`: 密钥最大租期（≤720h / 30天）
+- `AUDIT_LOG_PATH`: 审计日志路径（文件 / Syslog / ELK）
+- `ROTATION_INTERVAL`: 静态密钥轮换间隔（由 Secrets Manager 自动执行）
 
 
 ## Multi-Language Code Examples

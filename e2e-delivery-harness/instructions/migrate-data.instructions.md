@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instruction: 数据迁移技术规范
@@ -707,3 +708,9 @@ monitoring:
 - **Prompt**: `prompts/migrate-data.prompt.md`
 - **Agent**: `agents/migrate-data.agent.md`
 - **Skill**: `skills/migrate-data/SKILL.md`
+
+## 相关资产
+
+- [traceability-mapping.md](../standards/traceability-mapping.md) — 跨资产可追溯性映射标准，定义迁移数据时的 DC/KPI 映射关系
+- [health-check-guidelines.md](../standards/health-check-guidelines.md) — 迁移期间服务健康检查规范，配合零停机迁移策略
+- [rollback-drill-report.md](../evaluations/rollback-drill-report.md) — 回滚演练评估报告，验证回滚策略的有效性

@@ -11,7 +11,9 @@
       "Bash(sed -i '' 's/stage: requirement-analysis/stage: analyze-requirement/' scenarios/plan-sprint/SCENARIO.md)",
       "Bash(sed -i '' 's/stage: incident-resolution/stage: respond-incident/' scenarios/apply-hotfix/SCENARIO.md)",
       "Bash(sed -i '' 's/to_stage: \"requirement-analysis\" or \"next-shift\"/to_stage: \"analyze-requirement\"  # or \"monitor-operate\" \\(next shift handoff\\)/' scenarios/monitor-operate/SCENARIO.md)",
-      "Bash(sed -i '' 's/to_stage: \"deploy-release\" or \"development\"/to_stage: \"deploy-release\"  # or \"implement-feature\" \\(on test failure\\)/' scenarios/verify-test/SCENARIO.md)"
+      "Bash(sed -i '' 's/to_stage: \"deploy-release\" or \"development\"/to_stage: \"deploy-release\"  # or \"implement-feature\" \\(on test failure\\)/' scenarios/verify-test/SCENARIO.md)",
+      "Bash(echo \"Exit code: $?\")",
+      "Bash(grep -n '^---$' agents/integrate-monitor.agent.md)"
     ]
   }
 }

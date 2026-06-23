@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Code Review Instruction
@@ -109,13 +110,25 @@ tags: ['instruction', 'technical']
 > Detailed technical requirements and implementation guidelines for review-code.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **SonarQube / CodeClimate / Codacy**: 代码质量平台（静态分析 + 质量门禁）
+- **ESLint / Prettier / Stylelint**: JavaScript/TypeScript 代码规范与格式化
+- **Checkstyle / SpotBugs / PMD**: Java 静态分析与代码规范
+- **Pylint / Black / Mypy / Ruff**: Python 代码检查、格式化与类型检查
+- **Reviewable / Gerrit / GitHub PR Review**: 代码评审协作平台
+- **ArchUnit / dependency-cruiser**: 架构规范与依赖检查
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 代码规范配置已标准化且纳入版本控制（.eslintrc / .pylintrc / checkstyle.xml）
+- CI 流水线已集成自动化静态检查（PR 创建时自动触发，结果反馈至 PR Comment）
+- 团队Code Review规范已发布（Review Checklist、Reviewer 指定规则）
+- IDE 已配置实时 Linting（开发时即时反馈，减少Review往返）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `MIN_REVIEWERS`: 最少审批人数（核心模块 ≥2，普通模块 ≥1）
+- `REVIEW_TIMEOUT`: Review SLA（PR 提交后 4h 内有人开始 Review，24h 内完成）
+- `QUALITY_GATE`: 质量门禁阈值（新增代码覆盖率 ≥80%，重复率 ≤3%，无 Blocker 问题）
+- `MAX_PR_SIZE`: PR 最大变更行数（≤400 行，超过需拆分，便于高效 Review）
+- `AUTO_MERGE_ENABLED`: 是否允许自动合并（仅当所有 Check 通过 + 所有 Reviewer 批准时）
 
 
 ## Best Practices

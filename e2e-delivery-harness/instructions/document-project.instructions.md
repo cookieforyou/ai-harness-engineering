@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: 项目文档 (Document Project)
@@ -1122,13 +1123,25 @@ go run cmd/docgen/main.go && godoc -http=:6060
 > Detailed technical requirements and implementation guidelines for document-project.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **MkDocs / Docusaurus / VuePress**: 静态文档站点生成器
+- **Mermaid / PlantUML / draw.io**: 图表即代码工具（架构图、流程图、ER 图）
+- **Swagger UI / Redoc / Scalar**: OpenAPI 文档渲染
+- **Storybook**: UI 组件文档与可视化展示
+- **lychee / markdown-link-check**: 文档链接有效性检查
+- **cspell / Vale**: 拼写检查和文风检查
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 文档源文件托管于 Git 仓库（与代码仓库同或独立 docs repo）
+- CI 流水线已配置文档构建与发布（GitHub Pages / Netlify / Vercel）
+- 文档预览环境已就绪（PR Preview 自动部署）
+- 文档搜索索引已配置（Algolia / Lunr.js / Pagefind）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `DOCS_SITE_NAME`: 文档站点名称
+- `DOCS_BASE_URL`: 文档根路径（含版本号，如 /docs/v2.0）
+- `DOCS_DEFAULT_LANG`: 默认语言（zh-CN / en-US）
+- `ENABLE_VERSIONING`: 是否启用多版本（true 时保留最近 3 个大版本）
+- `LINK_CHECK_SCHEDULE`: 链接有效性检查周期（weekly / daily）
 
 
 ## Error Handling

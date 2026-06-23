@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Disaster Recovery Planning Instructions
@@ -311,13 +312,24 @@ compute_strategy:
 > Detailed technical requirements and implementation guidelines for plan-disaster-recovery.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **Velero / AWS Backup / Azure Site Recovery**: 灾难恢复编排与快照管理
+- **Terraform**: 基础设施即代码（支持多区域快速重建）
+- **kubectl / Helm**: Kubernetes 集群恢复
+- **Route53 / Cloud DNS / Cloudflare DNS**: DNS 故障切换
+- **Chaos Mesh / Gremlin / LitmusChaos**: 混沌工程与 DR 演练
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 灾备站点已部署（与主站点不同 AZ/Region，物理距离 ≥250km）
+- 数据复制链路已配置且滞后 ≤15 分钟（RPO 目标）
+- DR 环境资源规格与生产对齐（至少 50% 容量，关键服务 100%）
+- DNS TTL 已降低至 60 秒（故障切换时 DNS 快速生效）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `RPO_TARGET`: 恢复点目标（数据丢失窗口，P0 服务 ≤15min，P1 ≤1h）
+- `RTO_TARGET`: 恢复时间目标（服务恢复时间，P0 服务 ≤30min，P1 ≤4h）
+- `DR_DRILL_FREQUENCY`: DR 演练频率（≥每季度一次全链路演练）
+- `FAILOVER_AUTOMATION`: 故障切换自动化级别（auto / semi-auto / manual）
+- `HEALTH_CHECK_INTERVAL`: 健康检查间隔（生产 ≤10s，DR 站点 ≤30s）
 
 
 ## Best Practices

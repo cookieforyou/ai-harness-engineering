@@ -7,6 +7,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['prompt', 'ai-execution']
 ---
 # Prompt: 技术方案评审场景执行 Prompt
@@ -283,4 +284,10 @@ error_log:
 - [ ] Communicate review results to design team
 - [ ] Track action items to closure
 ```
+
+## 相关资产
+
+- [harness-engineering.md](../standards/harness-engineering.md) — 六层驾驭模型对齐标准
+- [id-generation-quantification.md](../standards/id-generation-quantification.md) — KPI量化体系与指标定义
+- [output-quality-rubric.md](../standards/output-quality-rubric.md) — 输出质量评分与验证标准
 

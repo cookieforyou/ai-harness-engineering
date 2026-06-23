@@ -3,6 +3,7 @@ name: requirements-spec
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 需求规格说明书 模板

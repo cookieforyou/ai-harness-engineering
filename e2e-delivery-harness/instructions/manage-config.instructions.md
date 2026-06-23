@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: 配置管理 (Manage Configuration)
@@ -347,13 +348,24 @@ alerts:
 > Detailed technical requirements and implementation guidelines for manage-config.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **Consul / etcd / Zookeeper**: 分布式配置存储与服务发现
+- **Spring Cloud Config / Viper (Go)**: 应用配置管理框架
+- **Kubernetes ConfigMap / Secrets**: 容器化配置管理
+- **Ansible / Terraform**: 配置即代码自动化
+- **Nacos / Apollo**: 配置中心（支持动态刷新和灰度发布）
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 配置中心集群已部署且高可用（≥3 节点，Raft/Paxos 共识）
+- 配置变更审批流程已建立（配置修改 → PR → Review → Apply → Verify）
+- 配置版本历史已启用（支持回滚到任意历史版本）
+- 敏感配置与非敏感配置分离存储（Secrets 加密存储，ConfigMap 明文）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `CONFIG_REFRESH_INTERVAL`: 配置刷新间隔（动态配置 ≤60s，静态配置重启生效）
+- `CONFIG_VERSION`: 当前生效配置版本号（与 Git Tag 对齐）
+- `AUDIT_ENABLED`: 配置变更审计开关（必须 true，记录 Who/What/When）
+- `ROLLBACK_TIMEOUT`: 配置回滚超时时间（≤5min，超时告警）
+- `GRAYSCALE_PERCENT`: 配置灰度发布比例（首次 10% → 观察 30min → 100%）
 
 
 ## Multi-Language Code Examples

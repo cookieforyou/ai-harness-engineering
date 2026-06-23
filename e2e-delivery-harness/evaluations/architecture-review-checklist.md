@@ -4,6 +4,7 @@ description: "架构评审清单，用于评估系统架构设计的完整性、
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 ---
 

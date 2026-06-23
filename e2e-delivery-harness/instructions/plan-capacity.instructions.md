@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instruction: 容量规划技术规范
@@ -48,13 +49,25 @@ This instruction defines the technical methodology and standards for capacity pl
 > Detailed technical requirements and implementation guidelines for plan-capacity.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **Prometheus + Grafana**: 资源使用趋势监控与可视化
+- **kubectl top / docker stats / htop**: 实时资源消耗查看
+- **AWS Cost Explorer / GCP Cost Management / Azure Cost Analysis**: 云成本分析
+- **Locust / k6 / wrk2**: 负载生成与容量压测
+- **Kapacitor / Grafana Alerting**: 容量阈值告警
+- **Python (pandas/prophet) / R**: 容量趋势预测与时间序列分析
 
 ### Environment Requirements
-- [List environment prerequisites]
+- ≥90 天历史资源使用数据已归档（CPU/Memory/Disk IOPS/Network 的 5min 粒度数据）
+- 成本数据可获取（按服务/环境/团队维度的费用明细）
+- 负载测试环境独立于生产（与生产 1:1 或 1:0.5 规格，确保测试结果可平移）
+- 弹性伸缩组件已部署（HPA / VPA / Cluster Autoscaler / Karpenter）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `FORECAST_HORIZON`: 容量预测时间窗口（30d / 90d / 365d）
+- `UTILIZATION_TARGET`: 资源利用率目标（CPU ≤70%, Memory ≤80%, Disk ≤75%）
+- `SCALE_UP_THRESHOLD`: 扩容触发阈值（CPU >70% 持续 5min → 自动扩容）
+- `SCALE_DOWN_COOLDOWN`: 缩容冷却时间（≥10min，防止抖动）
+- `HEADROOM_RATIO`: 容量余量比（N+1 冗余，即至少 1 个节点的余量）
 
 
 ## Best Practices

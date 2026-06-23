@@ -3,6 +3,7 @@ name: test-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 description: "测试质量清单，用于评估测试用例的覆盖率、有效性和执行效率"
 author: AI Harness Engineering Team
 created: 2026-06-23

@@ -3,6 +3,7 @@ name: system-design-doc
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 系统设计文档 模板

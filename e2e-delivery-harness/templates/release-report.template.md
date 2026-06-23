@@ -3,6 +3,7 @@ name: release-report
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 发布报告 模板

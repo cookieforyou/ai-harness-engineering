@@ -3,6 +3,7 @@ name: er-diagram
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # ER 图 模板

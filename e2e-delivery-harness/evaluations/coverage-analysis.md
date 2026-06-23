@@ -3,6 +3,7 @@ name: coverage-analysis
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   覆盖率分析评估，从行覆盖率、分支覆盖率、函数覆盖率和变更覆盖率四个维度

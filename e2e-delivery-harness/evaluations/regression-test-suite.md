@@ -3,6 +3,7 @@ name: regression-test-suite
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   回归测试套件评估，覆盖回归用例选择策略、优先级分类

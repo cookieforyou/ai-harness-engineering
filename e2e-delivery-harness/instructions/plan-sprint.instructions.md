@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: 冲刺规划 (Plan Sprint)
@@ -341,13 +342,24 @@ def determine_commitment(capacity, strategy='conservative'):
 > Detailed technical requirements and implementation guidelines for plan-sprint.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **Jira / Linear / Azure DevOps Boards**: Sprint Backlog 管理与任务跟踪
+- **Planning Poker / Scrum Poker / Pointing Poker**: 估算协作工具
+- **Miro / Mural / FigJam**: 虚拟白板（Sprint Planning / Retro 可视化）
+- **Confluence / Notion / GitBook**: Sprint 文档与会议记录
+- **Burndown Chart 生成器**: Sprint 进度可视化（内置于 Jira / 自定义脚本）
 
 ### Environment Requirements
-- [List environment prerequisites]
+- Backlog 已排序且顶部的 User Stories 满足 Definition of Ready（DoR）
+- 团队可用容量已计算（扣除公共假期、休假、On-Call 轮值、跨团队支持）
+- Sprint 目标草案已由 Product Owner 准备（≤1 句话，可衡量的业务成果）
+- 历史速率数据可获取（最近 3-5 个 Sprint 的完成 Story Points）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `SPRINT_LENGTH`: Sprint 周期（推荐 2 周，固定不可变）
+- `VELOCITY_SAMPLE_SIZE`: 速率计算样本数（默认 3 个 Sprint，排除异常值）
+- `CAPACITY_BUFFER`: 容量缓冲比例（20-30%，应对紧急工作和上下文切换）
+- `FOCUS_FACTOR`: 团队专注因子（0.6-0.8，扣除会议/Code Review/沟通开销）
+- `MAX_WIP`: 在制品数量上限（= 团队人数 × 1.5，防止多任务并行）
 
 
 ## Multi-Language Code Examples

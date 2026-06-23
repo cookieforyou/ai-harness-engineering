@@ -7,6 +7,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['workflow', 'process']
 ---
 # Review Design Scenario (技术方案评审场景)
@@ -176,9 +177,9 @@ error_log:
 
 ## Prerequisites
 
-- [ ] Prerequisite 1: [Description]
-- [ ] Prerequisite 2: [Description]
-- [ ] Prerequisite 3: [Description]
+- [ ] Prerequisite 1: 设计文档已完成且归档至项目知识库（含架构图、数据模型、API 契约、部署方案）— 缺失任何一项则停止评审
+- [ ] Prerequisite 2: 设计评审参与人已确认且全部到场（架构师、Tech Lead、安全代表、DBA，≥4 人），评审材料提前 ≥24h 分发
+- [ ] Prerequisite 3: 上次评审的改进项已全部闭环（Action Items 完成率 100%，未闭环项不得启动新评审）
 
 ### Handover Context Template
 

@@ -7,6 +7,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['standard', 'stakeholder', 'analysis', 'raci', 'communication']
 ---
 
@@ -303,6 +304,14 @@ conflict_record:
 ```
 
 ---
+
+## Key Metrics (关键指标)
+
+| 指标 | 目标值 | 测量方法 |
+|------|--------|----------|
+| 干系人识别覆盖率 | 100% | 项目启动阶段覆盖全部四类关键角色（决策者/使用者/影响者/监管者），缺一不可 |
+| RACI 责任完整性 | 100% | 每项关键活动有且仅有一个 A（问责人），无空白 RACI 单元格 |
+| 冲突升级率 | ≤ 20% | 2 轮协商内解决冲突的比例，超过该阈值需审查沟通计划有效性 |
 
 ## Related Standards
 

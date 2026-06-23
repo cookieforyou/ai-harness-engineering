@@ -4,6 +4,7 @@ description: "缺陷分析评估，用于分类统计缺陷分布、分析根因
 type: evaluation
 version: "1.0.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 ---
 

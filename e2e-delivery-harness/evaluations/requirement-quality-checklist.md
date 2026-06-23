@@ -3,6 +3,7 @@ name: requirement-quality-checklist
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   需求质量检查清单，从完整性(10项)、一致性(5项)、可测性(5项)、

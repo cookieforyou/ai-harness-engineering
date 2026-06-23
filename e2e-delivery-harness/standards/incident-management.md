@@ -3,6 +3,7 @@ name: incident-management
 type: standard
 version: "2.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 事件管理

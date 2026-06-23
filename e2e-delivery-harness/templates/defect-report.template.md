@@ -3,6 +3,7 @@ name: defect-report
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 缺陷报告 模板

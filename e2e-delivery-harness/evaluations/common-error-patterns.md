@@ -3,6 +3,7 @@ name: common-error-patterns
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   常见错误模式检查清单，覆盖10类编码/架构/配置错误的检测方法、严重等级、

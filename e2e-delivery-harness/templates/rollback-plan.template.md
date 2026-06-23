@@ -3,6 +3,7 @@ name: rollback-plan
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 回滚方案 模板

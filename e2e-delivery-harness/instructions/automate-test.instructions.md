@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: 自动化测试 (Automate Test)
@@ -197,13 +198,24 @@ jobs:
 > Detailed technical requirements and implementation guidelines for automate-test.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **pytest / unittest** (Python) / **Jest / Mocha** (JavaScript) / **JUnit / TestNG** (Java): 单元测试框架
+- **Selenium WebDriver / Playwright / Cypress**: 端到端 UI 自动化测试
+- **k6 / JMeter / Locust**: 性能与压力测试工具
+- **Allure / ReportPortal**: 测试报告聚合与可视化
+- **Coverage.py / JaCoCo / Istanbul (nyc)**: 代码覆盖率采集
 
 ### Environment Requirements
-- [List environment prerequisites]
+- 测试环境与应用版本一致（镜像 Tag、配置、数据库 Schema 对齐）
+- 测试数据已脱敏且隔离（不与生产数据交叉，每次测试后自动清理）
+- CI Runner 资源充足（CPU ≥2 核，内存 ≥4GB，磁盘 ≥20GB）
+- 外部依赖 Mock 服务已部署（WireMock / MockServer / JSON Server）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `TEST_TIMEOUT`: 单个测试用例超时阈值（单元测试 ≤5s，集成测试 ≤60s，E2E ≤300s）
+- `RETRY_COUNT`: 失败重试次数（flaky test 检测阈值 ≥2 次重试）
+- `PARALLEL_WORKERS`: 并行执行工作线程数（= CPU 核心数 × 1.5）
+- `COVERAGE_THRESHOLD`: 覆盖率门禁（行覆盖率 ≥80%，分支覆盖率 ≥70%）
+- `FAIL_FAST`: 首个失败后是否终止（CI 中设为 false 以收集完整失败信息）
 
 
 ## Multi-Language Code Examples

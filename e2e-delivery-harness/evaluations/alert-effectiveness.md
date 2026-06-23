@@ -3,6 +3,7 @@ name: alert-effectiveness
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   告警有效性评估，覆盖告警精准度(Precision≥80%)、告警召回率(Recall≥95%)、

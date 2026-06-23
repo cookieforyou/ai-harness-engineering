@@ -3,6 +3,7 @@ name: slo-compliance
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   SLO合规评估，覆盖SLO定义规范(SLI+目标值+时间窗口)、错误预算计算、

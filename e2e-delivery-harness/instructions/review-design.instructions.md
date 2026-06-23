@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-23
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instruction: 技术方案评审技术规范

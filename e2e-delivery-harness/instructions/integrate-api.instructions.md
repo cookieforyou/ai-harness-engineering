@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
 status: active
+language: "zh-CN"
 tags: ['instruction', 'technical']
 ---
 # Instructions: API 集成 (Integrate API)
@@ -351,13 +352,25 @@ metrics:
 > Detailed technical requirements and implementation guidelines for integrate-api.
 
 ### Required Tools
-- [List required tools and frameworks]
+- **Postman / Insomnia / Hoppscotch**: API 调试与测试
+- **Swagger Editor / OpenAPI Generator / Stoplight**: API 设计、文档生成与代码生成
+- **Apigee / Kong / AWS API Gateway**: API 网关管理
+- **curl / httpie / wscat**: 命令行 API 调试工具
+- **pytest + requests / Karate / REST Assured**: API 自动化测试框架
+- **WireMock / Mockoon / Prism**: API Mock 服务
 
 ### Environment Requirements
-- [List environment prerequisites]
+- API 契约（OpenAPI 3.0+ / gRPC proto 文件）已发布且在 API Registry 中可发现
+- 集成测试环境与生产 API 版本一致（版本漂移容忍度 ≤1 Minor）
+- API 网关（如 Kong/APISIX）已部署且路由规则已配置
+- Mock 服务已就绪（用于隔离外部依赖进行测试）
 
 ### Configuration Parameters
-- [List key configuration parameters]
+- `API_TIMEOUT`: API 调用超时时间（内部 API ≤5s，外部 API ≤30s）
+- `RETRY_POLICY`: 重试策略（最大 3 次，指数退避 base=1s，仅幂等操作可重试）
+- `RATE_LIMIT`: 速率限制（每 Token 每秒 100 请求，超过返回 429）
+- `CIRCUIT_BREAKER`: 熔断配置（错误率 >50% 时熔断，60s 后半开探测）
+- `API_VERSION_HEADER`: API 版本控制方式（Header: Accept-Version / URL: /v1/）
 
 
 ## Multi-Language Code Examples

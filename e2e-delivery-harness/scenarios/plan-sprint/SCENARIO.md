@@ -9,6 +9,7 @@ author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-02
 status: active
+language: "zh-CN"
 tags: [requirement, workflow]
 ---
 # 冲刺规划 Scenario

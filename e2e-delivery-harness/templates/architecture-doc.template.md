@@ -3,6 +3,7 @@ name: architecture-doc
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 架构设计文档 模板

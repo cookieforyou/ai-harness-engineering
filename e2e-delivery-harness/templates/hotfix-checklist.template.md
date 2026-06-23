@@ -3,6 +3,7 @@ name: hotfix-checklist
 type: deliverable-template
 version: "1.0.0"
 status: active
+language: "zh-CN"
 ---
 
 # 热修复检查清单 模板

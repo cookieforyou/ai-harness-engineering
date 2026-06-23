@@ -3,6 +3,7 @@ name: schema-review-checklist
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   Schema审查清单，从命名规范、数据类型合理性、索引设计、约束完整性、

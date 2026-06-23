@@ -3,6 +3,7 @@ name: performance-baseline
 type: evaluation
 version: "1.1.0"
 status: active
+language: "zh-CN"
 updated: 2026-06-23
 description: >
   性能基线评估，覆盖P50/P95/P99延迟、吞吐量、资源利用率(CPU/内存/IO/网络)
