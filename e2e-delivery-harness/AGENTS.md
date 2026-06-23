@@ -61,7 +61,9 @@
 
 审查与优化基准：[standards/harness-engineering.md](standards/harness-engineering.md)（Goal / Strategy / Tooling / Constraint / Feedback / Observability 六层映射）。
 
-维护脚本：`scripts/harness-compliance-patch.py`、`scripts/harness-full-compliance.py`、`scripts/generate-deliverable-templates.py`。
+维护脚本：`scripts/harness-compliance-check.py`（1974 项全量合规检查，当前综合评分 **95.3% A+**）、`scripts/harness-compliance-patch.py`（自动化合规修补）、`scripts/harness-full-compliance.py`。
+
+**全库状态**：282 个资产文件全部达 A 级合规标准，8/8 资产类别为 A 级，零 B/C/D/F 级资产。详见 [资产库全面评估深度分析报告.md](资产库全面评估深度分析报告.md)。
 
 ---
 
@@ -84,12 +86,12 @@
 | Instruction | **37** | `instructions/*.instructions.md` |
 | Skill | **37** | `skills/*/SKILL.md` |
 | Pipeline | **2** | `workflows/*.pipeline.md` |
-| Context 模板 | **3** | `contexts/*.md` |
-| Standard | **37** | `standards/*.md` |
-| Evaluation | **28** | `evaluations/*.md` |
-| Template | **33** | `templates/`（含交付物模板与资产模板） |
+| Context 模板 | **4** | `contexts/*.md` |
+| Standard | **44** | `standards/*.md` |
+| Evaluation | **27** | `evaluations/*.md` |
+| Template | **26** | `templates/*.template.md`（含 5 个资产模板） |
 
-**对齐关系**：37 个场景 × 5 类执行资产 = **185 个一一映射的核心执行单元**（同名 `{verb}-{noun}`）。
+**总计**：37 场景 × 5 类执行资产 = **185 个核心执行单元** + 97 个支撑资产 = **282 个资产文件**，合规评分 **95.3% A+**，全部 A 级。
 
 ---
 
@@ -236,6 +238,9 @@ description: <string>
 type: agent
 version: "<semver>"
 status: draft | active | deprecated
+language: "zh-CN"
+tools: [<tool_names>]
+harness_layers: ["goal", "strategy", "tooling", "constraint", "feedback", "observability"]
 tags: []
 ```
 
@@ -714,10 +719,11 @@ e2e-delivery-harness/
 │   ├── e2e-delivery.pipeline.md
 │   └── incident-response.pipeline.md
 │
-├── contexts/                 # 3 context files
+├── contexts/                 # 4 context files
 │   ├── global-context.md
 │   ├── handover-context.template.md
-│   └── unified-handover-template.md
+│   ├── unified-handover-template.md
+│   └── README.md
 │
 ├── scenarios/                # 37 × SCENARIO.md
 ├── agents/                   # 37 × *.agent.md
@@ -725,9 +731,9 @@ e2e-delivery-harness/
 ├── instructions/             # 37 × *.instructions.md
 ├── skills/                   # 37 × SKILL.md
 │
-├── standards/                # 37 specs（含 harness-engineering 与领域标准）
-├── evaluations/              # 28 checklists
-└── templates/                # 33 交付物与资产模板
+├── standards/                # 44 标准规范（含 harness-engineering 等）
+├── evaluations/              # 27 评估清单
+└── templates/                # 26 交付物模板 + 5 资产模板
     ├── agent-template.agent.md
     ├── instruction-template.instructions.md
     ├── prompt-template.prompt.md
@@ -756,7 +762,8 @@ e2e-delivery-harness/
 
 ### 已知注意事项
 
-- 部分历史 Scenario 曾引用尚未落地的标准文件；现已通过 `scripts/harness-full-compliance.py` 批量补齐 **standards/** 与 **evaluations/** 引用资产。
+- 全部 282 个资产文件已通过 `scripts/harness-compliance-check.py` A 级合规验证（95.3% A+），零 B/C/D/F 级资产。
+- 所有资产 YAML frontmatter 包含 `language: "zh-CN"` 元数据声明。
 - `scenarios/README.md` 中示例目录名（如 `requirement-analysis/`）为说明性示例，**实际目录**均为 `{verb}-{noun}/`。
 
 ---

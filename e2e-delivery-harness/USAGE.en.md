@@ -1,10 +1,13 @@
 # E2E Delivery Harness Usage Guide
 
+> **Compliance Status**: 🟢 **95.3% A+** (verified via `python3 scripts/harness-compliance-check.py`)
+> **Primary Protocol**: [AGENTS.md](./AGENTS.md)
+
 ## Table of Contents
 
 1. [Asset Overview](#asset-overview)
 2. [Usage Process](#usage-process)
-3. [Role Configuration](#role-configuration)
+3. [Scenario Selection](#scenario-selection)
 4. [Quality Assurance](#quality-assurance)
 5. [Best Practices](#best-practices)
 
@@ -12,108 +15,221 @@
 
 ## Asset Overview
 
-### Asset Types
+### Asset Types and Responsibilities
 
-| Type | Purpose | Format |
-|------|---------|--------|
-| Agent | Define AI role identity and rules | `*.agent.md` |
-| Skill | Encapsulate domain capabilities | `skills/*/SKILL.md` |
-| Instruction | Provide operational guidelines | `*.instructions.md` |
-| Prompt | Guide AI output generation | `*.prompt.md` |
-| Scenario | Combine assets into workflows | `scenarios/*/SCENARIO.md` |
-| Standard | Define standards and checks | `standards/*.md` |
+| Type | Purpose | Format | Load Order |
+|------|---------|--------|-----------|
+| Workflow | Pipeline stage order, entry/exit criteria | `workflows/*.pipeline.md` | ① First |
+| Scenario | Entry point: Purpose + CoT + DC-* + Error Handling + KPI | `scenarios/*/SCENARIO.md` | ② |
+| Agent | Role identity: Working Rules + I/O Contract + Tools + Handoff | `agents/*.agent.md` | ③ Concurrent |
+| Prompt | Execution script: Variables → CoT → Validation → Handover | `prompts/*.prompt.md` | ④ Main document |
+| Instruction | Operational runbook: Tools + Environment + Config | `instructions/*.instructions.md` | ⑤ As needed |
+| Skill | Domain knowledge: Methodology + Best Practices + Pitfalls | `skills/*/SKILL.md` | ⑥ As needed |
+| Standard | Standards: Naming / Quantification / Quality / Asset Model | `standards/*.md` | ⑦ Pre-gate |
+| Evaluation | Checklists: Regression / Scorecard / Error Patterns | `evaluations/*.md` | ⑧ Phase end |
+
+### Asset Scale
+
+| Category | Count | Grade |
+|----------|------|-------|
+| Scenario | 37 | 100.0% A |
+| Agent | 37 | 98.1% A |
+| Prompt | 37 | 97.1% A |
+| Instruction | 37 | 94.8% A |
+| Skill | 37 | 100.0% A |
+| Standard | 44 | 94.7% A |
+| Evaluation | 27 | 100.0% A |
+| Template | 26 | 92.9% A |
+| **Total** | **282** | **95.3% A+** |
 
 ---
 
 ## Usage Process
 
-### Step 1: Identify Delivery Phase
+### Step 1: Identify Pipeline Stage
 
-Select the appropriate scenario based on current project phase:
+Check `workflows/e2e-delivery.pipeline.md` to confirm current pipeline and stage:
 
 ```
-Requirement Analysis → System Design → Task Decomposition → Development → Testing → Deployment → Monitoring
+analyze-requirement → design-system → decompose-task
+  → implement-feature → verify-test → deploy-release → monitor-operate
 ```
 
-### Step 2: Configure Role Assets
+For incidents, switch to `workflows/incident-response.pipeline.md` (Detect → Respond → Recover → Review).
 
-1. Read the corresponding **Agent** definition file
-2. Understand role tool permissions and working rules
-3. Adjust role configuration as needed
+### Step 2: Load Scenario Entry
 
-### Step 3: Reference Skills and Instructions
+Read `scenarios/{name}/SCENARIO.md`:
 
-1. Load corresponding **Skill** under Agent guidance
-2. Follow steps in **Instruction**
-3. Reference **Prompt** templates for input construction
+- **Purpose / Business Value**: Why this scenario exists
+- **Chain of Thought**: Mandatory step-by-step reasoning protocol
+- **Decision Checkpoints**: DC-001 to DC-006 with trigger conditions and criteria
+- **Error Handling**: P0-P4 scenarios with escalation thresholds
+- **Quality Metrics**: Weighted KPI scoring with 3-tier thresholds (70/85/95)
 
-### Step 4: Execute and Produce
+### Step 3: Configure Agent Role
 
-1. Execute tasks according to skill definitions
-2. Self-check using instruction checklists
-3. Output results that meet standards
+Read `agents/{name}.agent.md`:
 
-### Step 5: Quality Assessment
+1. **Role Definition**: Core responsibilities and professional capabilities
+2. **Use When / Not Applicable**: Activation and exclusion conditions
+3. **Working Rules**: Principles + YAML workflow steps
+4. **Expected Input / Output**: Field-level validation rules
+5. **Handoff**: Structured YAML template for downstream stage
+6. **Quality Checklist**: Pre/During/Post execution checks
 
-1. Use `evaluations/regression-checklist.md` for regression checks
-2. Reference `evaluations/scorecard-template.md` for scoring
-3. Return to corresponding phase for fixes if issues found
+### Step 4: Execute via Prompt
+
+Use `prompts/{name}.prompt.md` as the main execution document:
+
+1. **Input Variables**: Verify all `Required: true` variables are populated
+2. **Chain of Thought**: Execute step by step, `[VALIDATE]` after each step
+3. **Error Handling**: Reference Scenario error flows on exceptions
+4. **Output Validation**: Verify output against V-001~V-004 criteria
+5. **Handover Preparation**: Fill in the YAML handoff package
+
+### Step 5: Reference Skill and Instruction (as needed)
+
+- Load `skills/{name}/SKILL.md` for domain expertise (Best Practices + Common Pitfalls)
+- Load `instructions/{name}.instructions.md` for operational details (tools + environment + config)
+
+### Step 6: Quality Assessment and Gate Exit
+
+1. Run `evaluations/output-validation-checklist.md` for generic validation
+2. Run `evaluations/regression-checklist.md` for phase-specific sections
+3. Check `evaluations/common-error-patterns.md` for known anti-patterns
+4. Verify KPIs against `standards/id-generation-quantification.md`
+5. Update `contexts/global-context.md` and execute Handover
 
 ---
 
-## Role Configuration
+## Scenario Selection
 
-### Role List
+### Quick Route by Intent
 
-| Role | Responsibility | Phase |
-|------|----------------|-------|
-| Requirement Analyst | Requirement analysis and planning | Requirement Analysis |
-| System Designer | System architecture design | System Design |
-| Task Decomposer | Task decomposition and planning | Task Decomposition |
-| Developer | Code development | Development |
-| Tester | Testing and verification | Testing |
-| DevOps Engineer | Deployment and release | Deployment |
-| SRE Monitor | Monitoring and operations | Monitoring |
+| User says… | Primary Scenario | Optional Parallel |
+|------------|-----------------|-------------------|
+| Analyze/clarify requirements | `analyze-requirement` | `plan-sprint` |
+| Design architecture | `design-system` | `design-architecture`, `design-database`, `review-design` |
+| Break down tasks | `decompose-task` | `plan-sprint` |
+| Write code | `implement-feature` | `integrate-api`, `manage-dependencies`, `manage-tech-debt` |
+| Test | `verify-test` | `automate-test`, `performance-testing` |
+| Deploy | `deploy-release` | `prepare-release`, `plan-rollback`, `implement-cicd` |
+| Production issue | `respond-incident` | `apply-hotfix`, `review-incident` |
+| Security/compliance | `audit-security` | `manage-secrets` |
+| Performance tuning | `optimize-performance` | `plan-capacity` |
+| Documentation debt | `document-project` | `manage-knowledge` |
+
+### Decision Tree
+
+```
+Production incident?
+  Yes → respond-incident → (need code fix?) apply-hotfix → review-incident
+  No → Which phase?
+        Requirements → analyze-requirement
+        Design → design-system (+ specialized design)
+        Development → implement-feature (+ manage-dependencies)
+        Testing → verify-test
+        Deployment → deploy-release (+ plan-rollback)
+        Operations → monitor-operate
+```
 
 ---
 
 ## Quality Assurance
 
-### Checklist
+### Compliance Check
 
-After completing each phase, perform these checks:
+```bash
+# Full compliance audit (1,974 checks)
+python3 scripts/harness-compliance-check.py
 
-1. **Input Completeness**: Are all required inputs included?
-2. **Output Compliance**: Does it meet output format requirements?
-3. **Quality Standards**: Does it meet quality assessment standards?
-4. **Documentation Completeness**: Are necessary documents included?
+# Single category
+python3 scripts/harness-compliance-check.py --category agents
+
+# Single file
+python3 scripts/harness-compliance-check.py --file agents/deploy-release.agent.md
+```
+
+### Quality Gates (Pipeline Level)
+
+| Transition | Gate | Standard |
+|------------|------|----------|
+| Req → Design | Q-001 | REQ-COVER ≥ 95% |
+| Design → Task | Q-002 | Design review 100% passed |
+| Task → Dev | Q-003 | TASK-COVER ≥ 98% |
+| Dev → Test | Q-004 | DEV-COVERAGE ≥ 80% |
+| Test → Deploy | Q-005 | TEST-PASS ≥ 90% |
+| Deploy → Ops | Q-006 | DEPLOY-SUCCESS ≥ 99% |
+| Ops steady | Q-007 | MON-SLO ≥ 99.5% |
 
 ### Scoring System
 
-Use 1-5 scoring:
+Aligned with [evaluations/scorecard-template.md](./evaluations/scorecard-template.md):
 
-- 5: Excellent - Fully meets all standards
-- 4: Good - Basically meets with minor improvement space
-- 3: Acceptable - Meets core requirements
-- 2: Needs improvement - Has obvious deficiencies
-- 1: Unacceptable - Does not meet basic requirements
+| Score | Grade | Meaning |
+|-------|-------|---------|
+| 90-100 | A (Excellent) | Exceeds expectations |
+| 80-89 | B (Good) | Meets expectations with minor improvements |
+| 70-79 | C (Satisfactory) | Meets basic requirements (minimum exit) |
+| 60-69 | D (Needs Improvement) | Significant deficiencies |
+| 0-59 | F (Fail) | Does not meet requirements |
 
 ---
 
 ## Best Practices
 
-### 1. Progressive Usage
+### 1. Five Non-Negotiable Rules (R1-R5)
 
-Start with a single phase and gradually expand to the complete process.
+| # | Rule | Consequence of Violation |
+|---|------|--------------------------|
+| R1 | Scenario before Prompt | Skipped quality gates and error handling |
+| R2 | No execution with unfilled variables | Untraceable outputs, broken handoffs |
+| R3 | VALIDATE after every CoT step | Hallucinated requirements / design drift |
+| R4 | Quantify before gate exit (against KPIs) | Cannot advance to next stage |
+| R5 | Always Handover (YAML handoff) | Downstream agent context broken |
 
-### 2. Context Passing
+### 2. Progressive Adoption
 
-Each phase's output should serve as the next phase's input, ensuring information continuity.
+Start with the core 7 scenarios, then gradually introduce extended scenarios as needed.
 
-### 3. Iterative Optimization
+### 3. Context Passing
 
-Continuously optimize asset definitions based on actual usage feedback.
+Each stage's output must serve as the next stage's input — use `contexts/unified-handover-template.md` YAML handoff template.
 
-### 4. Team Collaboration
+### 4. Iterative Optimization
 
-When multiple AI roles collaborate, clarify primary/secondary relationships and handover specifications.
+Run `python3 scripts/harness-compliance-check.py` periodically to audit and continuously improve asset quality.
+
+### 5. Team Collaboration
+
+When multiple Agents collaborate, follow the Handoff YAML contract: clarify `from_stage`/`to_stage` routing and `artifacts` deliverables.
+
+---
+
+## FAQ
+
+### Q: How to choose the right scenario?
+A: See [Scenario Selection](#scenario-selection) decision tree and routing table, or check [AGENTS.md full scenario directory](./AGENTS.md).
+
+### Q: How to ensure output quality?
+A: Every Prompt includes Output Validation (V-001~V-004). Verify against `evaluations/` checklists; revert and fix if not passing.
+
+### Q: How to contribute new assets?
+A: Reference `standards/authoring-checklist.md` and [AGENTS.md maintenance section](./AGENTS.md). Copy from `templates/`, pass compliance checks, then submit.
+
+### Q: How to check asset library compliance status?
+A: Run `python3 scripts/harness-compliance-check.py` for real-time compliance report, or read the [Deep Analysis Report](./资产库全面评估深度分析报告.md).
+
+---
+
+## Related Documents
+
+| Document | Purpose |
+|----------|---------|
+| [AGENTS.md](./AGENTS.md) | Agent navigation and execution protocol |
+| [INTRODUCTION.en.md](./INTRODUCTION.en.md) | Project introduction |
+| [资产库全面评估深度分析报告.md](./资产库全面评估深度分析报告.md) | Comprehensive assessment (v3.0) |
+| [standards/harness-engineering.md](./standards/harness-engineering.md) | Harness six-layer alignment standard |
+| [workflows/e2e-delivery.pipeline.md](./workflows/e2e-delivery.pipeline.md) | Main delivery pipeline |
+| [copilot-instructions.md](./copilot-instructions.md) | Copilot/IDE integration guide |

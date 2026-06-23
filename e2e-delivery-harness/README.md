@@ -1,50 +1,77 @@
-# E2E Delivery Harness - AI Engineering Asset Library
+# E2E Delivery Harness — AI 工程化资产库
+
+> **合规状态**：🟢 **95.3% A+** | 282 资产全部 A 级 | 8/8 类别 A 级 | 零 B/C/D/F 资产
 
 ## 项目概述
 
-E2E Delivery Harness 是一套面向软件交付全流程的 AI 工程化资产库，旨在为团队提供标准化、可复用的 AI 工作流模板，覆盖从需求分析到监控运维的完整生命周期。
+E2E Delivery Harness 是一套基于 **Harness Engineering（驾驭工程）** 理念的 AI 工程化资产库。通过 37 个场景 × 5 类资产（Scenario + Agent + Prompt + Instruction + Skill）的模块化设计，覆盖软件交付全生命周期（需求 → 设计 → 开发 → 测试 → 部署 → 运维 → 治理），提供标准化、可复用、可评估的 AI 工作流模板。
 
 ## 核心价值
 
-- **Harness Engineering 对齐**：六层驾驭模型约束 Agent 输出，见 [standards/harness-engineering.md](./standards/harness-engineering.md) 与 [AGENTS.md](./AGENTS.md)
-- **标准化交付流程**：统一的阶段划分、输入输出规范和质量检查标准
-- **角色化 AI 协作**：定义清晰的 AI 角色职责，支持多角色协同
-- **可复用资产沉淀**：积累最佳实践，形成可迭代的资产库
-- **质量一致性保障**：通过规范和检查清单确保交付质量
+- **Harness Engineering 六层对齐**：Goal / Strategy / Tooling / Constraint / Feedback / Observability 映射到每类资产，见 [standards/harness-engineering.md](./standards/harness-engineering.md)
+- **37 场景 × 5 资产 = 185 个一一映射的执行单元**：统一 `{verb}-{noun}` 命名，开箱即用
+- **量化质量门禁**：7 个 Q-* 门禁 + 28 个 MET-* KPI + 3 级阈值（70/85/95）
+- **强制思维链 (CoT)**：7 步标签体系（THINK→ANALYZE→DESIGN→IMPLEMENT→VERIFY→HANDOVER），每步 VALIDATE
+- **机器可读 Handoff YAML**：100% Agent 使用结构化 YAML 交接，`to_stage` 100% 可路由
+- **282 资产全部 A 级**：通过 1974 项自动化合规检查，零占位符残留
+- **可评估可自我修复**：27 个 Evaluation 清单 + P0-P4 错误升级机制 + 10 类反模式库
 
-## 目录结构
+## 资产全景
 
 ```
 e2e-delivery-harness/
-├── agents/              # AI 角色代理定义
-├── evaluations/         # 评估与检查清单
-├── instructions/        # 操作指令集
-├── prompts/             # AI 提示词模板
-├── scenarios/           # 业务场景定义
-├── skills/              # AI 技能模块
-├── standards/           # 规范与标准
-├── templates/           # 资产模板
-├── README.md            # 项目说明
-├── INTRODUCTION.zh.md   # 中文介绍
-├── USAGE.zh.md          # 中文使用指南
-└── copilot-instructions.md
+├── AGENTS.md                          # Agent 导航图与执行协议（R1-R5）
+├── 资产库全面评估深度分析报告.md       # 全库深度评估（v3.0 最终版）
+├── README.md                          # 本文件
+├── INTRODUCTION.zh.md / .en.md        # 中英文介绍
+├── USAGE.zh.md / .en.md               # 中英文使用指南
+├── copilot-instructions.md            # Copilot/IDE 集成指引
+│
+├── scenarios/      37 × SCENARIO.md   # 场景入口（Purpose + CoT + DC-* + KPI）
+├── agents/         37 × .agent.md     # 角色身份（Role + I/O + Handoff YAML）
+├── prompts/        37 × .prompt.md    # 执行脚本（Variables → CoT → Validation）
+├── instructions/   37 × .instructions.md  # 操作 Runbook（工具+环境+配置）
+├── skills/         37 × SKILL.md      # 领域知识包（Best Practices + Pitfalls）
+│
+├── standards/      44 × .md           # 标准规范（命名/资产模型/量化/质量等）
+├── evaluations/    27 × .md           # 评估清单（回归/评分卡/错误模式等）
+├── templates/      26 × .template.md  # 交付物模板（含 5 个资产模板）
+├── workflows/       2 × .pipeline.md   # Pipeline 编排（主交付 + 故障响应）
+├── contexts/        4 × .md           # 上下文与交接模板
+└── scripts/         3+ × .py          # 合规检查与修补脚本
 ```
 
 ## 交付阶段
 
-| 阶段 | 角色 | 核心产物 |
-|------|------|----------|
-| 需求分析与规划 | Requirement Analyst | 需求规格说明书、业务模型 |
-| 系统设计 | System Designer | 架构设计文档、技术方案 |
-| 任务拆分 | Task Decomposer | 任务分解清单、依赖关系图 |
-| 开发实现 | Developer | 源代码、接口文档、单元测试 |
-| 测试验证 | Tester | 测试用例、测试报告、缺陷报告 |
-| 部署与发布 | DevOps Engineer | 部署包、部署文档、回滚方案 |
-| 监控与运维 | SRE Monitor | 监控指标、告警规则、运维手册 |
+| 阶段 | Stage ID | 核心场景 | 质量门禁 | 辅助场景 |
+|------|----------|---------|---------|---------|
+| 需求分析 | `analyze-requirement` | 需求分析 | Q-001: REQ-COVER ≥95% | plan-sprint |
+| 系统设计 | `design-system` | 系统设计 | Q-002: 评审 100% 通过 | design-architecture, design-database, review-design |
+| 任务拆分 | `decompose-task` | 任务拆分 | Q-003: TASK-COVER ≥98% | — |
+| 开发实现 | `implement-feature` | 功能开发 | Q-004: DEV-COVERAGE ≥80% | integrate-api, manage-dependencies, manage-config, manage-secrets, document-project, manage-tech-debt |
+| 测试验证 | `verify-test` | 测试验证 | Q-005: TEST-PASS ≥90% | automate-test, performance-testing, review-code |
+| 部署发布 | `deploy-release` | 部署发布 | Q-006: DEPLOY-SUCCESS ≥99% | setup-infra, implement-cicd, prepare-release, plan-rollback |
+| 监控运维 | `monitor-operate` | 监控运维 | Q-007: MON-SLO ≥99.5% | backup-data, migrate-data, migrate-environment, integrate-monitor, manage-change, optimize-performance, plan-capacity |
+| 治理（全阶段） | — | 安全/故障/灾备/复盘 | — | audit-security, respond-incident, apply-hotfix, review-incident, plan-disaster-recovery, manage-knowledge |
 
 ## 快速开始
 
-请参阅 [USAGE.zh.md](./USAGE.zh.md) 了解详细使用方法。
+```bash
+# 1. 全量合规自检
+python3 scripts/harness-compliance-check.py
+
+# 2. 阅读 Agent 执行协议
+cat AGENTS.md
+
+# 3. 选择场景（以需求分析为例）
+cat scenarios/analyze-requirement/SCENARIO.md   # 场景入口
+cat agents/analyze-requirement.agent.md          # 角色定义
+cat prompts/analyze-requirement.prompt.md        # 执行脚本
+
+# 4. 按 CoT 逐步执行，每步 VALIDATE，完成后 Handover
+```
+
+详细使用方法见 [USAGE.zh.md](./USAGE.zh.md)，深度分析见 [资产库全面评估深度分析报告.md](资产库全面评估深度分析报告.md)。
 
 ## License
 
