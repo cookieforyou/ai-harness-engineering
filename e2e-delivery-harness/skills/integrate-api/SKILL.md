@@ -618,23 +618,23 @@ console.log(data);
 > Essential knowledge domain for integrate-api execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+- **API Gateway 模式**: 通过统一网关入口管理认证、限流、路由和协议转换，简化客户端与服务端的交互复杂度。
+- **Circuit Breaker (断路器)**: 防止级联故障的关键模式，当下游服务故障率达到阈值时自动切断调用，保护系统稳定性。
+- **Bulkhead (舱壁隔离)**: 将资源池分隔为独立分区，避免某个依赖的故障耗尽所有线程/连接资源，影响其他正常服务。
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
+1. **集成契约测试先行**: 在实现集成代码之前先编写契约测试，确保 API 提供方和消费方对接口约定达成一致。
+2. **超时必有降级**: 所有外部 API 调用必须设置超时时间且提供降级方案，不允许无限等待或直接透传失败。
+3. **幂等性设计**: API 集成中消费方应支持幂等重试，提供方应通过幂等令牌确保重复请求不产生副作用。
 
 
 ## Best Practices
 
 > Proven practices for integrate-api excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+1. **Retry with Backoff (指数退避重试)**: 对可重试的失败（网络超时、5xx）使用指数退避 + 抖动策略重试，避免重试风暴进一步压垮下游。
+2. **分布式追踪传播**: 在 API 调用链中透传 Trace ID 和 Span ID，实现端到端链路追踪，快速定位故障点。
+3. **HATEOAS 自描述 API**: 响应中携带关联资源的链接，客户端通过链接导航而非硬编码 URL，降低客户端与服务器端的耦合度。
 
 
 ## Anti-patterns (反模式)
@@ -645,17 +645,17 @@ console.log(data);
 
 > Frequent mistakes to avoid during integrate-api execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 无视 API Rate Limit (Ignoring Rate Limits)
+**Risk**: 超过 API 提供方的速率限制，触发限流策略导致请求被拒绝，服务中断。
+**Prevention**: 集成代码中实现本地速率限制（Token Bucket 算法），监控响应头中的 RateLimit 信息。
+**Impact**: API 调用持续失败，业务功能降级或完全不可用，可能被提供方加入黑名单。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 同步调用链路过长 (Excessive Sync Call Chain)
+**Risk**: 一个请求端到端同步调用多个外部 API，总延迟等于各调用延迟之和，用户体验差且故障面扩大。
+**Prevention**: 将非关键路径的同步调用改为异步（消息队列），关键路径控制在 2-3 跳以内。
+**Impact**: API 响应时间长达数秒，用户频繁超时重试，系统负载成倍增加。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 错误吞没无告警 (Silent Error Swallowing)
+**Risk**: 捕获异常后仅记录日志不告警，或使用空 catch 块，导致故障长期未被发现。
+**Prevention**: 定义清晰的错误分类和处理策略，关键错误通过告警系统实时通知，设置错误率告警阈值。
+**Impact**: 系统在降级状态下运行数天甚至数周，数据不一致性累积，修复成本极高。

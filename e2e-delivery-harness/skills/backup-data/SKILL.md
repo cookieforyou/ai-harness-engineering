@@ -705,23 +705,23 @@ common_issues = {
 > Essential knowledge domain for backup-data execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+- **3-2-1 备份原则**: 至少保留 3 份数据副本，存储在 2 种不同存储介质上，其中 1 份存放在异地，防止单点故障。
+- **全量/增量/差异备份**: 全量备份完整数据；增量备份仅备份上次任意备份后的变化；差异备份备份上次全量备份后的变化。
+- **WAL (Write-Ahead Log) 备份**: 数据库预写日志备份支持时间点恢复(PITR)，实现秒级数据恢复精度。
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
+1. **备份必须可恢复**: 备份的核心目的是恢复，未经验证可恢复的备份等同于没有备份，定期验证备份完整性。
+2. **异地存储强制化**: 所有关键数据的至少一份副本必须存放在异地（不同可用区、不同区域），抵御区域性灾难。
+3. **备份加密不可省略**: 备份数据在传输和存储阶段必须加密，防止存储介质泄露导致数据泄露。
 
 
 ## Best Practices
 
 > Proven practices for backup-data excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+1. **定期恢复演练 (每季度)**: 每季度至少执行一次全流程恢复演练，验证备份数据的可恢复性和恢复时间是否符合 RTO 要求。
+2. **备份完整性自动校验**: 每次备份完成后自动执行校验（校验和比对、抽样恢复验证），确保备份文件未损坏。
+3. **冷热数据分层备份**: 根据数据访问频率和恢复需求，制定分层备份策略——热数据快速备份恢复，冷数据压缩归档降成本。
 
 
 ## Anti-patterns (反模式)
@@ -732,17 +732,17 @@ common_issues = {
 
 > Frequent mistakes to avoid during backup-data execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 备份成功但恢复失败 (Backup Succeeds But Restore Fails)
+**Risk**: 备份日志显示成功，但恢复时发现备份文件损坏或不完整，无法正常恢复数据。
+**Prevention**: 每次备份完成后自动执行恢复验证（如恢复至隔离环境并校验数据一致性），而非仅检查文件存在性。
+**Impact**: 灾难发生时发现无法恢复数据，造成不可逆的数据丢失，业务连续性完全中断。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 只备份数据不备份配置 (Data-Only Backup)
+**Risk**: 仅备份数据库数据而未备份应用配置、环境变量、网络策略等，恢复后服务无法正常工作。
+**Prevention**: 将配置管理纳入备份范围，使用 IaC 工具管理配置并归档，确保恢复时能完整重建环境。
+**Impact**: 数据恢复后应用无法启动，需要手工配置环境，恢复时间远超 RTO。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 忽视备份存储成本增长 (Ignoring Backup Cost Growth)
+**Risk**: 随着数据量增长，备份存储成本线性上升，未及时优化导致成本失控。
+**Prevention**: 实施数据生命周期管理，定期评估备份保留策略，使用分层存储（热/冷/归档）降低长期成本。
+**Impact**: 备份成本占 IT 预算比例过高，为降低成本被迫缩短保留周期，违反合规要求。

@@ -184,17 +184,17 @@ gates:
 
 > Frequent mistakes to avoid during manage-tech-debt execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 重构范围蔓延 (Refactoring Scope Creep)
+**Risk**: 重构过程中不断发现新问题，修复范围持续扩大，导致交付延期。
+**Prevention**: 重构开始前明确界定范围，将超出范围的问题记录为新债务条目，另项处理。
+**Impact**: 重构任务无法按期完成，业务交付受阻，团队士气受挫。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 不评估债务利息就偿还 (Paying Debt Without Interest Assessment)
+**Risk**: 不评估债务的利息成本就盲目偿还，投入高回报低的修复，资源错配。
+**Prevention**: 使用债务量化模型（利息/本金比）评估每项债务的偿还优先级，聚焦高利息债务。
+**Impact**: 资源浪费在低价值修复上，真正高影响的债务被长期忽略。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 为"完美代码"过度工程 (Over-Engineering for Perfect Code)
+**Risk**: 追求代码完美，过度设计和抽象，产生新的复杂度和维护成本。
+**Prevention**: 遵循 Boy Scout Rule 和适度原则，以可读性和可维护性为目标，而非完美。
+**Impact**: 过度抽象引入新债务，代码复杂度不降反升，团队维护成本增加。

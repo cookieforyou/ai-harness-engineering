@@ -671,23 +671,23 @@ main().catch(console.error);
 > Essential knowledge domain for manage-secrets execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+- **Secret Zero Problem**: 管理密钥系统本身的初始密钥如何安全传递的经典问题，需通过多因子认证或带外方式解决。
+- **动态密钥 vs 静态密钥**: 动态密钥有生命周期自动过期(如 Vault 生成的 DB 凭证)，静态密钥长期有效需手动轮转。
+- **密钥轮转策略**: 定义密钥更换频率和方式，包括手动轮转、定时自动轮转和事件驱动轮转三种模式。
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
+1. **密钥不入代码仓库**: 密钥绝对不可硬编码在源码、配置文件或 CI 脚本中，必须通过密钥管理服务注入。
+2. **最小暴露面**: 每个服务仅能访问其需要的密钥，严格执行最小权限原则，减少泄露风险面。
+3. **定期自动轮转**: 所有密钥必须设定轮转周期，通过自动化工具实现到期前自动轮转，避免人工遗忘。
 
 
 ## Best Practices
 
 > Proven practices for manage-secrets excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+1. **Vault/HSM 集中管理**: 使用 HashiCorp Vault、AWS KMS 或 Azure Key Vault 等集中式密钥管理服务，统一管理密钥生命周期、访问审计和轮转策略。
+2. **临时凭证优先于长期密钥**: 尽可能使用动态凭证（如 Vault 生成的数据库凭证、AWS STS 临时令牌），减少长期密钥泄露风险。
+3. **密钥访问审计日志**: 所有密钥访问操作必须记录审计日志，包括谁、何时、从哪访问了什么密钥，用于安全审计和异常检测。
 
 
 ## Anti-patterns (反模式)
@@ -698,17 +698,17 @@ main().catch(console.error);
 
 > Frequent mistakes to avoid during manage-secrets execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 默认密码不修改 (Default Credentials)
+**Risk**: 部署后未修改默认密码，攻击者可轻易通过公开的默认凭据入侵系统。
+**Prevention**: 部署流水线中强制密码修改检查，首次登录必须更换默认密码。
+**Impact**: 系统在数小时内可能被自动化脚本攻破，数据泄露风险极高。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 密钥硬编码在 CI 脚本中 (Secrets in CI Scripts)
+**Risk**: 将密钥直接写在 GitHub Actions、Jenkinsfile 或环境变量中，日志泄露或仓库泄露后密钥即刻暴露。
+**Prevention**: 使用 CI 平台的内置密钥管理功能（如 GitHub Secrets、Jenkins Credentials），运行时注入而非硬编码。
+**Impact**: 密钥在 CI 日志中明文暴露，攻击者利用密钥横向移动，扩大安全事件范围。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 轮转时忽视依赖方 (Rotation Without Notifying Dependents)
+**Risk**: 轮转密钥后未通知或更新依赖该密钥的服务和应用，导致集成中断。
+**Prevention**: 轮转前梳理密钥依赖关系图，轮转后验证所有依赖方都已更新为新密钥。
+**Impact**: 服务间认证失败，业务流程中断，需紧急手动恢复，影响面广。

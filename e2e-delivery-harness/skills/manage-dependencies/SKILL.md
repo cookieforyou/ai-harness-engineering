@@ -165,17 +165,17 @@ Solution:
 
 > Frequent mistakes to avoid during manage-dependencies execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 忽视传递依赖的漏洞
+**Risk**: 只关注直接声明的依赖版本和安全告警，忽略传递依赖(即依赖的依赖)中存在的已知漏洞(CVE)。攻击者可以通过利用传递依赖中的低关注度漏洞间接攻破应用。很多大型安全事件(如event-stream、lodash原型链污染)均通过传递依赖链传播。
+**Prevention**: 使用 `npm audit --recursive`、`pip-audit`、`Trivy`、`Snyk` 等工具对完整依赖树进行安全扫描；配置CI门禁——传递依赖中存在高危及以上漏洞时阻止构建；订阅OSV(Open Source Vulnerabilities)数据库获取实时漏洞通知。
+**Impact**: 看似安全的直接依赖通过传递依赖链引入漏洞，安全团队无法全面掌握攻击面；漏洞被利用后可能导致数据泄露、服务入侵或供应链攻击溯源困难。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 盲目升级大版本
+**Risk**: 在不阅读Changelog、不评估Breaking Changes的前提下直接将依赖升级到最新Major版本。Major版本升级通常包含不兼容的API变更、行为变化和移除的废弃功能，直接升级可能导致应用运行时崩溃或逻辑错误。
+**Prevention**: Major版本升级前必须阅读完整的Changelog和Migration Guide；先在独立分支上升级并运行完整的回归测试套件；采用渐进式升级策略——先升级到最新Minor版本，再处理Major变更；使用Renovate/Dependabot自动创建版本升级PR并附加Changelog摘要。
+**Impact**: 生产环境出现难以排查的运行时异常；已废弃API的移除导致应用崩溃；新版本行为变化导致业务逻辑偏差而未触发显式错误。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 不读Changelog直接升级
+**Risk**: 即使是Minor或Patch版本升级，也可能包含行为变更(如安全加固导致的兼容性问题、默认配置调整、废弃警告)。仅查看版本号而不阅读Changelog就升级，可能忽略重要的变更通知和迁移建议。
+**Prevention**: 在升级PR描述中要求包含Changelog的核心变更摘要，由审查者确认无影响后才能合入；对关键依赖的升级设置观察期——先在预发环境运行24小时后无异常再推送到生产。
+**Impact**: 未预见的副作用的修复成本高于升级本身带来的收益；多次忽视Changelog导致依赖维护者停止发布详细变更记录，形成恶性循环。

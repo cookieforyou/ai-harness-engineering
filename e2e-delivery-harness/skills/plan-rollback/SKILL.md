@@ -153,17 +153,17 @@ data_integrity:
 
 > Frequent mistakes to avoid during plan-rollback execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 只准备部署不回滚的方案 (Deploy-Only Planning)
+**Risk**: 每次部署只关注上线流程，未提前准备回滚方案，出现故障时措手不及。
+**Prevention**: 部署前必须编写并评审回滚方案，作为部署就绪检查的必要项。
+**Impact**: 故障恢复时间延长 3-5 倍，服务不可用时间大幅增加。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 数据库迁移无法回滚 (Irreversible DB Migration)
+**Risk**: 数据库迁移脚本只设计了前向变更，未提供回退脚本，导致数据无法恢复到迁移前状态。
+**Prevention**: 所有数据库迁移必须提供 `up` 和 `down` 脚本，并在预发布环境验证回滚完整性。
+**Impact**: 数据丢失或损坏，需要 DBA 手动修复，恢复时间不可控。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 回滚后配置不一致 (Post-Rollback Config Mismatch)
+**Risk**: 回滚应用代码但未同时回滚配置或依赖服务版本，导致代码与配置不匹配。
+**Prevention**: 将配置变更与应用代码变更绑定在同一制品版本中，回滚时整体切换。
+**Impact**: 应用启动失败或行为异常，需二次排查，增加故障处理复杂度。

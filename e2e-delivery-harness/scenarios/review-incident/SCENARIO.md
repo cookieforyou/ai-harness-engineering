@@ -13,6 +13,14 @@ tags: ['workflow', 'process']
 
 ## Purpose
 
+对已解决的P0/P1生产故障进行系统化复盘分析，通过5 Whys根因分析和时间线重建，产出Blameless Postmortem报告。识别系统性问题、制定SMART改进措施并跟踪落地，确保同类故障不复发。
+
+### Business Value
+
+- 复盘完成率=100%（P0/P1）
+- 改进措施90天内关闭率≥85%
+- 同类故障复发率≤5%
+
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证

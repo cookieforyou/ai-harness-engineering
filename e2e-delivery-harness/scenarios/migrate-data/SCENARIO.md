@@ -13,6 +13,14 @@ tags: ['workflow', 'process']
 
 ## Purpose
 
+安全高效地完成跨数据库/跨平台的数据迁移，支持全量+增量迁移模式，确保数据零丢失、完整性100%验证和迁移窗口可控。覆盖MySQL/PostgreSQL/Oracle/MongoDB等主流数据源，提供可回滚的迁移方案。
+
+### Business Value
+
+- 数据完整性达100%
+- 迁移停机时间≤目标窗口
+- 回滚就绪率=100%
+
 ## Chain of Thought (思维链)
 
 > **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证

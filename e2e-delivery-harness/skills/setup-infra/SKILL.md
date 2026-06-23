@@ -199,24 +199,25 @@ savings_tips = [
 > Essential knowledge domain for setup-infra execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+- **IaC (Infrastructure as Code)**: 通过代码而非手动流程来管理和配置基础设施的基础实践。声明式(如Terraform)或过程式(如Ansible)定义基础设施状态，确保环境一致性、可重复性和版本控制。
+- **Immutable Infrastructure**: 基础设施组件一旦部署即不可修改的理念。任何变更通过替换整个组件而非原地更新来实现，消除了配置漂移，简化了回滚和扩缩容操作。
+- **Defense in Depth (纵深防御)**: 多层安全防护架构，在网络边界、主机、应用和数据层面分别设置安全控制措施。任何单层防御被突破时，后续层级仍能提供保护。
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
+1. **幂等性 (Idempotency)**: IaC脚本无论执行一次还是多次都应该产生相同的结果状态。幂等性是基础设施自动化的基石，确保重复执行不会导致不可预期的副作用或资源重复创建。
+2. **最小权限 (Least Privilege)**: 每个身份(用户/服务/角色)仅授予完成其职责所必需的最小权限集合。遵循此原则可以限制潜在攻击面，减少因凭证泄露或误操作造成的损害范围。
+3. **基础设施版本化**: 所有基础设施定义代码、配置文件和部署参数都必须纳入版本控制系统。版本化提供变更审计轨迹、回滚能力和团队协作基础，是IaC实践的核心前提。
 
 
 ## Best Practices
 
 > Proven practices for setup-infra excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+1. **Terraform模块化设计**: 将基础设施拆分为可复用的模块(Module)，每个模块封装特定资源组(如VPC网络、数据库集群、Kubernetes节点池)。模块化设计通过输入变量和输出值定义清晰的接口边界，提高代码复用性、降低维护复杂度，并支持团队并行开发不同模块。
 
+2. **多AZ高可用部署**: 在每个可用区(Availability Zone)中部署至少一个计算实例，配合负载均衡器实现跨AZ流量分发。多AZ架构消除单点故障，当单个AZ因电力、网络或硬件故障不可用时，流量自动路由到其他健康AZ，确保业务连续性。
+
+3. **成本标签管理**: 为所有云资源施加统一的标签(Tag)策略，包含环境(Environment)、项目(Project)、团队(Team)、成本中心(Cost Center)等维度。标签策略使成本分析和优化具备可操作性，支持按维度展示账单、设置预算告警，以及自动执行基于标签的运维策略。
 
 ## Anti-patterns (反模式)
 
@@ -226,17 +227,17 @@ savings_tips = [
 
 > Frequent mistakes to avoid during setup-infra execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 手动修改IaC管理的资源 (配置漂移)
+**Risk**: 通过云控制台或CLI直接手动修改由IaC创建的资源的配置。这些手动变更不会被IaC状态文件记录，导致下次执行IaC时配置被强制还原，或出现无法预期的错误。
+**Prevention**: 对所有生产环境资源严格执行"禁止手动修改"策略。如需变更，必须修改IaC代码并通过CI/CD管道部署。使用Drift Detection工具(如Terraform Plan、CloudFormation Drift Detection)定期扫描并告警漂移。
+**Impact**: 配置漂移累积导致基础设施状态不可信，故障时难以排查根因，严重时可能导致误删除生产资源或服务中断。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 硬编码敏感信息
+**Risk**: 在IaC代码或配置文件中直接写入API密钥、数据库密码、SSH私钥等敏感信息。硬编码的敏感信息会被提交到版本控制系统，构成严重的安全泄露风险。
+**Prevention**: 使用云服务商提供的Secret管理服务(如AWS Secrets Manager、AWS KMS、Azure Key Vault、GCP Secret Manager)或HashiCorp Vault存储敏感信息。IaC代码通过引用方式获取密钥，绝不在代码库中明文存储。
+**Impact**: 敏感信息一旦泄露可能导致数据泄露、账户盗用、资源滥用和重大财务损失，且违规行为可能违反合规要求(如PCI DSS、GDPR)。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 忽视区域容量限制
+**Risk**: 在单一云区域中部署全部关键资源，未考虑云服务商的区域服务容量限制(如EC2实例类型配额、VPC数量限制、API请求速率限制)。高峰期或大规模扩缩容时可能遭遇配额不足。
+**Prevention**: 在架构设计阶段即确认区域服务配额，并提交配额提升请求；关键业务采用多区域部署分散风险；通过云服务商配额监控工具设置接近阈值告警。
+**Impact**: 紧急扩缩容时因配额不足受阻，导致服务容量无法满足业务需求；严重情况下所有流量集中单一区域，区域故障时导致完全服务中断。

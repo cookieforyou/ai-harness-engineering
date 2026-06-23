@@ -162,17 +162,17 @@ test_success:
 
 > Frequent mistakes to avoid during plan-disaster-recovery execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 灾备方案只写不练
+**Risk**: 编制了详细的灾备方案文档，但从未或极少进行实际演练。文档中的步骤可能因环境变更、人员变动或工具升级而过时，灾难发生时才发现方案不可行或关键步骤缺失。
+**Prevention**: 设定定期的灾难恢复演练计划——季度桌面推演、半年度部分切换、年度全量切换。每次演练结束后更新灾备方案，修正与实际操作不一致的内容。将演练纳入组织的OKR或KPI考核指标，确保资源投入。
+**Impact**: 灾难真实发生时，团队按照过时的方案操作，恢复时间远超RTO目标；关键步骤无法执行导致恢复失败，业务长时间中断，造成重大经济损失和声誉损害。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 忽视网络分区场景
+**Risk**: 灾备设计只覆盖了单节点故障或单数据中心故障等简单场景，未考虑网络分区(Network Partition)这类复杂的故障模式——即节点之间的网络连接中断但各自仍正常运行，导致"脑裂"(Split-Brain)问题。
+**Prevention**: 在设计阶段引入网络分区假设，测试系统在部分节点无法通信时的行为；使用Quorum(仲裁)机制解决分布式系统的一致性问题；在演练中注入网络分区故障(如通过Chaos Mesh、Gremlin的Network Blackhole实验)验证系统行为。
+**Impact**: 网络分区发生时多个数据副本同时写入导致数据不一致；恢复后需要人工介入解决数据冲突，恢复时间大幅延长；严重时需要从备份恢复数据，丢失大量已写入数据。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 恢复后不验证数据一致性
+**Risk**: 成功完成灾备切换后，误以为系统已经恢复正常就宣布演练结束或恢复完成，未对数据的完整性、一致性和时效性进行系统性验证。实际恢复的数据可能存在丢失、部分损坏或复制延迟导致的陈旧数据。
+**Prevention**: 在灾备切换的Runbook中强制加入数据一致性验证步骤——包括行数对比、Checksum校验、业务逻辑抽样验证和增量数据完整性验证。验证应由独立于切换操作的人员执行。验证未通过时视为切换失败，需执行回滚或修复流程。
+**Impact**: 使用不一致的数据对外提供服务，业务决策基于错误数据；累积的数据差异随着时间越来越大，最终导致完全无法使用的数据灾难；合规审计中发现数据不完整引发的法律和监管风险。

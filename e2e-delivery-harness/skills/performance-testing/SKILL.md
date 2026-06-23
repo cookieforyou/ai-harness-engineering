@@ -221,23 +221,23 @@ rate(http_requests_total{status=~"5.."}[5m])
 > Essential knowledge domain for performance-testing execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+- **Little's Law (L = lambda x W)**: 并发用户数 = 吞吐量 x 平均响应时间，用于估算系统并发容量和资源需求。
+- **USL (Universal Scalability Law)**: 描述系统随资源扩展的性能变化曲线，识别扩展瓶颈和最优并发度。
+- **响应时间百分位数 (P50/P95/P99)**: 用百分位数分布而非平均值衡量用户体验，P99 代表最差 1% 请求的体验。
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
+1. **生产环境数据量级测试**: 测试数据量必须达到生产环境的量级，否则测试结果无法反映真实性能表现。
+2. **测试环境隔离**: 性能测试环境必须与开发/测试环境隔离，避免相互干扰导致测试结果失真。
+3. **基线先行**: 每次性能测试前先建立基线数据，后续迭代与基线对比，量化性能变化趋势。
 
 
 ## Best Practices
 
 > Proven practices for performance-testing excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+1. **逐步增压 (Step Ramp-up)**: 从低并发逐步增加负载，观察系统在各负载阶段的性能拐点，避免突发压力导致系统雪崩。
+2. **预热期排除**: 测试数据中排除预热阶段的数据点，因 JIT 编译、缓存填充等因素会导致冷启动阶段的性能失真。
+3. **资源饱和度监控**: 测试过程中同步监控 CPU、内存、磁盘 I/O、网络带宽等资源饱和度指标，定位性能瓶颈层。
 
 
 ## Anti-patterns (反模式)
@@ -248,17 +248,17 @@ rate(http_requests_total{status=~"5.."}[5m])
 
 > Frequent mistakes to avoid during performance-testing execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 用少量并发推断生产行为 (Low-Concurrency Inference)
+**Risk**: 用低并发(如 10 个用户)的测试结果推断生产环境(如 10000 用户)的行为，严重低估真实延迟和资源竞争。
+**Prevention**: 基于生产流量模型估算并发数，逐步增压至目标并发水平，验证各并发层级的性能表现。
+**Impact**: 上线后出现性能瓶颈，用户体验急剧下降，需紧急扩容或回滚。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 忽略 GC/冷启动影响 (Ignoring GC/Cold Start)
+**Risk**: 短时测试忽略 GC 暂停和冷启动加载的影响，导致测试结果过于乐观。
+**Prevention**: 测试时长至少包含 3 次以上 GC 周期，预热阶段充分填充缓存和加载类。
+**Impact**: 生产环境性能远低于测试结果，GC 抖动导致响应时间毛刺，SLA 违约。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 只看平均值忽略长尾 (Average-Only Fallacy)
+**Risk**: 仅关注平均响应时间而忽略 P99/P999 长尾延迟，掩盖部分用户感知极差的事实。
+**Prevention**: 核心指标必须包含 P50/P95/P99/P99.9，设置 P99 响应时间 SLA 目标。
+**Impact**: 大部分用户感知良好但少数用户频繁超时，投诉集中，影响产品口碑。

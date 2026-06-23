@@ -280,24 +280,25 @@ no_go_criteria:
 > Essential knowledge domain for prepare-release execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+- **Release Lifecycle Management**: 覆盖从计划、准备、执行、监控到收尾的完整发布生命周期管理体系。每个阶段定义明确的活动、角色和验收标准，确保发布流程标准化、可重复且可控。
+- **Go/No-Go 决策框架**: 基于预定义的质量门禁和风险指标做出的发布决策机制。在发布窗口前由相关角色(PM、QA、Ops、安全)共同评审，确认所有验收标准通过方可放行，未通过则推迟或取消发布。
+- **语义化版本 (SemVer)**: 采用 `MAJOR.MINOR.PATCH` 格式的版本号规范，分别代表不兼容的API变更、向下兼容的功能新增和向下兼容的问题修复。严格的版本号管理支撑依赖解析、发布策略和变更沟通。
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
+1. **发布可追溯**: 每一次发布都应当能够追溯到具体的代码提交、构建产物、配置变更和审批记录。完整的可追溯性是问题排查、合规审计和责任界定的基础保障。
+2. **回滚优先**: 每个发布计划必须首先制定回滚方案，确认回滚路径有经过验证、执行时间可接受。先想好如何失败，再考虑如何成功——回滚能力决定了发布的安全边界。
+3. **渐进式交付**: 通过灰度发布、蓝绿部署或金丝雀发布等策略，将变更逐步推广到用户群体。渐进式交付将爆炸半径最小化，在影响扩大前有机会发现和修正问题。
 
 
 ## Best Practices
 
 > Proven practices for prepare-release excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+1. **标准化发布检查清单**: 建立统一的发布检查清单，涵盖代码审查完成度、测试通过率、安全扫描结果、性能基准、文档更新状态、数据库迁移验证和回滚方案确认。清单作为发布的准入条件，由系统强制执行或人工逐项确认，确保无关键步骤遗漏。
 
+2. **灰度发布前置验证**: 正式全量发布前，先向小比例用户群体(如5%-10%)推送新版本，持续监控核心业务指标和系统稳定性指标。在灰度期间收集早期反馈和问题，根据发现的问题决定继续扩大范围、回滚或修复后重新灰度。
+
+3. **发布窗口管理**: 设定明确的发布窗口(如周二至周四上午10:00-16:00)，避开周末、节假日和业务高峰期。窗口管理确保有充足的应急响应时间和团队资源可用。紧急修复需走特批流程，并缩短观察窗口。
 
 ## Anti-patterns (反模式)
 
@@ -307,17 +308,17 @@ no_go_criteria:
 
 > Frequent mistakes to avoid during prepare-release execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 跳过预发验证
+**Risk**: 出于进度压力或过度自信，跳过在预发(Staging)环境上的完整验证流程，直接将代码从开发环境发布到生产环境。预发环境是最接近生产的测试阵地，跳过它将暴露大量集成和环境差异问题。
+**Prevention**: 在CI/CD管道中设置强制门禁——必须先通过预发环境的冒烟测试、回归测试和性能基线检查，才能获得生产发布权限。预发环境应尽可能与生产环境保持配置一致。
+**Impact**: 生产环境出现本可在预发阶段发现的回归缺陷，导致紧急回滚或热修复，影响用户体验和团队声誉。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 忽视配置变更的发布风险
+**Risk**: 发布过程中只关注代码变更，而忽视同时发生的配置变更(如数据库连接串调整、功能开关切换、限流阈值修改)。配置变更同样可能引入故障，甚至有更广泛的影响面。
+**Prevention**: 将配置变更纳入发布检查清单的必检项；配置变更应经过与代码变更同等的测试流程；建立配置变更差分审查机制，通过自动化工具对比变更前后差异。
+**Impact**: 配置错误引发连锁故障(如连接池耗尽、超时参数不当导致雪崩)，排查困难且修复需要额外发布周期。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 发布后不监控
+**Risk**: 发布完成后未对关键业务指标和系统指标进行持续监控(至少观察30-60分钟)，错过了早期发现问题的黄金窗口期。很多问题在低流量下不会立即显现，需要时间窗口暴露。
+**Prevention**: 建立发布后监控的Standard Operating Procedure(SOP)，明确需要观察的指标清单(错误率、延迟P50/P99、吞吐量、资源利用率)和阈值；设置自动告警，在指标异常时立即通知发布责任人。
+**Impact**: 问题在用户大规模体验后才被发现，影响范围扩大；修复成本增加，且需要在更高压力的场景下执行紧急修复。

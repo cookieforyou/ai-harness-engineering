@@ -634,23 +634,23 @@ CMD ["node", "dist/main.js"]
 > Essential knowledge domain for implement-cicd execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+- **持续集成 vs 持续交付 vs 持续部署**: CI 强调频繁集成并自动构建测试，CD 确保代码随时可发布到生产，持续部署是 CD 的自动化延伸。
+- **Pipeline as Code**: 将流水线配置以代码形式管理（如 Jenkinsfile、GitHub Actions YAML），纳入版本控制，确保可追溯和可复现。
+- **DORA 指标**: 四项核心指标衡量 DevOps 效能——部署频率、变更前置时间、变更失败率、故障恢复时间，指导持续改进。
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
+1. **主干开发 (Trunk-Based Development)**: 所有开发者向主干分支提交小批量变更，分支生命周期不超过一天，减少合并冲突和集成风险。
+2. **构建一次部署多处**: 从 CI 产出的制品唯一且不可变，同一制品依次部署到开发、测试、预发布、生产环境，消除环境差异问题。
+3. **失败快速反馈**: 流水线前置阶段（编译、单元测试）优先执行，失败立即阻断并通知提交者，缩短问题发现到修复的周期。
 
 
 ## Best Practices
 
 > Proven practices for implement-cicd excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+1. **流水线阶段化**: 流水线按阶段组织（构建 -> 单元测试 -> 集成测试 -> 安全扫描 -> 部署），前序阶段失败则阻断后续执行，确保质量左移。
+2. **并行化测试**: 将测试任务分片(Split)后并行执行，设立合理的分片粒度，显著缩短流水线执行时间。
+3. **制品不可变**: 每个构建产出的制品包含唯一版本号并存储至制品仓库，一旦发布即不可修改，确保部署的可复现和可追溯。
 
 
 ## Anti-patterns (反模式)
@@ -661,17 +661,17 @@ CMD ["node", "dist/main.js"]
 
 > Frequent mistakes to avoid during implement-cicd execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 流水线配置过度复杂 (Over-Complicated Pipeline)
+**Risk**: 流水线配置包含大量条件判断、动态步骤和脚本逻辑，难以维护和调试，故障频发。
+**Prevention**: 遵循 KISS 原则，将复杂逻辑抽取为独立的脚本或工具，流水线仅编排而非实现业务逻辑。
+**Impact**: 流水线本身频繁故障，成为交付瓶颈，开发人员信心下降，绕开流水线直接部署。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 测试环境与生产环境不一致 (Environment Drift)
+**Risk**: 测试环境和生产环境在 OS、依赖库、配置参数等方面存在差异，测试环境通过的变更到生产环境出现问题。
+**Prevention**: 使用容器化技术和基础设施即代码(IaC)确保环境一致性，定期进行环境同步审计。
+**Impact**: 生产环境出现测试环境未发现的故障，部署风险增加，变更加速受阻。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 忽视流水线自身的版本管理 (Pipeline Version Neglect)
+**Risk**: 流水线配置变更没有经过评审和测试，直接修改主分支配置导致流水线中断。
+**Prevention**: 将流水线配置纳入版本控制，修改走 PR 评审流程，使用分支策略隔离变更影响。
+**Impact**: 流水线突然中断，所有开发团队无法构建和部署，形成组织级的交付阻塞。

@@ -180,17 +180,17 @@ alert_thresholds:
 
 > Frequent mistakes to avoid during respond-incident execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 多人指挥导致混乱 (Multiple Commanders)
+**Risk**: 事件响应中多人同时指挥，指令冲突，响应人员无所适从。
+**Prevention**: 明确指定唯一 Incident Commander，其他人统一服从指挥，指挥权转移需正式交接。
+**Impact**: 响应效率下降 50% 以上，关键决策延迟，故障持续时间延长。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 忽视客户沟通 (Neglecting Customer Communication)
+**Risk**: 技术团队专注修复故障，忘记及时向客户和 stakeholders 通报故障状态。
+**Prevention**: 设置 Comms Lead 角色，按照预定义模板和频率（每 5 分钟）更新状态页。
+**Impact**: 客户满意度下降，造成信任危机和潜在的 SLA 赔偿。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 过早宣布"已修复" (Premature "Fixed" Declaration)
+**Risk**: 故障表面恢复后就宣布修复，未经过充分验证和监控确认，导致二次故障。
+**Prevention**: 修复后需经过至少 15 分钟的稳定监控期，且由第二人确认后方可宣布。
+**Impact**: 二次故障破坏信任，恢复成本成倍增加，可能导致更严重的业务影响。

@@ -139,24 +139,25 @@ cursor.execute(query, (name,))
 > Essential knowledge domain for review-code execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+- **Code Smell 识别**: 代码中暗示深层设计问题的表面症状，如过长函数、过大的类、过多的参数列表、重复代码等。系统化的Code Smell识别能力帮助审查者在未深入理解业务逻辑前快速定位潜在质量风险区域。
+- **SOLID 原则审查**: 基于面向对象设计的五大原则(Single Responsibility、Open-Closed、Liskov Substitution、Interface Segregation、Dependency Inversion)评估代码结构。SOLID原则审查确保代码具备良好的可扩展性、可维护性和低耦合特性。
+- **OWASP Top 10 检查**: 针对OWASP公布的十大Web应用安全风险类别进行逐一审查，包括注入攻击、认证失效、敏感数据泄露、XML外部实体(XXE)、访问控制缺陷、安全配置错误、跨站脚本(XSS)、不安全的反序列化、使用含已知漏洞的组件、日志和监控不足。
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
+1. **建设性反馈 (Constructive Feedback)**: 审查意见应以帮助同事改进为目标，用"建议"而非"命令"的语气表达。指出问题的同时提供具体的改进方案或替代思路，避免简单否定。正面引导比负面批评更容易被接受和执行。
+2. **审查关注点分层**: 按照优先级从高到低的顺序分层检查：正确性(逻辑是否准确) -> 安全性(是否存在漏洞) -> 性能(是否存在性能瓶颈) -> 可维护性(代码是否清晰易懂) -> 规范性(是否符合编码规范)。分层确保有限时间聚焦真正重要的方向。
+3. **Review Latency 最小化**: 审查响应时间应控制在4小时以内，保持小批量PR以降低单次审查负担。延迟过长会导致上下文丢失、阻塞后续开发任务，并增加合并冲突风险。快速反馈循环是高效代码审查的基石。
 
 
 ## Best Practices
 
 > Proven practices for review-code excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+1. **Checklist 驱动审查**: 使用标准化的审查检查清单引导审查过程，确保每次审查覆盖所有关键维度(正确性、安全性、性能、可维护性、规范性)。清单减少了遗漏风险，提供一致的审查质量基线，并帮助新审查者快速上手。
 
+2. **小批量 PR (≤ 400 行)**: 控制每次Pull Request的变更量不超过400行代码。小批量PR降低了审查者的认知负担，使审查更加深入而全面。数据表明，单次审查超过400行时缺陷发现率显著下降，审查效率与变更量呈反比。
+
+3. **自动化检查前置**: 在人工审查之前，通过静态分析工具(如ESLint、SonarQube)、格式化检查和自动化测试完成所有可编程的验证。自动化前置过滤掉低层次问题，让人工审查者聚焦于需要人类判断的逻辑、架构和设计层面。
 
 ## Anti-patterns (反模式)
 
@@ -166,17 +167,17 @@ cursor.execute(query, (name,))
 
 > Frequent mistakes to avoid during review-code execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 审查范围过大导致疲劳
+**Risk**: 同时审查大量文件和过长的PR(超过400-600行)，导致审查者认知过载，注意力分散。疲劳状态下容易遗漏关键缺陷，降低审查的有效性。
+**Prevention**: 推动团队采用小批量持续提交策略；将大型重构拆分为逻辑独立的多个小PR；设置CI门禁检查PR变更量，超出阈值时提示提交者拆分。
+**Impact**: 缺陷漏检率上升，需要更多轮次修复和重新审查，整体交付效率下降；长时间审查带来人员疲劳和士气下降。
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 2: 只关注语法忽略逻辑
+**Risk**: 审查者过度关注代码格式、命名规范等表层问题，而忽略了更深层的逻辑缺陷、设计问题和安全漏洞。代码风格问题可以通过格式化工具自动解决，不应成为人工审查的重点。
+**Prevention**: 在审查清单中将"正确性"和"安全性"列为最高优先级；使用自动格式化工具(如Prettier、Black、gofmt)处理代码风格；培养审查者优先检查业务逻辑实现是否符合预期的习惯。
+**Impact**: 严重缺陷被遗漏至生产环境，修复成本指数级上升；团队陷入"重形式轻实质"的低效审查文化。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 3: 人身攻击式反馈
+**Risk**: 审查评论使用指责性、贬低性或讽刺性的语言，如"这都能写错"、"这代码太烂了"。负面情绪导向的反馈破坏团队信任和心理安全感，导致开发者产生防御心理甚至抵触审查。
+**Prevention**: 建立并执行代码审查行为准则，要求评论聚焦于代码而非编写者；使用"我们"而非"你"的表述方式；提供替代方案而非仅指出问题；建立审查文化中的"有错推定"转向"共同改进"的思维模式。
+**Impact**: 团队沟通氛围恶化，开发者绕过审查流程直接合入代码以逃避负面反馈；知识共享和协作文化受损，整体代码质量下降。
