@@ -132,69 +132,95 @@ Step 6: 准备交接给运维监控阶段
 
 当部署成功且验证通过后，将工作交接给运维监控阶段：
 
-```markdown
-## Deployment Handoff to Monitoring
-
-### 部署结论
-✅ 部署成功，可进入监控阶段
-
-### 部署统计
-- 部署策略: {strategy}
-- 部署时长: {duration}
-- 停机时间: {downtime_or_zero}
-- 验证通过率: {percentage}%
-
-### 监控重点
-- 错误率: 阈值 < 0.1%
-- 响应时间: 阈值 < {sla_ms}ms
-- CPU使用率: 阈值 < 80%
-- 内存使用率: 阈值 < 90%
-
-### 告警配置
-- 告警渠道: Slack、邮件、短信
-- 通知对象: {on_call_team}
-- 升级策略: 5分钟未响应自动升级
-
-### 已知问题
-- P2/P3级别问题: {list}
-- 已接受的风险: {list}
-
-### 应急联系人
-- 技术负责人: {name}, {phone}
-- DBA: {name}, {phone}
-- 运维值班: {name}, {phone}
+```yaml
+handoff:
+  header:
+    from_stage: "deployment"
+    to_stage: "monitoring-operations"
+    handover_id: "HO-{{timestamp}}-DEP"
+    timestamp: "{{ISO8601}}"
+    status: "deployed"
+  summary:
+    deployment_strategy: "{strategy}"
+    deployment_duration: "{duration}"
+    downtime: "{downtime_or_zero}"
+    verification_pass_rate: "{percentage}%"
+    deployment_version: "{version}"
+  monitoring_focus:
+    error_rate:
+      threshold: "< 0.1%"
+      alert_severity: "P1"
+    response_time:
+      threshold: "< {sla_ms}ms"
+      alert_severity: "P1"
+    cpu_usage:
+      threshold: "< 80%"
+      alert_severity: "P2"
+    memory_usage:
+      threshold: "< 90%"
+      alert_severity: "P2"
+  alert_config:
+    channels: ["Slack", "Email", "SMS"]
+    on_call_team: "{on_call_team}"
+    escalation_policy: "5分钟未响应自动升级"
+  known_issues:
+    - severity: "P2/P3"
+      description: "{description}"
+      accepted_risk: true
+  emergency_contacts:
+    tech_lead: {name, phone}
+    dba: {name, phone}
+    on_call_engineer: {name, phone}
+  artifacts:
+    delivered:
+      - name: "deployment_log"
+        path: "reports/deployment-log.yaml"
+      - name: "health_check_results"
+        path: "reports/health-check-results.json"
+      - name: "verification_report"
+        path: "reports/verification-report.md"
+      - name: "monitoring_config"
+        path: "configs/monitoring-config.yaml"
+      - name: "release_report"
+        path: "reports/release-report.md"
+  next_steps:
+    - "进入 monitor-operate 阶段持续监控"
+    - "关注部署后24小时内的系统稳定性"
+    - "记录部署过程中的经验教训"
 ```
 
 ### 交接给 Implement Feature Agent (部署失败时)
 
 当部署失败且回滚后，将工作交接回开发阶段进行修复：
 
-```markdown
-## Deployment Handoff to Development
-
-### 部署结论
-❌ 部署失败，已回滚到上一稳定版本
-
-### 失败原因
-- 错误类型: {error_type}
-- 错误详情: {error_details}
-- 影响范围: {affected_services}
-
-### 回滚状态
-- 回滚执行: 成功/失败
-- 回滚时长: {rollback_duration}
-- 当前版本: {rolled_back_version}
-- 系统状态: 正常/部分异常
-
-### 修复建议
-- 根本原因分析: {root_cause}
-- 修复方案: {fix_plan}
-- 预计修复时间: {estimated_time}
-
-### 重新部署要求
-- 修复后需重新执行测试验证
-- 更新回滚方案
-- 重新安排发布时间窗口
+```yaml
+handoff:
+  header:
+    from_stage: "deployment"
+    to_stage: "development"
+    handover_id: "HO-{{timestamp}}-DEP-FAIL"
+    timestamp: "{{ISO8601}}"
+    status: "failed_and_rolled_back"
+  summary:
+    error_type: "{error_type}"
+    error_details: "{error_details}"
+    affected_services: ["{service_list}"]
+    current_version: "{rolled_back_version}"
+  rollback_status:
+    execution: "成功"
+    duration: "{rollback_duration}"
+    system_state: "正常"
+  root_cause_analysis:
+    probable_cause: "{root_cause}"
+    fix_plan: "{fix_plan}"
+    estimated_fix_time: "{estimated_time}"
+  re_deployment_requirements:
+    - "修复后需重新执行测试验证"
+    - "更新回滚方案"
+    - "重新安排发布时间窗口"
+  next_steps:
+    - "开发团队分析失败原因并修复"
+    - "修复后重新进入 verify-test → deploy-release 流程"
 ```
 
 ## Quality Checklist

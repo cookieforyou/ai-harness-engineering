@@ -230,6 +230,43 @@ handover:
   recommendations: []
 ```
 
+## Prerequisites (前置条件)
+
+在开始任务拆分前，必须确保以下条件已满足：
+
+- [ ] **架构设计文档**：已完成并通过技术评审（来自 `design-system` 阶段），包含组件划分和技术选型
+- [ ] **架构决策记录 (ADR)**：关键架构决策已记录，设计可追溯需求
+- [ ] **技术方案确认**：技术栈、框架、数据库选型已确定且团队达成共识
+- [ ] **团队容量数据**：团队成员数量、技能分布、可用工时已明确
+- [ ] **迭代计划框架**：Sprint/迭代长度、发布节奏、里程碑日期已确定
+
+### Input Handoff (来自系统设计阶段)
+
+```yaml
+from_stage: "system-design"
+expected_inputs:
+  - architecture_design:
+      path: "docs/architecture-design.md"
+      format: "Markdown"
+      required: true
+  - component_specifications:
+      path: "docs/component-specs.md"
+      format: "Markdown"
+      required: true
+  - api_specifications:
+      path: "docs/api-spec.md"
+      format: "OpenAPI/Markdown"
+      required: false
+  - database_schema:
+      path: "docs/database-schema.md"
+      format: "Markdown"
+      required: false
+  - adr_records:
+      path: "docs/adr/"
+      format: "Markdown"
+      required: true
+```
+
 ## Related Assets (关联资产)
 
 | Asset Type | Path | Description |

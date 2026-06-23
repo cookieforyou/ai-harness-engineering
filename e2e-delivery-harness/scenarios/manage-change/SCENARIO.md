@@ -54,26 +54,7 @@ Step 6: [HANDOVER] 准备交接
    └─ 通知: 下一阶段 Agent
 ```
 
-
-
-
 管理需求变更请求，评估变更影响，制定变更实施计划，确保变更可控可追溯。
-
-## Chain of Thought (思维链)
-
-```
-THINK: 理解变更请求
-   ↓
-THINK: 评估变更影响
-   ↓
-THINK: 制定决策方案
-   ↓
-THINK: 规划实施步骤
-   ↓
-THINK: 更新相关文档
-   ↓
-THINK: 沟通变更计划
-```
 
 ### Step-by-Step Reasoning
 
@@ -126,14 +107,6 @@ THINK: 沟通变更计划
   3. 分阶段实施
 - **升级条件**：影响决策
 
-## Primary Assets
-
-- **Agent**: [../../agents/manage-change.agent.md](../../agents/manage-change.agent.md)
-- **Instruction**: [../../instructions/manage-change.instructions.md](../../instructions/manage-change.instructions.md)
-- **Prompt**: [../../prompts/manage-change.prompt.md](../../prompts/manage-change.prompt.md)
-
-## Expected Output
-
 ### 产出清单
 
 1. **变更评估报告**：变更影响的完整分析
@@ -144,8 +117,6 @@ THINK: 沟通变更计划
 ### 输出格式
 
 ```markdown
-## Change Assessment Report
-
 ### 1. 变更信息
 - 变更编号：
 - 发起人：
@@ -181,8 +152,6 @@ THINK: 沟通变更计划
 1. 变更影响的相关分析
 2. 类似的变更案例
 
-## Quality Gates
-
 ### 阶段准入
 
 - [ ] 有正式的变更请求
@@ -203,11 +172,6 @@ THINK: 沟通变更计划
 | DC-001 | 范围确认 | 执行启动前 | 继续 / 缩小范围 / 升级 | 与上游 Handover 一致 | 执行记录 |
 | DC-002 | 质量门禁 | 产出验证前 | 修复后继续 / 记录 open_issues | Scenario KPI ≥70 | 验证报告 |
 | DC-003 | 交接准出 | 阶段完成前 | 完成交接 / 部分交接 / 阻塞 | Handover 必填字段齐全 | Handover YAML |
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
 
 ### 错误分类体系
 
@@ -252,8 +216,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -270,10 +232,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
 
 ### Key Performance Indicators (KPIs)
 
@@ -317,8 +275,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [ ] 符合最佳实践
 - [ ] 满足合规要求
 
-
-
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
@@ -347,22 +303,13 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - **Related**: [../design-system/](../design-system/) - 系统设计
 - **Related**: [../implement-feature/](../implement-feature/) - 开发实现
 
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| 评估完整性 | > 95% | 检查清单覆盖率 |
-| 决策合理性 | 100% | 评审通过率 |
-| 实施成功率 | > 90% | 实施完成率 |
-
-
 ### Handover Context Template
 
 ```yaml
 handover:
   header:
     from_stage: "manage-change"
-    to_stage: "unknown"
+    to_stage: "monitor-operate"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
@@ -409,4 +356,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

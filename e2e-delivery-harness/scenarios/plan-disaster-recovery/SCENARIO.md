@@ -212,85 +212,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [monitor-operate](./monitor-operate/SCENARIO.md) - 监控运维
 
 
-## Purpose
-
-## Chain of Thought (思维链)
-
-> **AI 必须按照以下思维链逐步执行**，每完成一步后进行自我验证
-
-```
-Step 1: [THINK] 理解任务目标和上下文
-   ├─ 输入: 相关输入变量
-   ├─ 思考: 任务的核心目标是什么？关键约束有哪些？
-   ├─ 验证: 确认理解准确，无遗漏
-   └─ 输出: 任务分析摘要
-   ↓
-Step 2: [ANALYZE] 分析需求和约束条件
-   ├─ 输入: 任务分析摘要
-   ├─ 思考: 有哪些关键决策点？可能的风险是什么？
-   ├─ 验证: 分析全面，考虑了所有重要因素
-   └─ 输出: 分析报告
-   ↓
-Step 3: [DESIGN] 设计解决方案
-   ├─ 输入: 分析报告
-   ├─ 思考: 最优方案是什么？有无备选方案？
-   ├─ 验证: 方案可行且符合最佳实践
-   └─ 输出: 设计方案
-   ↓
-Step 4: [IMPLEMENT] 执行和实施
-   ├─ 输入: 设计方案
-   ├─ 思考: 如何高质量地实施？需要注意什么？
-   ├─ 验证: 实施符合设计规范
-   └─ 输出: 实施成果
-   ↓
-Step 5: [VERIFY] 验证结果和质量
-   ├─ 输入: 实施成果
-   ├─ 执行: 质量检查和验证
-   ├─ 验证: 满足所有验收标准
-   └─ 输出: 验证报告
-   ↓
-Step 6: [HANDOVER] 准备交接
-   ├─ 生成: Handover Context
-   ├─ 更新: Global Context
-   └─ 通知: 下一阶段 Agent
-```
-
-
-
-
-> Define the objectives and scope of the plan-disaster-recovery scenario.
->
-> This scenario ensures systematic execution of plan-disaster-recovery activities with clear decision checkpoints and handover criteria.
-
-
-## Prerequisites
-
-- [ ] Prerequisite 1: Business impact analysis (BIA) is completed with RTO/RPO
-- [ ] Prerequisite 2: Infrastructure inventory and dependencies are documented
-- [ ] Prerequisite 3: Threat scenarios and risk appetite are defined
-
-
-## Primary Assets
-
-| Asset Type | Path | Description |
-|------------|------|-------------|
-| Scenario | `scenarios/plan-disaster-recovery/SCENARIO.md` | This scenario definition |
-| Prompt | `prompts/plan-disaster-recovery.prompt.md` | Execution prompt |
-| Instructions | `instructions/plan-disaster-recovery.instructions.md` | Technical instructions |
-| Agent | `agents/plan-disaster-recovery.agent.md` | Responsible agent |
-| Skill | `skills/plan-disaster-recovery/SKILL.md` | Domain skill |
-
-
-## Error Handling
-
-### Error Scenario 1
-**Error**: DR plan does not meet recovery time objective (RTO) targets
-**Handling**: [Resolution steps]
-
-### Error Scenario 2
-**Error**: DR procedures have not been tested or are outdated
-**Handling**: [Resolution steps]
-
 
 ### Handover Context Template
 
@@ -298,7 +219,7 @@ Step 6: [HANDOVER] 准备交接
 handover:
   header:
     from_stage: "plan-disaster-recovery"
-    to_stage: "unknown"
+    to_stage: "monitor-operate"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"

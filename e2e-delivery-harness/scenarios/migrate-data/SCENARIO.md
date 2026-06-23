@@ -54,12 +54,7 @@ Step 6: [HANDOVER] 准备交接
    └─ 通知: 下一阶段 Agent
 ```
 
-
-
-
 本场景用于指导 AI Agent 执行数据迁移工作，包括迁移方案设计、数据清洗转换、迁移执行验证和回滚方案准备。
-
-## Chain of Thought (思维链)
 
 ### Think-Aloud Protocol
 
@@ -106,15 +101,6 @@ OUTPUT: 输出迁移报告
 - 验证：校验通过
 - 检查：业务功能正常
 
-## Primary Assets
-
-- **Agent**: [../../agents/migrate-data.agent.md](../../agents/migrate-data.agent.md)
-- **Instruction**: [../../instructions/migrate-data.instructions.md](../../instructions/migrate-data.instructions.md)
-- **Prompt**: [../../prompts/migrate-data.prompt.md](../../prompts/migrate-data.prompt.md)
-- **Skill**: [../../skills/migrate-data/SKILL.md](../../skills/migrate-data/SKILL.md)
-
-## Error Handling (错误处理)
-
 ### EH-1: 数据不一致
 
 - **识别信号**：校验发现数据不一致
@@ -150,11 +136,6 @@ OUTPUT: 输出迁移报告
 | DC-001 | 范围确认 | 执行启动前 | 继续 / 缩小范围 / 升级 | 与上游 Handover 一致 | 执行记录 |
 | DC-002 | 质量门禁 | 产出验证前 | 修复后继续 / 记录 open_issues | Scenario KPI ≥70 | 验证报告 |
 | DC-003 | 交接准出 | 阶段完成前 | 完成交接 / 部分交接 / 阻塞 | Handover 必填字段齐全 | Handover YAML |
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
 
 ### 错误分类体系
 
@@ -199,8 +180,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -217,10 +196,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
 
 ### Key Performance Indicators (KPIs)
 
@@ -264,8 +239,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [ ] 符合最佳实践
 - [ ] 满足合规要求
 
-
-
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
@@ -275,22 +248,11 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 | 迁移脚本 | ☐ | 已测试通过 |
 | 验证报告 | ☐ | 完整准确 |
 
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| 数据完整率 | 100% | 记录数校验 |
-| 数据准确率 | ≥ 99.99% | 字段校验 |
-| 迁移成功率 | ≥ 99.9% | 成功记录/总数 |
-| 业务停机时间 | 最小化 | 实际停机时长 |
-
-
 ## Prerequisites
 
 - [ ] Prerequisite 1: Source and target schemas are documented and aligned
 - [ ] Prerequisite 2: Data volume and transformation rules are analyzed
 - [ ] Prerequisite 3: Rollback procedures are prepared and tested
-
 
 ### Handover Context Template
 
@@ -298,7 +260,7 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 handover:
   header:
     from_stage: "migrate-data"
-    to_stage: "unknown"
+    to_stage: "monitor-operate"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
@@ -345,4 +307,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

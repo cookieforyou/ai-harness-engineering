@@ -54,12 +54,7 @@ Step 6: [HANDOVER] 准备交接
    └─ 通知: 下一阶段 Agent
 ```
 
-
-
-
 本场景用于指导 AI Agent 执行技术方案评审工作，评估方案的可行性、安全性、性能和可维护性。
-
-## Chain of Thought (思维链)
 
 ### Think-Aloud Protocol
 
@@ -76,15 +71,6 @@ VALIDATE: 综合评审结论
    ↓
 OUTPUT: 输出评审报告
 ```
-
-## Primary Assets
-
-- **Agent**: [../../agents/review-design.agent.md](../../agents/review-design.agent.md)
-- **Instruction**: [../../instructions/review-design.instructions.md](../../instructions/review-design.instructions.md)
-- **Prompt**: [../../prompts/review-design.prompt.md](../../prompts/review-design.prompt.md)
-- **Skill**: [../../skills/review-design/SKILL.md](../../skills/review-design/SKILL.md)
-
-## Error Handling (错误处理)
 
 ### EH-1: 方案信息不足
 
@@ -111,11 +97,6 @@ OUTPUT: 输出评审报告
 | DC-001 | 评审范围 | 评审启动前 | 架构 / 接口 / 全量 | 变更范围与风险 | 评审议程 |
 | DC-002 | 问题处置 | 发现设计缺陷 | 修订后通过 / 重大变更 | 影响分析与 ADR | 评审记录 |
 | DC-003 | 准出签字 | 修订完成后 | 通过 / 有条件通过 | KPI 与开放问题 | 评审结论 |
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
 
 ### 错误分类体系
 
@@ -160,8 +141,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -178,10 +157,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
 
 ### Key Performance Indicators (KPIs)
 
@@ -225,8 +200,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [ ] 符合最佳实践
 - [ ] 满足合规要求
 
-
-
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
@@ -235,21 +208,11 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 | 评审结论 | ☐ | 通过/不通过 |
 | 改进建议 | ☐ | 已记录 |
 
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| 方案完整性 | ≥ 90% | 评审检查项 |
-| 风险识别率 | 100% | 关键风险 |
-| 评审通过率 | - | 统计结果 |
-
-
 ## Prerequisites
 
 - [ ] Prerequisite 1: [Description]
 - [ ] Prerequisite 2: [Description]
 - [ ] Prerequisite 3: [Description]
-
 
 ### Handover Context Template
 
@@ -257,7 +220,7 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 handover:
   header:
     from_stage: "review-design"
-    to_stage: "unknown"
+    to_stage: "decompose-task"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
@@ -304,4 +267,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

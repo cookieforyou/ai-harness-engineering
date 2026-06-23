@@ -132,68 +132,100 @@ Step 6: 准备交接给部署或返工阶段
 
 当测试通过且质量评分≥70分时，将工作交接给部署发布阶段：
 
-```markdown
-## Testing Handoff to Deployment
-
-### 测试结论
-✅ 测试通过，可进入部署阶段
-
-### 测试统计
-- 总测试用例数: {number}
-- 通过率: {percentage}%
-- 代码覆盖率: {percentage}%
-- 质量评分: {score}/100
-
-### 已知问题
-- P2/P3级别缺陷: {list}
-- 已接受的风险: {list}
-
-### 部署建议
-- 建议先修复P0/P1缺陷再发布（如有）
-- 重点关注性能测试中发现的瓶颈
-- 建议在灰度发布阶段重点监控X功能的用户反馈
-
-### 验证重点
-- 生产环境配置验证
-- 数据迁移完整性检查
-- 关键业务流程端到端测试
+```yaml
+handoff:
+  header:
+    from_stage: "test-verification"
+    to_stage: "deployment"
+    handover_id: "HO-{{timestamp}}-TST"
+    timestamp: "{{ISO8601}}"
+    status: "passed"
+  summary:
+    quality_score: {score}
+    total_test_cases: {number}
+    pass_rate: "{percentage}%"
+    code_coverage: "{percentage}%"
+    p0_defects: {count}
+    p1_defects: {count}
+  artifacts:
+    delivered:
+      - name: "test_execution_report"
+        path: "reports/test-execution-report.html"
+        format: "HTML"
+      - name: "defect_reports"
+        path: "reports/defect-reports.xlsx"
+        format: "Excel"
+      - name: "coverage_report"
+        path: "reports/coverage-report.html"
+        format: "HTML"
+      - name: "quality_assessment"
+        path: "reports/quality-assessment.md"
+        format: "Markdown"
+      - name: "traceability_matrix"
+        path: "reports/traceability-matrix.md"
+        format: "Markdown"
+  known_issues:
+    - id: "BUG-xxx"
+      severity: "P2/P3"
+      description: "{description}"
+      accepted_risk: true
+  decisions:
+    - id: "DC-005"
+      decision: "测试充分性判断-通过"
+      rationale: "覆盖率达标、质量评分≥70、无P0/P1阻塞缺陷"
+  recommendations:
+    - "建议先修复P0/P1缺陷再发布（如有）"
+    - "重点关注性能测试中发现的瓶颈"
+    - "建议在灰度发布阶段重点监控核心功能的用户反馈"
+  deployment_focus:
+    - "生产环境配置验证"
+    - "数据迁移完整性检查"
+    - "关键业务流程端到端测试"
+  next_steps:
+    - "进入 deploy-release 阶段执行部署"
+    - "将监控建议传递给 Monitor Operate Agent"
 ```
 
 ### 交接给 Implement Feature Agent (测试失败时)
 
 当发现P0/P1阻塞缺陷时，将工作交接回开发阶段：
 
-```markdown
-## Testing Handoff to Development
-
-### 测试结论
-❌ 测试未通过，需要修复阻塞缺陷
-
-### 阻塞缺陷清单
-- DEFECT-001: {description} - P0 - {impact}
-- DEFECT-002: {description} - P1 - {impact}
-
-### 缺陷详情
-#### DEFECT-001
-- **严重程度**: P0 (阻塞)
-- **复现步骤**: 
-  1. {step_1}
-  2. {step_2}
-  3. {step_3}
-- **预期结果**: {expected}
-- **实际结果**: {actual}
-- **截图/日志**: {attachments}
-- **影响范围**: {impact_analysis}
-
-### 回归测试要求
-- 修复后需执行回归测试验证
-- 重点关注受影响的功能模块
-- 确保修复未引入新的问题
-
-### 重新测试计划
-- 预计修复时间: {estimated_time}
-- 回归测试范围: {scope}
-- 重新测试时间: {retest_date}
+```yaml
+handoff:
+  header:
+    from_stage: "test-verification"
+    to_stage: "development"
+    handover_id: "HO-{{timestamp}}-TST-FAIL"
+    timestamp: "{{ISO8601}}"
+    status: "failed"
+  summary:
+    quality_score: {score}
+    blocking_defects: {count}
+    test_pass_rate: "{percentage}%"
+  blocking_defects:
+    - id: "DEFECT-001"
+      severity: "P0"
+      description: "{description}"
+      impact: "{impact_analysis}"
+      reproduction_steps:
+        - "{step_1}"
+        - "{step_2}"
+        - "{step_3}"
+      expected_result: "{expected}"
+      actual_result: "{actual}"
+      attachments: "{screenshots/logs}"
+      affected_modules: ["{module_list}"]
+  regression_requirements:
+    - "修复后需执行回归测试验证"
+    - "重点关注受影响的功能模块"
+    - "确保修复未引入新的问题"
+  re_test_plan:
+    estimated_fix_time: "{estimated_time}"
+    regression_scope: "{scope}"
+    retest_date: "{retest_date}"
+  next_steps:
+    - "开发团队修复阻塞缺陷"
+    - "修复完成后重新进入 verify-test 阶段"
 ```
 
 ## Quality Checklist

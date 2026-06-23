@@ -54,26 +54,7 @@ Step 6: [HANDOVER] 准备交接
    └─ 通知: 下一阶段 Agent
 ```
 
-
-
-
 执行安全审计，发现安全漏洞和风险，验证安全控制的有效性，确保系统符合安全要求。
-
-## Chain of Thought (思维链)
-
-```
-THINK: 确定审计范围
-   ↓
-THINK: 识别攻击面
-   ↓
-THINK: 执行安全测试
-   ↓
-THINK: 分析安全漏洞
-   ↓
-THINK: 评估风险等级
-   ↓
-THINK: 制定修复计划
-```
 
 ### Step-by-Step Reasoning
 
@@ -131,14 +112,6 @@ THINK: 制定修复计划
   3. 确认漏洞真实性
 - **升级条件**：确认误报
 
-## Primary Assets
-
-- **Agent**: [../../agents/audit-security.agent.md](../../agents/audit-security.agent.md)
-- **Instruction**: [../../instructions/audit-security.instructions.md](../../instructions/audit-security.instructions.md)
-- **Prompt**: [../../prompts/audit-security.prompt.md](../../prompts/audit-security.prompt.md)
-
-## Expected Output
-
 ### 产出清单
 
 1. **安全审计报告**：完整的审计结果
@@ -149,8 +122,6 @@ THINK: 制定修复计划
 ### 输出格式
 
 ```markdown
-## Security Audit Report
-
 ### 1. 审计概述
 - 审计范围：
 - 审计时间：
@@ -186,8 +157,6 @@ THINK: 制定修复计划
 2. 安全测试工具
 3. 历史漏洞数据
 
-## Quality Gates
-
 ### 阶段准入
 
 - [ ] 审计范围已确定
@@ -207,11 +176,6 @@ THINK: 制定修复计划
 | DC-001 | 审计范围 | 启动审计前 | 全量 / 增量 / 专项 | 风险与合规要求 | 审计计划 |
 | DC-002 | 发现分级 | 发现漏洞后 | Critical 立即修复 / 计划修复 | CVSS + 业务影响 | 审计报告 |
 | DC-003 | 准出决策 | 整改完成后 | 通过 / 有条件通过 / 不通过 | 整改率与残留风险 | 准出签字 |
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
 
 ### 错误分类体系
 
@@ -256,8 +220,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -274,10 +236,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
 
 ### Key Performance Indicators (KPIs)
 
@@ -321,8 +279,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [ ] 符合最佳实践
 - [ ] 满足合规要求
 
-
-
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
@@ -349,23 +305,13 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - **Related**: [../verify-test/](../verify-test/) - 测试验证
 - **Related**: [../deploy-release/](../deploy-release/) - 部署发布
 
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| 覆盖率 | > 90% | OWASP 检查项 |
-| 高危漏洞 | 0 | 漏洞统计 |
-| 中危漏洞 | < 3 | 漏洞统计 |
-| 修复率 | > 95% | 漏洞修复率 |
-
-
 ### Handover Context Template
 
 ```yaml
 handover:
   header:
     from_stage: "audit-security"
-    to_stage: "unknown"
+    to_stage: "deploy-release"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
@@ -412,4 +358,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

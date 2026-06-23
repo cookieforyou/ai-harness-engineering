@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 *)",
+      "Bash(git checkout *)",
+      "Bash(sed -i '' 's/to_stage: \"unknown\"/to_stage: \"deploy-release\"/' scenarios/audit-security/SCENARIO.md)",
+      "Bash(sed -i '' 's/to_stage: \"unknown\"/to_stage: \"deploy-release\"/' scenarios/performance-testing/SCENARIO.md)",
+      "Bash(sed -i '' 's/to_stage: \"unknown\"/to_stage: \"monitor-operate\"/' scenarios/plan-capacity/SCENARIO.md)",
+      "Bash(sed -i '' 's/to_stage: \"unknown\"/to_stage: \"verify-test\"/' scenarios/review-code/SCENARIO.md)",
+      "Bash(sed -i '' 's/to_stage: \"unknown\"/to_stage: \"monitor-operate\"/' scenarios/review-incident/SCENARIO.md)"
+    ]
+  }
+}

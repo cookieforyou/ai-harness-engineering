@@ -54,26 +54,7 @@ Step 6: [HANDOVER] 准备交接
    └─ 通知: 下一阶段 Agent
 ```
 
-
-
-
 执行代码审查，发现代码质量问题，确保代码符合规范，减少缺陷进入测试阶段。
-
-## Chain of Thought (思维链)
-
-```
-THINK: 理解代码变更内容
-   ↓
-THINK: 检查代码规范合规
-   ↓
-THINK: 分析代码质量
-   ↓
-THINK: 识别潜在风险
-   ↓
-THINK: 评估安全风险
-   ↓
-THINK: 给出审查结论
-```
 
 ### Step-by-Step Reasoning
 
@@ -132,14 +113,6 @@ THINK: 给出审查结论
   3. 寻求共识
 - **升级条件**：无法达成共识
 
-## Primary Assets
-
-- **Agent**: [../../agents/review-code.agent.md](../../agents/review-code.agent.md)
-- **Instruction**: [../../instructions/review-code.instructions.md](../../instructions/review-code.instructions.md)
-- **Prompt**: [../../prompts/review-code.prompt.md](../../prompts/review-code.prompt.md)
-
-## Expected Output
-
 ### 产出清单
 
 1. **代码审查报告**：审查结果汇总
@@ -149,8 +122,6 @@ THINK: 给出审查结论
 ### 输出格式
 
 ```markdown
-## Code Review Report
-
 ### 1. 审查信息
 - 变更编号：
 - 审查人：
@@ -185,8 +156,6 @@ THINK: 给出审查结论
 1. PR 描述完整
 2. 相关文档已更新
 
-## Quality Gates
-
 ### 阶段准入
 
 - [ ] 代码已提交审查
@@ -206,11 +175,6 @@ THINK: 给出审查结论
 | DC-001 | 审查范围确认 | 开始审查前 | 全量 / 增量 / 关键路径 | 变更影响与风险 | 审查计划 |
 | DC-002 | 严重问题处理 | 发现 Blocker 时 | 修复后合并 / 拒绝合并 | 安全与功能影响 | 审查意见 |
 | DC-003 | 合并批准 | 问题处理完成后 | 批准 / 条件批准 / 拒绝 | DoD 与测试通过 | PR 状态 |
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
 
 ### 错误分类体系
 
@@ -255,8 +219,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -273,10 +235,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
 
 ### Key Performance Indicators (KPIs)
 
@@ -320,8 +278,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [ ] 符合最佳实践
 - [ ] 满足合规要求
 
-
-
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
@@ -348,23 +304,13 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - **Related**: [../implement-feature/](../implement-feature/) - 开发实现
 - **Related**: [../verify-test/](../verify-test/) - 测试验证
 
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| 审查覆盖率 | 100% | PR 覆盖率 |
-| 问题发现率 | > 3 个/PR | 统计 |
-| 严重问题遗漏率 | < 5% | 漏检统计 |
-| 审查周期 | < 24h | 平均时间 |
-
-
 ### Handover Context Template
 
 ```yaml
 handover:
   header:
     from_stage: "review-code"
-    to_stage: "unknown"
+    to_stage: "verify-test"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
@@ -411,4 +357,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

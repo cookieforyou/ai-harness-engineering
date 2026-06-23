@@ -54,14 +54,7 @@ Step 6: [HANDOVER] 准备交接
    └─ 通知: 下一阶段 Agent
 ```
 
-
-
-
 本场景用于指导 AI Agent 执行完整的性能测试流程，包括性能需求分析、测试计划制定、性能测试执行、结果分析与优化建议。
-
-## Chain of Thought (思维链)
-
-> AI 执行时的思维引导，帮助逐步完成性能测试工作
 
 ### Think-Aloud Protocol
 
@@ -103,8 +96,6 @@ OUTPUT: 输出性能报告和优化建议
 - 验证：数据支撑分析结论
 - 检查：优化建议可执行
 
-## Primary Assets
-
 ### Agent
 - **Agent**: [../../agents/performance-testing.agent.md](../../agents/performance-testing.agent.md)
 
@@ -116,8 +107,6 @@ OUTPUT: 输出性能报告和优化建议
 
 ### Skills
 - **Skill**: [../../skills/performance-testing/SKILL.md](../../skills/performance-testing/SKILL.md)
-
-## Error Handling (错误处理)
 
 ### EH-1: 性能指标不达标
 
@@ -148,8 +137,6 @@ OUTPUT: 输出性能报告和优化建议
   3. 调整数据分布
 - **升级条件**：无法准备足够测试数据
 
-## Expected Output
-
 ### 产出清单
 
 1. **性能测试计划**：测试范围、策略、资源计划
@@ -160,8 +147,6 @@ OUTPUT: 输出性能报告和优化建议
 ### 输出格式
 
 ```markdown
-## Performance Test Report
-
 ### 1. 测试概述
 ### 2. 测试环境
 ### 3. 测试结果
@@ -185,8 +170,6 @@ OUTPUT: 输出性能报告和优化建议
 2. 性能监控工具
 3. 压测工具授权
 
-## Quality Gates
-
 ### 阶段准入
 
 - [ ] 功能测试已通过
@@ -208,11 +191,6 @@ OUTPUT: 输出性能报告和优化建议
 | DC-001 | 范围确认 | 执行启动前 | 继续 / 缩小范围 / 升级 | 与上游 Handover 一致 | 执行记录 |
 | DC-002 | 质量门禁 | 产出验证前 | 修复后继续 / 记录 open_issues | Scenario KPI ≥70 | 验证报告 |
 | DC-003 | 交接准出 | 阶段完成前 | 完成交接 / 部分交接 / 阻塞 | Handover 必填字段齐全 | Handover YAML |
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
 
 ### 错误分类体系
 
@@ -257,8 +235,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -275,10 +251,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
 
 ### Key Performance Indicators (KPIs)
 
@@ -322,8 +294,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [ ] 符合最佳实践
 - [ ] 满足合规要求
 
-
-
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
@@ -356,24 +326,13 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - **Next**: [../deploy-release/SCENARIO.md](../deploy-release/SCENARIO.md) - 部署发布
 - **Previous**: [../verify-test/SCENARIO.md](../verify-test/SCENARIO.md) - 测试验证
 
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| 响应时间 P50 | ≤ 目标值 | 性能测试工具 |
-| 响应时间 P99 | ≤ 目标值 | 性能测试工具 |
-| 吞吐量 | ≥ 目标值 TPS | 性能测试工具 |
-| 错误率 | ≤ 0.1% | 性能测试工具 |
-| 资源利用率 | < 80% | 系统监控 |
-
-
 ### Handover Context Template
 
 ```yaml
 handover:
   header:
     from_stage: "performance-testing"
-    to_stage: "unknown"
+    to_stage: "deploy-release"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
@@ -420,4 +379,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

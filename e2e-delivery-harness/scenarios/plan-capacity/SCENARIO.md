@@ -54,12 +54,7 @@ Step 6: [HANDOVER] 准备交接
    └─ 通知: 下一阶段 Agent
 ```
 
-
-
-
 本场景用于指导 AI Agent 执行容量规划工作，评估系统当前容量、预测未来需求、制定扩容计划。
-
-## Chain of Thought (思维链)
 
 ### Think-Aloud Protocol
 
@@ -76,15 +71,6 @@ VALIDATE: 验证方案可行性
    ↓
 OUTPUT: 输出容量规划报告
 ```
-
-## Primary Assets
-
-- **Agent**: [../../agents/plan-capacity.agent.md](../../agents/plan-capacity.agent.md)
-- **Instruction**: [../../instructions/plan-capacity.instructions.md](../../instructions/plan-capacity.instructions.md)
-- **Prompt**: [../../prompts/plan-capacity.prompt.md](../../prompts/plan-capacity.prompt.md)
-- **Skill**: [../../skills/plan-capacity/SKILL.md](../../skills/plan-capacity/SKILL.md)
-
-## Error Handling (错误处理)
 
 ### EH-1: 数据不足
 
@@ -111,11 +97,6 @@ OUTPUT: 输出容量规划报告
 | DC-001 | 预测 horizon | 启动规划前 | 3 月 / 6 月 / 12 月 | 业务增长计划 | 容量模型 |
 | DC-002 | 扩容策略 | 预测超阈值 | 垂直 / 水平 / 混合 | 成本与 SLA | 扩容方案 |
 | DC-003 | 预算批准 | 方案完成后 | 批准 / 分阶段 / 拒绝 | ROI 与风险 | 容量计划 |
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
 
 ### 错误分类体系
 
@@ -160,8 +141,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -178,10 +157,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
 
 ### Key Performance Indicators (KPIs)
 
@@ -225,8 +200,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [ ] 符合最佳实践
 - [ ] 满足合规要求
 
-
-
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
@@ -236,21 +209,11 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 | 扩容方案 | ☐ | 详细方案 |
 | 预算估算 | ☐ | 成本估算 |
 
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| 容量利用率 | < 80% | 监控数据 |
-| 扩容周期 | 按计划 | 执行记录 |
-| 预测准确度 | > 80% | 偏差分析 |
-
-
 ## Prerequisites
 
 - [ ] Prerequisite 1: Current capacity metrics and utilization data are available
 - [ ] Prerequisite 2: Growth forecast and business projections are provided
 - [ ] Prerequisite 3: Budget constraints and procurement timelines are known
-
 
 ### Handover Context Template
 
@@ -258,7 +221,7 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 handover:
   header:
     from_stage: "plan-capacity"
-    to_stage: "unknown"
+    to_stage: "monitor-operate"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
@@ -305,4 +268,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

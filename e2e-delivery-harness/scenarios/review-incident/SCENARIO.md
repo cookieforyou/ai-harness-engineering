@@ -54,26 +54,7 @@ Step 6: [HANDOVER] 准备交接
    └─ 通知: 下一阶段 Agent
 ```
 
-
-
-
 对已解决的故障进行复盘分析，找出根本原因，制定改进措施，防止同类故障再次发生。
-
-## Chain of Thought (思维链)
-
-```
-THINK: 还原故障经过
-   ↓
-THINK: 分析故障原因
-   ↓
-THINK: 识别问题根因
-   ↓
-THINK: 评估影响范围
-   ↓
-THINK: 制定改进措施
-   ↓
-THINK: 跟踪改进落地
-```
 
 ### Step-by-Step Reasoning
 
@@ -131,14 +112,6 @@ THINK: 跟踪改进落地
   3. 达成共识
 - **升级条件**：影响复盘结论
 
-## Primary Assets
-
-- **Agent**: [../../agents/review-incident.agent.md](../../agents/review-incident.agent.md)
-- **Instruction**: [../../instructions/review-incident.instructions.md](../../instructions/review-incident.instructions.md)
-- **Prompt**: [../../prompts/review-incident.prompt.md](../../prompts/review-incident.prompt.md)
-
-## Expected Output
-
 ### 产出清单
 
 1. **故障复盘报告**：完整的故障分析
@@ -149,8 +122,6 @@ THINK: 跟踪改进落地
 ### 输出格式
 
 ```markdown
-## Incident Postmortem Report
-
 ### 1. 故障概述
 - 故障编号：
 - 故障时间：
@@ -191,8 +162,6 @@ THINK: 跟踪改进落地
 2. 相关监控数据
 3. 历史类似案例
 
-## Quality Gates
-
 ### 阶段准入
 
 - [ ] 故障已完全恢复
@@ -212,11 +181,6 @@ THINK: 跟踪改进落地
 | DC-001 | 复盘范围 | 事件关闭后 | 完整复盘 / 轻量复盘 | 严重级别与影响 | Postmortem 大纲 |
 | DC-002 | 根因确认 | 分析完成后 | 已确认 / 待验证 | 5 Whys + 证据链 | 根因分析 |
 | DC-003 | 改进项优先级 | 行动项列出后 | P0 立即 / 排期实施 | 风险降低幅度 | 改进 backlog |
-
-
-## Error Handling (错误处理)
-
-> **AI 遇到以下情况时必须按指定流程处理**
 
 ### 错误分类体系
 
@@ -261,8 +225,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -279,10 +241,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
 
 ### Key Performance Indicators (KPIs)
 
@@ -326,8 +284,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [ ] 符合最佳实践
 - [ ] 满足合规要求
 
-
-
 ## Handover Criteria (交接标准)
 
 | 条件项 | 状态 | 说明 |
@@ -355,23 +311,13 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - **Related**: [../respond-incident/](../respond-incident/) - Incident Response
 - **Related**: [../plan-disaster-recovery/](../plan-disaster-recovery/) - Disaster Recovery Planning
 
-## Metrics
-
-| 指标 | 目标 | 测量方法 |
-|------|------|----------|
-| RCA 完整性 | 100% | 5 Why 完成 |
-| 改进措施完成率 | > 90% | 跟踪统计 |
-| 同类故障率 | 下降 | 趋势分析 |
-| MTTR 改善 | > 20% | 对比历史 |
-
-
 ### Handover Context Template
 
 ```yaml
 handover:
   header:
     from_stage: "review-incident"
-    to_stage: "unknown"
+    to_stage: "monitor-operate"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
@@ -418,4 +364,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

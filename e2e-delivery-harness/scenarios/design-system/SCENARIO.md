@@ -230,6 +230,39 @@ handover:
   recommendations: []
 ```
 
+## Prerequisites (前置条件)
+
+在开始系统设计前，必须确保以下条件已满足：
+
+- [ ] **需求规格说明书**：已完成并通过评审（来自 `analyze-requirement` 阶段），包含功能需求和非功能需求
+- [ ] **干系人确认**：关键干系人已签字确认需求基线，无重大分歧
+- [ ] **业务约束明确**：预算、时间线、合规要求、技术栈限制等业务约束已记录
+- [ ] **团队能力评估**：当前团队的技术栈熟悉度、人员配置和技能矩阵已评估
+- [ ] **架构决策上下文**：已有的技术债务、遗留系统约束、第三方依赖等信息已收集
+
+### Input Handoff (来自需求分析阶段)
+
+```yaml
+from_stage: "requirement-analysis"
+expected_inputs:
+  - requirements_spec:
+      path: "docs/requirements-spec.md"
+      format: "Markdown"
+      required: true
+  - stakeholder_analysis:
+      path: "docs/stakeholder-analysis.md"
+      format: "Markdown"
+      required: false
+  - business_process_diagrams:
+      path: "docs/business-process-diagrams.md"
+      format: "Markdown"
+      required: false
+  - use_case_model:
+      path: "docs/use-case-model.md"
+      format: "Markdown"
+      required: true
+```
+
 ## Related Assets (关联资产)
 
 | Asset Type | Path | Description |
