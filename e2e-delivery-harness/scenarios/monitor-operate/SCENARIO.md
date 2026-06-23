@@ -4,7 +4,7 @@ description: "监控运维场景，负责系统上线后的监控、告警和运
 version: "1.2.0"
 type: scenario
 category: operations
-stage: monitoring-operations
+stage: monitor-operate
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
@@ -371,8 +371,8 @@ KPI得分计算:
 ```yaml
 handover:
   header:
-    from_stage: "monitoring-operations"
-    to_stage: "requirement-analysis" or "next-shift"
+    from_stage: "monitor-operate"
+    to_stage: "analyze-requirement"  # or "monitor-operate" (next shift handoff)
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"

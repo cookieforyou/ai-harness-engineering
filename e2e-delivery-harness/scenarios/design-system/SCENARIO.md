@@ -4,7 +4,7 @@ description: "系统设计场景，负责设计系统架构、技术方案、数
 version: "1.2.0"
 type: scenario
 category: design
-stage: system-design
+stage: design-system
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
@@ -210,7 +210,7 @@ Quality Score = (KPI-001 × 0.25) + (KPI-002 × 0.25) + (KPI-003 × 0.20) + (KPI
 ```yaml
 handover:
   header:
-    from_stage: "system-design"
+    from_stage: "design-system"
     to_stage: "decompose-task"
     handover_id: "HO-{timestamp}-{sequence}"
     timestamp: "{ISO8601}"
@@ -243,7 +243,7 @@ handover:
 ### Input Handoff (来自需求分析阶段)
 
 ```yaml
-from_stage: "requirement-analysis"
+from_stage: "analyze-requirement"
 expected_inputs:
   - requirements_spec:
       path: "docs/requirements-spec.md"

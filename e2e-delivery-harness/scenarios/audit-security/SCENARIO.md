@@ -5,7 +5,7 @@ type: scenario
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
-updated: 2026-05-07
+updated: 2026-06-23
 status: active
 tags: ['workflow', 'process']
 ---
@@ -229,6 +229,8 @@ error_log:
 | `FINDING-COVERAGE` | ≥95% | 发现覆盖率：检查项全部执行 |
 | `REMEDIATION-SLA` | ≤30d | 整改SLA：高危问题修复时间 |
 | `COMPLIANCE-SCORE` | ≥95% | 合规得分：框架要求达标比例 |
+| `FALSE-POSITIVE` | ≤10% | 误报率：误报数占总发现数比例 |
+| `AUDIT-COMPLETENESS` | 100% | 审计完整性：所有审计范围覆盖完毕 |
 
 ### Traceability
 
@@ -236,48 +238,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-### Key Performance Indicators (KPIs)
-
-| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
-|--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
-
-**综合评分计算**: 
-```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
-合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
-```
-
-### Validation Checklist (验证清单)
-
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
 
 ## Handover Criteria (交接标准)
 

@@ -6,7 +6,7 @@ type: skill
 version: "1.2.0"
 author: AI Harness Engineering Team
 created: 2026-04-01
-updated: 2026-05-07
+updated: 2026-06-23
 status: active
 tags: ['skill', 'knowledge']
 ---
@@ -158,24 +158,151 @@ Why 5: 为什么未做性能测试？
 > Essential knowledge domain for review-incident execution.
 
 ### Domain Fundamentals
-- [Core concept 1]
-- [Core concept 2]
-- [Core concept 3]
+
+#### Postmortem 方法论
+
+事后复盘（Postmortem）是一种结构化的故障学习流程，核心目标是：
+
+1. **理解发生了什么**: 重构完整的时间线和事件链
+2. **识别为什么发生**: 通过系统化方法找出根本原因
+3. **防止再次发生**: 制定可执行的改进措施
+
+Postmortem 的核心文化基础是 **Blameless (无责文化)** — 假设所有参与人员都是出于善意且在其认知范围内做出了最佳决策，系统缺陷才是故障的根本原因。
+
+#### 复盘类型
+
+| 类型 | 适用场景 | 深度 | 时间要求 |
+|------|----------|------|----------|
+| 完整复盘 | P0/P1 故障 | 深度分析：5 Whys + Fishbone | 恢复后 48 小时内启动 |
+| 轻量复盘 | P2 故障 | 中等深度：直接原因 + 改进项 | 恢复后 1 周内完成 |
+| 趋势复盘 | 月度/季度复盘 | 多事件关联分析 | 按周期执行 |
+| 专项复盘 | 特定类型故障汇总 | 模式识别 + 系统改进 | 按需执行 |
+
+#### 故障分类体系
+
+```
+故障分类:
+├── 基础设施故障
+│   ├── 计算资源 (CPU/内存/磁盘)
+│   ├── 网络 (延迟/丢包/DNS)
+│   └── 云服务 (区域故障/限流)
+├── 应用软件故障
+│   ├── 代码缺陷 (NPE/逻辑错误/并发)
+│   ├── 配置错误 (环境/参数/Feature Flag)
+│   └── 依赖故障 (第三方服务/数据库)
+├── 运维操作故障
+│   ├── 部署失误 (版本/回滚/灰度)
+│   ├── 变更导致 (配置/权限/资源)
+│   └── 容量不足 (流量突增/资源耗尽)
+└── 安全事件
+    ├── 攻击 (DDoS/注入/入侵)
+    ├── 数据泄露 (权限/审计/加密)
+    └── 合规问题 (数据/隐私/法规)
+```
 
 ### Key Principles
-1. [Principle 1]
-2. [Principle 2]
-3. [Principle 3]
 
+1. **Blameless Culture**: 复盘聚焦系统问题而非个人失误，营造安全的改进环境
+2. **Evidence-Based Analysis**: 所有根因结论必须有对应的证据支持，避免猜测
+3. **Systemic Thinking**: 从流程、工具、架构等系统性层面寻找根因，而非归咎个人
+4. **Layered Defense**: 建立预防、检测、响应、恢复多层防护体系
+5. **Continuous Learning**: 每次复盘都是组织学习的机会，经验要沉淀为可复用的知识
 
 ## Best Practices
 
 > Proven practices for review-incident excellence.
 
-1. **Practice 1**: [Description and rationale]
-2. **Practice 2**: [Description and rationale]
-3. **Practice 3**: [Description and rationale]
+### 1. 结构化 Postmortem 会议议程
 
+**做法**: 按照固定议程组织复盘会议，确保覆盖所有关键环节
+
+```
+复盘会议议程 (60 分钟):
+1. [5 min] 开场: 重申无责文化，设定会议目标
+2. [10 min] 时间线回顾: 按时间顺序过一遍关键事件
+3. [5 min] 做得好: 列举此次故障处置中表现良好的方面
+4. [5 min] 做得不好: 列举需要改进的方面
+5. [15 min] 根因分析: 使用 5 Whys 或 Fishbone 深入分析
+6. [10 min] 改进措施讨论: 头脑风暴改进方案
+7. [5 min] 分配行动项: 明确责任人、截止日期
+8. [5 min] 总结: 确认下次复审时间
+```
+
+**理由**: 结构化的议程确保复盘全覆盖，避免遗漏重要环节，同时控制会议时长保持效率。
+
+### 2. 时间线重构方法论
+
+**做法**: 从多个数据源交叉验证时间点，构建精确的故障时间线
+
+```yaml
+timeline_reconstruction:
+  data_sources:
+    - monitoring_system: "Prometheus/Grafana 监控数据"
+    - alerting_system: "PagerDuty/OpsGenie 告警记录"
+    - logging_system: "ELK/Splunk 日志时间戳"
+    - communication: "Slack/钉钉 沟通记录"
+    - change_records: "部署/变更系统记录"
+  
+  key_milestones:
+    - "故障引入时间 (Time Introduced)"
+    - "故障首次发生 (Time First Occurred)"
+    - "故障首次发现 (Time Detected)"
+    - "响应开始时间 (Response Started)"
+    - "缓解时间 (Mitigation Time)"
+    - "完全恢复时间 (Resolution Time)"
+```
+
+**理由**: 精确的时间线是根因分析的基础，多源交叉验证避免信息盲区。
+
+### 3. 5 Whys 深度追问技巧
+
+**做法**: 不止于表面追问，每层追问都要验证逻辑链的完整性
+
+**技巧**:
+- 每个"Why"的回答必须是一个有因果关系的陈述，不是简单重复
+- 追问直至找到"流程/系统层面的缺陷"为止
+- 不要在技术层面停止 — 要追问到管理和流程层面
+- 验证每个因果链：如果前一环不存在，后一环是否会发生？
+- 区分"可能原因"和"实际原因"，标注置信度
+
+**理由**: 只追问到技术层面（如"代码写错了"）会遗漏系统性改进机会，必须追问到流程/系统层面才能找到可大规模复用的改进措施。
+
+### 4. Action Item 跟踪框架
+
+**做法**: 使用 SMART 原则定义改进措施，建立三层跟踪机制
+
+```
+Action Item 模板:
+---
+item_id: "AITEM-20260623-001"
+description: "在数据库变更流程中添加性能评估检查环节"
+type: "PREVENTIVE"     # PREVENTIVE / DETECTIVE / CORRECTIVE
+priority: "P1"         # P0(立即) / P1(短期) / P2(长期)
+owner: "张工"
+reviewer: "李工"
+due_date: "2026-07-07"
+status: "OPEN"         # OPEN / IN_PROGRESS / COMPLETED / VERIFIED
+verification_method: 
+  - "新增变更检查表中包含性能评估项"
+  - "QA 随机抽查变更记录确保检查项被填写"
+success_criteria: "连续 30 天无因缺少性能评估引发的故障"
+---
+```
+
+**理由**: 模糊的改进措施（如"加强测试"）无法有效执行和验证，SMART 化的 Action Item 才能确保闭环。
+
+### 5. 经验教训沉淀机制
+
+**做法**: 将复盘中的经验教训系统化沉淀为组织知识资产
+
+**输出物**:
+- **故障模式库**: 将常见故障模式分类归档，标注典型症状、根因、预防措施
+- **Runbook 更新**: 根据复盘发现更新运维手册和应急预案
+- **培训材料**: 将典型故障案例整理为培训教材
+- **监控规则**: 将新发现的异常模式转化为监控告警规则
+- **Checklist 更新**: 更新发布检查清单、变更审批清单等
+
+**理由**: 复盘的价值不仅在于修复当前故障，更在于预防未来同类故障，系统化的知识沉淀才能最大化复盘 ROI。
 
 ## Anti-patterns (反模式)
 
@@ -185,17 +312,69 @@ Why 5: 为什么未做性能测试？
 
 > Frequent mistakes to avoid during review-incident execution.
 
-### Pitfall 1: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+### Pitfall 1: 追责文化 (Blame Culture)
 
-### Pitfall 2: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+**Risk**: 复盘过程中聚焦于"谁做错了什么"，而非"系统出了什么问题"。追责文化导致团队成员在复盘时隐瞒信息、防御性沟通，从根本上破坏复盘的改进目的。
 
-### Pitfall 3: [Name]
-**Risk**: [Description]
-**Prevention**: [How to avoid]
-**Impact**: [Consequences if not avoided]
+**Prevention**:
+- 会议开始前明确重申"无责文化"原则
+- 使用被动语态描述问题（如"配置被错误修改"而非"张三修改错了配置"）
+- 将所有"Why"问题指向系统而非个人
+- 管理层以身作则，不追责、不惩罚
+- 建立"无责安全区"：复盘内容不用于绩效考核
+
+**Impact**: 如果未避免，团队成员不再信任复盘流程，关键信息被隐藏，系统性缺陷无法识别，同类故障反复发生。
+
+### Pitfall 2: 根因分析浅尝辄止
+
+**Risk**: 只识别了直接技术原因就停止分析（如"因为 NPE"），没有追问到系统性根本原因（如"为什么代码审查没有发现 NPE？"），导致改进措施停留在"修复这个 bug"层面，无法防止同类问题再次发生。
+
+**Prevention**:
+- 强制要求完成至少 5 轮 Why 追问
+- 第 5 轮的答案必须涉及流程、制度或架构层面
+- 使用 Fishbone 图从 人/机/料/法/环 多维度分析
+- 质疑每个根因："如果修复了这个，能完全防止复发吗？"
+- 同类故障复盘时，检查是否真正找到了根因
+
+**Impact**: 如果未避免，治标不治本，同类故障以不同形式反复出现，团队陷入 repeated firefighting 的恶性循环。
+
+### Pitfall 3: 改进措施模糊不可执行
+
+**Risk**: 产出"加强监控""增加测试""改善流程"等模糊的改进措施，没有具体的执行方案、责任人和验收标准，导致改进措施无法落地或被无限期推迟。
+
+**Prevention**:
+- 每项改进措施必须使用 SMART 原则
+- 指定唯一的责任人（Owner），不能是团队
+- 设定明确的截止日期
+- 定义可验证的成功标准
+- 建立定期跟踪机制（周/月检视）
+- 将改进措施纳入项目管理工具跟踪
+
+**Impact**: 如果未避免，改进措施形同虚设，团队花费时间召开复盘会议却无法产生实际改进效果，导致复盘疲劳症。
+
+### Pitfall 4: 等待完美信息
+
+**Risk**: 因为缺少某些数据（如某段时间的日志、某个监控指标）而推迟复盘或无法得出结论，实际上 80% 的信息已经足够做出有效分析，缺失信息可以标注为"待补充"。
+
+**Prevention**:
+- 明确区分"必须信息"和"补充信息"
+- 使用"最佳推断 + 标注不确定性"的方式处理缺失数据
+- 持续收集补充信息，但不阻塞复盘流程
+- 在报告中明确标注信息缺口
+- 制定改进计划来填补监控和日志的盲区
+
+**Impact**: 如果未避免，复盘拖延导致关键信息遗忘，改进措施滞后，故障学习的最佳时间窗口流失。
+
+### Pitfall 5: 改进过载与优先级缺失
+
+**Risk**: 一次复盘找出 20+ 项改进措施，所有措施被同等对待，导致团队资源分散、关键改进被淹没，最终大量措施未完成。
+
+**Prevention**:
+- 对改进措施进行优先级分类（P0/P1/P2）
+- P0 不超过 3 项，P1 不超过 5 项
+- 评估每项措施的风险降低效果 vs 实施成本
+- 明确每项措施的实施排期
+- 拆分"必须现在做"和"可以后续做"
+- 接受"完美是好的敌人"：先完成关键 20% 的改进
+
+**Impact**: 如果未避免，大量改进措施导致团队不堪重负，最终无法落地任何有价值的改进，复盘效果归零。

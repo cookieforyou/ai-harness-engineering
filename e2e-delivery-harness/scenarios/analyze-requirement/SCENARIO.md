@@ -4,7 +4,7 @@ description: "需求分析场景，负责将原始业务需求转换为结构化
 version: "1.2.0"
 type: scenario
 category: analysis
-stage: requirement-analysis
+stage: analyze-requirement
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
@@ -230,8 +230,8 @@ Quality Score = (KPI-001 × 0.25) + (KPI-002 × 0.20) + (KPI-003 × 0.20) + (KPI
 ```yaml
 handover:
   header:
-    from_stage: "requirement-analysis"
-    to_stage: "system-design"
+    from_stage: "analyze-requirement"
+    to_stage: "design-system"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"

@@ -135,8 +135,8 @@ Step 6: 准备交接给运维监控阶段
 ```yaml
 handoff:
   header:
-    from_stage: "deployment"
-    to_stage: "monitoring-operations"
+    from_stage: "deploy-release"
+    to_stage: "monitor-operate"
     handover_id: "HO-{{timestamp}}-DEP"
     timestamp: "{{ISO8601}}"
     status: "deployed"
@@ -196,8 +196,8 @@ handoff:
 ```yaml
 handoff:
   header:
-    from_stage: "deployment"
-    to_stage: "development"
+    from_stage: "deploy-release"
+    to_stage: "implement-feature"
     handover_id: "HO-{{timestamp}}-DEP-FAIL"
     timestamp: "{{ISO8601}}"
     status: "failed_and_rolled_back"

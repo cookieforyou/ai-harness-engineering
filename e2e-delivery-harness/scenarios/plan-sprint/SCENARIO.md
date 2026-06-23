@@ -4,7 +4,7 @@ description: "冲刺规划场景"
 version: "1.2.0"
 type: scenario
 category: requirement
-stage: requirement-analysis
+stage: analyze-requirement
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-02
@@ -58,14 +58,20 @@ tags: [requirement, workflow]
 
 ## Quality Metrics
 
-| KPI ID | 指标名称 | 目标值 | 权重 |
-|--------|----------|--------|------|
-| KPI-001 | COMPLETION | ≥95% | 30% |
-| KPI-002 | QUALITY-SCORE | ≥70 | 30% |
-| KPI-003 | COMPLIANCE | 100% | 20% |
-| KPI-004 | HANDOVER-READY | 100% | 20% |
+### Key Performance Indicators (KPIs)
 
-**合格线**: ≥70 分
+| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
+|--------|----------|--------|----------|----------|------|
+| KPI-001 | SPRINT-GOAL-CLARITY | 100% | Sprint目标明确且有量化验收标准 | Product Owner确认 | 30% |
+| KPI-002 | CAPACITY-UTILIZATION | 70-85% | (承诺故事点数/团队可用容量) × 100% | 容量规划表 | 30% |
+| KPI-003 | BACKLOG-HEALTH | ≥80% | (有明确验收标准的Backlog项/总Backlog项) × 100% | Backlog审查 | 20% |
+| KPI-004 | STAKEHOLDER-ALIGN | ≥90% | 关键干系人对Sprint计划达成一致的比例 | 干系人反馈 | 20% |
+
+**综合评分计算**: 
+```
+Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
+```
 
 
 ## Handover Criteria
@@ -83,7 +89,7 @@ tags: [requirement, workflow]
 ```yaml
 handover:
   header:
-    from_stage: "requirement-analysis"
+    from_stage: "analyze-requirement"
     to_stage: "decompose-task"
     handover_id: "HO-{timestamp}-{sequence}"
     timestamp: "{ISO8601}"

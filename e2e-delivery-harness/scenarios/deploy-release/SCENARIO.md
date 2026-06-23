@@ -4,7 +4,7 @@ description: "部署发布场景，负责将软件部署到目标环境并完成
 version: "1.2.0"
 type: scenario
 category: operations
-stage: deployment
+stage: deploy-release
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
@@ -395,8 +395,8 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.25) + (KPI-003 × 0.25) + (KPI
 ```yaml
 handover:
   header:
-    from_stage: "deployment"
-    to_stage: "monitoring-operations"
+    from_stage: "deploy-release"
+    to_stage: "monitor-operate"
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"

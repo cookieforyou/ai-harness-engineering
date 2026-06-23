@@ -135,8 +135,8 @@ Step 6: 准备交接给部署或返工阶段
 ```yaml
 handoff:
   header:
-    from_stage: "test-verification"
-    to_stage: "deployment"
+    from_stage: "verify-test"
+    to_stage: "deploy-release"
     handover_id: "HO-{{timestamp}}-TST"
     timestamp: "{{ISO8601}}"
     status: "passed"
@@ -193,8 +193,8 @@ handoff:
 ```yaml
 handoff:
   header:
-    from_stage: "test-verification"
-    to_stage: "development"
+    from_stage: "verify-test"
+    to_stage: "implement-feature"
     handover_id: "HO-{{timestamp}}-TST-FAIL"
     timestamp: "{{ISO8601}}"
     status: "failed"

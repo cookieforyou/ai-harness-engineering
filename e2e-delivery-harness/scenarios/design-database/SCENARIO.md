@@ -4,7 +4,7 @@ description: "数据库设计场景，负责设计数据库架构、表结构、
 version: "1.2.0"
 type: scenario
 category: design
-stage: database-design
+stage: design-database
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
@@ -216,7 +216,7 @@ Quality Score = (KPI-001 × 0.20) + (KPI-002 × 0.25) + (KPI-003 × 0.20) + (KPI
 ```yaml
 handover:
   header:
-    from_stage: "system-design"
+    from_stage: "design-system"
     to_stage: "implement-feature"
     handover_id: "HO-{timestamp}-{sequence}"
     timestamp: "{ISO8601}"

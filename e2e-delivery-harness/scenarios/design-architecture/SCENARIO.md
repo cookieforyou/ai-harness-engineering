@@ -4,7 +4,7 @@ description: "架构设计场景，负责设计系统高层架构，包括微服
 version: "1.2.0"
 type: scenario
 category: design
-stage: architecture-design
+stage: design-architecture
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07

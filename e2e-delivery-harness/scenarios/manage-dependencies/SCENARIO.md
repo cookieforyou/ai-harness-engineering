@@ -51,7 +51,6 @@ tags: ['workflow', 'process']
 | DC-002 | 质量门禁 | 产出验证前 | 修复后继续 / 记录 open_issues | Scenario KPI ≥70 | 验证报告 |
 | DC-003 | 交接准出 | 阶段完成前 | 完成交接 / 部分交接 / 阻塞 | Handover 必填字段齐全 | Handover YAML |
 
-
 ## Error Handling
 
 | Error Scenario | Handling Strategy |
@@ -60,9 +59,6 @@ tags: ['workflow', 'process']
 | 脆弱依赖 | 评估替代方案，制定迁移计划 |
 | 许可证冲突 | 咨询法务，评估替换或购买许可 |
 | 更新后构建失败 | 自动回滚，分析兼容性变更 |
-
-
-
 
 ## Error Handling (错误处理)
 
@@ -111,8 +107,6 @@ error_log:
   result: "resolved/blocked/degraded/escalated"
 ```
 
-
-
 ## Quality Metrics
 
 > Quality metrics for measuring scenario execution success.
@@ -129,54 +123,6 @@ error_log:
 - **Execution ID**: `{{execution.id}}` — 执行实例标识
 - **Timestamp**: `{{execution.started_at}}` — 执行开始时间
 - **Agent**: `{{agent.name}}` — 执行Agent标识
-
-
-
-## Quality Metrics (质量指标)
-
-### Key Performance Indicators (KPIs)
-
-| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
-|--------|----------|--------|----------|----------|------|
-| KPI-001 | COMPLETION-RATE | ≥95% | (已完成项/总项数) × 100% | 完成情况检查 | 30% |
-| KPI-002 | QUALITY-SCORE | ≥85/100 | 综合质量评分 | 质量评估表 | 30% |
-| KPI-003 | COMPLIANCE | 100% | (符合规范项/总检查项) × 100% | 规范检查清单 | 20% |
-| KPI-004 | EFFICIENCY | 按时完成 | 实际时间/计划时间 | 时间跟踪 | 20% |
-
-**综合评分计算**: 
-```
-Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
-合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
-```
-
-### Validation Checklist (验证清单)
-
-**完整性验证 (Completeness)**:
-- [ ] 所有必需内容已完成
-- [ ] 无遗漏的关键步骤
-- [ ] 交付物完整
-
-**一致性验证 (Consistency)**:
-- [ ] 术语和命名统一
-- [ ] 风格一致
-- [ ] 与其他资产协调
-
-**准确性验证 (Accuracy)**:
-- [ ] 信息准确无误
-- [ ] 数据和计算正确
-- [ ] 链接和引用有效
-
-**可执行性验证 (Executability)**:
-- [ ] 步骤清晰可执行
-- [ ] 资源和要求明确
-- [ ] 无模糊或不确定的内容
-
-**规范性验证 (Compliance)**:
-- [ ] 遵循标准和规范
-- [ ] 符合最佳实践
-- [ ] 满足合规要求
-
-
 
 ## Handover Criteria
 
@@ -201,8 +147,6 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI
 - [implement-feature](./implement-feature/SCENARIO.md) - 功能实现
 - [audit-security](./audit-security/SCENARIO.md) - 安全审计
 - [verify-test](./verify-test/SCENARIO.md) - 测试验证
-
-
 
 ### Handover Context Template
 
@@ -257,4 +201,3 @@ handover:
         target: {{target_value}}
         status: "pass/fail"
 ```
-

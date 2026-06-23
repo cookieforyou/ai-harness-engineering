@@ -4,7 +4,7 @@ description: "项目文档场景"
 version: "1.2.0"
 type: scenario
 category: development
-stage: development
+stage: implement-feature
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-02
@@ -58,14 +58,20 @@ tags: [development, workflow]
 
 ## Quality Metrics
 
-| KPI ID | 指标名称 | 目标值 | 权重 |
-|--------|----------|--------|------|
-| KPI-001 | COMPLETION | ≥95% | 30% |
-| KPI-002 | QUALITY-SCORE | ≥70 | 30% |
-| KPI-003 | COMPLIANCE | 100% | 20% |
-| KPI-004 | HANDOVER-READY | 100% | 20% |
+### Key Performance Indicators (KPIs)
 
-**合格线**: ≥70 分
+| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
+|--------|----------|--------|----------|----------|------|
+| KPI-001 | DOC-COVERAGE | ≥95% | (已文档化的模块数/总模块数) × 100% | 文档清单审查 | 30% |
+| KPI-002 | DOC-QUALITY | ≥85/100 | 文档完整性×0.4 + 清晰度×0.3 + 准确性×0.3 | 文档评审 | 30% |
+| KPI-003 | SEARCH-SUCCESS | ≥80% | (一次搜索找到文档的次数/总搜索次数) × 100% | 用户反馈统计 | 20% |
+| KPI-004 | FRESHNESS | ≥90% | (最近30天更新的文档数/总文档数) × 100% | 文档时间戳检查 | 20% |
+
+**综合评分计算**: 
+```
+Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.30) + (KPI-003 × 0.20) + (KPI-004 × 0.20)
+合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
+```
 
 
 ## Handover Criteria
@@ -83,7 +89,7 @@ tags: [development, workflow]
 ```yaml
 handover:
   header:
-    from_stage: "development"
+    from_stage: "implement-feature"
     to_stage: "governance"
     handover_id: "HO-{timestamp}-{sequence}"
     timestamp: "{ISO8601}"

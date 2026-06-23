@@ -3,27 +3,101 @@ name: task-quality-checklist
 type: evaluation
 version: "1.0.0"
 status: active
+updated: 2026-06-23
 ---
 
-# 任务质量清单
+# 任务质量检查清单 (Task Quality Checklist)
 
-> 本文件为 E2E Delivery Harness 阶段/场景评估清单。
+## Purpose
 
-## 使用方式
+本清单用于评估开发任务分解的质量，确保每个任务符合 INVEST 原则（Independent, Negotiable, Valuable, Estimable, Small, Testable），依赖关系清晰、粒度适中，可有效指导开发实施。
 
-1. 场景执行完成后，对照本清单逐项 PASS / PARTIAL / FAIL
-2. 结合 [output-validation-checklist.md](output-validation-checklist.md) 通用项
-3. 失败项写入 Handover `open_issues`
+## Scoring
 
-## 检查项
+- **PASS**: 完全满足要求
+- **PARTIAL**: 大部分满足，少量任务需调整
+- **FAIL**: 不满足要求，需重新进行任务分解
+- **NA**: 不适用
 
-- [ ] V-001 完整性：必填章节与交付物齐全
-- [ ] V-002 一致性：与上游 Handover 无矛盾
-- [ ] V-003 准确性：假设已标注，数据可验证
-- [ ] V-004 质量：Scenario KPI ≥70
+## 使用时机
 
-## 引用
+- 迭代计划会议中的任务评审
+- 任务分解完成后、进入开发前
+- 迭代回顾中的任务质量复盘
+
+---
+
+## 1. 任务粒度 (Task Granularity)
+
+- [ ] **TGR-001**: 90% 以上的任务估计工时在 1-3 天范围内（理想开发人天），> 5 天的任务已进一步拆分
+- [ ] **TGR-002**: 任务拆分到可交付增量级别：每个任务完成后可产生可验证的产出（代码/配置/文档）
+- [ ] **TGR-003**: 任务大小与团队速度匹配：一个迭代中任务数 ≥ 团队人数 × 2 且 ≤ 团队人数 × 5
+- [ ] **TGR-004**: 无巨大任务（Epic 级任务直接放入迭代），所有大任务已拆分为子任务并标注父子关系
+
+## 2. INVEST 合规 (INVEST Compliance)
+
+- [ ] **TIN-001** — **I (Independent)**: 任务间依赖性最小化，尽量可独立开发；存在依赖时明确标注前置任务
+- [ ] **TIN-002** — **N (Negotiable)**: 任务描述聚焦于"做什么"和"为什么"，留出实现细节的灵活性，非过度约束的实现指令
+- [ ] **TIN-003** — **V (Valuable)**: 每个任务都有明确的业务价值或技术价值说明，可从任务描述理解其对整体目标的贡献
+- [ ] **TIN-004** — **E (Estimable)**: 任务定义足够清晰，所有团队成员对任务范围的理解一致，可给出 ±20% 精度的估算
+- [ ] **TIN-005** — **S (Small)**: 任务可在 1 个迭代内完成，理想情况下 1-3 天
+- [ ] **TIN-006** — **T (Testable)**: 每个任务有明确的验收标准（Acceptance Criteria），完成时可验证
+
+## 3. 依赖关系 (Dependency Clarity)
+
+- [ ] **TDP-001**: 任务依赖关系已显式标注（至少标注前置和后置任务），使用依赖图可视化或列表形式
+- [ ] **TDP-002**: 无循环依赖（A 依赖 B，B 依赖 A 或 A→B→C→A），检测方法：拓扑排序
+- [ ] **TDP-003**: 外部依赖（其他团队/第三方/平台能力）已识别，并标注了预期交付时间或里程碑
+- [ ] **TDP-004**: 关键路径任务已标识（路径上的延迟将直接影响迭代交付日期），路径长度有估算
+- [ ] **TDP-005**: 依赖风险已记录：高风险依赖（高风险 = 依赖方交付不确定性高或无替代方案）有风险緩解计划
+
+## 4. 优先级与排期 (Priority & Scheduling)
+
+- [ ] **TPS-001**: 任务优先级与业务价值/风险匹配：P0（MVP 功能/阻塞项）> P1（重要功能）> P2（锦上添花）
+- [ ] **TPS-002**: 迭代 backlog 中已考虑依赖顺序，前置任务在各迭代初期安排
+- [ ] **TPS-003**: 技术债务/基础设施任务与功能任务合理配比：每个迭代 ≥ 20% 容量分配给技术改进
+- [ ] **TPS-004**: 任务分配考虑了团队成员技能匹配，关键任务有后备人员（Bus Factor ≥ 2）
+
+## 5. 任务描述清晰度 (Description Clarity)
+
+- [ ] **TDC-001**: 任务标题简洁明确（[模块] 动宾结构：如 "[用户模块] 实现手机号注册接口"）
+- [ ] **TDC-002**: 任务描述包含：业务上下文、需求链接、接口/设计文档链接、验收标准
+- [ ] **TDC-003**: 验收标准使用 Given-When-Then 格式（参见 acceptance-criteria-review.md）
+- [ ] **TDC-004**: 任务描述中标注了技术约束（使用的框架版本、兼容性要求、已知限制）
+
+---
+
+## Summary
+
+| 维度 | PASS | PARTIAL | FAIL | 通过率 |
+|------|------|---------|------|--------|
+| 任务粒度 | __ | __ | __ | __% |
+| INVEST 合规 | __ | __ | __ | __% |
+| 依赖关系 | __ | __ | __ | __% |
+| 优先级与排期 | __ | __ | __ | __% |
+| 描述清晰度 | __ | __ | __ | __% |
+| **总计** | **__** | **__** | **__** | **__%** |
+
+### 判定标准
+
+| 通过率 | 结果 |
+|--------|------|
+| ≥ 90% | PASS - 任务分解质量好，可进入开发 |
+| 75-89% | PARTIAL - 调整 FAIL 项后进入开发 |
+| < 75% | FAIL - 任务分解不充分，需重新拆分 |
+
+### 关键待办
+
+| # | 任务 ID | 问题 | 修复措施 |
+|---|---------|------|----------|
+| 1 | | | |
+| 2 | | | |
+
+---
+
+## References
 
 - [regression-checklist.md](regression-checklist.md)
-- [common-error-patterns.md](common-error-patterns.md)
+- [acceptance-criteria-review.md](acceptance-criteria-review.md)
+- [estimation-accuracy-review.md](estimation-accuracy-review.md)
 - [standards/harness-engineering.md](../standards/harness-engineering.md)

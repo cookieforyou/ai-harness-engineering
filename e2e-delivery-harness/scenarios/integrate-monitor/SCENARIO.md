@@ -4,7 +4,7 @@ description: "监控集成场景"
 version: "1.2.0"
 type: scenario
 category: operations
-stage: operations
+stage: monitor-operate
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-06-02
@@ -58,14 +58,20 @@ tags: [operations, workflow]
 
 ## Quality Metrics
 
-| KPI ID | 指标名称 | 目标值 | 权重 |
-|--------|----------|--------|------|
-| KPI-001 | COMPLETION | ≥95% | 30% |
-| KPI-002 | QUALITY-SCORE | ≥70 | 30% |
-| KPI-003 | COMPLIANCE | 100% | 20% |
-| KPI-004 | HANDOVER-READY | 100% | 20% |
+### Key Performance Indicators (KPIs)
 
-**合格线**: ≥70 分
+| KPI ID | 指标名称 | 目标值 | 计算公式 | 验证方法 | 权重 |
+|--------|----------|--------|----------|----------|------|
+| KPI-001 | METRIC-COVERAGE | ≥95% | (已监控的指标数/应监控的指标数) × 100% | 监控清单审查 | 30% |
+| KPI-002 | ALERT-PRECISION | ≥80% | (有效告警数/总告警数) × 100% | 告警回顾分析 | 25% |
+| KPI-003 | DASHBOARD-COMPLETE | 100% | 所有关键服务都有对应的监控面板 | 面板清单检查 | 25% |
+| KPI-004 | SLO-TRACKING | ≥90% | (有SLO定义的服务数/总服务数) × 100% | SLO配置审查 | 20% |
+
+**综合评分计算**: 
+```
+Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.25) + (KPI-003 × 0.25) + (KPI-004 × 0.20)
+合格: ≥70分 | 优秀: ≥85分 | 卓越: ≥95分
+```
 
 
 ## Handover Criteria
@@ -83,8 +89,8 @@ tags: [operations, workflow]
 ```yaml
 handover:
   header:
-    from_stage: "operations"
-    to_stage: "operations"
+    from_stage: "monitor-operate"
+    to_stage: "monitor-operate"
     handover_id: "HO-{timestamp}-{sequence}"
     timestamp: "{ISO8601}"
     prepared_by: "integrate-monitor"

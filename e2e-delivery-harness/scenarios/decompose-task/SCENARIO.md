@@ -4,7 +4,7 @@ description: "任务拆分场景，负责将需求分解为可执行、可跟踪
 version: "1.2.0"
 type: scenario
 category: planning
-stage: task-decomposition
+stage: decompose-task
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
@@ -210,8 +210,8 @@ Quality Score = (KPI-001 × 0.25) + (KPI-002 × 0.20) + (KPI-003 × 0.20) + (KPI
 ```yaml
 handover:
   header:
-    from_stage: "task-decomposition"
-    to_stage: "development"
+    from_stage: "decompose-task"
+    to_stage: "implement-feature"
     handover_id: "HO-{timestamp}-{sequence}"
     timestamp: "{ISO8601}"
     prepared_by: "decompose-task"
@@ -243,7 +243,7 @@ handover:
 ### Input Handoff (来自系统设计阶段)
 
 ```yaml
-from_stage: "system-design"
+from_stage: "design-system"
 expected_inputs:
   - architecture_design:
       path: "docs/architecture-design.md"

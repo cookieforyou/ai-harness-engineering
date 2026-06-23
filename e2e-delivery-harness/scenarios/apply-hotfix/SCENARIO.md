@@ -4,7 +4,7 @@ description: "紧急修复场景，负责生产环境P0/P1级别缺陷的快速�
 version: "1.2.0"
 type: scenario
 category: emergency-response
-stage: incident-resolution
+stage: respond-incident
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07

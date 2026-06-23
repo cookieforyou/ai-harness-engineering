@@ -4,7 +4,7 @@ description: "测试验证场景，负责设计测试用例、执行测试并报
 version: "1.2.0"
 type: scenario
 category: quality
-stage: test-verification
+stage: verify-test
 author: AI Harness Engineering Team
 created: 2026-04-01
 updated: 2026-05-07
@@ -395,8 +395,8 @@ Quality Score = (KPI-001 × 0.30) + (KPI-002 × 0.25) + (KPI-003 × 0.25) + (KPI
 ```yaml
 handover:
   header:
-    from_stage: "testing"
-    to_stage: "deployment" or "development"
+    from_stage: "verify-test"
+    to_stage: "deploy-release"  # or "implement-feature" (on test failure)
     handover_id: "HO-{{timestamp}}-{{sequence}}"
     timestamp: "{{ISO8601}}"
     prepared_by: "{{agent.name}}"
