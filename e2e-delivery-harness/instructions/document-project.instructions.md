@@ -334,6 +334,370 @@ documentation_release:
       command: mkdocs gh-deploy
 ```
 
+## Multi-Language Code Examples
+
+This section provides production-ready documentation generation configurations across multiple toolchains and languages.
+
+### Markdown with Mermaid Diagrams
+
+````markdown
+# System Architecture Documentation
+
+<!--
+  Mermaid diagram rendered via markdown code blocks.
+  Supported by GitHub, GitLab, and most Markdown renderers.
+-->
+
+```mermaid
+graph TD
+    subgraph "Frontend Layer"
+        A[React SPA] --> B[API Gateway]
+    end
+
+    subgraph "Service Layer"
+        B --> C[User Service]
+        B --> D[Order Service]
+        B --> E[Payment Service]
+    end
+
+    subgraph "Data Layer"
+        C --> F[(PostgreSQL - Users)]
+        D --> G[(PostgreSQL - Orders)]
+        E --> H[(Redis - Cache)]
+        E --> I[(MySQL - Ledger)]
+    end
+
+    subgraph "Infrastructure"
+        J[Docker] --> K[Kubernetes]
+        K --> L[AWS EKS]
+    end
+
+    style A fill:#4A90D9,color:#fff
+    style F fill:#E67E22,color:#fff
+    style G fill:#E67E22,color:#fff
+    style L fill:#27AE60,color:#fff
+```
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI as React Frontend
+    participant API as API Gateway
+    participant Auth as Auth Service
+    participant DB as Database
+
+    User->>UI: 访问文档门户
+    UI->>API: GET /api/docs/latest
+    API->>Auth: 验证令牌
+    Auth-->>API: token valid
+    API->>DB: 查询文档元数据
+    DB-->>API: 返回文档列表
+    API-->>UI: 200 OK (文档索引)
+    UI-->>User: 渲染文档门户
+```
+````
+
+If using Mermaid live editor, import the diagram code at https://mermaid.live/edit for interactive editing and export.
+
+### MkDocs Configuration (Python)
+
+```yaml
+# mkdocs.yml
+# Full configuration for a production MkDocs documentation site
+# with Material theme, multi-language plugin, and CI integration.
+
+site_name: "E-Commerce Platform Documentation"
+site_description: "Complete technical documentation for the E-Commerce microservices platform"
+site_url: "https://docs.ecommerce.example.com"
+site_author: "Platform Engineering Team"
+
+# --- Theme Configuration ---
+theme:
+  name: material
+  language: en
+  logo: assets/logo.png
+  favicon: assets/favicon.ico
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant        # Enable instant loading via XHR
+    - navigation.tracking       # Update URL hash on scroll
+    - navigation.sections       # Render top-level sections as expandable groups
+    - navigation.expand         # Expand all collapsible sidebar sections by default
+    - navigation.top            # Add a back-to-top button on scroll
+    - search.highlight          # Highlight search terms in result snippets
+    - search.suggest            # Provide autocomplete search suggestions
+    - content.code.copy         # Add a click-to-copy button on code blocks
+    - content.tabs.link         # Synchronize content tabs across pages
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+# --- Navigation Structure ---
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Overview: getting-started/overview.md
+    - Installation: getting-started/installation.md
+    - Quick Start Tutorial: getting-started/quickstart.md
+    - Configuration: getting-started/configuration.md
+  - Architecture:
+    - System Overview: architecture/overview.md
+    - Microservices: architecture/microservices.md
+    - Data Flow: architecture/data-flow.md
+  - API Reference:
+    - Authentication: api/authentication.md
+    - REST Endpoints: api/rest.md
+    - WebSocket Events: api/websocket.md
+    - SDK: api/sdk.md
+  - Operations:
+    - Deployment: operations/deployment.md
+    - Monitoring: operations/monitoring.md
+    - Troubleshooting: operations/troubleshooting.md
+
+# --- Plugins ---
+plugins:
+  - search:
+      lang:
+        - en
+        - zh
+  - i18n:
+      languages:
+        - locale: en
+          name: English
+          build: true
+          default: true
+        - locale: zh
+          name: 中文
+          build: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: date
+  - minify:
+      minify_html: true
+  - redirects:
+      redirect_maps:
+        "old-page.md": "new-page.md"
+
+# --- Markdown Extensions ---
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+# --- Extra Configuration ---
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/org/ecommerce-platform
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/org/ecommerce
+  generator: false
+  consent:
+    title: Cookie Consent
+    description: >
+      We use cookies to improve your browsing experience. Configure preferences in your browser settings.
+
+# --- CI/CD Integration ---
+# Build and deploy commands:
+#   mkdocs build --strict
+#   mkdocs gh-deploy --force
+```
+
+### Docusaurus Configuration (React/TypeScript)
+
+```javascript
+// docusaurus.config.js
+// Production-ready Docusaurus v3 configuration with multi-language i18n,
+// versioned docs, Algolia DocSearch, and PWA offline support.
+// @ts-check
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  title: 'E-Commerce Platform Documentation',
+  tagline: 'Comprehensive developer documentation for the E-Commerce platform',
+  url: 'https://docs.ecommerce.example.com',
+  baseUrl: '/',
+  organizationName: 'ecommerce-org',
+  projectName: 'docs',
+  trailingSlash: false,
+
+  // --- Build Fail-Safe ---
+  onBrokenLinks: 'throw',           // Fail CI build on broken internal links
+  onBrokenMarkdownLinks: 'throw',    // Fail CI build on broken .md links
+  onDuplicateRoutes: 'throw',        // Fail CI build on duplicate paths
+
+  favicon: 'img/favicon.ico',
+
+  // --- Internationalization (i18n) ---
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh-CN', 'ja', 'ko'],
+    localeConfigs: {
+      en: { label: 'English', direction: 'ltr' },
+      'zh-CN': { label: '中文 (简体)', direction: 'ltr' },
+      ja: { label: '日本語', direction: 'ltr' },
+      ko: { label: '한국어', direction: 'ltr' },
+    },
+  },
+
+  // --- Presets ---
+  presets: [
+    [
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: 'https://github.com/ecommerce-org/docs/edit/main/',
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: 'v2.0 (Current)',
+              path: 'v2.0',
+              banner: 'none',
+            },
+            '1.x': {
+              label: 'v1.x',
+              path: 'v1.x',
+              banner: 'unmaintained',
+            },
+          },
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
+        },
+        blog: {
+          showReadingTime: true,
+          blogSidebarCount: 10,
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+        },
+      }),
+    ],
+  ],
+
+  // --- Theme Configuration ---
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        title: 'Platform Docs',
+        logo: {
+          alt: 'Platform Logo',
+          src: 'img/logo.svg',
+        },
+        items: [
+          {
+            type: 'docSidebar',
+            sidebarId: 'docsSidebar',
+            position: 'left',
+            label: 'Documentation',
+          },
+          { to: '/blog', label: 'Blog', position: 'left' },
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
+            dropdownActiveClassDisabled: true,
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/ecommerce-org/docs',
+            label: 'GitHub',
+            position: 'right',
+          },
+        ],
+      },
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: 'Docs',
+            items: [
+              { label: 'Getting Started', to: '/docs/getting-started' },
+              { label: 'API Reference', to: '/docs/api' },
+              { label: 'Architecture', to: '/docs/architecture' },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              { label: 'Stack Overflow', href: 'https://stackoverflow.com/questions/tagged/ecommerce' },
+              { label: 'GitHub Issues', href: 'https://github.com/ecommerce-org/docs/issues' },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} E-Commerce Platform, Inc.`,
+      },
+      prism: {
+        theme: require('prism-react-renderer/themes/github'),
+        darkTheme: require('prism-react-renderer/themes/dracula'),
+        additionalLanguages: ['java', 'bash', 'yaml', 'json'],
+      },
+      // --- Algolia DocSearch ---
+      algolia: {
+        appId: 'YOUR_APP_ID',
+        apiKey: 'YOUR_API_KEY',
+        indexName: 'ecommerce-docs',
+        contextualSearch: true,
+      },
+    }),
+
+  // --- PWA Offline Support ---
+  plugins: [
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'queryString',
+        ],
+        pwaHead: [
+          { tagName: 'link', rel: 'icon', href: '/img/favicon.ico' },
+          { tagName: 'link', rel: 'manifest', href: '/manifest.json' },
+        ],
+      },
+    ],
+  ],
+};
+
+module.exports = config;
+```
+
 ## Best Practices
 
 ### DO
@@ -378,17 +742,67 @@ documentation_release:
 
 ## Error Handling
 
-> Common error scenarios and resolution strategies for document-project.
+> 文档项目的异常处理规范与降级策略，涵盖链接失效、内容同步滞后等多类场景。
 
-### Error Category 1
-**Symptom**: Documentation is incomplete or outdated
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
+### Error Scenario 1: 文档链接失效 (P2)
 
-### Error Category 2
-**Symptom**: Users report difficulty finding required information
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
+**触发条件**: 文档中存在指向外部资源或内部交叉引用页面的链接，当目标页面迁移、删除或重命名时，导致用户访问时返回 404 或重定向错误。
+
+**处理流程**:
+```
+IF 文档链接检查报告存在失效链接
+THEN
+  1. 运行全量链接扫描工具 (lychee / broken-link-checker) 生成失效链接报告
+  2. 按失效类型分类：外部链接过期、内部页面移动、锚点变更
+  3. 逐一核查每个失效链接，查找目标资源的最新有效 URL
+  4. 使用批量替换脚本更新所有已确认的新链接
+  5. 重新运行链接扫描验证修复结果，确保零遗留失效链接
+END
+```
+
+**降级方案**: 对短期内无法找到替代链接的引用，标注为 `[链接待更新]` 占位符，并在文档头部添加"已知问题"警告横幅。
+
+**升级条件**: 失效链接数量超过文档总链接数的 5%，或存在持续超过 48 小时未修复的 P0 级文档（如 API 参考、安全指南）中的失效链接。
+
+### Error Scenario 2: API文档与代码不同步 (P1)
+
+**触发条件**: 后端 API 接口发生变更（新增/修改/废弃端点、请求参数或响应结构变更），但对应的 API 参考文档未同步更新，导致开发者集成时按文档调用失败。
+
+**处理流程**:
+```
+IF 检测到 API 规范与文档内容存在差异
+THEN
+  1. 解析 OpenAPI / Swagger 规范文件，提取当前所有接口定义
+  2. 将规范定义与已发布的 API 参考文档进行结构化对比（端点路径、方法、参数、响应码）
+  3. 自动生成差异报告，按变更类型分类：新增接口、参数变更、接口废弃
+  4. 根据差异报告批量更新文档页面，优先处理 P1 级变更（破坏性变更）
+  5. 触发 CI 流水线重新构建并预览文档站点，验证更新正确性
+END
+```
+
+**降级方案**: 在 API 文档页面上方插入版本差异浮窗，标明"本文档版本落后于 API v{version}，差异详情请见 [变更日志]"，同时在代码仓库 README 中标注最新 API 版本号。
+
+**升级条件**: 文档落后 API 超过 2 个次要版本，或累计超过 10 个端点未同步更新，或出现用户因文档不准确导致生产环境故障。
+
+### Error Scenario 3: 翻译版本滞后 (P2)
+
+**触发条件**: 文档英文源（默认语言）内容更新后，对应中文、日文、韩文等多语言翻译版本未能及时同步更新，导致多语言用户阅读到过期或不一致的文档内容。
+
+**处理流程**:
+```
+IF 默认语言文档有新的 Git 提交但翻译文档未对应更新
+THEN
+  1. 通过 Git diff 提取自上次翻译同步以来的所有内容变更
+  2. 对比 i18n 目录下的翻译文件，标记翻译滞后的文件及具体段落
+  3. 使用翻译记忆库 (TM) 对重复/已翻译内容自动合并
+  4. 对新变更内容触发人工翻译或机器翻译后人工审校流程
+  5. 更新翻译文件并创建 PR，标注变更摘要供审阅者快速验证
+END
+```
+
+**降级方案**: 在翻译文档页面顶部显示版本警告横幅："本文档最后更新于 {date}，可能未反映最新变更。请参阅 [英文原版](link) 获取最新内容。" 同时优先翻译 P0/P1 级内容（API 变更、安全公告）。
+
+**升级条件**: 翻译版本落后源语言版本超过 2 个版本，或关键文档（入门指南、API 参考）翻译滞后超过 7 天，或有用户因翻译不准确提交工单投诉。
 
 
 ## Quality Standards

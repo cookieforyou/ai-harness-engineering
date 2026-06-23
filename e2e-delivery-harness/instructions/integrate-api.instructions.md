@@ -360,6 +360,355 @@ metrics:
 - [List key configuration parameters]
 
 
+## Multi-Language Code Examples
+
+> Production-grade API client implementations demonstrating resilience patterns with circuit breaker, retry, exponential backoff, and bulkhead isolation.
+
+### Java (OkHttp + Resilience4j)
+
+```java
+// Java (OkHttp + Resilience4j) - API Client with Circuit Breaker, Retry, and Bulkhead
+import okhttp3.*;
+import io.github.resilience4j.circuitbreaker.*;
+import io.github.resilience4j.retry.*;
+import io.github.resilience4j.bulkhead.*;
+import io.github.resilience4j.decorators.Decorators;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
+
+public class ResilientApiClient {
+    private final OkHttpClient httpClient;
+    private final CircuitBreaker circuitBreaker;
+    private final Retry retry;
+    private final Bulkhead bulkhead;
+
+    public ResilientApiClient() {
+        // HTTP 客户端配置：连接超时、读写超时、连接池
+        this.httpClient = new OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectionPool(new ConnectionPool(50, 5, TimeUnit.MINUTES))
+            .addInterceptor(new AuthenticationInterceptor())
+            .addInterceptor(new LoggingInterceptor())
+            .build();
+
+        // CircuitBreaker 配置：滑动窗口统计、半开探测、异常记录
+        CircuitBreakerConfig cbConfig = CircuitBreakerConfig.custom()
+            .failureRateThreshold(50)                       // 失败率阈值 50%
+            .waitDurationInOpenState(Duration.ofSeconds(30)) // 熔断持续时间 30s
+            .permittedNumberOfCallsInHalfOpenState(3)        // 半开状态允许 3 次探测
+            .slidingWindowSize(10)                           // 滑动窗口大小 10
+            .minimumNumberOfCalls(5)                         // 最少调用数 5
+            .recordExceptions(IOException.class,
+                              java.net.SocketTimeoutException.class)
+            .build();
+        this.circuitBreaker = CircuitBreaker.of("api-cb", cbConfig);
+
+        // Retry 配置：指数退避 + 状态码过滤
+        RetryConfig retryConfig = RetryConfig.custom()
+            .maxAttempts(3)
+            .waitDuration(Duration.ofSeconds(1))
+            .retryOnResult(response -> {
+                int code = ((Response) response).code();
+                return code >= 500 || code == 408 || code == 429;
+            })
+            .retryExceptions(IOException.class)
+            .build();
+        this.retry = Retry.of("api-retry", retryConfig);
+
+        // Bulkhead 信号量隔离：最大并发 + 等待队列
+        BulkheadConfig bulkheadConfig = BulkheadConfig.custom()
+            .maxConcurrentCalls(20)
+            .maxWaitDuration(Duration.ofMillis(500))
+            .build();
+        this.bulkhead = Bulkhead.of("api-bulkhead", bulkheadConfig);
+    }
+
+    public Response callApi(Request request) {
+        Supplier<Response> decoratedSupplier = Decorators.ofSupplier(() -> {
+            try {
+                return httpClient.newCall(request).execute();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        })
+        .withCircuitBreaker(circuitBreaker)
+        .withRetry(retry)
+        .withBulkhead(bulkhead)
+        .decorate();
+
+        return decoratedSupplier.get();
+    }
+
+    // CircuitBreaker 状态监控（供 Prometheus 采集）
+    public String getCircuitBreakerState() {
+        return circuitBreaker.getState().name();
+    }
+
+    public CircuitBreaker.Metrics getCircuitBreakerMetrics() {
+        return circuitBreaker.getMetrics();
+    }
+
+    // Authentication 拦截器 - 注入 OAuth2 Token
+    private static class AuthenticationInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request original = chain.request();
+            String token = TokenManager.getAccessToken();
+            Request request = original.newBuilder()
+                .header("Authorization", "Bearer " + token)
+                .header("X-Request-Id", java.util.UUID.randomUUID().toString())
+                .build();
+            return chain.proceed(request);
+        }
+    }
+
+    // 性能日志拦截器
+    private static class LoggingInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            long start = System.currentTimeMillis();
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            long duration = System.currentTimeMillis() - start;
+            System.out.printf("[API] %s %s - %d (%dms)%n",
+                request.method(), request.url(), response.code(), duration);
+            return response;
+        }
+    }
+}
+```
+
+### Go (net/http + retry)
+
+```go
+// Go (net/http + retry) - HTTP Client with Exponential Backoff and Retry
+package client
+
+import (
+	"context"
+	"fmt"
+	"io"
+	"math"
+	"math/rand"
+	"net/http"
+	"time"
+)
+
+// RetryableClient 支持自动重试和指数退避的 HTTP 客户端
+type RetryableClient struct {
+	client     *http.Client
+	maxRetries int
+	baseDelay  time.Duration
+	maxDelay   time.Duration
+}
+
+type Option func(*RetryableClient)
+
+func WithMaxRetries(n int) Option {
+	return func(c *RetryableClient) { c.maxRetries = n }
+}
+
+func WithBaseDelay(d time.Duration) Option {
+	return func(c *RetryableClient) { c.baseDelay = d }
+}
+
+func WithMaxDelay(d time.Duration) Option {
+	return func(c *RetryableClient) { c.maxDelay = d }
+}
+
+func NewRetryableClient(opts ...Option) *RetryableClient {
+	c := &RetryableClient{
+		client: &http.Client{
+			Timeout: 30 * time.Second,
+			Transport: &http.Transport{
+				MaxIdleConns:        100,
+				MaxIdleConnsPerHost: 20,
+				IdleConnTimeout:     90 * time.Second,
+				DisableCompression:  false,
+			},
+		},
+		maxRetries: 3,
+		baseDelay:  1 * time.Second,
+		maxDelay:   60 * time.Second,
+	}
+	for _, opt := range opts {
+		opt(c)
+	}
+	return c
+}
+
+// backoff 指数退避 + 随机 jitter 计算
+func (c *RetryableClient) backoff(attempt int) time.Duration {
+	delay := float64(c.baseDelay) * math.Pow(2, float64(attempt))
+	jitter := rand.Float64() * float64(c.baseDelay) // 添加 jitter 避免惊群效应
+	total := time.Duration(math.Min(delay+jitter, float64(c.maxDelay)))
+	return total
+}
+
+// isRetryable 判断 HTTP 状态码是否可重试
+func isRetryable(statusCode int) bool {
+	switch statusCode {
+	case http.StatusRequestTimeout,       // 408
+		http.StatusTooManyRequests,       // 429
+		http.StatusInternalServerError,   // 500
+		http.StatusBadGateway,            // 502
+		http.StatusServiceUnavailable,    // 503
+		http.StatusGatewayTimeout:        // 504
+		return true
+	}
+	return false
+}
+
+func (c *RetryableClient) Do(req *http.Request) (*http.Response, error) {
+	var resp *http.Response
+	var err error
+	var body io.ReadCloser
+
+	for attempt := 0; attempt <= c.maxRetries; attempt++ {
+		// 重试时复用 request body
+		if attempt > 0 && req.Body != nil {
+			req.Body = io.NopCloser(body)
+		}
+
+		resp, err = c.client.Do(req)
+		if err != nil {
+			// 网络错误，等待后重试
+			if attempt < c.maxRetries {
+				time.Sleep(c.backoff(attempt))
+				continue
+			}
+			return nil, fmt.Errorf(
+				"request failed after %d retries: %w", c.maxRetries, err)
+		}
+
+		if isRetryable(resp.StatusCode) && attempt < c.maxRetries {
+			// 读取并关闭 body 以复用连接
+			body = resp.Body
+			io.Copy(io.Discard, resp.Body)
+			resp.Body.Close()
+			time.Sleep(c.backoff(attempt))
+			continue
+		}
+
+		return resp, nil
+	}
+
+	return resp, nil
+}
+```
+
+### JavaScript (Axios + Opossum)
+
+```javascript
+// JavaScript (Axios + Opossum) - Axios Client with Circuit Breaker Pattern
+const axios = require('axios');
+const CircuitBreaker = require('opossum');
+const crypto = require('crypto');
+
+// 创建 Axios 实例 - 全局配置
+const apiClient = axios.create({
+  baseURL: process.env.API_BASE_URL || 'https://api.example.com',
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  // HTTP 连接池配置
+  httpAgent: new (require('http').Agent)({
+    keepAlive: true,
+    maxSockets: 50,
+    maxFreeSockets: 10,
+    scheduling: 'lifo',
+  }),
+});
+
+// 请求拦截器 - 注入认证 Token 和请求追踪 ID
+apiClient.interceptors.request.use(
+  (config) => {
+    config.headers['Authorization'] = `Bearer ${getAccessToken()}`;
+    config.headers['X-Request-Id'] = crypto.randomUUID();
+    config.metadata = { startTime: Date.now() };
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// 响应拦截器 - 性能日志 + Token 自动刷新
+apiClient.interceptors.response.use(
+  (response) => {
+    const duration = Date.now() - response.config.metadata.startTime;
+    console.log(
+      `[API] ${response.config.method.toUpperCase()} ${response.config.url} ` +
+      `- ${response.status} (${duration}ms)`
+    );
+    // 上报 Prometheus 指标
+    recordApiMetric(response.config, response.status, duration);
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+    // Token 过期自动刷新
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      await refreshToken();
+      originalRequest.headers['Authorization'] =
+        `Bearer ${getAccessToken()}`;
+      return apiClient(originalRequest);
+    }
+    return Promise.reject(error);
+  }
+);
+
+// Opossum 熔断器配置
+const breakerOptions = {
+  timeout: 30000,                // 请求超时 30s
+  errorThresholdPercentage: 50,  // 错误率阈值 50%
+  resetTimeout: 30000,           // 熔断重置时间 30s
+  name: 'api-circuit-breaker',
+  rollingCountTimeout: 60000,    // 滑动窗口 60s
+  rollingCountBuckets: 10,       // 滑动窗口桶数
+  volumeThreshold: 5,            // 最少请求数阈值
+};
+
+const apiCircuitBreaker = new CircuitBreaker(
+  (config) => apiClient(config),
+  breakerOptions
+);
+
+// 熔断器事件监听 - 对接监控告警
+apiCircuitBreaker.on('open', () => {
+  console.warn('[CB] Circuit OPEN - 请求被熔断拒绝');
+  alertManager.sendAlert('circuit_breaker_open', { service: 'api' });
+});
+apiCircuitBreaker.on('halfOpen', () => {
+  console.info('[CB] Circuit HALF_OPEN - 发送探测请求');
+});
+apiCircuitBreaker.on('close', () => {
+  console.info('[CB] Circuit CLOSED - 服务恢复正常');
+  alertManager.resolveAlert('circuit_breaker_open', { service: 'api' });
+});
+
+// 带熔断保护的 API 调用封装
+async function callApiWithProtection(config) {
+  try {
+    const response = await apiCircuitBreaker.fire(config);
+    return response;
+  } catch (error) {
+    if (apiCircuitBreaker.opened) {
+      // 熔断时返回降级数据
+      return getDegradedResponse(config.url);
+    }
+    throw error;
+  }
+}
+```
+
+
 ## Best Practices
 
 > Industry-standard best practices for integrate-api execution.
@@ -371,17 +720,68 @@ metrics:
 
 ## Error Handling
 
-> Common error scenarios and resolution strategies for integrate-api.
+> API 集成过程中的异常处理策略与自动恢复流程，涵盖超时降级、Rate Limit 触发、认证失败三大核心场景。
 
-### Error Category 1
-**Symptom**: API integration fails under load or network issues
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
+### Error Scenario 1: API超时降级 (P1)
 
-### Error Category 2
-**Symptom**: Error responses are not handled gracefully
-**Cause**: [Root cause]
-**Resolution**: [Steps to resolve]
+**触发条件**: 上游 API 响应时间超过配置的超时阈值（默认 30s），连续 5 次调用失败触发熔断器打开
+
+**处理流程**:
+```
+IF api_response_time > timeout_threshold
+   OR circuit_breaker_state = OPEN
+THEN
+  1. 熔断器状态切换为 OPEN，直接拒绝请求（快速失败）
+  2. 返回降级响应（本地缓存数据或预配置的默认值）
+  3. 触发 P1 告警通知（通知 API 负责人和值班 on-call）
+  4. 启动健康检查探针，以 10s 间隔探测上游 API 恢复状态
+  5. 探测成功连续 3 次后，熔断器状态切换为 HALF_OPEN，允许少量探测流量
+END
+```
+
+**降级方案**: 返回本地缓存数据（TTL < 30s）或预设的默认响应；启用服务端 Mock 数据模块；限流至原流量的 20%
+
+**升级条件**: 熔断持续时间超过 5 分钟或降级流量超过总流量的 50%，升级为 P0 事件，启动容灾切换流程
+
+### Error Scenario 2: Rate Limit触发 (P2)
+
+**触发条件**: 客户端请求速率超过上游 API 的 Rate Limit 配额，收到 HTTP 429 Too Many Requests 响应
+
+**处理流程**:
+```
+IF http_status = 429 OR rate_limit_remaining = 0
+THEN
+  1. 读取响应头 Retry-After 字段，计算等待时间
+  2. 请求进入本地等待队列，按指数退避策略调度重试
+  3. 动态降低请求速率（滑动窗口算法），调整为原速率的 50%
+  4. 记录限流日志（包含 Provider、剩余配额、重置时间戳）
+  5. 如重试 3 次仍被限流，则将请求转发至备用 Provider
+END
+```
+
+**降级方案**: 请求排队等待（最大排队时间 30s）；非关键请求延迟处理；切换到备用 API Provider 或降级数据源
+
+**升级条件**: 持续限流超过 15 分钟或备用 Provider 也触发限流，升级为 P1 事件，触发流量调度
+
+### Error Scenario 3: 认证失败重试 (P1)
+
+**触发条件**: API 返回 HTTP 401 Unauthorized，检测到 Access Token 过期或认证凭据无效
+
+**处理流程**:
+```
+IF http_status = 401 AND retry_count < max_retries
+THEN
+  1. 检查 Token 过期时间戳，判断是否由过期引起
+  2. 主动调用 Token 刷新端点（/oauth/token），获取新的 Access Token
+  3. 使用新 Token 重新发起原始请求（最多重试 2 次）
+  4. 如果重试后仍返回 401，则进入认证重置流程（重新获取 Client Credentials）
+  5. 触发 P1 告警，通知安全团队检查认证服务健康状况
+END
+```
+
+**降级方案**: 使用本地缓存的短期 Token（若在有效期内）；切换到 Backup 认证服务 Provider；回退到 API Key 认证模式（仅限内网环境且需安全审批）
+
+**升级条件**: Token 刷新连续失败 3 次或认证服务持续不可用超过 5 分钟，升级为 P0 事件，触发紧急认证切换流程
 
 
 ## Quality Standards

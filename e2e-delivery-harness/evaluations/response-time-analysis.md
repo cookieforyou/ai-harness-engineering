@@ -1,29 +1,185 @@
 ---
 name: response-time-analysis
 type: evaluation
-version: "1.0.0"
+version: "1.1.0"
 status: active
+updated: 2026-06-23
+description: >
+  响应时间分析评估，基于Apdex评分标准(满意≤T/容忍≤4T/失望>4T)、
+  长尾分析(P99.9)、季节性分析和SLA/SLO达成率计算。
+  用于系统响应性能的全面诊断和用户体验量化评估。
 ---
 
-# 响应时间分析
+# 响应时间分析评估 (Response Time Analysis Evaluation)
 
-> 本文件为 E2E Delivery Harness 阶段/场景评估清单。
+## Overview
 
-## 使用方式
+响应时间分析评估用于从用户视角和系统视角两个维度衡量服务响应性能。通过 Apdex 用户体验评分、长尾响应分析（P99.9）、季节性波动分析和 SLA/SLO 达成率计算，识别响应时间瓶颈并驱动性能优化。本评估适用于线上服务性能持续监控、版本发布前后的性能对比和用户体验优化专项。
 
-1. 场景执行完成后，对照本清单逐项 PASS / PARTIAL / FAIL
-2. 结合 [output-validation-checklist.md](output-validation-checklist.md) 通用项
-3. 失败项写入 Handover `open_issues`
+### 适用场景
 
-## 检查项
+- 线上服务响应性能月度/季度健康检查
+- 版本发布后的响应时间回归分析
+- 用户体验优化（Core Web Vitals）的量化评估
+- SLA 违规根因分析和服务降级决策
 
-- [ ] V-001 完整性：必填章节与交付物齐全
-- [ ] V-002 一致性：与上游 Handover 无矛盾
-- [ ] V-003 准确性：假设已标注，数据可验证
-- [ ] V-004 质量：Scenario KPI ≥70
+---
 
-## 引用
+## Evaluation Criteria
 
-- [regression-checklist.md](regression-checklist.md)
-- [common-error-patterns.md](common-error-patterns.md)
+| 维度 | 权重 | 目标值 | 测量方法 |
+|------|------|--------|----------|
+| Apdex 评分 | 30% | ≥ 0.94 (Excellent) | Apdex = (满意数 + 容忍数/2) / 总样本数 |
+| 长尾分析 (P99.9) | 25% | P99.9 ≤ 4T (容忍上限) | 响应时间分布统计，取 99.9 分位值 |
+| 季节性分析 | 20% | 高峰/低峰偏差 ≤ 30% | 按小时/日/周聚合的响应时间比较 |
+| SLA/SLO 达成率 | 25% | ≥ 99.9% (SLO目标) | 响应时间 ≤ SLO阈值的请求占比 |
+
+### Apdex 标准定义
+
+| 应用类型 | T (满意阈值) | 4T (容忍上限) | Apdex 优秀线 |
+|----------|-------------|---------------|-------------|
+| 核心交易 API | 200ms | 800ms | ≥ 0.94 |
+| 读/查询 API | 300ms | 1200ms | ≥ 0.94 |
+| 页面渲染 (Web) | 1.5s | 6s | ≥ 0.90 |
+| 批量/后台任务 | 5s | 20s | ≥ 0.85 |
+
+---
+
+## Scoring Formula
+
+```
+Apdex得分 = Apdex值 / 0.94 × 100（上限 100）
+长尾得分 = 
+  P99.9 ≤ 4T → 100
+  P99.9 ≤ 8T → 70
+  P99.9 ≤ 10T → 40
+  P99.9 > 10T → 0
+
+季节性得分 = max(0, 100 - (高峰/低峰偏差 - 30%) × 200)
+SLA得分 = SLO达成率 / 99.9% × 100（上限 100）
+
+总分 = Apdex得分 × 30% + 长尾得分 × 25% + 季节性得分 × 20% + SLA得分 × 25%
+```
+
+### 等级划分
+
+| 等级 | 分数范围 | 判定 |
+|------|----------|------|
+| S (Excellent) | ≥ 90 | 响应性能优秀，用户体验良好 |
+| A (Good) | 80-89 | 响应性能可接受，有轻微长尾 |
+| B (Fair) | 70-79 | 存在明显响应性能问题需优化 |
+| F (Failed) | < 70 | 响应性能严重不达标，需紧急优化 |
+
+---
+
+## Checklist
+
+### 1. Apdex 评分检查 (5项)
+
+- [ ] **RTA-APD-001**: Apdex 评分 ≥ 0.94（对应应用类型的 T 阈值），采样周期 ≥ 7 天
+- [ ] **RTA-APD-002**: T 阈值（满意阈值）基于业务影响设定，每半年重新校准
+- [ ] **RTA-APD-003**: Apdex 按 API 端点独立计算，聚合时不掩盖慢端点的异常
+- [ ] **RTA-APD-004**: Apdex 趋势在最近 3 个周期稳定或上升，无连续下降趋势
+- [ ] **RTA-APD-005**: 外部依赖（数据库/缓存/第三方 API）对 Apdex 的影响已隔离分析
+
+### 2. 长尾分析检查 (6项)
+
+- [ ] **RTA-LTA-001**: P99.9 响应时间 ≤ 4T（容忍上限），极值请求不影响主流程
+- [ ] **RTA-LTA-002**: P99 与 P99.9 的比值 ≤ 3（长尾未过度发散）
+- [ ] **RTA-LTA-003**: 长尾请求已进行根因分析标签化：GC暂停/热点资源竞争/外部依赖超时/CPU节流
+- [ ] **RTA-LTA-004**: 长尾请求的分布有可复现模式（特定用户、特定数据量、特定时段）
+- [ ] **RTA-LTA-005**: 长尾请求的自动熔断/降级机制已配置并测试
+- [ ] **RTA-LTA-006**: P99.9 的采样数据量 ≥ 1000 请求/天（统计显著）
+
+### 3. 季节性分析检查 (5项)
+
+- [ ] **RTA-SEA-001**: 工作日与周末响应时间的偏差 ≤ 30%（同业务量级比较）
+- [ ] **RTA-SEA-002**: 高峰时段（日间业务繁忙期）与低峰时段（夜间）响应时间偏差 ≤ 30%
+- [ ] **RTA-SEA-003**: 季节性模式（月末结算/促销活动/季度批量任务）已识别并有对应的弹性策略
+- [ ] **RTA-SEA-004**: 响应时间按日/周/月聚合趋势图展示清晰，标注异常波动事件
+- [ ] **RTA-SEA-005**: 容量规划策略考虑了季节性峰值（预留 30% 余量）
+
+### 4. SLA/SLO 达成率检查 (6项)
+
+- [ ] **RTA-SLA-001**: SLO 达成率 ≥ 99.9%（过去 30 天），时间窗口使用滚动窗口
+- [ ] **RTA-SLA-002**: SLA 违规事件有完整的事件记录（时间/影响范围/根因/修复措施）
+- [ ] **RTA-SLA-003**: SLO 达成率按 API 端点/服务分别统计，不合格的服务有改进计划
+- [ ] **RTA-SLA-004**: 错误预算（Error Budget）消耗率 ≤ 50%/月（若使用 SLO 管理）
+- [ ] **RTA-SLA-005**: 响应时间的 SLO 与客户合同 SLA 对齐，无内部 SLO 比客户 SLA 宽松的情况
+- [ ] **RTA-SLA-006**: SLA 违规的赔偿/升级流程已定义，团队知晓并且演练过
+
+---
+
+## Report Template
+
+```markdown
+# 响应时间分析报告
+
+## 概要
+
+| 项目 | 值 |
+|------|-----|
+| 分析对象 | [服务/端点/页面] |
+| 分析周期 | YYYY-MM-DD ~ YYYY-MM-DD |
+| 总请求量 | [N] |
+| 样本周期 | [N] 天 |
+| 综合评分 | [XX.X] 分 / 100 |
+| 等级判定 | [S/A/B/F] |
+
+## Apdex 评分
+
+| 端点 | T 阈值 | 满意数 | 容忍数 | 失望数 | Apdex | 评价 |
+|------|--------|--------|--------|--------|-------|------|
+| GET /api/orders | 200ms | | | | | Excellent/Fair/Poor |
+| POST /api/payments | 200ms | | | | | Excellent/Fair/Poor |
+| GET / | 1.5s | | | | | Excellent/Fair/Poor |
+
+## 分位数延迟
+
+| 分位 | 延迟值 | 目标 | 达标 |
+|------|--------|------|------|
+| P50 | XX ms | ≤ T | Y/N |
+| P90 | XX ms | — | — |
+| P95 | XX ms | — | — |
+| P99 | XX ms | ≤ 4T | Y/N |
+| P99.9 | XX ms | ≤ 4T | Y/N |
+
+## SLA/SLO 达成
+
+| 服务 | SLO 阈值 | 达成率 | 错误预算消耗 | 达标 |
+|------|----------|--------|-------------|------|
+| | ≤ XXX ms | XX.X% | XX% | Y/N |
+
+## 长尾根因分析
+
+| 根因类型 | 占比 | 影响端点 | 改进措施 | 优先级 |
+|----------|------|----------|----------|--------|
+| GC Pause | | | | |
+| DB Slow Query | | | | |
+| External API | | | | |
+| Resource Contention | | | | |
+
+## 改进项
+
+| # | 问题描述 | 优先级 | 责任人 | 计划完成 | 状态 |
+|---|----------|--------|--------|----------|------|
+| 1 | | | | | |
+
+---
+
+## Revision History
+
+| Version | Date | Changes | Author |
+|---------|------|---------|--------|
+| 1.0 | YYYY-MM-DD | Initial report | [Name] |
+```
+
+---
+
+## Related Evaluations
+
+- [slo-compliance.md](slo-compliance.md)
+- [performance-baseline.md](performance-baseline.md)
+- [query-performance-benchmark.md](query-performance-benchmark.md)
+- [alert-effectiveness.md](alert-effectiveness.md)
 - [standards/harness-engineering.md](../standards/harness-engineering.md)

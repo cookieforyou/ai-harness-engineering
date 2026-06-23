@@ -1,29 +1,171 @@
 ---
 name: performance-baseline
 type: evaluation
-version: "1.0.0"
+version: "1.1.0"
 status: active
+updated: 2026-06-23
+description: >
+  性能基线评估，覆盖P50/P95/P99延迟、吞吐量、资源利用率(CPU/内存/IO/网络)
+  四个维度的基线指标。定义基线偏差告警阈值(>20%触发)，
+  用于版本间性能退化检测和容量规划决策支持。
 ---
 
-# 性能基线
+# 性能基线评估 (Performance Baseline Evaluation)
 
-> 本文件为 E2E Delivery Harness 阶段/场景评估清单。
+## Overview
 
-## 使用方式
+性能基线评估用于建立系统关键性能指标的基准值，在每次变更（版本发布、配置调整、基础设施变更）后对比基线，快速识别性能退化。基线数据来自持续的性能测试和线上监控采集，评估结果用于版本发布准入和容量规划决策。
 
-1. 场景执行完成后，对照本清单逐项 PASS / PARTIAL / FAIL
-2. 结合 [output-validation-checklist.md](output-validation-checklist.md) 通用项
-3. 失败项写入 Handover `open_issues`
+### 适用场景
 
-## 检查项
+- 版本发布前的性能回归验证
+- 基础设施扩容/缩容前后的基准比对
+- 架构重构的性能影响评估
+- 季度性能健康度回顾和基线更新
 
-- [ ] V-001 完整性：必填章节与交付物齐全
-- [ ] V-002 一致性：与上游 Handover 无矛盾
-- [ ] V-003 准确性：假设已标注，数据可验证
-- [ ] V-004 质量：Scenario KPI ≥70
+---
 
-## 引用
+## Evaluation Criteria
 
-- [regression-checklist.md](regression-checklist.md)
-- [common-error-patterns.md](common-error-patterns.md)
+| 维度 | 权重 | 目标值 | 测量方法 |
+|------|------|--------|----------|
+| 延迟基线 (Latency) | 35% | P50 ≤ 50ms, P95 ≤ 200ms, P99 ≤ 500ms | APM工具/Prometheus + 分位数直方图 |
+| 吞吐量基线 (Throughput) | 25% | ≥ 1000 RPS (依业务调整) | 压测工具 (JMeter/k6/Locust) |
+| 资源利用率基线 (Resource) | 20% | CPU ≤ 70%, Memory ≤ 80%, IO/Net ≤ 60% | Prometheus/Grafana + Node Exporter |
+| 基线偏差 (Deviation) | 20% | 偏差率 ≤ 20% | 当前值 vs 基线值的百分比差异 |
+
+### 基线建立规则
+
+- **基线来源**: 最近 3 次稳定版本的性能测试结果的中位数
+- **基线更新**: 每次重大架构变更或每季度更新一次
+- **季节性基线**: 区分工作日/周末、高峰/低峰时段分别建立
+
+---
+
+## Scoring Formula
+
+```
+延迟得分 = 加权分位数达标率 × 100
+  P50达标率 = P50 ≤ 50ms ? 1 : max(0, 1 - (P50-50)/50)
+  P95达标率 = P95 ≤ 200ms ? 1 : max(0, 1 - (P95-200)/200)
+  P99达标率 = P99 ≤ 500ms ? 1 : max(0, 1 - (P99-500)/500)
+  延迟得分 = (P50达标率 × 30% + P95达标率 × 40% + P99达标率 × 30%) × 100
+
+吞吐量得分 = min(实际RPS / 目标RPS, 1) × 100
+资源得分   = 加权资源达标率 × 100 (CPU/Mem/IO/Net 各25%)
+偏差得分   = max(0, 100 - (最大偏差率 - 20%) × 200)   // 偏差每超1%扣2分
+
+总分 = 延迟得分 × 35% + 吞吐量得分 × 25% + 资源得分 × 20% + 偏差得分 × 20%
+```
+
+### 等级划分
+
+| 等级 | 分数范围 | 判定 |
+|------|----------|------|
+| S (Excellent) | ≥ 90 | 性能完全符合预期，无退化 |
+| A (Good) | 80-89 | 轻微波动，在可接受范围内 |
+| B (Fair) | 70-79 | 存在明显退化，需调查根因 |
+| F (Failed) | < 70 | 严重性能退化，禁止发布 |
+
+---
+
+## Checklist
+
+### 1. 延迟基线检查 (6项)
+
+- [ ] **PBL-LAT-001**: P50 延迟 ≤ 50ms（或模块定义的具体目标），与基线偏差 ≤ 20%
+- [ ] **PBL-LAT-002**: P95 延迟 ≤ 200ms，长尾请求未出现显著增长（P95/P50 比值 ≤ 4）
+- [ ] **PBL-LAT-003**: P99 延迟 ≤ 500ms（或 SLA 约定的上限），极值请求有独立分析
+- [ ] **PBL-LAT-004**: 延迟数据采样周期 ≥ 7 天，包含高峰和低峰时段
+- [ ] **PBL-LAT-005**: 外部依赖（DB/Cache/第三方 API）的延迟基线已独立采集
+- [ ] **PBL-LAT-006**: 延迟基线按读/写、同步/异步分类分别记录
+
+### 2. 吞吐量基线检查 (5项)
+
+- [ ] **PBL-TPT-001**: 压测场景覆盖核心 API（至少 CRUD 各 1 条 + 复杂查询 2 条）
+- [ ] **PBL-TPT-002**: 吞吐量基线 ≥ 1000 RPS（或业务目标值），与基线偏差 ≤ 20%
+- [ ] **PBL-TPT-003**: 吞吐量在压力下不出现断崖式下降（崩溃点曲线分析）
+- [ ] **PBL-TPT-004**: 压测持续时长 ≥ 15 分钟，验证稳态吞吐量而非瞬时峰值
+- [ ] **PBL-TPT-005**: 压测结果与线上实际流量有相关性分析（压测模型准确度 ≥ 70%）
+
+### 3. 资源利用率检查 (6项)
+
+- [ ] **PBL-RES-001**: CPU 使用率 ≤ 70%（峰值 ≤ 85%），无持续 100% 的进程
+- [ ] **PBL-RES-002**: 内存使用率 ≤ 80%（含 GC/内存池开销），无内存泄漏趋势
+- [ ] **PBL-RES-003**: 磁盘 IO 延迟 ≤ 10ms（P99 ≤ 50ms），IOPS 未达硬件上限
+- [ ] **PBL-RES-004**: 网络带宽使用率 ≤ 60%（入口+出口），无 TCP 重传率异常（≤ 1%）
+- [ ] **PBL-RES-005**: 容器/JVM 级别的资源限制（CPU request/limit、Xmx/Xms）已配置
+- [ ] **PBL-RES-006**: 资源利用率指标配置了自动告警（阈值 = 基线值 × 1.2）
+
+### 4. 基线偏差管理检查 (5项)
+
+- [ ] **PBL-DEV-001**: 每个指标的实际值与基线值偏差率 ≤ 20%
+- [ ] **PBL-DEV-002**: 偏差告警在 CI/CD 流水线中配置为阻塞门禁（偏差 > 20% 时阻断发布）
+- [ ] **PBL-DEV-003**: 偏差超过 20% 时自动创建性能回归 JIRA/Ticket，关联责任人
+- [ ] **PBL-DEV-004**: 季节性偏差（如促销活动导致的预期流量增长）有单独的调整后基线
+- [ ] **PBL-DEV-005**: 基线数据存档 ≥ 1 年，支持历史回溯和趋势分析
+
+---
+
+## Report Template
+
+```markdown
+# 性能基线评估报告
+
+## 概要
+
+| 项目 | 值 |
+|------|-----|
+| 评估对象 | [服务/应用] |
+| 版本 | [vX.Y.Z] |
+| 评估日期 | YYYY-MM-DD |
+| 环境规格 | [CPU: N核, Memory: NG, 实例数: N] |
+| 综合评分 | [XX.X] 分 / 100 |
+| 等级判定 | [S/A/B/F] |
+
+## 核心指标对比
+
+| 指标 | 基线值 | 当前值 | 偏差率 | 目标值 | 达标 |
+|------|--------|--------|--------|--------|------|
+| P50 Latency | XX ms | XX ms | X% | ≤ 50ms | Y/N |
+| P95 Latency | XX ms | XX ms | X% | ≤ 200ms | Y/N |
+| P99 Latency | XX ms | XX ms | X% | ≤ 500ms | Y/N |
+| Throughput | XXXX RPS | XXXX RPS | X% | ≥ 1000 | Y/N |
+| CPU Usage | XX% | XX% | X% | ≤ 70% | Y/N |
+| Memory Usage | XX% | XX% | X% | ≤ 80% | Y/N |
+
+## 偏差超限项
+
+| 指标 | 基线值 | 当前值 | 偏差率 | 阈值 | 影响分析 | 改进建议 |
+|------|--------|--------|--------|------|----------|----------|
+| | | | > 20% | | | |
+
+## 趋势图链接
+
+- [Grafana Dashboard URL]
+- [性能测试报告 URL]
+
+## 改进项
+
+| # | 问题描述 | 优先级 | 责任人 | 截止日期 | 状态 |
+|---|----------|--------|--------|----------|------|
+| 1 | | | | | |
+
+---
+
+## Revision History
+
+| Version | Date | Changes | Author |
+|---------|------|---------|--------|
+| 1.0 | YYYY-MM-DD | Initial baseline | [Name] |
+```
+
+---
+
+## Related Evaluations
+
+- [response-time-analysis.md](response-time-analysis.md)
+- [query-performance-benchmark.md](query-performance-benchmark.md)
+- [slo-compliance.md](slo-compliance.md)
+- [alert-effectiveness.md](alert-effectiveness.md)
 - [standards/harness-engineering.md](../standards/harness-engineering.md)
